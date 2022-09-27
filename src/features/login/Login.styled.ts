@@ -87,6 +87,7 @@ justify-content: space-between;
   background-color: #0D1821;
 }
 .login-pic {
+  margin-bottom: -70px;
   width: 612px;
   height: 522px;
   background-image: url(${men});

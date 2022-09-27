@@ -1,20 +1,25 @@
 import React from 'react';
 import Header from '../header/Header';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Books from '../books/Books';
-// import Footer from '../footer/Footer';
+import Footer from '../footer/Footer';
 import Bookroom from './Bookroom.styled';
-// import Signup from '../signup/Signup';
+import Login from '../login/Login';
+import Signup from '../signup/Signup';
 
 export const BookRoom: React.FC = () => {
   return (
-
+    <Router>
       <Bookroom className="bookroom">
       <Header />
-   
-        {/* <Books />
-        <Footer />             */}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign" element={<Signup />} />
+      </Routes>   
+        {/* <Books /> */}
+        <Footer />            
       </Bookroom>
- 
+    </Router>
   );
 }
 
