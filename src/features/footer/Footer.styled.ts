@@ -8,7 +8,6 @@ margin-top: 150px;
 max-width: 1280px;
 width: 100%;
 height: 268px;
-/* padding-top: 73px; */
 padding: 73px 80px 0 80px;
 display: flex;
 flex-direction: row;
@@ -17,7 +16,6 @@ background-color: #0D1821;
 color: #F0F4EF;
 font-size: 20px;
 line-height: 30px;
-
 .logo {
   display: flex;
   flex-direction: column;

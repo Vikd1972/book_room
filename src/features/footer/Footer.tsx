@@ -1,11 +1,9 @@
 import React from 'react';
 import Basement from './Footer.styled';
-import { Link } from "react-router-dom";
 
 export const Footer: React.FC = () => {
   return (
-    <Basement>
-    
+    <Basement>    
       <div className='logo'>
         <div className='logo-logotype'></div>
         <div className='logo-contacts'>
@@ -24,8 +22,7 @@ export const Footer: React.FC = () => {
           6391 Elgin St. Celina, Delaware 10299
         </div>
         <div className='map-map'></div>
-        </div>   
-
+      </div>   
     </Basement>
   );
 }
