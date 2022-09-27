@@ -2,11 +2,16 @@ import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import { loginUser } from '../../Store/booksSlice';
+import { useAppDispatch } from '../../Store/hooks';
+
 import LogIn from './Login.styled';
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useAppDispatch()
 
   const savingEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -25,10 +30,19 @@ export const Login: React.FC = () => {
       })
       .then((res) => {
         localStorage.setItem('token', res.data.token);
-        console.log(localStorage.getItem('token'));
+        dispatch(
+          loginUser({
+            id: res.data.user.id,
+            fullname: res.data.user.fullname,
+            email: res.data.user.email,
+          })
+        )
+        setEmail('')  
+        setPassword('')  
       })
       .catch(function (err) {
         console.log(err.response);
+        console.log(localStorage.getItem('token'));
       });
   }
 
