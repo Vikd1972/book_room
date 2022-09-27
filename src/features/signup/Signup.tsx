@@ -1,8 +1,46 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 import SignUp from './Signup.styled';
 
 export const Signup: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRepeat, setPasswordRepeat] = useState("");
+
+  const savingEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+  }
+
+  const savingPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+  }
+
+  const savingPasswordRepeat = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordRepeat(e.target.value)
+  }
+
+  const sendingData = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== passwordRepeat) {
+      console.log('passwords differ');
+    } else {
+      axios
+        .post("http://localhost:3001/api/auth/sign/", {
+          email: email,
+          pass: password,
+        })
+        .then((res) => {
+          localStorage.setItem('token', res.data.token);
+          console.log(localStorage.getItem('token'));
+        })
+        .catch(function (err) {
+          console.log(err.response);
+        });
+    }
+  }
+
   return (
     <SignUp>
       <div className='login'>
@@ -14,11 +52,16 @@ export const Signup: React.FC = () => {
           Log In
           </Link>
         </div>
-        <form className='login__form'>
+        <form
+          onSubmit={sendingData}
+          className='login__form'>
           <div className='login-form__input-width'>
             <div className='login-form__width-setter mail'>
-              <input                
+              <input    
+                name="email"   
                 type='text'
+                onChange={savingEmail}
+                value={email}
                 placeholder='Email'/>
             </div>
           </div>
@@ -26,7 +69,10 @@ export const Signup: React.FC = () => {
           <div className='login-form__input-width'>
             <div className='login-form__width-setter hide'>
               <input
+                name="password" 
                 type="password"
+                onChange={savingPassword}
+                value={password}
                 placeholder='Password'/>
             </div>
           </div>
@@ -34,12 +80,19 @@ export const Signup: React.FC = () => {
           <div className='login-form__input-width'>
             <div className='login-form__width-setter hide'>
               <input
+                name="password" 
                 type="password"
+                onChange={savingPasswordRepeat}
+                value={passwordRepeat}
                 placeholder='Password replay'/>
             </div>
           </div>
           <div className='login-form__input-name'>Repeat your password without errors</div>
-          <button className='btn'>Sign Up</button>
+          <button
+            type='submit'
+            className='btn'>
+            Sign Up
+          </button>
         </form>
       </div>
       <div className='login-pic'></div>

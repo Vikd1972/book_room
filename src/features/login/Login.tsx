@@ -25,12 +25,12 @@ export const Login: React.FC = () => {
       })
       .then((res) => {
         localStorage.setItem('token', res.data.token);
-        // console.log(localStorage.getItem('token'));
+        console.log(localStorage.getItem('token'));
       })
       .catch(function (err) {
         console.log(err.response);
       });
-    }
+  }
 
   return (
     <LogIn>
