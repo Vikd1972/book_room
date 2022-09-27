@@ -1,8 +1,18 @@
 import React from 'react';
 import Heading from './Header.styled';
 import { Link } from "react-router-dom";
+import { useAppDispatch } from '../../Store/hooks';
+import { loging } from '../../Store/booksSlice';
 
 export const Header: React.FC = () => { 
+  const dispatch = useAppDispatch()
+  
+  const log = () => {  
+    // dispatch(
+    //   loging(true)
+    // );
+  }
+
   return (
     <Heading>
       <div className='logo'>
@@ -21,6 +31,7 @@ export const Header: React.FC = () => {
         </form>
         <Link
           className="btn"
+          onClick={log}
           to="/login">
           Log In / Sing Up
         </Link>

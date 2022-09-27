@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { loginUser } from '../../Store/booksSlice';
+import { loginUser, loging } from '../../Store/booksSlice';
 import { useAppDispatch } from '../../Store/hooks';
 
 import LogIn from './Login.styled';
@@ -36,13 +36,19 @@ export const Login: React.FC = () => {
             fullname: res.data.user.fullname,
             email: res.data.user.email,
           })
-        )
+        );
+        dispatch(
+          loging(true)
+        );
         setEmail('')  
-        setPassword('')  
+        setPassword('')
       })
       .catch(function (err) {
         console.log(err.response);
         console.log(localStorage.getItem('token'));
+        dispatch(
+          loging(false)
+        );
       });
   }
 

@@ -7,7 +7,8 @@ export interface User {
 }
 
 interface BooksState {
-  user: User
+  user: User,
+  isLogged: boolean
 }
 
 const initialState: BooksState = {
@@ -15,7 +16,8 @@ const initialState: BooksState = {
     id: 0,
     fullname: '',
     email: ''
-  } 
+  },
+  isLogged: false
 } 
 
 export const booksSlice = createSlice({
@@ -28,12 +30,16 @@ export const booksSlice = createSlice({
         fullname: action.payload.fullname,
         email: action.payload.email            
       }      
+    },
+    loging: (state, action: PayloadAction<boolean>) => {
+      state.isLogged = action.payload
     }
   }  
 })
 
 export const {
-  loginUser
+  loginUser,
+  loging
 } = booksSlice.actions
 
 export default booksSlice.reducer
