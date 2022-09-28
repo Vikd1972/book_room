@@ -45,7 +45,7 @@ export const Login: React.FC = () => {
       })
       .catch(function (err) {
         console.log(err.response);
-        console.log(localStorage.getItem('token'));
+        // console.log(localStorage.getItem('token'));
         dispatch(
           loging(false)
         );

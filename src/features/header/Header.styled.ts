@@ -2,6 +2,9 @@ import styled from 'styled-components'
 
 import logo from '../picture/logo_dark.png'
 import search from '../picture/search.png'
+import cart from '../picture/btn_cart.png'
+import save from '../picture/btn_save.png'
+import user from '../picture/btn_user.png'
 
 const Heading = styled.div`
 margin-top: 24px;
@@ -55,6 +58,33 @@ form {
   background-position: 26px;
   font-size: 16px;
   font-weight: 400;
+}
+.buttons {
+  width: 198px;
+  margin-left: 33px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.buttons-icon {
+  width: 48px;
+  height: 48px;
+  background-image: url(${cart});
+  background-repeat: no-repeat;
+}
+.btn-cart{
+
+  background-image: url(${cart});
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.btn-save {
+  background-image: url(${save});
+  background-repeat: no-repeat;
+}
+.btn-user {
+  background-image: url(${user});
+  background-repeat: no-repeat;
 }
 .btn {
   width: 231px;

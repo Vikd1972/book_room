@@ -30,6 +30,10 @@ line-height: 30px;
 .links div {
   margin-bottom: 5px;
 }
+.btn {
+  color: #F0F4EF;
+  text-decoration: none;
+}
 .map-map {
   width: 413px;
   height: 160px;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import Basement from './Footer.styled';
 
 export const Footer: React.FC = () => {
@@ -12,10 +13,34 @@ export const Footer: React.FC = () => {
         </div>
       </div>
       <div className='links'>
-        <div>Home Page</div>
-        <div>Catalog</div>
-        <div>My Account</div>
-        <div>Cart</div>
+        <div>
+          <Link
+            className="btn"
+            to="/">
+            Home Page
+          </Link>
+        </div>
+        <div>
+          <Link
+            className="btn"
+            to="/">
+            Catalog
+          </Link>
+        </div>
+        <div>
+          <Link
+            className="btn"
+            to="/acc">
+            My Account
+          </Link>
+        </div>
+        <div>
+          <Link
+            className="btn"
+            to="/cart">
+            Cart
+          </Link>
+        </div>
       </div>
       <div className='map'>
         <div className='map-address'>

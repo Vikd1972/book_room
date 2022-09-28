@@ -54,6 +54,9 @@ export const Signup: React.FC = () => {
         })
         .catch(function (err) {
           console.log(err.response);
+          dispatch(
+            loging(false)
+          );
         });
     }
   }

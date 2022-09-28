@@ -2,15 +2,19 @@ import React from 'react';
 import Heading from './Header.styled';
 import { Link } from "react-router-dom";
 import { useAppDispatch } from '../../Store/hooks';
+import { useAppSelector } from '../../Store/hooks';
 import { loging } from '../../Store/booksSlice';
 
 export const Header: React.FC = () => { 
   const dispatch = useAppDispatch()
-  
-  const log = () => {  
-    // dispatch(
-    //   loging(true)
-    // );
+  const isLogged = useAppSelector(state => state.books.isLogged)  
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    dispatch(
+      loging(false)
+    );
+    console.log(localStorage.token)
   }
 
   return (
@@ -29,12 +33,28 @@ export const Header: React.FC = () => {
             </div>
           </div> 
         </form>
-        <Link
-          className="btn"
-          onClick={log}
-          to="/login">
-          Log In / Sing Up
-        </Link>
+        {isLogged ?
+          <div className='buttons'>
+            <Link
+              className="buttons-icon btn-cart"
+              to="/cart">             
+            </Link>            
+            <Link
+              className="buttons-icon btn-save"
+              onClick={logout}
+              to="/">     
+            </Link>
+            <Link
+              className="buttons-icon btn-user"
+              to="/acc">         
+            </Link>
+          </div> :
+          <Link
+            className="btn"
+            to="/login">
+            Log In / Sing Up
+          </Link>
+        }
       </div>  
     </Heading>
   );
