@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useAppSelector } from '../../Store/hooks';
+
 import Basement from './Footer.styled';
 
 export const Footer: React.FC = () => {
+  const isLogged = useAppSelector(state => state.books.isLogged)  
+
   return (
     <Basement>    
       <div className='logo'>
@@ -29,7 +33,8 @@ export const Footer: React.FC = () => {
         </div>
         <div>
           <Link
-            className="btn"
+            className="btn"            
+            // to={isLogged ? "/acc" : "/login"}>
             to="/acc">
             My Account
           </Link>

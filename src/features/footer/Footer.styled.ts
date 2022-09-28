@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import logo from '../picture/logo_light.png'
-import map from '../picture/map.png'
+import logo from '../../utils/picture/logo_light.png'
+import map from '../../utils/picture/map.png'
 
 const Basement = styled.div`
 margin-top: 150px;

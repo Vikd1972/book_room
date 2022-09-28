@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
             </Link>            
             <Link
               className="buttons-icon btn-save"
-              onClick={logout}
+              onClick={logout} //a temporary solution for testing protected routes
               to="/">     
             </Link>
             <Link

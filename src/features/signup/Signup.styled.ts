@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-import men from '../picture/men1.png'
-import mail from '../picture/mail.png'
-import hide from '../picture/hide.png'
+import men from '../../utils/picture/men1.png'
+import mail from '../../utils/picture/mail.png'
+import hide from '../../utils/picture/hide.png'
 
 const SignUp = styled.div`
 margin-top: 90px;

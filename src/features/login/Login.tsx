@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { loginUser, loging } from '../../Store/booksSlice';
@@ -7,10 +7,16 @@ import { useAppDispatch } from '../../Store/hooks';
 
 import LogIn from './Login.styled';
 
-export const Login: React.FC = () => {
+export const Login: React.FC = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  let navigate = useNavigate();
+  let location = useLocation();
+  const { from } = location.state || { from: { path: "/" } };
+  console.log(from);
+  console.log(props);  
+  
   const dispatch = useAppDispatch()
 
   const savingEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +48,9 @@ export const Login: React.FC = () => {
         );
         setEmail('')  
         setPassword('')
+        console.log(from);
+        navigate(from) 
+        // navigate(0)
       })
       .catch(function (err) {
         console.log(err.response);

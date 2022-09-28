@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, } from "react-router-dom";
+import React, { ReactNode } from 'react';
+
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { useAppSelector } from '../../Store/hooks';
@@ -12,20 +13,26 @@ import Bookroom from './Bookroom.styled';
 import Login from '../login/Login';
 import Signup from '../signup/Signup';
 import Catalog from '../catalog/Catalog';
+import Cart from '../cart/cart';
+import User from '../user/user';
 
+const PrivateRoute = ({ children, ...rest }: any) => {
+  const isLogged = useAppSelector(state => state.books.isLogged) 
+// console.log(rest);
+
+return isLogged ? children : <Navigate to="/login" state={{from: rest}} />;
+}
+        
 export const BookRoom: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.books.user);
   const isLogged = useAppSelector(state => state.books.isLogged)  
   
   if (!user.id && !localStorage.token) {
-    // console.log('storage empty');    
     dispatch(
       loging(false)
     );
   } else {
-    // console.log('storage full');
-    // console.log(localStorage.token);
     if (user.id === 0) {
       axios
       .post("http://localhost:3001/api/auth/token/", {
@@ -50,22 +57,39 @@ export const BookRoom: React.FC = () => {
   }
 
   return (
-    <Router>
-      <Bookroom className="bookroom">
-        <Header />
-        <Routes>
-          {!isLogged ?
-            <>
+
+      <Router>
+        <Bookroom className="bookroom">
+          <Header />
+          <Routes>
+            {!isLogged ?
+              <>
               <Route path="/login" element={<Login />} />
-              <Route path="/sign" element={<Signup />} />
-            </> :
-            <Route path="/login" element={<Navigate replace to="/" />} />
-          }   
-          <Route path="/" element={<Catalog />} />
-        </Routes>
-        <Footer />            
-      </Bookroom>
-    </Router>
+                <Route path="/sign" element={<Signup />} />
+              </> :
+              <>
+                <Route path="/login" element={<Navigate replace to="/" />} />
+                <Route path="/sign" element={<Navigate replace to="/" />} />
+              </>
+            }
+            <Route path="/" element={<Catalog />} />
+
+            <Route path="/cart" element={
+              <PrivateRoute path="/cart">
+                <Cart />
+              </PrivateRoute>}
+          />
+          
+            <Route path="/acc" element={
+              <PrivateRoute path="/acc">
+                <User />
+              </PrivateRoute>}
+            />
+          </Routes>
+          <Footer />
+        </Bookroom>
+      </Router>
+
   );
 }
 
