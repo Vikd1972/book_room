@@ -3,10 +3,12 @@ import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { object, string } from 'yup';
+import { ToastContainer } from 'react-toastify';
 
 import { loginUser, loging } from '../../Store/booksSlice';
 import { useAppDispatch } from '../../Store/hooks';
 import { SchemaSign } from '../../validation/schemaType';
+import showToast from '../../validation/showToast';
 
 import SignUp from './Signup.styled';
 
@@ -38,7 +40,7 @@ export const Signup: React.FC = (props) => {
     }) as SchemaSign,
     onSubmit: values => {
       if (values.password !== values.confirmPassword) {
-        console.log('passwords do not match');
+        showToast('passwords do not match');
       } else {
         axios
           .post("http://localhost:3001/api/auth/sign/", {
@@ -60,6 +62,7 @@ export const Signup: React.FC = (props) => {
             navigate(route)
           })
           .catch(function (err) {
+            showToast(err.response.data.message);
             console.log(err.response);
             dispatch(
               loging(false)
@@ -138,6 +141,7 @@ export const Signup: React.FC = (props) => {
         </form>
       </div>
       <div className='login-pic'></div>
+      <ToastContainer />
     </SignUp>
   );
 }

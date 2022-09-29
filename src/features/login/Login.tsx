@@ -3,10 +3,12 @@ import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { object, string } from 'yup';
+import { ToastContainer } from 'react-toastify';
 
 import { loginUser, loging } from '../../Store/booksSlice';
 import { useAppDispatch } from '../../Store/hooks';
 import { SchemaLogin } from '../../validation/schemaType';
+import showToast from '../../validation/showToast';
 
 import LogIn from './Login.styled';
 
@@ -54,7 +56,8 @@ export const Login: React.FC = (props) => {
           navigate(route)
         })
         .catch(function (err) {
-          console.log(err.response);
+          showToast(err.response.data.message);
+          console.log(err.response.data.message);
           dispatch(
             loging(false)
           );
@@ -81,7 +84,7 @@ export const Login: React.FC = (props) => {
             <div className="login-form__width-setter mail">
               <input   
                 type="email"
-                autoComplete="on"
+                autoComplete="off"
                 placeholder='Email'
                 {...formik.getFieldProps('email')}
               />
@@ -96,7 +99,7 @@ export const Login: React.FC = (props) => {
             <div className='login-form__width-setter hide'>
               <input
                 type="password"
-                autoComplete="on"
+                autoComplete="off"
                 placeholder='Password'
                 {...formik.getFieldProps('password')}
               />
@@ -115,6 +118,7 @@ export const Login: React.FC = (props) => {
         </form>
       </div>
       <div className='login-pic'></div>
+      <ToastContainer />
       </LogIn>
   );
 }

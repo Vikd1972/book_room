@@ -1,20 +1,22 @@
 import React from 'react';
-
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useAppSelector } from '../../Store/hooks';
 import { useAppDispatch } from '../../Store/hooks';
 import { loginUser, loging } from '../../Store/booksSlice';
-
 import Header from '../header/Header';
-import Footer from '../footer/Footer';
-import Bookroom from './Bookroom.styled';
 import Login from '../login/Login';
 import Signup from '../signup/Signup';
 import Catalog from '../catalog/Catalog';
 import Cart from '../cart/cart';
 import User from '../user/user';
+import Footer from '../footer/Footer';
+import showToast from '../../validation/showToast';
+
+import Bookroom from './Bookroom.styled';
 
 const PrivateRoute = ({ children, ...rest }: any) => {
   const isLogged = useAppSelector(state => state.books.isLogged) 
