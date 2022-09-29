@@ -52,7 +52,7 @@ justify-content: space-between;
   border-radius: 16px;
   background-color: #F0F4EF;
   border: none;
-
+  
   font-size: 16px;
   font-weight: 400;
 }
@@ -71,6 +71,9 @@ justify-content: space-between;
   line-height: 24px;
   color: #344966;
   margin-bottom: 30px;
+}
+.err {
+  color: #ff0000;
 }
 .btn {
   margin-top: 30px;

@@ -1,73 +1,75 @@
-import React, {useState} from 'react';
+import React from 'react';
+import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { object, string } from 'yup';
 
 import { loginUser, loging } from '../../Store/booksSlice';
 import { useAppDispatch } from '../../Store/hooks';
+import { SchemaSign } from '../../validation/schemaType';
 
 import SignUp from './Signup.styled';
 
 export const Signup: React.FC = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordRepeat, setPasswordRepeat] = useState("");
   const dispatch = useAppDispatch()
 
   let navigate = useNavigate();
   let location = useLocation();
   
   const { from } = location.state || { from: { path: "/" } };
-
   const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('')
 
-  const savingEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
-  }
-
-  const savingPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-  }
-
-  const savingPasswordRepeat = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordRepeat(e.target.value)
-  }
-
-  const sendingData = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (password !== passwordRepeat) {
-      console.log('passwords differ');
-    } else {
-      axios
-        .post("http://localhost:3001/api/auth/sign/", {
-          email: email,
-          pass: password,
-        })
-        .then((res) => {
-          localStorage.setItem('token', res.data.token);
-          dispatch(
-            loginUser({
-              id: res.data.user.id,
-              fullname: res.data.user.fullname,
-              email: res.data.user.email,
-            })
-          );
-          dispatch(
-            loging(true)
-          );
-          setEmail('')
-          setPassword('')  
-          setPasswordRepeat('')  
-          navigate(route) 
-        })
-        .catch(function (err) {
-          console.log(err.response);
-          dispatch(
-            loging(false)
-          );
-        });
+  interface Values {
+    email: string;
+    password: string; 
+    confirmPassword: string;
+  };
+  
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    } as Values,
+    validationSchema: object().shape({
+      email: string().email('must be a valid email').required('Required email'),
+      password: string().min(8, 'must be at least 8 characters long').required('Required password'),
+      confirmPassword: string().min(8, 'must be at least 8 characters long').required('Required password again'), 
+    }) as SchemaSign,
+    onSubmit: values => {
+      if (values.password !== values.confirmPassword) {
+        console.log('passwords do not match');
+      } else {
+        axios
+          .post("http://localhost:3001/api/auth/sign/", {
+            email: values.email,
+            pass: values.password,
+          })
+          .then((res) => {
+            localStorage.setItem('token', res.data.token);
+            dispatch(
+              loginUser({
+                id: res.data.user.id,
+                fullname: res.data.user.fullname,
+                email: res.data.user.email,
+              })
+            );
+            dispatch(
+              loging(true)
+            );
+            navigate(route)
+          })
+          .catch(function (err) {
+            console.log(err.response);
+            dispatch(
+              loging(false)
+            );
+          })
+      
+      }
     }
-  }
-
+  });
+  
   return (
     <SignUp>
       <div className='login'>
@@ -81,41 +83,53 @@ export const Signup: React.FC = (props) => {
           </Link>
         </div>
         <form
-          onSubmit={sendingData}
+          onSubmit={formik.handleSubmit}
           className='login__form'>
           <div className='login-form__input-width'>
             <div className='login-form__width-setter mail'>
-              <input    
-                name="email"   
-                type='text'
-                onChange={savingEmail}
-                value={email}
-                placeholder='Email'/>
+              <input
+                type="email"
+                autoComplete="on"
+                placeholder='Email'
+                {...formik.getFieldProps('email')}
+              />
             </div>
           </div>
-          <div className='login-form__input-name'>Enter your email</div>
+          {formik.touched.email && formik.errors.email ? (
+            <div className='login-form__input-name err'>{formik.errors.email}</div>
+          ) : (
+            <div className='login-form__input-name'>Enter your email</div>
+          )}
           <div className='login-form__input-width'>
             <div className='login-form__width-setter hide'>
               <input
-                name="password" 
                 type="password"
-                onChange={savingPassword}
-                value={password}
-                placeholder='Password'/>
+                autoComplete="on"
+                placeholder='Password'
+                {...formik.getFieldProps('password')}
+              />
             </div>
           </div>
-          <div className='login-form__input-name'>Enter your password</div>
+          {formik.touched.password && formik.errors.password ? (
+            <div className='login-form__input-name err'>{formik.errors.password}</div>
+          ) : (
+            <div className='login-form__input-name'>Enter your password</div>
+          )}
           <div className='login-form__input-width'>
             <div className='login-form__width-setter hide'>
               <input
-                name="password" 
                 type="password"
-                onChange={savingPasswordRepeat}
-                value={passwordRepeat}
-                placeholder='Password replay'/>
+                autoComplete="on"
+                placeholder='Confirm password'
+                {...formik.getFieldProps('confirmPassword')}
+              />
             </div>
           </div>
-          <div className='login-form__input-name'>Repeat your password without errors</div>
+          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+            <div className='login-form__input-name err'>{formik.errors.confirmPassword}</div>
+          ) : (
+            <div className='login-form__input-name'>Repeat your password without errors</div>
+          )}
           <button
             type='submit'
             className='btn'>
