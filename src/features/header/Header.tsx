@@ -14,7 +14,6 @@ export const Header: React.FC = () => {
     dispatch(
       loging(false)
     );
-    console.log(localStorage.token)
   }
 
   return (

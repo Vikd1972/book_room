@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import { loginUser, loging } from '../../Store/booksSlice';
@@ -7,12 +7,18 @@ import { useAppDispatch } from '../../Store/hooks';
 
 import SignUp from './Signup.styled';
 
-export const Signup: React.FC = () => {
+export const Signup: React.FC = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
-
   const dispatch = useAppDispatch()
+
+  let navigate = useNavigate();
+  let location = useLocation();
+  
+  const { from } = location.state || { from: { path: "/" } };
+
+  const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('')
 
   const savingEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -51,6 +57,7 @@ export const Signup: React.FC = () => {
           setEmail('')
           setPassword('')  
           setPasswordRepeat('')  
+          navigate(route) 
         })
         .catch(function (err) {
           console.log(err.response);
@@ -67,7 +74,8 @@ export const Signup: React.FC = () => {
         <div className='login__name'>
         <div>Sign Up /</div>
         <Link
-          className="login__name-toggle"
+            className="login__name-toggle"
+            state={{ from: from }}
           to="/login">
           Log In
           </Link>

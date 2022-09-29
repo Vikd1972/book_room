@@ -10,15 +10,15 @@ import LogIn from './Login.styled';
 export const Login: React.FC = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useAppDispatch()
 
   let navigate = useNavigate();
   let location = useLocation();
-  const { from } = location.state || { from: { path: "/" } };
-  console.log(from);
-  console.log(props);  
   
-  const dispatch = useAppDispatch()
+  const { from } = location.state || { from: { path: "/" } };
 
+  const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('')
+  
   const savingEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
@@ -48,13 +48,10 @@ export const Login: React.FC = (props) => {
         );
         setEmail('')  
         setPassword('')
-        console.log(from);
-        navigate(from) 
-        // navigate(0)
+        navigate(route) 
       })
       .catch(function (err) {
         console.log(err.response);
-        // console.log(localStorage.getItem('token'));
         dispatch(
           loging(false)
         );
@@ -68,6 +65,7 @@ export const Login: React.FC = (props) => {
           <div>Log In /</div>
           <Link
             className="login__name-toggle"
+            state={{ from: from }}
             to="/sign">
             Sign Up
           </Link>
