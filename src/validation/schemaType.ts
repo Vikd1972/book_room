@@ -12,7 +12,8 @@ interface SchemaSign {
 interface SchemaUser {
   fullname?: string,
   email?: string,
-  password?: string,
+  oldPassword?: string,
+  newPassword?: string,
   confirmPassword?: string,
 }
 

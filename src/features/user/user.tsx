@@ -28,7 +28,8 @@ export const User: React.FC = () => {
   interface Values {
     fullname?: string
     email?: string;
-    password?: string;
+    oldPassword?: string;
+    newPassword?: string;
     confirmPassword?: string;
   };
 
@@ -36,25 +37,29 @@ export const User: React.FC = () => {
     initialValues: {
       fullname: '',
       email: '',
-      password: '',
+      oldPassword: '',
+      newPassword: '',
       confirmPassword: '',
     } as Values,
+
     validationSchema: object().shape({
       fullname: string().matches(/^$|\w{3,}/, 'must be at least 3 characters long'),
       email: string().email('must be a valid email'),
-      password: string().min(8, 'must be at least 8 characters long'),
-      confirmPassword: string().min(8, 'must be at least 8 characters long'),
+      oldPassword: string().min(3, 'must be at least 3 characters long'),
+      newPassword: string().min(3, 'must be at least 3 characters long'),
+      confirmPassword: string().min(3, 'must be at least 3 characters long'),
     }) as SchemaUser,
+
     onSubmit: values => {
-      console.log(values);
-        instance
-          .put("http://localhost:3001/api/users/", {
-            fullname: (values.fullname ? values.fullname : undefined),
-            email: (values.email ? values.email : undefined),
+      // console.log(values);
+      instance
+        .put("http://localhost:3001/api/users/", {
+          fullname: (values.fullname ? values.fullname : undefined),
+          email: (values.email ? values.email : undefined),
+          oldPassword: (values.oldPassword ? values.oldPassword : undefined),
+          newPassword: (values.newPassword === values.confirmPassword ? values.newPassword : undefined),
         })
         .then((res) => {
-          console.log(res);
-        
           dispatch(
             loginUser({
               id: res.data.user.id,
@@ -65,6 +70,8 @@ export const User: React.FC = () => {
 
         })
         .catch(function (err) {
+          console.log(err);
+
           showToast(err.response.data.message);
           console.log(err.response.data.message);
         });
@@ -152,13 +159,67 @@ export const User: React.FC = () => {
               </div>
               <div className='info'>
                 <div className='info-password field'>
-                  <div className='field-name'>Your password</div>
-                  <div className='field-value'>*****************</div>
+                  {isChangePass ? (
+                    <>
+                      {formik.touched.oldPassword && formik.errors.oldPassword ? (
+                        <div className='field-name err'>{formik.errors.oldPassword}</div>
+                      ) : (
+                        <div className='field-name'>Old password</div>
+                      )}
+                    </>
+                  ) : (
+                    <div className='field-name'>Your password</div>
+                  )}
+                  {isChangePass ? (
+                    <input
+                      className='field-value'
+                      type="password"
+                      autoComplete="off"
+                      placeholder='Enter old password'
+                      {...formik.getFieldProps('oldPassword')}
+                    />
+                  ) : (
+                    <div className='field-value'>*****************</div>
+                  )}
                 </div>
               </div>
+              {isChangePass ? (
+                <>
+                  <div className='info-password field'>
+                    {formik.touched.newPassword && formik.errors.newPassword ? (
+                      <div className='field-name err'>{formik.errors.newPassword}</div>
+                    ) : (
+                      <div className='field-name'>New password</div>
+                    )}
+                    <input
+                      className='field-value'
+                      type="password"
+                      autoComplete="off"
+                      placeholder='Enter new password'
+                      {...formik.getFieldProps('newPassword')}
+                    />
+                  </div>
+                  <div className='info-password field'>
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+                      <div className='field-name err'>{formik.errors.confirmPassword}</div>
+                    ) : (
+                      <div className='field-name'>Replay password</div>
+                    )}
+                    <input
+                      className='field-value'
+                      type="password"
+                      autoComplete="off"
+                      placeholder='Confirm password'
+                      {...formik.getFieldProps('confirmPassword')}
+                    />
+                  </div>
+                </>
+              ) : (
+                null
+              )}
             </div>
           </div>
-          {isChangeInfo ? (
+          {isChangeInfo || isChangePass ? (
             <button
               type='submit'
               className='btn'>

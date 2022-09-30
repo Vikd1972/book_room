@@ -33,7 +33,7 @@ export const Login: React.FC = (props) => {
     } as Values,
     validationSchema: object().shape({
       email: string().email('must be a valid email').required('Required email'),
-      password: string().min(8, 'must be at least 8 characters long').required('Required password'),
+      password: string().min(3, 'must be at least 3 characters long').required('Required password'),
     }) as SchemaLogin,
     onSubmit: values => {
       instance
