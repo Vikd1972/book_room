@@ -14,7 +14,6 @@ import Catalog from '../catalog/Catalog';
 import Cart from '../cart/cart';
 import User from '../user/user';
 import Footer from '../footer/Footer';
-import showToast from '../../validation/showToast';
 
 import Bookroom from './Bookroom.styled';
 

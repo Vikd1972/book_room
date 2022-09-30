@@ -135,6 +135,14 @@ input {
 .err {
   color: #ff0000;
 }
+.toast {
+    width: 400px;
+}
+.toast-body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
+   color: #ff9999;
+}
 `;
 
 export default UserProfile

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 import { object, string } from 'yup';
 import { ToastContainer } from 'react-toastify';
 
@@ -9,6 +8,7 @@ import { loginUser, loging } from '../../Store/booksSlice';
 import { useAppDispatch } from '../../Store/hooks';
 import { SchemaSign } from '../../validation/schemaType';
 import showToast from '../../validation/showToast';
+import instance from '../../middleware/inteceptor';
 
 import SignUp from './Signup.styled';
 
@@ -17,16 +17,16 @@ export const Signup: React.FC = (props) => {
 
   let navigate = useNavigate();
   let location = useLocation();
-  
+
   const { from } = location.state || { from: { path: "/" } };
   const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('')
 
   interface Values {
     email: string;
-    password: string; 
+    password: string;
     confirmPassword: string;
   };
-  
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -36,13 +36,13 @@ export const Signup: React.FC = (props) => {
     validationSchema: object().shape({
       email: string().email('must be a valid email').required('Required email'),
       password: string().min(8, 'must be at least 8 characters long').required('Required password'),
-      confirmPassword: string().min(8, 'must be at least 8 characters long').required('Required confirm password'), 
+      confirmPassword: string().min(8, 'must be at least 8 characters long').required('Required confirm password'),
     }) as SchemaSign,
     onSubmit: values => {
       if (values.password !== values.confirmPassword) {
         showToast('passwords do not match');
       } else {
-        axios
+        instance
           .post("http://localhost:3001/api/auth/sign/", {
             email: values.email,
             pass: values.password,
@@ -68,21 +68,20 @@ export const Signup: React.FC = (props) => {
               loging(false)
             );
           })
-      
       }
     }
   });
-  
+
   return (
     <SignUp>
       <div className='login'>
         <div className='login__name'>
-        <div>Sign Up /</div>
-        <Link
+          <div>Sign Up /</div>
+          <Link
             className="login__name-toggle"
             state={{ from: from }}
-          to="/login">
-          Log In
+            to="/login">
+            Log In
           </Link>
         </div>
         <form

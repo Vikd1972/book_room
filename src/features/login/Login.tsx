@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 import { object, string } from 'yup';
 import { ToastContainer } from 'react-toastify';
 
@@ -9,6 +8,7 @@ import { loginUser, loging } from '../../Store/booksSlice';
 import { useAppDispatch } from '../../Store/hooks';
 import { SchemaLogin } from '../../validation/schemaType';
 import showToast from '../../validation/showToast';
+import instance from '../../middleware/inteceptor';
 
 import LogIn from './Login.styled';
 
@@ -36,7 +36,7 @@ export const Login: React.FC = (props) => {
       password: string().min(8, 'must be at least 8 characters long').required('Required password'),
     }) as SchemaLogin,
     onSubmit: values => {
-      axios
+      instance
         .post("http://localhost:3001/api/auth/login/", {
           email: values.email,
           pass: values.password,

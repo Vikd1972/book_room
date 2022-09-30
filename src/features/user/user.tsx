@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import axios from "axios";
 import { object, string } from 'yup';
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
-import { useAppSelector } from '../../Store/hooks';
+import { useAppSelector, useAppDispatch } from '../../Store/hooks';
 import { SchemaUser } from '../../validation/schemaType';
+import { loginUser } from '../../Store/booksSlice';
+import showToast from '../../validation/showToast';
+import instance from '../../middleware/inteceptor';
 
 import UserProfile from './user.styled';
 
 export const User: React.FC = () => {
+  const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.books.user)
   const [isChangeInfo, setisChangeInfo] = useState(false);
   const [isChangePass, setisChangePass] = useState(false);
-  let navigate = useNavigate();
-
 
   const onIsChangeInfo = () => {
     setisChangeInfo(true)
@@ -46,32 +47,27 @@ export const User: React.FC = () => {
     }) as SchemaUser,
     onSubmit: values => {
       console.log(values);
-      // axios
-      //   .post("http://localhost:3001/api/auth/login/", {
-      //     email: values.email,
-      //     pass: values.password,
-      //   })
-      //   .then((res) => {
-      //     localStorage.setItem('token', res.data.token);
-      //     dispatch(
-      //       loginUser({
-      //         id: res.data.user.id,
-      //         fullname: res.data.user.fullname,
-      //         email: res.data.user.email,
-      //       })
-      //     );
-      //     dispatch(
-      //       loging(true)
-      //     );
-      //     navigate(route)
-      //   })
-      //   .catch(function (err) {
-      //     showToast(err.response.data.message);
-      //     console.log(err.response.data.message);
-      //     dispatch(
-      //       loging(false)
-      //     );
-      //   });
+        instance
+          .put("http://localhost:3001/api/users/", {
+            fullname: (values.fullname ? values.fullname : undefined),
+            email: (values.email ? values.email : undefined),
+        })
+        .then((res) => {
+          console.log(res);
+        
+          dispatch(
+            loginUser({
+              id: res.data.user.id,
+              fullname: res.data.user.fullname,
+              email: res.data.user.email,
+            })
+          );
+
+        })
+        .catch(function (err) {
+          showToast(err.response.data.message);
+          console.log(err.response.data.message);
+        });
       setisChangeInfo(false)
       setisChangePass(false)
     },
@@ -173,6 +169,9 @@ export const User: React.FC = () => {
           }
         </form>
       </div>
+      <ToastContainer
+        className='toast'
+        bodyClassName='toast-body' />
     </UserProfile>
   );
 }
