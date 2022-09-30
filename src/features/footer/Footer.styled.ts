@@ -4,7 +4,7 @@ import logo from '../../utils/picture/logo_light.png'
 import map from '../../utils/picture/map.png'
 
 const Basement = styled.div`
-margin-top: 150px;
+margin-top: 104px;
 max-width: 1280px;
 width: 100%;
 height: 268px;

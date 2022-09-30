@@ -96,6 +96,14 @@ justify-content: space-between;
   background-image: url(${men});
   background-repeat: no-repeat;
 }
+.toast {
+    width: 400px;
+}
+.toast-body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 30px;
+   color: #ff9999;
+}
 `;
 
 export default SignUp

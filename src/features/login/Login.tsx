@@ -17,7 +17,7 @@ export const Login: React.FC = (props) => {
 
   let navigate = useNavigate();
   let location = useLocation();
-  
+
   const { from } = location.state || { from: { path: "/" } };
   const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('');
 
@@ -35,7 +35,7 @@ export const Login: React.FC = (props) => {
       email: string().email('must be a valid email').required('Required email'),
       password: string().min(8, 'must be at least 8 characters long').required('Required password'),
     }) as SchemaLogin,
-    onSubmit: values => {      
+    onSubmit: values => {
       axios
         .post("http://localhost:3001/api/auth/login/", {
           email: values.email,
@@ -80,9 +80,9 @@ export const Login: React.FC = (props) => {
         <form
           onSubmit={formik.handleSubmit}
           className='login__form'>
-          <div className='login-form__input-width'> 
+          <div className='login-form__input-width'>
             <div className="login-form__width-setter mail">
-              <input   
+              <input
                 type="email"
                 autoComplete="off"
                 placeholder='Email'
@@ -91,7 +91,7 @@ export const Login: React.FC = (props) => {
             </div>
           </div>
           {formik.touched.email && formik.errors.email ? (
-            <div className = 'login-form__input-name err'>{formik.errors.email}</div>
+            <div className='login-form__input-name err'>{formik.errors.email}</div>
           ) : (
             <div className='login-form__input-name'>Enter your email</div>
           )}
@@ -118,8 +118,10 @@ export const Login: React.FC = (props) => {
         </form>
       </div>
       <div className='login-pic'></div>
-      <ToastContainer />
-      </LogIn>
+      <ToastContainer
+        className='toast'
+        bodyClassName='toast-body' />
+    </LogIn>
   );
 }
 

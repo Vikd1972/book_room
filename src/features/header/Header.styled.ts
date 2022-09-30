@@ -19,7 +19,7 @@ flex-direction: column;
   align-items: center;
 }
 .logotype {
-  width: 88px;
+  min-width: 88px;
   height: 46px;
   background-image: url(${logo});
   background-repeat: no-repeat;
@@ -30,14 +30,14 @@ form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  max-width: 740px;
+  max-width: 770px;
   width: 100%;
 }
 .logo__searchname {
   width: 110px;
 }
 .logo__width-setter{
-  max-width: 628px;
+  max-width: 670px;
   width: 100%;
   height: 64px;
 }
@@ -73,7 +73,6 @@ form {
   background-repeat: no-repeat;
 }
 .btn-cart{
-
   background-image: url(${cart});
   background-repeat: no-repeat;
   background-position: center;

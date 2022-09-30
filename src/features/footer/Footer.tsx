@@ -5,10 +5,10 @@ import { useAppSelector } from '../../Store/hooks';
 import Basement from './Footer.styled';
 
 export const Footer: React.FC = () => {
-  const isLogged = useAppSelector(state => state.books.isLogged)  
+  const isLogged = useAppSelector(state => state.books.isLogged)
 
   return (
-    <Basement>    
+    <Basement>
       <div className='logo'>
         <div className='logo-logotype'></div>
         <div className='logo-contacts'>
@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
         </div>
         <div>
           <Link
-            className="btn"            
+            className="btn"
             // to={isLogged ? "/acc" : "/login"}>
             to="/acc">
             My Account
@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
           6391 Elgin St. Celina, Delaware 10299
         </div>
         <div className='map-map'></div>
-      </div>   
+      </div>
     </Basement>
   );
 }

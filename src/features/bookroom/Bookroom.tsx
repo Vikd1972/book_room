@@ -19,15 +19,15 @@ import showToast from '../../validation/showToast';
 import Bookroom from './Bookroom.styled';
 
 const PrivateRoute = ({ children, ...rest }: any) => {
-  const isLogged = useAppSelector(state => state.books.isLogged) 
+  const isLogged = useAppSelector(state => state.books.isLogged)
   return isLogged ? children : <Navigate to="/login" state={{ from: rest }} />;
 }
-        
+
 export const BookRoom: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.books.user);
-  // const isLogged = useAppSelector(state => state.books.isLogged)  
-  
+  const isLogged = useAppSelector(state => state.books.isLogged)
+
   if (!user.id && !localStorage.token) {
     dispatch(
       loging(false)
@@ -35,16 +35,16 @@ export const BookRoom: React.FC = () => {
   } else {
     if (user.id === 0) {
       axios
-      .post("http://localhost:3001/api/auth/token/", {
-        token: localStorage.token,
-      })
-      .then((res) => {
-        dispatch(
-          loginUser({
-            id: res.data.user.id,
-            fullname: res.data.user.fullname,
-            email: res.data.user.email,
-          })
+        .post("http://localhost:3001/api/auth/token/", {
+          token: localStorage.token,
+        })
+        .then((res) => {
+          dispatch(
+            loginUser({
+              id: res.data.user.id,
+              fullname: res.data.user.fullname,
+              email: res.data.user.email,
+            })
           )
           dispatch(
             loging(true)
@@ -61,9 +61,13 @@ export const BookRoom: React.FC = () => {
       <Bookroom className="bookroom">
         <Header />
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign" element={<Signup />} />        
+
           <Route path="/" element={<Catalog />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/sign" element={<Signup />} />
+
+
+
           <Route path="/cart" element={
             <PrivateRoute path="/cart">
               <Cart />

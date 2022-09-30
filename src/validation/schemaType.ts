@@ -5,8 +5,16 @@ interface SchemaLogin {
 
 interface SchemaSign {
   email?: string,
-  pass?: string,
-  passAgain?: string,
+  password?: string,
+  confirmPassword?: string,
 }
 
-export { SchemaLogin, SchemaSign };
+interface SchemaUser {
+  fullname?: string,
+  email?: string,
+  password?: string,
+  confirmPassword?: string,
+}
+
+
+export { SchemaLogin, SchemaSign, SchemaUser };

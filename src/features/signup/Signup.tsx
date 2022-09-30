@@ -36,7 +36,7 @@ export const Signup: React.FC = (props) => {
     validationSchema: object().shape({
       email: string().email('must be a valid email').required('Required email'),
       password: string().min(8, 'must be at least 8 characters long').required('Required password'),
-      confirmPassword: string().min(8, 'must be at least 8 characters long').required('Required password again'), 
+      confirmPassword: string().min(8, 'must be at least 8 characters long').required('Required confirm password'), 
     }) as SchemaSign,
     onSubmit: values => {
       if (values.password !== values.confirmPassword) {
