@@ -5,6 +5,8 @@ import btn_photo from '../../utils/picture/btn_photo.png'
 import user from '../../utils/picture/user.png'
 import mail from '../../utils/picture/mail.png'
 import hide from '../../utils/picture/hide.png'
+import ok from '../../utils/picture/ok.png'
+
 
 const UserProfile = styled.div`
 left: 0px;
@@ -24,19 +26,49 @@ flex-direction: row;
   width: 305px;
   height: 305px;
   border-radius: 16px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#output {
+  display: inline-block;
+      width: 100%;
+    height: auto;
+    flex-shrink: 0;
+  border-radius: 16px;
   background-image: url(${user_photo});
   background-repeat: no-repeat;
 }
 .user__pic-btn {
+  position: absolute;
   margin-left: 237px;
   margin-top: -68px;
   width: 48px;
   height: 48px;
   background-image: url(${btn_photo});
   background-repeat: no-repeat;
+  z-index: 9999;
+}
+.user__pic-input {
+  position: absolute;
+  opacity: 0;
+  margin-left: 0; 
+  width: 48px;
+  height: 48px;
+  z-index: 9999;
 }
 .user__pic-btn:hover {
   cursor: pointer;
+}
+.submit-sending {
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: transparent;
+  margin-left: -60px;
+  background-image: url(${ok});
+  background-repeat: no-repeat;
 }
 .user__info {
   margin-left: 128px;

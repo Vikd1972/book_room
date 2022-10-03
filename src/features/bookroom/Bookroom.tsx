@@ -25,7 +25,6 @@ const PrivateRoute = ({ children, ...rest }: any) => {
 export const BookRoom: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.books.user);
-  const isLogged = useAppSelector(state => state.books.isLogged)
 
   if (!user.id && !localStorage.token) {
     dispatch(
@@ -60,13 +59,9 @@ export const BookRoom: React.FC = () => {
       <Bookroom className="bookroom">
         <Header />
         <Routes>
-
           <Route path="/" element={<Catalog />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/sign" element={<Signup />} />
-
-
-
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign" element={<Signup />} />
           <Route path="/cart" element={
             <PrivateRoute path="/cart">
               <Cart />

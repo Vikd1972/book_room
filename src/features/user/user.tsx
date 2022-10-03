@@ -8,6 +8,7 @@ import { SchemaUser } from '../../validation/schemaType';
 import { loginUser } from '../../Store/booksSlice';
 import showToast from '../../validation/showToast';
 import instance from '../../middleware/inteceptor';
+import user_photo from '../../utils/picture/user_photo.png'
 
 import UserProfile from './user.styled';
 
@@ -16,6 +17,7 @@ export const User: React.FC = () => {
   const user = useAppSelector(state => state.books.user)
   const [isChangeInfo, setisChangeInfo] = useState(false);
   const [isChangePass, setisChangePass] = useState(false);
+  const [isChangePhoto, setisChangePhoto] = useState(false);
 
   const onIsChangeInfo = () => {
     setisChangeInfo(true)
@@ -24,6 +26,17 @@ export const User: React.FC = () => {
   const onIsChangePass = () => {
     setisChangePass(true)
   }
+
+  var sendingImage = function (e: React.ChangeEvent<HTMLInputElement>) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      if (!reader.result) console.log('qwerty');
+      const output = document.getElementById('output') as HTMLImageElement;
+      if (output) output.src = reader.result as string;
+    };
+    if (e.target.files) reader.readAsDataURL(e.target.files[0]);
+    setisChangePhoto(true);
+  };
 
   interface Values {
     fullname?: string
@@ -84,10 +97,30 @@ export const User: React.FC = () => {
   return (
     <UserProfile>
       <div className='user'>
-        <div className='user__pic'>
-          <div className='user__pic-foto'></div>
-          <div className='user__pic-btn'></div>
-        </div>
+        <form
+          className='user__pic'
+          action="/upload"
+          method="post"
+          encType="multipart/form-data">
+          <div className='user__pic-foto'>
+            <img
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              id="output" />
+          </div>
+          <div className='user__pic-btn'>
+            <input
+              className='user__pic-input'
+              accept="image/*"
+              onChange={sendingImage}
+              type="file">
+            </input>
+            {isChangePhoto ? (
+              <div>
+                <button className='submit-sending'></button>
+              </div>
+            ) : null}
+          </div>
+        </form>
         <form
           onSubmit={formik.handleSubmit}>
           <div className='user__info'>
