@@ -6,25 +6,21 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useAppSelector } from '../../Store/hooks';
 import { useAppDispatch } from '../../Store/hooks';
-import { loginUser, loging } from '../../Store/booksSlice';
+import { loginUser, loging } from '../../Store/usersSlice';
 import Header from '../header/Header';
 import Login from '../login/Login';
 import Signup from '../signup/Signup';
 import Catalog from '../catalog/Catalog';
+import PrivateRoute from '../privateRoute/PrivateRoute';
 import Cart from '../cart/cart';
-import User from '../user/user';
+import User from '../user/User';
 import Footer from '../footer/Footer';
 
 import Bookroom from './Bookroom.styled';
 
-const PrivateRoute = ({ children, ...rest }: any) => {
-  const isLogged = useAppSelector(state => state.books.isLogged)
-  return isLogged ? children : <Navigate to="/login" state={{ from: rest }} />;
-}
-
 export const BookRoom: React.FC = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(state => state.books.user);
+  const user = useAppSelector(state => state.users.user);
 
   if (!user.id && !localStorage.token) {
     dispatch(
@@ -62,6 +58,7 @@ export const BookRoom: React.FC = () => {
           <Route path="/" element={<Catalog />} />
           <Route path="/login" element={<Login />} />
           <Route path="/sign" element={<Signup />} />
+
           <Route path="/cart" element={
             <PrivateRoute path="/cart">
               <Cart />

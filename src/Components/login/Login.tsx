@@ -1,16 +1,18 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { object, string } from 'yup';
 import { ToastContainer } from 'react-toastify';
 
-import { loginUser, loging } from '../../Store/booksSlice';
+import { loginUser, loging } from '../../Store/usersSlice';
 import { useAppDispatch } from '../../Store/hooks';
-import { SchemaLogin } from '../../validation/schemaType';
-import showToast from '../../validation/showToast';
-import instance from '../../middleware/inteceptor';
+import showToast from '../../Validation/showToast';
+import instance from '../../Api';
+import schemqaLogin from '../../Validation/schemaLogin';
+import { Values } from '../../Interfaces/Interface';
+import Input from '../input/Input';
 
 import LogIn from './Login.styled';
+
 
 export const Login: React.FC = (props) => {
   const dispatch = useAppDispatch()
@@ -21,20 +23,12 @@ export const Login: React.FC = (props) => {
   const { from } = location.state || { from: { path: "/" } };
   const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('');
 
-  interface Values {
-    email: string;
-    password: string;
-  };
-
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     } as Values,
-    validationSchema: object().shape({
-      email: string().email('must be a valid email').required('Required email'),
-      password: string().min(3, 'must be at least 3 characters long').required('Required password'),
-    }) as SchemaLogin,
+    validationSchema: schemqaLogin,
     onSubmit: values => {
       instance
         .post("http://localhost:3001/api/auth/login/", {
@@ -80,36 +74,22 @@ export const Login: React.FC = (props) => {
         <form
           onSubmit={formik.handleSubmit}
           className='login__form'>
-          <div className='login-form__input-width'>
-            <div className="login-form__width-setter mail">
-              <input
-                type="email"
-                autoComplete="off"
-                placeholder='Email'
-                {...formik.getFieldProps('email')}
-              />
-            </div>
-          </div>
-          {formik.touched.email && formik.errors.email ? (
-            <div className='login-form__input-name err'>{formik.errors.email}</div>
-          ) : (
-            <div className='login-form__input-name'>Enter your email</div>
-          )}
-          <div className='login-form__input-width'>
-            <div className='login-form__width-setter hide'>
-              <input
-                type="password"
-                autoComplete="off"
-                placeholder='Password'
-                {...formik.getFieldProps('password')}
-              />
-            </div>
-          </div>
-          {formik.touched.password && formik.errors.password ? (
-            <div className='login-form__input-name err'>{formik.errors.password}</div>
-          ) : (
-            <div className='login-form__input-name'>Enter your password</div>
-          )}
+          <Input
+            type='email'
+            placeholder='Email'
+            formikName={formik.touched.email}
+            formikError={formik.errors.email}
+            formikField={formik.getFieldProps('email')}
+            icon='mail'
+          />
+          <Input
+            type='password'
+            placeholder='Password'
+            formikName={formik.touched.password}
+            formikError={formik.errors.password}
+            formikField={formik.getFieldProps('password')}
+            icon='hide'
+          />
           <button
             type='submit'
             className='btn'>

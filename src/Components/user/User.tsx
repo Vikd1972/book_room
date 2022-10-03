@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { object, string } from 'yup';
 import { ToastContainer } from 'react-toastify';
 
+import Input from '../input/Input';
 import { useAppSelector, useAppDispatch } from '../../Store/hooks';
-import { SchemaUser } from '../../validation/schemaType';
-import { loginUser } from '../../Store/booksSlice';
-import showToast from '../../validation/showToast';
-import instance from '../../middleware/inteceptor';
-import user_photo from '../../utils/picture/user_photo.png'
+import schemaUser from '../../Validation/schemaUser';
+import { loginUser } from '../../Store/usersSlice';
+import showToast from '../../Validation/showToast';
+import instance from '../../Api';
+import { Values } from '../../Interfaces/Interface';
+import InputUserInfo from '../inputUserInfo/InputUserInfo';
 
-import UserProfile from './user.styled';
+import UserProfile from './User.styled';
 
 export const User: React.FC = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(state => state.books.user)
+  const user = useAppSelector(state => state.users.user)
   const [isChangeInfo, setisChangeInfo] = useState(false);
   const [isChangePass, setisChangePass] = useState(false);
   const [isChangePhoto, setisChangePhoto] = useState(false);
@@ -38,14 +39,6 @@ export const User: React.FC = () => {
     setisChangePhoto(true);
   };
 
-  interface Values {
-    fullname?: string
-    email?: string;
-    oldPassword?: string;
-    newPassword?: string;
-    confirmPassword?: string;
-  };
-
   const formik = useFormik({
     initialValues: {
       fullname: '',
@@ -55,16 +48,9 @@ export const User: React.FC = () => {
       confirmPassword: '',
     } as Values,
 
-    validationSchema: object().shape({
-      fullname: string().matches(/^$|\w{3,}/, 'must be at least 3 characters long'),
-      email: string().email('must be a valid email'),
-      oldPassword: string().min(3, 'must be at least 3 characters long'),
-      newPassword: string().min(3, 'must be at least 3 characters long'),
-      confirmPassword: string().min(3, 'must be at least 3 characters long'),
-    }) as SchemaUser,
+    validationSchema: schemaUser,
 
     onSubmit: values => {
-      // console.log(values);
       instance
         .put("http://localhost:3001/api/users/", {
           fullname: (values.fullname ? values.fullname : undefined),
@@ -132,6 +118,17 @@ export const User: React.FC = () => {
                   onClick={onIsChangeInfo}>
                   Change information</div>
               </div>
+              <InputUserInfo
+                type='text'
+                placeholder='Password'
+                formikName={formik.touched.password}
+                formikError={formik.errors.password}
+                formikField={formik.getFieldProps('password')}
+                icon='hide'
+                changeField={onIsChangeInfo}
+              />
+
+              
               <div className='info'>
                 <div className='info-fullname field'>
                   {isChangeInfo ? (

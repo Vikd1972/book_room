@@ -3,11 +3,11 @@ import Heading from './Header.styled';
 import { Link } from "react-router-dom";
 import { useAppDispatch } from '../../Store/hooks';
 import { useAppSelector } from '../../Store/hooks';
-import { loging } from '../../Store/booksSlice';
+import { loging } from '../../Store/usersSlice';
 
 export const Header: React.FC = () => { 
   const dispatch = useAppDispatch()
-  const isLogged = useAppSelector(state => state.books.isLogged)  
+  const isLogged = useAppSelector(state => state.users.isLogged)  
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
 
   return (
     <Heading>
-      <div className='logo'>
+      <header className='logo'>
         <div className='logotype'></div>
         <form>
           <div className='logo__searchname'>Catalog</div>
@@ -33,7 +33,7 @@ export const Header: React.FC = () => {
           </div> 
         </form>
         {isLogged ?
-          <div className='buttons'>
+          <nav className='buttons'>
             <Link
               className="buttons-icon btn-cart"
               to="/cart">             
@@ -47,14 +47,14 @@ export const Header: React.FC = () => {
               className="buttons-icon btn-user"
               to="/acc">         
             </Link>
-          </div> :
+          </nav> :
           <Link
             className="btn"
             to="/login">
             Log In / Sing Up
           </Link>
         }
-      </div>  
+      </header>  
     </Heading>
   );
 }

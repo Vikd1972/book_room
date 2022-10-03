@@ -1,12 +1,11 @@
 import styled from 'styled-components'
 
-import user_photo from '../../utils/picture/user_photo.png'
-import btn_photo from '../../utils/picture/btn_photo.png'
-import user from '../../utils/picture/user.png'
-import mail from '../../utils/picture/mail.png'
-import hide from '../../utils/picture/hide.png'
-import ok from '../../utils/picture/ok.png'
-
+import user_photo from '../../Utils/picture/user_photo.png'
+import btn_photo from '../../Utils/picture/btn_photo.png'
+import user from '../../Utils/picture/user.png'
+import mail from '../../Utils/picture/mail.png'
+import hide from '../../Utils/picture/hide.png'
+import ok from '../../Utils/picture/ok.png'
 
 const UserProfile = styled.div`
 left: 0px;
@@ -33,9 +32,11 @@ flex-direction: row;
 }
 #output {
   display: inline-block;
-      width: 100%;
-    height: auto;
-    flex-shrink: 0;
+  /* width: 305px;
+  height: 305px; */
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
   border-radius: 16px;
   background-image: url(${user_photo});
   background-repeat: no-repeat;

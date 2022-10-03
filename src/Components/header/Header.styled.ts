@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-import logo from '../../utils/picture/logo_dark.png'
-import search from '../../utils/picture/search.png'
-import cart from '../../utils/picture/btn_cart.png'
-import save from '../../utils/picture/btn_save.png'
-import user from '../../utils/picture/btn_user.png'
+import logo from '../../Utils/picture/logo_dark.png'
+import search from '../../Utils/picture/search.png'
+import cart from '../../Utils/picture/btn_cart.png'
+import save from '../../Utils/picture/btn_save.png'
+import user from '../../Utils/picture/btn_user.png'
 
 const Heading = styled.div`
 margin-top: 24px;

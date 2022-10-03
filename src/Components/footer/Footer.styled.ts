@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import logo from '../../utils/picture/logo_light.png'
-import map from '../../utils/picture/map.png'
+import logo from '../../Utils/picture/logo_light.png'
+import map from '../../Utils/picture/map.png'
 
 const Basement = styled.div`
 margin-top: 104px;
@@ -27,12 +27,11 @@ line-height: 30px;
   background-repeat: no-repeat;
   margin-bottom: 40px;
 }
-.links div {
-  margin-bottom: 5px;
-}
 .btn {
   color: #F0F4EF;
   text-decoration: none;
+  margin-bottom: 5px;
+  line-height: 30px;
 }
 .map-map {
   width: 413px;

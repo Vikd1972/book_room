@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import books from '../../utils/picture/books.png'
-import woman from '../../utils/picture/woman.png'
+import books from '../../Utils/picture/books.png'
+import woman from '../../Utils/picture/woman.png'
 
 const Сatalogue = styled.div`
 margin-top: 40px;
