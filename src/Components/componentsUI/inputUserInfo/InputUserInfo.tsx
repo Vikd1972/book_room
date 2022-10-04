@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormik } from 'formik';
+
 import InputUserField from './InputUserInfo.styled'
 
 interface MyInput {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormik } from 'formik';
+
 import InputField from './InputAuth.styled';
 
 interface MyInput {

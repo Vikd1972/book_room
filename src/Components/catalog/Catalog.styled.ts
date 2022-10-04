@@ -35,23 +35,7 @@ flex-direction: column;
       font-size: 20px;
       line-height: 30px;
       color: #344966;
-    }
-    .field-btn {
-      margin-top: 50px;
-      width: 230px;
-      height: 44px;
-      background-color: #344966;
-      font-size: 16px;
-      line-height: 24px;
-      color: #F0F4EF;
-      border-radius: 16px;
-      text-align: center;
-        font-family: 'Poppins', sans-serif;
-      text-decoration: none;
-    }
-    .field-btn:hover{
-      cursor: pointer;
-      background-color: #0D1821;
+      margin-bottom: 50px;
     }
   }
   .poster__image {

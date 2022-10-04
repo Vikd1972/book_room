@@ -10,7 +10,8 @@ import schemaSign from '../../Validation/schemaSign';
 import showToast from '../../Validation/showToast';
 import instance from '../../Api';
 import { Values } from '../../Interfaces/Interface';
-import InputAuth from '../inputAuth/InputAuth';
+import { ButtonSubmit } from '../componentsUI/button/Buttons';
+import InputAuth from '../componentsUI/inputAuth/InputAuth';
 
 import SignUp from './Signup.styled';
 
@@ -35,7 +36,7 @@ export const Signup: React.FC = (props) => {
         showToast('passwords do not match');
       } else {
         instance
-          .post("http://localhost:3001/api/auth/sign/", {
+          .post("/auth/sign/", {
             email: values.email,
             pass: values.password,
           })
@@ -103,11 +104,10 @@ export const Signup: React.FC = (props) => {
             formikField={formik.getFieldProps('confirmPassword')}
             icon='hide'
           />
-          <button
-            type='submit'
-            className='btn'>
-            Sign Up
-          </button>
+          <ButtonSubmit
+            width='151px'
+            text='Sign Up'
+          />
         </form>
       </div>
       <div className='login-pic'></div>

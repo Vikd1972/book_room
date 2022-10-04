@@ -9,7 +9,8 @@ import showToast from '../../Validation/showToast';
 import instance from '../../Api';
 import schemqaLogin from '../../Validation/schemaLogin';
 import { Values } from '../../Interfaces/Interface';
-import InputAuth from '../inputAuth/InputAuth';
+import InputAuth from '../componentsUI/inputAuth/InputAuth';
+import {ButtonSubmit} from '../componentsUI/button/Buttons';
 
 import LogIn from './Login.styled';
 
@@ -31,7 +32,7 @@ export const Login: React.FC = (props) => {
     validationSchema: schemqaLogin,
     onSubmit: values => {
       instance
-        .post("http://localhost:3001/api/auth/login/", {
+        .post("/auth/login/", {
           email: values.email,
           pass: values.password,
         })
@@ -90,11 +91,10 @@ export const Login: React.FC = (props) => {
             formikField={formik.getFieldProps('password')}
             icon='hide'
           />
-          <button
-            type='submit'
-            className='btn'>
-            Log In
-          </button>
+          <ButtonSubmit
+            width='151px'
+            text='Log In'
+          />
         </form>
       </div>
       <div className='login-pic'></div>

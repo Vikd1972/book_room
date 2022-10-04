@@ -1,5 +1,6 @@
 import React from 'react';
 import Сatalogue from './Catalog.styled';
+import { ButtonSubmit } from '../componentsUI/button/Buttons';
 
 export const Catalog: React.FC = () => {
   return (
@@ -8,7 +9,12 @@ export const Catalog: React.FC = () => {
         <div className='poster__field'>
           <div className='field-name'>Build your library with us</div>
           <div className='field-text'>Buy two books and<br/>get one for free</div>
-          <button className='field-btn'>Choose a book</button>
+          <ButtonSubmit
+            width='230px'
+            text='Choose a book'
+          />
+          
+          {/* <button className='field-btn'>Choose a book</button> */}
         </div>
         <div className='poster__image'></div>
       </div>

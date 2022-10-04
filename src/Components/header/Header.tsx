@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from '../../Store/hooks';
 import { useAppSelector } from '../../Store/hooks';
 import { loging } from '../../Store/usersSlice';
+import { ButtonLink } from '../componentsUI/button/Buttons';
 
 export const Header: React.FC = () => { 
   const dispatch = useAppDispatch()
@@ -48,11 +49,11 @@ export const Header: React.FC = () => {
               to="/acc">         
             </Link>
           </nav> :
-          <Link
-            className="btn"
-            to="/login">
-            Log In / Sing Up
-          </Link>
+          <ButtonLink 
+            to="/login"
+            width='231px'
+            text='Log In / Sing Up'
+          />
         }
       </header>  
     </Heading>

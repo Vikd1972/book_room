@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { css } from 'styled-components';
 
-import mail from '../../Utils/picture/mail.png'
-import hide from '../../Utils/picture/hide.png'
+import mail from '../../../Utils/picture/mail.png'
+import hide from '../../../Utils/picture/hide.png'
 
 export interface Icon {
   icon?: string;

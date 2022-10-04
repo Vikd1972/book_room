@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 
-import Input from '../inputAuth/InputAuth';
+import Input from '../componentsUI/inputAuth/InputAuth';
 import { useAppSelector, useAppDispatch } from '../../Store/hooks';
 import schemaUser from '../../Validation/schemaUser';
 import { loginUser } from '../../Store/usersSlice';
 import showToast from '../../Validation/showToast';
 import instance from '../../Api';
 import { Values } from '../../Interfaces/Interface';
-import InputUserInfo from '../inputUserInfo/InputUserInfo';
+import InputUserInfo from '../componentsUI/inputUserInfo/InputUserInfo';
 
 import UserProfile from './User.styled';
 
@@ -52,15 +52,12 @@ export const User: React.FC = () => {
 
     onSubmit: values => {
       instance
-        .put("http://localhost:3001/api/users/", {
-          // (isChangeInfo ? {
+        .put("/users/", {
           fullname: values.fullname,
           email: values.email,
-          // } : isChangePass ? {
           oldPassword: values.oldPassword,
           newPassword: values.newPassword,
           confirmPassword: values.confirmPassword,
-          // } : null)          
         })
         .then((res) => {
           dispatch(
