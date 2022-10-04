@@ -6,14 +6,14 @@ const instance = axios.create()
 
 instance.interceptors.request.use(
   (config) => {
-    if (!config.headers) {
-      config.headers = {};
+    if (localStorage.token) {
+      config.headers = {
+        ...config.headers,
+        // Authorization: Bearer <localStorage.token> 
+        Authorization: `Bearer ${localStorage.token}` 
+      };
     }
-    config.headers.Authorization = localStorage.token;
     return config;
-  },
-  (error) => {
-    return Promise.reject(error);
   }
 );
 

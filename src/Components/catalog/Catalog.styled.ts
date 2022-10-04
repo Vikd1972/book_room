@@ -14,6 +14,7 @@ flex-direction: column;
   background-color: #F0F4EF;
   border-radius: 16px;
   background-image: url(${books});
+ 
   background-repeat: no-repeat;
   background-position: 0px 135px;
   padding: 0 98px 0 108px;
@@ -42,6 +43,7 @@ flex-direction: column;
     width: 406px;
     height: 400px;
     background-image: url(${woman});
+ 
     background-repeat: no-repeat;
   }
 }

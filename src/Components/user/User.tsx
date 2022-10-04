@@ -80,8 +80,7 @@ export const User: React.FC = () => {
       setisChangePass(false)
     },
   });
-
-
+//  if (!user.email) return null
   return (
     <UserProfile>
       <div className='user'>

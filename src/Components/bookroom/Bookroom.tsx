@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 
@@ -15,23 +15,25 @@ import PrivateRoute from '../privateRoute/PrivateRoute';
 import Cart from '../cart/cart';
 import User from '../user/User';
 import Footer from '../footer/Footer';
+import instance from '../../Api';
 
 import Bookroom from './Bookroom.styled';
 
 export const BookRoom: React.FC = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(state => state.users.user);
 
+  const user = useAppSelector(state => state.users.user);
+  const isLogged = useAppSelector(state => state.users.isLogged);  
+  
   if (!user.id && !localStorage.token) {
     dispatch(
       loging(false)
     );
   } else {
     if (user.id === 0) {
-      axios
-        .post("http://localhost:3001/api/auth/token/", {
-          token: localStorage.token,
-        })
+      
+      instance
+        .get("http://localhost:3001/api/auth/token/")
         .then((res) => {
           dispatch(
             loginUser({
@@ -50,6 +52,8 @@ export const BookRoom: React.FC = () => {
     };
   }
 
+  // if (!localStorage.token) return null
+
   return (
     <Router>
       <Bookroom className="bookroom">
@@ -63,12 +67,12 @@ export const BookRoom: React.FC = () => {
             <PrivateRoute path="/cart">
               <Cart />
             </PrivateRoute>}
-          />
+          /> 
           <Route path="/acc" element={
             <PrivateRoute path="/acc">
               <User />
             </PrivateRoute>}
-          />
+          /> 
         </Routes>
         <Footer />
       </Bookroom>
