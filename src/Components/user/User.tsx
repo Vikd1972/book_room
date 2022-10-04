@@ -53,10 +53,14 @@ export const User: React.FC = () => {
     onSubmit: values => {
       instance
         .put("http://localhost:3001/api/users/", {
-          fullname: (values.fullname ? values.fullname : undefined),
-          email: (values.email ? values.email : undefined),
-          oldPassword: (values.oldPassword ? values.oldPassword : undefined),
-          newPassword: (values.newPassword === values.confirmPassword ? values.newPassword : undefined),
+          // (isChangeInfo ? {
+          fullname: values.fullname,
+          email: values.email,
+          // } : isChangePass ? {
+          oldPassword: values.oldPassword,
+          newPassword: values.newPassword,
+          confirmPassword: values.confirmPassword,
+          // } : null)          
         })
         .then((res) => {
           dispatch(
@@ -74,6 +78,7 @@ export const User: React.FC = () => {
           showToast(err.response.data.message);
           console.log(err.response.data.message);
         });
+      formik.resetForm()
       setisChangeInfo(false)
       setisChangePass(false)
     },
@@ -123,7 +128,7 @@ export const User: React.FC = () => {
                   type='text'
                   textInfo='Your name'
                   textWhenChanged={`Your name now is ${user.fullname}. Enter new name`}
-                  value={user.fullname}
+                  field={user.fullname}
                   placeholder='Enter your name'
                   formikName={formik.touched.fullname}
                   formikError={formik.errors.fullname}
@@ -135,7 +140,7 @@ export const User: React.FC = () => {
                   type='email'
                   textInfo='Your email'
                   textWhenChanged={`Your email now is ${user.email}. Enter new email`}
-                  value={user.email}
+                  field={user.email}
                   placeholder='Enter your email'
                   formikName={formik.touched.email}
                   formikError={formik.errors.email}
@@ -158,7 +163,7 @@ export const User: React.FC = () => {
                   type='password'
                   textInfo='Your password'
                   textWhenChanged='Old password'
-                  value='*****************'
+                  field='*****************'
                   placeholder='Enter old password'
                   formikName={formik.touched.oldPassword}
                   formikError={formik.errors.oldPassword}
