@@ -9,7 +9,7 @@ import showToast from '../../Validation/showToast';
 import instance from '../../Api';
 import schemqaLogin from '../../Validation/schemaLogin';
 import { Values } from '../../Interfaces/Interface';
-import Input from '../input/Input';
+import InputAuth from '../inputAuth/InputAuth';
 
 import LogIn from './Login.styled';
 
@@ -74,7 +74,7 @@ export const Login: React.FC = (props) => {
         <form
           onSubmit={formik.handleSubmit}
           className='login__form'>
-          <Input
+          <InputAuth
             type='email'
             placeholder='Email'
             formikName={formik.touched.email}
@@ -82,7 +82,7 @@ export const Login: React.FC = (props) => {
             formikField={formik.getFieldProps('email')}
             icon='mail'
           />
-          <Input
+          <InputAuth
             type='password'
             placeholder='Password'
             formikName={formik.touched.password}

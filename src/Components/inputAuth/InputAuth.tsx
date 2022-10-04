@@ -1,11 +1,9 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import InputField from './Input.styled';
+import InputField from './InputAuth.styled';
 
 interface MyInput {
   type: string,
-  name?: string,
-  value?: string,
   placeholder: string,
   formikName?: boolean,
   formikError?: string,
@@ -13,7 +11,7 @@ interface MyInput {
   icon?: string,
 }
 
-const Input: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
+const InputAuth: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
   return (
     <InputField icon={props.icon}>
       <div className='input-width'>
@@ -30,11 +28,9 @@ const Input: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
         <div className='input-name err'>{props.formikError}</div>
       ) : (
         <div className='input-name'>Enter your email</div>
-      )}
-      
+      )}      
     </InputField>
   )
-
 }
 
-export default Input;
+export default InputAuth;

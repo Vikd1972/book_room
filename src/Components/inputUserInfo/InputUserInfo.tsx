@@ -4,38 +4,42 @@ import InputUserField from './InputUserInfo.styled'
 
 interface MyInput {
   type?: string,
-  name?: string,
+  textInfo?: string,
+  textWhenChanged?: string,
   value?: string,
   placeholder?: string,
   formikName?: boolean,
   formikError?: string,
   formikField?: any,
   icon?: string,
-  changeField?: any,
+  changeField?: boolean,
 }
 
 const InputUserInfo: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
   return (
     <InputUserField icon={props.icon}>
-
-
-
-      <div className='input-width'>
-        <div className="width-setter">
+        {props.changeField ? (
+          <>
+            {props.formikName && props.formikError ? (
+              <div className='name err'>{props.formikError}</div>
+            ) : (
+              <div className='name'>{props.textWhenChanged}</div>
+            )}
+          </>
+        ) : (
+          <div className='name'>{props.textInfo}</div>
+        )}
+        {props.changeField ? (
           <input
+            className='value'
             type={props.type}
-            placeholder={props.placeholder}
             autoComplete="off"
+            placeholder={props.placeholder}
             {...props.formikField}
           />
-        </div>
-      </div>
-      {props.formikName && props.formikError ? (
-        <div className='input-name err'>{props.formikError}</div>
-      ) : (
-        <div className='input-name'>Enter your email</div>
-      )}
-
+        ) : (
+          <div className='value'>{props.value}</div>
+        )}
     </InputUserField>
   )
 

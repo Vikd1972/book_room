@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 
-import Input from '../input/Input';
+import Input from '../inputAuth/InputAuth';
 import { useAppSelector, useAppDispatch } from '../../Store/hooks';
 import schemaUser from '../../Validation/schemaUser';
 import { loginUser } from '../../Store/usersSlice';
@@ -118,66 +118,32 @@ export const User: React.FC = () => {
                   onClick={onIsChangeInfo}>
                   Change information</div>
               </div>
-              <InputUserInfo
-                type='text'
-                placeholder='Password'
-                formikName={formik.touched.password}
-                formikError={formik.errors.password}
-                formikField={formik.getFieldProps('password')}
-                icon='hide'
-                changeField={onIsChangeInfo}
-              />
-
-              
               <div className='info'>
-                <div className='info-fullname field'>
-                  {isChangeInfo ? (
-                    <>
-                      {formik.touched.fullname && formik.errors.fullname ? (
-                        <div className='field-name err'>{formik.errors.fullname}</div>
-                      ) : (
-                        <div className='field-name'>Your name now is {user.fullname}. Enter new name</div>
-                      )}
-                    </>
-                  ) : (
-                    <div className='field-name'>Your name</div>
-                  )}
-                  {isChangeInfo ? (
-                    <input
-                      className='field-value'
-                      type="text"
-                      autoComplete="off"
-                      placeholder='Enter your name'
-                      {...formik.getFieldProps('fullname')}
-                    />
-                  ) : (
-                    <div className='field-value'>{user.fullname}</div>
-                  )}
-                </div>
-                <div className='info-email field'>
-                  {isChangeInfo ? (
-                    <>
-                      {formik.touched.email && formik.errors.email ? (
-                        <div className='field-name err'>{formik.errors.email}</div>
-                      ) : (
-                        <div className='field-name'>Your email now is {user.email}. Enter new email</div>
-                      )}
-                    </>
-                  ) : (
-                    <div className='field-name'>Your email</div>
-                  )}
-                  {isChangeInfo ? (
-                    <input
-                      className='field-value'
-                      type="email"
-                      autoComplete="off"
-                      placeholder='Enter your email'
-                      {...formik.getFieldProps('email')}
-                    />
-                  ) : (
-                    <div className='field-value'>{user.email}</div>
-                  )}
-                </div>
+                <InputUserInfo
+                  type='text'
+                  textInfo='Your name'
+                  textWhenChanged={`Your name now is ${user.fullname}. Enter new name`}
+                  value={user.fullname}
+                  placeholder='Enter your name'
+                  formikName={formik.touched.fullname}
+                  formikError={formik.errors.fullname}
+                  formikField={formik.getFieldProps('fullname')}
+                  icon='user'
+                  changeField={isChangeInfo}
+                />
+                <InputUserInfo
+                  type='email'
+                  textInfo='Your email'
+                  textWhenChanged={`Your email now is ${user.email}. Enter new email`}
+                  value={user.email}
+                  placeholder='Enter your email'
+                  formikName={formik.touched.email}
+                  formikError={formik.errors.email}
+                  formikField={formik.getFieldProps('email')}
+                  icon='mail'
+                  changeField={isChangeInfo}
+                />
+
               </div>
             </div>
             <div className='user__info-password'>
@@ -188,61 +154,43 @@ export const User: React.FC = () => {
                   Change password</div>
               </div>
               <div className='info'>
-                <div className='info-password field'>
-                  {isChangePass ? (
-                    <>
-                      {formik.touched.oldPassword && formik.errors.oldPassword ? (
-                        <div className='field-name err'>{formik.errors.oldPassword}</div>
-                      ) : (
-                        <div className='field-name'>Old password</div>
-                      )}
-                    </>
-                  ) : (
-                    <div className='field-name'>Your password</div>
-                  )}
-                  {isChangePass ? (
-                    <input
-                      className='field-value'
-                      type="password"
-                      autoComplete="off"
-                      placeholder='Enter old password'
-                      {...formik.getFieldProps('oldPassword')}
-                    />
-                  ) : (
-                    <div className='field-value'>*****************</div>
-                  )}
-                </div>
+                <InputUserInfo
+                  type='password'
+                  textInfo='Your password'
+                  textWhenChanged='Old password'
+                  value='*****************'
+                  placeholder='Enter old password'
+                  formikName={formik.touched.oldPassword}
+                  formikError={formik.errors.oldPassword}
+                  formikField={formik.getFieldProps('oldPassword')}
+                  icon='hide'
+                  changeField={isChangePass}
+                />
               </div>
               {isChangePass ? (
                 <>
-                  <div className='info-password field'>
-                    {formik.touched.newPassword && formik.errors.newPassword ? (
-                      <div className='field-name err'>{formik.errors.newPassword}</div>
-                    ) : (
-                      <div className='field-name'>New password</div>
-                    )}
-                    <input
-                      className='field-value'
-                      type="password"
-                      autoComplete="off"
-                      placeholder='Enter new password'
-                      {...formik.getFieldProps('newPassword')}
-                    />
-                  </div>
-                  <div className='info-password field'>
-                    {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                      <div className='field-name err'>{formik.errors.confirmPassword}</div>
-                    ) : (
-                      <div className='field-name'>Replay password</div>
-                    )}
-                    <input
-                      className='field-value'
-                      type="password"
-                      autoComplete="off"
-                      placeholder='Confirm password'
-                      {...formik.getFieldProps('confirmPassword')}
-                    />
-                  </div>
+                  <InputUserInfo
+                    type='password'
+                    textInfo='New password'
+                    textWhenChanged='Enter new password'
+                    placeholder='New password'
+                    formikName={formik.touched.newPassword}
+                    formikError={formik.errors.newPassword}
+                    formikField={formik.getFieldProps('newPassword')}
+                    icon='hide'
+                    changeField={isChangePass}
+                  />
+                  <InputUserInfo
+                    type='password'
+                    textInfo='Replay password'
+                    textWhenChanged='Replay new password'
+                    placeholder='Confirm password'
+                    formikName={formik.touched.confirmPassword}
+                    formikError={formik.errors.confirmPassword}
+                    formikField={formik.getFieldProps('confirmPassword')}
+                    icon='hide'
+                    changeField={isChangePass}
+                  />
                 </>
               ) : (
                 null

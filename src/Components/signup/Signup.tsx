@@ -10,7 +10,7 @@ import schemaSign from '../../Validation/schemaSign';
 import showToast from '../../Validation/showToast';
 import instance from '../../Api';
 import { Values } from '../../Interfaces/Interface';
-import Input from '../input/Input';
+import InputAuth from '../inputAuth/InputAuth';
 
 import SignUp from './Signup.styled';
 
@@ -79,7 +79,7 @@ export const Signup: React.FC = (props) => {
         <form
           onSubmit={formik.handleSubmit}
           className='login__form'>
-          <Input
+          <InputAuth
             type='email'
             placeholder='Email'
             formikName={formik.touched.email}
@@ -87,7 +87,7 @@ export const Signup: React.FC = (props) => {
             formikField={formik.getFieldProps('email')}
             icon='mail'
           />
-          <Input
+          <InputAuth
             type='password'
             placeholder='Password'
             formikName={formik.touched.password}
@@ -95,7 +95,7 @@ export const Signup: React.FC = (props) => {
             formikField={formik.getFieldProps('password')}
             icon='hide'
           />
-          <Input
+          <InputAuth
             type='password'
             placeholder='Confirm password'
             formikName={formik.touched.confirmPassword}

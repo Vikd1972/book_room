@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { css } from 'styled-components';
 
+import user from '../../Utils/picture/user.png'
 import mail from '../../Utils/picture/mail.png'
 import hide from '../../Utils/picture/hide.png'
 
@@ -8,65 +9,67 @@ export interface Icon {
   icon?: string;
 }
 
-
 const InputUserField = styled.div<Icon>`
-max-width: 1280px;
+margin-top: 10px;
+margin-top: 20px;
 width: 100%;
+height: 64px;
+border-radius: 16px;
+background-color: #F0F4EF;
+color: #344966;
 display: flex;
 flex-direction: column;
-
-.input-width {
-  width: 100%;
-  height: 64px;
-  margin-bottom: 9px;
-}
-.width-setter {
-  margin-left: 64px;
-  height: 64px;
-}
-.width-setter input {
-  width: 100%;
-  height: 64px;
-  padding-left: 64px;
-  margin-left: -64px;
-  border-radius: 16px;
-  background-color: #F0F4EF;
-  border: none;
-  font-size: 16px;
-  font-weight: 400;
   ${(props) => {
     switch (props.icon) {
+      case 'user':
+        return css`
+          background-image: url(${user});
+          background-position: 24px 20px;
+        `;
+        break;
       case 'mail':
         return css`
           background-image: url(${mail});
+          background-position: 0 -3px;
         `;
         break;
       case 'hide':
         return css`
           background-image: url(${hide});
-          background-position-x: 25px;
-          background-position-y: 20px;
+          background-position: 24px 20px;
         `;
         break;
       default:
         return css`
           background-image: none;
-        `;
+        `;      
     }
   }}
 background-repeat: no-repeat;
-}
-.mail input {
-
-}
-.input-name {
+.name {
+  margin-top: 6px;
+  margin-left: 64px;
   font-size: 14px;
   line-height: 24px;
-  color: #344966;
-  margin-bottom: 30px;
+}
+.value {
+  margin-left: 64px;
+  font-size: 16px;
+  line-height: 28px;
+}
+input {
+  margin-left: 64px;
+  font-size: 16px;
+  line-height: 28px;
+  background-color: transparent;
+  border: none;
+}
+.user__info-password {
+  margin-top: 40px;
 }
 .err {
   color: #ff0000;
-}`;
+}
+`;
 
-export default InputUserField;
+export default InputUserField
