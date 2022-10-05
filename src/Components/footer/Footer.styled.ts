@@ -31,7 +31,7 @@ line-height: 30px;
   color: #F0F4EF;
   text-decoration: none;
   margin-bottom: 5px;
-  line-height: 30px;
+  line-height: 35px;
 }
 .map-map {
   width: 413px;

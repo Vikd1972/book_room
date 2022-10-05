@@ -8,13 +8,11 @@ export interface Icon {
   icon?: string;
 }
 
-
 const InputField = styled.div<Icon>`
 max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
-
 .input-width {
   width: 100%;
   height: 64px;
@@ -55,9 +53,6 @@ flex-direction: column;
     }
   }}
 background-repeat: no-repeat;
-}
-.mail input {
-
 }
 .input-name {
   font-size: 14px;

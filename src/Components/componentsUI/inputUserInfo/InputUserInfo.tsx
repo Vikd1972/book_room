@@ -1,19 +1,7 @@
 import React from 'react';
 
 import InputUserField from './InputUserInfo.styled'
-
-interface MyInput {
-  type?: string,
-  textInfo?: string,
-  textWhenChanged?: string,
-  field?: string,
-  placeholder?: string,
-  formikName?: boolean,
-  formikError?: string,
-  formikField?: any,
-  icon?: string,
-  changeField?: boolean,
-}
+import { MyInput } from '../../../Interfaces/Interface'
 
 const InputUserInfo: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
   return (
@@ -42,7 +30,6 @@ const InputUserInfo: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
       )}
     </InputUserField>
   )
-
 }
 
 export default InputUserInfo;

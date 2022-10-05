@@ -1,15 +1,7 @@
 import React from 'react';
 
 import InputField from './InputAuth.styled';
-
-interface MyInput {
-  type: string,
-  placeholder: string,
-  formikName?: boolean,
-  formikError?: string,
-  formikField?: any,
-  icon?: string,
-}
+import { MyInput } from '../../../Interfaces/Interface'
 
 const InputAuth: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
   return (

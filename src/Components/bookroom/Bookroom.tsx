@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import axios from "axios";
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,7 +14,7 @@ import PrivateRoute from '../privateRoute/PrivateRoute';
 import Cart from '../cart/cart';
 import User from '../user/User';
 import Footer from '../footer/Footer';
-import instance from '../../Api';
+import getUser from '../../Api/getUser';
 
 import Bookroom from './Bookroom.styled';
 
@@ -23,36 +22,30 @@ export const BookRoom: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const user = useAppSelector(state => state.users.user);
-  const isLogged = useAppSelector(state => state.users.isLogged);  
-  
-  if (!user.id && !localStorage.token) {
+  const isLogged = useAppSelector(state => state.users.isLogged);
+
+  if (!user.email && !localStorage.token) {
     dispatch(
       loging(false)
     );
   } else {
-    if (user.id === 0) {
-      
-      instance
-        .get("http://localhost:3001/api/auth/token/")
-        .then((res) => {
-          dispatch(
-            loginUser({
-              id: res.data.user.id,
-              fullname: res.data.user.fullname,
-              email: res.data.user.email,
-            })
-          )
-          dispatch(
-            loging(true)
-          );
-        })
-        .catch(function (err) {
-          console.log(err.response);
-        });
+    if (!user.email) {
+      const checkToken = async () => {
+        const user = await getUser()
+        dispatch(
+          loginUser({
+            id: user.id,
+            fullname: user.fullname,
+            email: user.email,
+          })
+        )
+        dispatch(
+          loging(true)
+        );
+      }
+      checkToken()
     };
   }
-
-  // if (!localStorage.token) return null
 
   return (
     <Router>
@@ -67,12 +60,12 @@ export const BookRoom: React.FC = () => {
             <PrivateRoute path="/cart">
               <Cart />
             </PrivateRoute>}
-          /> 
+          />
           <Route path="/acc" element={
             <PrivateRoute path="/acc">
               <User />
             </PrivateRoute>}
-          /> 
+          />
         </Routes>
         <Footer />
       </Bookroom>

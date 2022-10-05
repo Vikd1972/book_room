@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 
-import Input from '../componentsUI/inputAuth/InputAuth';
+import changeUserData from '../../Api/changUserData';
 import { useAppSelector, useAppDispatch } from '../../Store/hooks';
 import schemaUser from '../../Validation/schemaUser';
 import { loginUser } from '../../Store/usersSlice';
-import showToast from '../../Validation/showToast';
-import instance from '../../Api';
 import { Values } from '../../Interfaces/Interface';
 import InputUserInfo from '../componentsUI/inputUserInfo/InputUserInfo';
 
@@ -47,34 +45,16 @@ export const User: React.FC = () => {
       newPassword: '',
       confirmPassword: '',
     } as Values,
-
     validationSchema: schemaUser,
-
-    onSubmit: values => {
-      instance
-        .put("/users/", {
-          fullname: values.fullname,
-          email: values.email,
-          oldPassword: values.oldPassword,
-          newPassword: values.newPassword,
-          confirmPassword: values.confirmPassword,
+    onSubmit: async (values) => {
+      const user = await changeUserData({ values })
+      dispatch(
+        loginUser({
+          id: user.id,
+          fullname: user.fullname,
+          email: user.email,
         })
-        .then((res) => {
-          dispatch(
-            loginUser({
-              id: res.data.user.id,
-              fullname: res.data.user.fullname,
-              email: res.data.user.email,
-            })
-          );
-
-        })
-        .catch(function (err) {
-          console.log(err);
-
-          showToast(err.response.data.message);
-          console.log(err.response.data.message);
-        });
+      );
       formik.resetForm()
       setisChangeInfo(false)
       setisChangePass(false)

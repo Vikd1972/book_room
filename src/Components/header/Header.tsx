@@ -3,18 +3,25 @@ import Heading from './Header.styled';
 import { Link } from "react-router-dom";
 import { useAppDispatch } from '../../Store/hooks';
 import { useAppSelector } from '../../Store/hooks';
-import { loging } from '../../Store/usersSlice';
+import { loging, loginUser } from '../../Store/usersSlice';
 import { ButtonLink } from '../componentsUI/button/Buttons';
 
-export const Header: React.FC = () => { 
+export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
-  const isLogged = useAppSelector(state => state.users.isLogged)  
+  const isLogged = useAppSelector(state => state.users.isLogged)
 
   const logout = () => {
     localStorage.removeItem('token');
     dispatch(
       loging(false)
     );
+    dispatch(
+      loginUser({
+        id: 0,
+        fullname: '',
+        email: '',
+      })
+    )
   }
 
   return (
@@ -29,33 +36,33 @@ export const Header: React.FC = () => {
                 name='catalog'
                 type='text'
                 placeholder='Search'>
-              </input>            
+              </input>
             </div>
-          </div> 
+          </div>
         </form>
         {isLogged ?
           <nav className='buttons'>
             <Link
               className="buttons-icon btn-cart"
-              to="/cart">             
-            </Link>            
+              to="/cart">
+            </Link>
             <Link
               className="buttons-icon btn-save"
               onClick={logout} //a temporary solution for testing protected routes
-              to="/">     
+              to="/">
             </Link>
             <Link
               className="buttons-icon btn-user"
-              to="/acc">         
+              to="/acc">
             </Link>
           </nav> :
-          <ButtonLink 
+          <ButtonLink
             to="/login"
             width='231px'
             text='Log In / Sing Up'
           />
         }
-      </header>  
+      </header>
     </Heading>
   );
 }

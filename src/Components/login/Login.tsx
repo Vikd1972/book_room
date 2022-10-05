@@ -1,25 +1,24 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
+import authUser from '../../Api/authUser';
 import { loginUser, loging } from '../../Store/usersSlice';
 import { useAppDispatch } from '../../Store/hooks';
-import showToast from '../../Validation/showToast';
-import instance from '../../Api';
+
 import schemqaLogin from '../../Validation/schemaLogin';
 import { Values } from '../../Interfaces/Interface';
 import InputAuth from '../componentsUI/inputAuth/InputAuth';
-import {ButtonSubmit} from '../componentsUI/button/Buttons';
+import { ButtonSubmit } from '../componentsUI/button/Buttons';
 
 import LogIn from './Login.styled';
 
 
 export const Login: React.FC = (props) => {
-  const dispatch = useAppDispatch()
-
-  let navigate = useNavigate();
   let location = useLocation();
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
 
   const { from } = location.state || { from: { path: "/" } };
   const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('');
@@ -30,33 +29,19 @@ export const Login: React.FC = (props) => {
       password: '',
     } as Values,
     validationSchema: schemqaLogin,
-    onSubmit: values => {
-      instance
-        .post("/auth/login/", {
-          email: values.email,
-          pass: values.password,
+    onSubmit: async (values) => {
+      const user = await authUser({ values })
+      dispatch(
+        loginUser({
+          id: user.id,
+          fullname: user.fullname,
+          email: user.email,
         })
-        .then((res) => {
-          localStorage.setItem('token', res.data.token);
-          dispatch(
-            loginUser({
-              id: res.data.user.id,
-              fullname: res.data.user.fullname,
-              email: res.data.user.email,
-            })
-          );
-          dispatch(
-            loging(true)
-          );
-          navigate(route)
-        })
-        .catch(function (err) {
-          showToast(err.response.data.message);
-          console.log(err.response.data.message);
-          dispatch(
-            loging(false)
-          );
-        });
+      );
+      dispatch(
+        loging(true)
+      );
+      navigate(route)
     },
   });
 

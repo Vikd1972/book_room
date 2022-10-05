@@ -1,14 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { object, string } from 'yup';
 import { ToastContainer } from 'react-toastify';
 
+import signUser from '../../Api/signUser';
 import { loginUser, loging } from '../../Store/usersSlice';
 import { useAppDispatch } from '../../Store/hooks';
 import schemaSign from '../../Validation/schemaSign';
-import showToast from '../../Validation/showToast';
-import instance from '../../Api';
 import { Values } from '../../Interfaces/Interface';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
 import InputAuth from '../componentsUI/inputAuth/InputAuth';
@@ -31,38 +29,20 @@ export const Signup: React.FC = (props) => {
       confirmPassword: '',
     } as Values,
     validationSchema: schemaSign,
-    onSubmit: values => {
-      if (values.password !== values.confirmPassword) {
-        showToast('passwords do not match');
-      } else {
-        instance
-          .post("/auth/sign/", {
-            email: values.email,
-            pass: values.password,
-          })
-          .then((res) => {
-            localStorage.setItem('token', res.data.token);
-            dispatch(
-              loginUser({
-                id: res.data.user.id,
-                fullname: res.data.user.fullname,
-                email: res.data.user.email,
-              })
-            );
-            dispatch(
-              loging(true)
-            );
-            navigate(route)
-          })
-          .catch(function (err) {
-            showToast(err.response.data.message);
-            console.log(err.response);
-            dispatch(
-              loging(false)
-            );
-          })
-      }
-    }
+    onSubmit: async (values) => {
+      const user = await signUser({ values })
+      dispatch(
+        loginUser({
+          id: user.id,
+          fullname: user.fullname,
+          email: user.email,
+        })
+      );
+      dispatch(
+        loging(true)
+      );
+      navigate(route)
+    },
   });
 
   return (

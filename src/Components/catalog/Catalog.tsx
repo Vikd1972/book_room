@@ -13,8 +13,6 @@ export const Catalog: React.FC = () => {
             width='230px'
             text='Choose a book'
           />
-          
-          {/* <button className='field-btn'>Choose a book</button> */}
         </div>
         <div className='poster__image'></div>
       </div>
