@@ -153,17 +153,6 @@ input {
 .btn {
   margin-left: 128px;
   margin-top: 50px;
-  width: 170px;
-  height: 44px;
-  background-color: #344966;
-  color: #F0F4EF;
-  font-size: 16px;
-  line-height: 24px;
-  border-radius: 16px;
-}
-.btn:hover{
-  cursor: pointer;
-  background-color: #0D1821;
 }
 .err {
   color: #ff0000;

@@ -8,6 +8,7 @@ import schemaUser from '../../Validation/schemaUser';
 import { loginUser } from '../../Store/usersSlice';
 import { Values } from '../../Interfaces/Interface';
 import InputUserInfo from '../componentsUI/inputUserInfo/InputUserInfo';
+import { ButtonSubmit } from '../componentsUI/button/Buttons';
 
 import UserProfile from './User.styled';
 
@@ -60,7 +61,7 @@ export const User: React.FC = () => {
       setisChangePass(false)
     },
   });
-//  if (!user.email) return null
+  //  if (!user.email) return null
   return (
     <UserProfile>
       <div className='user'>
@@ -179,11 +180,12 @@ export const User: React.FC = () => {
             </div>
           </div>
           {isChangeInfo || isChangePass ? (
-            <button
-              type='submit'
-              className='btn'>
-              Confirm
-            </button>
+            <div className='btn'>
+              <ButtonSubmit
+                width='170px'
+                text='Confirm'
+              />
+            </div>
           ) :
             null
           }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,6 +19,7 @@ import getUser from '../../Api/getUser';
 import Bookroom from './Bookroom.styled';
 
 export const BookRoom: React.FC = () => {
+  const [isLoggedOne, setIsLoggedOne] = useState(false)
   const dispatch = useAppDispatch()
 
   const user = useAppSelector(state => state.users.user);
@@ -45,6 +46,10 @@ export const BookRoom: React.FC = () => {
       }
       checkToken()
     };
+  }
+
+  if (!user.email && localStorage.token) {
+    return null
   }
 
   return (
