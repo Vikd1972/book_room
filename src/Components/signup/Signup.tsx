@@ -15,12 +15,9 @@ import SignUp from './Signup.styled';
 
 export const Signup: React.FC = (props) => {
   const dispatch = useAppDispatch()
-
-  let navigate = useNavigate();
-  let location = useLocation();
-
-  const { from } = location.state || { from: { path: "/" } };
-  const route = JSON.stringify(from.path).split('').map(item => item === '"' ? null : item).join('')
+  const navigate = useNavigate();
+  const location = useLocation();
+  const route = location.state;
 
   const formik = useFormik({
     initialValues: {
@@ -52,7 +49,6 @@ export const Signup: React.FC = (props) => {
           <div>Sign Up /</div>
           <Link
             className="login__name-toggle"
-            state={{ from: from }}
             to="/login">
             Log In
           </Link>

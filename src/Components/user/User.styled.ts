@@ -29,17 +29,20 @@ flex-direction: row;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #F0F4EF;
 }
 #output {
   display: inline-block;
-  /* width: 305px;
-  height: 305px; */
-  width: 100%;
+  max-width: 100%;
+  width: auto;
+  max-height: 100%;
   height: auto;
   flex-shrink: 0;
-  border-radius: 16px;
-  background-image: url(${user_photo});
-  background-repeat: no-repeat;
+  object-fit: cover;
+}
+.user__pic-foto img {
+      height: auto;
+    width: auto;
 }
 .user__pic-btn {
   position: absolute;

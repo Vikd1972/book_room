@@ -9,8 +9,11 @@ import { loginUser } from '../../Store/usersSlice';
 import { Values } from '../../Interfaces/Interface';
 import InputUserInfo from '../componentsUI/inputUserInfo/InputUserInfo';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
+import userPhoto from '../../Utils/picture/user_photo.png'
+import uploadPhoto from '../../Api/uploadPhoto';
 
 import UserProfile from './User.styled';
+
 
 export const User: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -18,7 +21,9 @@ export const User: React.FC = () => {
   const [isChangeInfo, setisChangeInfo] = useState(false);
   const [isChangePass, setisChangePass] = useState(false);
   const [isChangePhoto, setisChangePhoto] = useState(false);
-
+  
+  let user_Photo = userPhoto as string
+  
   const onIsChangeInfo = () => {
     setisChangeInfo(true)
   }
@@ -27,15 +32,25 @@ export const User: React.FC = () => {
     setisChangePass(true)
   }
 
-  var sendingImage = function (e: React.ChangeEvent<HTMLInputElement>) {
-    const reader = new FileReader();
-    reader.onload = function () {
-      if (!reader.result) console.log('qwerty');
-      const output = document.getElementById('output') as HTMLImageElement;
-      if (output) output.src = reader.result as string;
-    };
-    if (e.target.files) reader.readAsDataURL(e.target.files[0]);
-    setisChangePhoto(true);
+  const sendingImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      try {
+        const reader = new FileReader();
+        reader.onload = function () {
+          if (!reader.result) {
+            console.log('error');
+          }
+          user_Photo = reader.result as string;
+              
+            };
+        console.log(user_Photo);        
+        const user = await uploadPhoto(user_Photo);
+        
+      } catch (err) {
+        console.log(err);        
+      }
+      // setisChangePhoto(true);
+    }
   };
 
   const formik = useFormik({
@@ -61,7 +76,7 @@ export const User: React.FC = () => {
       setisChangePass(false)
     },
   });
-  //  if (!user.email) return null
+
   return (
     <UserProfile>
       <div className='user'>
@@ -72,7 +87,8 @@ export const User: React.FC = () => {
           encType="multipart/form-data">
           <div className='user__pic-foto'>
             <img
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              src={user_Photo}
+              alt="user photo"
               id="output" />
           </div>
           <div className='user__pic-btn'>
