@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 
@@ -11,6 +11,7 @@ import InputUserInfo from '../componentsUI/inputUserInfo/InputUserInfo';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
 import userPhoto from '../../Utils/picture/user_photo.png'
 import uploadPhoto from '../../Api/uploadPhoto';
+import getBase64 from '../../Utils/getBase64';
 
 import UserProfile from './User.styled';
 
@@ -20,10 +21,9 @@ export const User: React.FC = () => {
   const user = useAppSelector(state => state.users.user)
   const [isChangeInfo, setisChangeInfo] = useState(false);
   const [isChangePass, setisChangePass] = useState(false);
-  const [isChangePhoto, setisChangePhoto] = useState(false);
-  
-  let user_Photo = userPhoto as string
-  
+
+  let user_Photo = (user.photoFilePath) || userPhoto as string
+
   const onIsChangeInfo = () => {
     setisChangeInfo(true)
   }
@@ -35,21 +35,35 @@ export const User: React.FC = () => {
   const sendingImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       try {
-        const reader = new FileReader();
-        reader.onload = function () {
+        const reader = new FileReader();      
+
+        reader.onload = async () => {
           if (!reader.result) {
             console.log('error');
-          }
+          };
           user_Photo = reader.result as string;
-              
-            };
-        console.log(user_Photo);        
-        const user = await uploadPhoto(user_Photo);
-        
+          console.log(user_Photo);
+          
+          const user = await uploadPhoto(user_Photo);
+          dispatch(
+            loginUser({
+              id: user.id,
+              fullname: user.fullname,
+              email: user.email,
+              photoFilePath: user.photoFilePath,
+            })
+          );
+          let photo = await getBase64(user.photoFilePath)
+          user_Photo = photo as string
+          console.log(user_Photo); 
+          const output = document.getElementById('output') as HTMLImageElement;
+            
+        };
+        if (e.target.files) reader.readAsDataURL(e.target.files[0]);        
+       
       } catch (err) {
-        console.log(err);        
+        console.log(err);
       }
-      // setisChangePhoto(true);
     }
   };
 
@@ -98,11 +112,6 @@ export const User: React.FC = () => {
               onChange={sendingImage}
               type="file">
             </input>
-            {isChangePhoto ? (
-              <div>
-                <button className='submit-sending'></button>
-              </div>
-            ) : null}
           </div>
         </form>
         <form

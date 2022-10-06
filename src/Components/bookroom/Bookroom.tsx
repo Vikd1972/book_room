@@ -32,7 +32,7 @@ export const BookRoom: React.FC = () => {
   } else {
     if (!user.email) {
       const checkToken = async () => {
-        const user = await getUser()
+        const user = await getUser()        
         dispatch(
           loginUser({
             id: user.id,

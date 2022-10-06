@@ -3,7 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface User {    
   id?: number,
   fullname?: string,
-  email?: string
+  email?: string,
+  photoFilePath?: string
 }
 
 interface UsersState {
@@ -15,7 +16,8 @@ const initialState: UsersState = {
   user: {
     id: 0,
     fullname: '',
-    email: ''
+    email: '',
+    photoFilePath: ''
   },
   isLogged: false
 } 
