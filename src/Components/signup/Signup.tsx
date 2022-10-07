@@ -17,7 +17,7 @@ export const Signup: React.FC = (props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state;
+  const route = location.state || '/';
 
   const formik = useFormik({
     initialValues: {

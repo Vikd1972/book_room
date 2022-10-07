@@ -19,33 +19,29 @@ export const User: React.FC = (props) => {
   const user = useAppSelector(state => state.users.user)
   const [isChangeInfo, setisChangeInfo] = useState(false);
   const [isChangePass, setisChangePass] = useState(false);
-  const [isChangePhoto, setIsChangePhoto] = useState(false);
 
   let user_Photo = user.photoFilePath?.endsWith('png') ? user.photoFilePath : photo;
   const output = document.getElementById('output') as HTMLImageElement;
-  
+
   const onIsChangeInfo = () => {
     setisChangeInfo(true)
   }
-  
+
   const onIsChangePass = () => {
     setisChangePass(true)
   }
-  
+
   const sendingImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       try {
         const reader = new FileReader();
-        user_Photo = photo
         reader.onload = async () => {
           if (!reader.result) {
             console.log('error');
           };
           const photo = reader.result as string;
-          
-          // if (output) output.src = ''
-          const user = await uploadPhoto(photo);  
-          
+          const user = await uploadPhoto(photo);
+
           dispatch(
             loginUser({
               id: user.id,
@@ -53,11 +49,7 @@ export const User: React.FC = (props) => {
               email: user.email,
               photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
             })
-            );
-          // user_Photo = `http://localhost:3001/uploads/${user.photoFilePath}`;
-            // if (output) output.src = `http://localhost:3001/uploads/${user.photoFilePath}`
-            console.log(output);
-          // setIsChangePhoto(!isChangePhoto);
+          );
         };
         if (e.target.files) reader.readAsDataURL(e.target.files[0]);
 
@@ -83,6 +75,7 @@ export const User: React.FC = (props) => {
           id: user.id,
           fullname: user.fullname,
           email: user.email,
+          photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
         })
       );
       formik.resetForm()

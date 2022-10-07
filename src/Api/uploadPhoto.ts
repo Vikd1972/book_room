@@ -19,6 +19,7 @@ const uploadPhoto = async (user_Photo: string) => {
     };
     let fd = new FormData();
     fd.append('file', user_Photo)
+    
     const response = await instance.post("/upload/", fd, config)
 
     return response.data.user;
