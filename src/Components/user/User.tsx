@@ -42,9 +42,9 @@ export const User: React.FC = () => {
             console.log('error');
           };
           user_Photo = reader.result as string;
-          console.log(user_Photo);
           
           const user = await uploadPhoto(user_Photo);
+
           dispatch(
             loginUser({
               id: user.id,
@@ -53,10 +53,15 @@ export const User: React.FC = () => {
               photoFilePath: user.photoFilePath,
             })
           );
-          let photo = await getBase64(user.photoFilePath)
-          user_Photo = photo as string
-          console.log(user_Photo); 
-          const output = document.getElementById('output') as HTMLImageElement;
+          
+          user_Photo = user.photoFilePath
+          console.log(user_Photo);
+          
+
+          // let photo = await getBase64(user.photoFilePath)
+          // user_Photo = photo as string
+          // console.log(user_Photo); 
+          // const output = document.getElementById('output') as HTMLImageElement;
             
         };
         if (e.target.files) reader.readAsDataURL(e.target.files[0]);        
