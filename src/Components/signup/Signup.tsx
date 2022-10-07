@@ -33,6 +33,7 @@ export const Signup: React.FC = (props) => {
           id: user.id,
           fullname: user.fullname,
           email: user.email,
+          photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
         })
       );
       dispatch(

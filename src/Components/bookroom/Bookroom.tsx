@@ -38,6 +38,7 @@ export const BookRoom: React.FC = () => {
             id: user.id,
             fullname: user.fullname,
             email: user.email,
+            photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
           })
         )
         dispatch(
