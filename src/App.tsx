@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BookRoom from './Components/bookroom/Bookroom';
+import BookRoom from './components/bookroom/Bookroom';
 import './App.css';
 
 function App() {
