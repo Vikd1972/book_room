@@ -11,21 +11,13 @@ import InputUserInfo from '../../componentsUI/inputUserInfo/InputUserInfo';
 import { ButtonSubmit } from '../../componentsUI/button/Buttons';
 import UserInfoWrapper from './UserInfo.styles';
 
-
-// interface Props {
-//   onIsChangeInfo?: () => void;
-// };
-
-export const UserInfo: React.FC = (props) => {
-  console.log(props);
-  
+export const UserInfo: React.FC = () => {  
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.users.user)
-  const [isChange, setisChange] = useState(false);
+  const [isChange, setIsChange] = useState(false);
 
-  const onIsChange = () => {
-    // setisChange(true)
-    // props.onIsChangeInfo(isChange)
+  const onIsChangeInfo = () => {
+    setIsChange(true)
   }
 
   const formik = useFormik({
@@ -34,18 +26,11 @@ export const UserInfo: React.FC = (props) => {
       email: '',
     } as Values,
     validationSchema: schemaUser,
-    onSubmit: async (values) => {
+    onSubmit: async (values) => {      
       const user = await changeUserData({ values })
-      dispatch(
-        loginUser({
-          id: user.id,
-          fullname: user.fullname,
-          email: user.email,
-          photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
-        })
-      );
+      dispatch(loginUser(user));
       formik.resetForm()
-      setisChange(false)
+      setIsChange(false)
     },
   });
 
@@ -57,7 +42,7 @@ export const UserInfo: React.FC = (props) => {
             <div className='text-name'>Personal information</div>
             <div
               className='text-btn'
-              onClick={onIsChange}>
+              onClick={onIsChangeInfo}>
               Change information</div>
           </div>
           <div className='info'>

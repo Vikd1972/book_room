@@ -3,6 +3,7 @@ import instance from '.';
 
 const changeUserData = async (props: any) => {
   try {
+    
     const response = await instance
       .put("/users/", {
         fullname: props.values.fullname,

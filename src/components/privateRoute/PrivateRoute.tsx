@@ -5,9 +5,9 @@ import { useAppSelector } from '../../store/hooks';
 const PrivateRoute = ({ children, ...rest }: any) => {
   const location = useLocation()
   
-  const isLogged = useAppSelector(state => state.users.isLogged)
+  const user = useAppSelector(state => state.users.user)
 
-  return isLogged ? children : <Navigate to="/login" state={ location.pathname } />;
+  return user.email ? children : <Navigate to="/login" state={ location.pathname } />;
 }
 
 export default PrivateRoute;

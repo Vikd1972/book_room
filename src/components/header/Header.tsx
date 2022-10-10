@@ -3,18 +3,15 @@ import Heading from './Header.styled';
 import { Link } from "react-router-dom";
 import { useAppDispatch } from '../../store/hooks';
 import { useAppSelector } from '../../store/hooks';
-import { loging, loginUser } from '../../store/usersSlice';
+import { loginUser } from '../../store/usersSlice';
 import { ButtonLink } from '../componentsUI/button/Buttons';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
-  const isLogged = useAppSelector(state => state.users.isLogged)
+  const user = useAppSelector(state => state.users.user)
 
   const logout = () => {
     localStorage.removeItem('token');
-    dispatch(
-      loging(false)
-    );
     dispatch(
       loginUser({
         id: 0,
@@ -40,7 +37,7 @@ export const Header: React.FC = () => {
             </div>
           </div>
         </form>
-        {isLogged ?
+        {user.email ?
           <nav className='buttons'>
             <Link
               className="buttons-icon btn-cart"

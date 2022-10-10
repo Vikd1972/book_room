@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useAppSelector } from '../../store/hooks';
 import { useAppDispatch } from '../../store/hooks';
-import { loginUser, loging } from '../../store/usersSlice';
+import { loginUser } from '../../store/usersSlice';
 import Header from '../header/Header';
 import Login from '../login/Login';
 import Signup from '../signup/Signup';
@@ -19,39 +19,24 @@ import getUser from '../../api/getUser';
 import Bookroom from './Bookroom.styled';
 
 export const BookRoom: React.FC = () => {
-  const [isLoggedOne, setIsLoggedOne] = useState(false)
   const dispatch = useAppDispatch()
+  const [isLogged, setIsLogged] = useState(false)
 
   const user = useAppSelector(state => state.users.user);
-  const isLogged = useAppSelector(state => state.users.isLogged);
 
-  if (!user.email && !localStorage.token) {
-    dispatch(
-      loging(false)
-    );
-  } else {
-    if (!user.email) {
+  if (!isLogged && localStorage.token) {
       const checkToken = async () => {
         const user = await getUser()        
-        dispatch(
-          loginUser({
-            id: user.id,
-            fullname: user.fullname,
-            email: user.email,
-            photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
-          })
-        )
-        dispatch(
-          loging(true)
-        );
+        dispatch(loginUser(user))
       }
-      checkToken()
+    checkToken()
+    setIsLogged(true);
     };
-  }
 
-  if (localStorage.token && !user.email) {
-    return null
-  }
+
+  // if (isLogged) {
+  //   return null
+  // }
 
   return (
     <Router>

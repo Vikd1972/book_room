@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
 import signUser from '../../api/signUser';
-import { loginUser, loging } from '../../store/usersSlice';
+import { loginUser } from '../../store/usersSlice';
 import { useAppDispatch } from '../../store/hooks';
 import schemaSign from '../../validation/schemaSign';
 import { Values } from '../../interfaces/Interface';
@@ -28,17 +28,7 @@ export const Signup: React.FC = (props) => {
     validationSchema: schemaSign,
     onSubmit: async (values) => {
       const user = await signUser({ values })
-      dispatch(
-        loginUser({
-          id: user.id,
-          fullname: user.fullname,
-          email: user.email,
-          photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
-        })
-      );
-      dispatch(
-        loging(true)
-      );
+      dispatch(loginUser(user));
       navigate(route)
     },
   });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ToastContainer } from 'react-toastify';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
@@ -13,7 +13,6 @@ export const UserPhoto: React.FC = (props) => {
   const user = useAppSelector(state => state.users.user)
 
   let user_Photo = user.photoFilePath?.endsWith('png') ? user.photoFilePath : photo;
-  const output = document.getElementById('output') as HTMLImageElement;
 
   const sendingImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -26,14 +25,7 @@ export const UserPhoto: React.FC = (props) => {
           const photo = reader.result as string;
           const user = await uploadPhoto(photo);
 
-          dispatch(
-            loginUser({
-              id: user.id,
-              fullname: user.fullname,
-              email: user.email,
-              photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
-            })
-          );
+          dispatch(loginUser(user));
         };
         if (e.target.files) reader.readAsDataURL(e.target.files[0]);
 

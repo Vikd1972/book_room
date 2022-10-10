@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 
 import changeUserData from '../../../api/changUserData';
-import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch } from '../../../store/hooks';
 import schemaUser from '../../../validation/schemaUser';
 import { loginUser } from '../../../store/usersSlice';
 import { Values } from '../../../interfaces/Interface';
@@ -15,12 +15,8 @@ import UserPassWrapper from './UserPass.styles';
 
 export const UserPass: React.FC = (props) => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(state => state.users.user)
   const [isChangeInfo, setisChangeInfo] = useState(false);
   const [isChangePass, setisChangePass] = useState(false);
-
-  const output = document.getElementById('output') as HTMLImageElement;
-
 
   const onIsChangePass = () => {
     setisChangePass(true)
@@ -35,16 +31,8 @@ export const UserPass: React.FC = (props) => {
     validationSchema: schemaUser,
     onSubmit: async (values) => {
       const user = await changeUserData({ values })
-      dispatch(
-        loginUser({
-          id: user.id,
-          fullname: user.fullname,
-          email: user.email,
-          photoFilePath: `http://localhost:3001/uploads/${user.photoFilePath}`,
-        })
-      );
+      dispatch(loginUser(user));
       formik.resetForm()
-      setisChangeInfo(false)
       setisChangePass(false)
     },
   });
@@ -55,7 +43,6 @@ export const UserPass: React.FC = (props) => {
         <form
           onSubmit={formik.handleSubmit}>
           <div className='user__info'>
-            {/* <div className='user__info-personal'>          </div> */}
             <div className='user__info-password'>
               <div className='text'>
                 <div className='text-name'>Password</div>
