@@ -1,4 +1,6 @@
 import React from 'react';
+
+import CatalogFilter from './catalogFilter/CatalogFilter';
 import Сatalogue from './Catalog.styled';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
 
@@ -16,7 +18,7 @@ export const Catalog: React.FC = () => {
         </div>
         <div className='poster__image'></div>
       </div>
-      <div className='sorting'></div>
+      <CatalogFilter />
       <div className='books'></div>
       <div className='auth-now'></div>
     </Сatalogue >
