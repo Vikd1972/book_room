@@ -6,11 +6,11 @@ const changeUserData = async (props: any) => {
     
     const response = await instance
       .put("/users/", {
-        fullname: props.values.fullname,
-        email: props.values.email,
-        oldPassword: props.values.oldPassword,
-        newPassword: props.values.newPassword,
-        confirmPassword: props.values.confirmPassword,
+        fullname: props.fullname,
+        email: props.email,
+        oldPassword: props.oldPassword,
+        newPassword: props.newPassword,
+        confirmPassword: props.confirmPassword,
       })
     
     return response.data.user;

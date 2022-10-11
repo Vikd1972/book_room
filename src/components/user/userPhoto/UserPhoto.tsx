@@ -46,7 +46,7 @@ export const UserPhoto: React.FC = (props) => {
           <div className='user__pic-foto'>
             <img
               src={user_Photo}
-              alt="user photo"
+              alt="user"
               id="output" />
           </div>
           <div className='user__pic-btn'>

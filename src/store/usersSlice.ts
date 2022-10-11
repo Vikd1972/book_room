@@ -8,8 +8,7 @@ export interface User {
 }
 
 interface UsersState {
-  user: User,
-  isLogged: boolean
+  user: User
 }
 
 const initialState: UsersState = {
@@ -19,7 +18,6 @@ const initialState: UsersState = {
     email: '',
     photoFilePath: ''
   },
-  isLogged: false
 } 
 
 export const usersSlice = createSlice({
@@ -29,15 +27,11 @@ export const usersSlice = createSlice({
     loginUser: (state, action: PayloadAction<User>) => {     
       state.user = action.payload            
     },
-    loging: (state, action: PayloadAction<boolean>) => {
-      state.isLogged = action.payload
-    }
   }  
 })
 
 export const {
   loginUser,
-  loging
 } = usersSlice.actions
 
 export default usersSlice.reducer

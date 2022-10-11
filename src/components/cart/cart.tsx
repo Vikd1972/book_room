@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Basket from './cart.styled';
+import Basket from './cart.styles';
 
 export const Cart: React.FC = () => {
   return (

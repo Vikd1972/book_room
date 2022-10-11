@@ -1,7 +1,7 @@
 export interface Values {
   fullname?: string;
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
   confirmPassword: string;
   oldPassword?: string;
   newPassword?: string;
@@ -22,6 +22,7 @@ export interface MyInput {
   formikName?: boolean,
   formikError?: string,
   formikField?: any,
+  formikIsValid?: boolean
   icon?: string,
   changeField?: boolean,
 }

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RotatingLines } from 'react-loader-spinner';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useAppSelector } from '../../store/hooks';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { loginUser } from '../../store/usersSlice';
 import Header from '../header/Header';
 import Login from '../login/Login';
@@ -19,24 +19,32 @@ import getUser from '../../api/getUser';
 import Bookroom from './Bookroom.styled';
 
 export const BookRoom: React.FC = () => {
+  const user = useAppSelector(state => state.users.user)
   const dispatch = useAppDispatch()
   const [isLogged, setIsLogged] = useState(false)
 
-  const user = useAppSelector(state => state.users.user);
+  useEffect(() => {
+    if (localStorage.token) {
+      (async () => {
+        try {
+          const user = await getUser()
+          dispatch(loginUser(user))
+        }
+        catch (err) {
+          console.log(err);
+        }
+        finally {
+          setIsLogged(true);
+        }
+      })();
+    } else {
+      setIsLogged(true)
+    }
+  }, [dispatch]);
 
-  if (!isLogged && localStorage.token) {
-      const checkToken = async () => {
-        const user = await getUser()        
-        dispatch(loginUser(user))
-      }
-    checkToken()
-    setIsLogged(true);
-    };
-
-
-  // if (isLogged) {
-  //   return null
-  // }
+  if (!isLogged) {
+    return null
+  }
 
   return (
     <Router>
@@ -52,8 +60,8 @@ export const BookRoom: React.FC = () => {
               <Cart />
             </PrivateRoute>}
           />
-          <Route path="/acc" element={
-            <PrivateRoute path="/acc">
+          <Route path="/user_profile" element={
+            <PrivateRoute path="/user_profile">
               <User />
             </PrivateRoute>}
           />

@@ -9,9 +9,9 @@ import { useAppDispatch } from '../../store/hooks';
 import schemaSign from '../../validation/schemaSign';
 import { Values } from '../../interfaces/Interface';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
-import InputAuth from '../componentsUI/inputAuth/InputAuth';
+import InputAuth from '../componentsUI/inputOneLine/InputOneLine';
 
-import SignUp from './Signup.styled';
+import SignUp from './Signup.styles';
 
 export const Signup: React.FC = (props) => {
   const dispatch = useAppDispatch()
@@ -27,9 +27,14 @@ export const Signup: React.FC = (props) => {
     } as Values,
     validationSchema: schemaSign,
     onSubmit: async (values) => {
-      const user = await signUser({ values })
-      dispatch(loginUser(user));
-      navigate(route)
+      try {
+        const user = await signUser(values)
+        dispatch(loginUser(user));
+        navigate(route)
+      }
+      catch (err) {
+        console.log(err);        
+      }
     },
   });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from './Header.styled';
+import Heading from './Header.styles';
 import { Link } from "react-router-dom";
 import { useAppDispatch } from '../../store/hooks';
 import { useAppSelector } from '../../store/hooks';
@@ -17,18 +17,20 @@ export const Header: React.FC = () => {
         id: 0,
         fullname: '',
         email: '',
+        photoFilePath: '',
       })
     )
   }
 
   return (
     <Heading>
-      <header className='logo'>
-        <div className='logotype'></div>
+      <header className='top-panel'>
+        <div className='panel__logotype'></div>
         <form>
-          <div className='logo__searchname'>Catalog</div>
-          <div className='logo__width-setter'>
-            <div className='logo__searchfield'>
+          <div className='panel__search'>Catalog</div>
+          <div className='search-icon'></div>
+          <div className='search__width-setter'>
+            <div className='search__searchfield'>
               <input
                 name='catalog'
                 type='text'
@@ -38,7 +40,7 @@ export const Header: React.FC = () => {
           </div>
         </form>
         {user.email ?
-          <nav className='buttons'>
+          <nav className='panel__buttons'>
             <Link
               className="buttons-icon btn-cart"
               to="/cart">
@@ -50,7 +52,7 @@ export const Header: React.FC = () => {
             </Link>
             <Link
               className="buttons-icon btn-user"
-              to="/acc">
+              to="/user_profile">
             </Link>
           </nav> :
           <ButtonLink

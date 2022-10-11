@@ -8,7 +8,6 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: row;
-justify-content: space-between;
 .login {
   display: flex;
   flex-direction: column;
@@ -34,21 +33,8 @@ justify-content: space-between;
   width: 413px;
   margin-bottom: 60px;
 }
-.btn {
-  margin-top: 30px;
-  width: 151px;
-  height: 44px;
-  border-radius: 16px;
-  background-color: #344966;
-  color: #F0F4EF;
-  font-size: 16px;
-  line-height: 24px;
-}
-.btn:hover{
-  cursor: pointer;
-  background-color: #0D1821;
-}
 .login-pic {
+  margin-left: 255px;
   margin-bottom: -70px;
   width: 612px;
   height: 522px;
@@ -56,15 +42,14 @@ justify-content: space-between;
   background-repeat: no-repeat;
 }
 .toast {
-    width: 400px;
+  width: 400px;
 }
 .toast-body {
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
-   color: #ff9999;
+  color: #ff9999;
 }
-
-.test {
+.btn {
   max-width: 151px;
   width: 100%;
   background-color: red;

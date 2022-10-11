@@ -12,13 +12,13 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
-.logo {
+.top-panel {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.logotype {
+.panel__logotype {
   min-width: 88px;
   height: 46px;
   background-image: url(${logo});
@@ -33,19 +33,29 @@ form {
   max-width: 770px;
   width: 100%;
 }
-.logo__searchname {
+.panel__search {
   width: 110px;
 }
-.logo__width-setter{
+.search-icon {
+  margin: 2px 0 0 20px;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px 0 0 16px;
+  background-color: #F0F4EF;
+  background-image: url(${search});
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 1;
+}
+.search__width-setter{
   max-width: 670px;
   width: 100%;
   height: 64px;
 }
-.logo__searchfield {
+.search__searchfield {
   height: 64px;
-	margin-left: 64px;
 }
-.logo__searchfield input {
+.search__searchfield input {
   width: 100%;
   height: 64px;
   padding-left: 64px;
@@ -53,13 +63,10 @@ form {
   border-radius: 16px;
   background-color: #F0F4EF;
   border: none;
-  background-image: url(${search});
-  background-repeat: no-repeat;
-  background-position: 26px;
   font-size: 16px;
   font-weight: 400;
 }
-.buttons {
+.panel__buttons {
   width: 198px;
   margin-left: 33px;
   display: flex;
@@ -101,13 +108,13 @@ form {
   cursor: pointer;
   background-color: #0D1821;
 }
-.poster {
+/* .poster {
   margin-top: 40px;
   width: auto;
   height: 400px;
   background-color: #F0F4EF;
   border-radius: 16px;
-}
+} */
 `;
 
 export default Heading

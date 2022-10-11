@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { ButtonLinkStyle, ButtonSubmitStyle } from './Buttons.styled'
+import { ButtonLinkStyle, ButtonSubmitStyle } from './Buttons.styles'
 import { MyButton } from '../../../interfaces/Interface'
 
 export const ButtonLink: React.FC<MyButton> = (props: MyButton) => {

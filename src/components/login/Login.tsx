@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
@@ -9,17 +9,28 @@ import { useAppDispatch } from '../../store/hooks';
 
 import schemqaLogin from '../../validation/schemaLogin';
 import { Values } from '../../interfaces/Interface';
-import InputAuth from '../componentsUI/inputAuth/InputAuth';
+import InputAuth from '../componentsUI/inputOneLine/InputOneLine';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
+import User from '../user/User';
 
-import LogIn from './Login.styled';
+import LogIn from './Login.styles';
 
 
-export const Login: React.FC = (props) => {
+
+export const Login: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state || '/';  
+  const route = location.state || '/';
+
+  
+  // useEffect((values) => {
+  //     (async (values) => {
+  //       const user = await authUser(values)
+  //         dispatch(loginUser(user))
+  //     })();
+  // }, [dispatch]);
+
 
   const formik = useFormik({
     initialValues: {
@@ -28,11 +39,14 @@ export const Login: React.FC = (props) => {
     } as Values,
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
-      const user = await authUser({ values })
-      dispatch(loginUser(user));
-      console.log(route);
-      
-      navigate(route)
+      try {
+        const user = await authUser(values)
+        // if (user) dispatch(loginUser(user));
+        navigate(route)
+      }
+      catch(err) {
+        console.log(err); 
+      }
     },
   });
 
@@ -53,6 +67,7 @@ export const Login: React.FC = (props) => {
           <InputAuth
             type='email'
             placeholder='Email'
+            formikIsValid={formik.isValid}
             formikName={formik.touched.email}
             formikError={formik.errors.email}
             formikField={formik.getFieldProps('email')}
@@ -67,9 +82,8 @@ export const Login: React.FC = (props) => {
             icon='hide'
           />
           <ButtonSubmit
-            // width='151px'
+            className="btn"
             text='Log In'
-            className="test"
           />
         </form>
       </div>

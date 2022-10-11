@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InputUserField from './InputUserInfo.styled'
+import InputUserField from './InputTwoLine.styles'
 import { MyInput } from '../../../interfaces/Interface'
 
 const InputUserInfo: React.FC<MyInput> = (props: MyInput, ...formik: any) => {

@@ -1,12 +1,17 @@
 import showToast from '../validation/showToast';
 import instance from '.';
 
-const authUser = async (props: any) => {
+// interface Props {
+//   email: string,
+//   password: string,
+// }
+
+const authUser = async (props: any) => {  
   try {
     const response = await instance
       .post("/auth/login/", {
-        email: props.values.email,
-        pass: props.values.password,
+        email: props.email,
+        pass: props.password,
       })
     localStorage.setItem('token', response.data.token);
     
@@ -16,6 +21,6 @@ const authUser = async (props: any) => {
     showToast(err.response.data.message);
     console.log(err);
   }
-}
+} 
 
 export default authUser;

@@ -5,8 +5,8 @@ const signUser = async (props: any) => {
   try {
     const response = await instance
       .post("/auth/sign/", {
-        email: props.values.email,
-        pass: props.values.password,
+        email: props.email,
+        pass: props.password,
       })
     localStorage.setItem('token', response.data.token);
 

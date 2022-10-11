@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CatalogFilter from './catalogFilter/CatalogFilter';
-import Сatalogue from './Catalog.styled';
+import Сatalogue from './Catalog.styles';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
 
 export const Catalog: React.FC = () => {

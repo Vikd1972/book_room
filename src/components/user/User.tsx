@@ -5,7 +5,7 @@ import UserPhoto from './userPhoto/UserPhoto';
 import UserInfo from './userInfo/UserInfo';
 import UserPass from './userPass/UserPass';
 
-import UserWrapper from './User.styled';
+import UserWrapper from './User.styles';
 
 export const User: React.FC = () => {
   return (

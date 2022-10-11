@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import Basement from './Footer.styled';
+import Basement from './Footer.styles';
 
 export const Footer: React.FC = () => {
 
@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
         </Link><br />
         <Link
           className="btn"
-          to="/acc">
+          to="/user_profile">
           My Account
         </Link><br />
         <Link

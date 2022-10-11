@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../../store/hooks';
 import schemaUser from '../../../validation/schemaUser';
 import { loginUser } from '../../../store/usersSlice';
 import { Values } from '../../../interfaces/Interface';
-import InputUserInfo from '../../componentsUI/inputUserInfo/InputUserInfo';
+import InputUserInfo from '../../componentsUI/inputTwoLine/InputTwoLine';
 import { ButtonSubmit } from '../../componentsUI/button/Buttons';
 
 
@@ -15,11 +15,10 @@ import UserPassWrapper from './UserPass.styles';
 
 export const UserPass: React.FC = (props) => {
   const dispatch = useAppDispatch()
-  const [isChangeInfo, setisChangeInfo] = useState(false);
-  const [isChangePass, setisChangePass] = useState(false);
+  const [isChange, setIsChange] = useState(false);
 
-  const onIsChangePass = () => {
-    setisChangePass(true)
+  const onIsChange = () => {
+    setIsChange(true)
   }
 
   const formik = useFormik({
@@ -30,10 +29,15 @@ export const UserPass: React.FC = (props) => {
     } as Values,
     validationSchema: schemaUser,
     onSubmit: async (values) => {
-      const user = await changeUserData({ values })
-      dispatch(loginUser(user));
-      formik.resetForm()
-      setisChangePass(false)
+      try {
+        const user = await changeUserData(values);
+        dispatch(loginUser(user));
+        formik.resetForm();
+        setIsChange(false);
+      }
+      catch (err) {
+        console.log(err);
+      }
     },
   });
 
@@ -47,7 +51,7 @@ export const UserPass: React.FC = (props) => {
               <div className='text'>
                 <div className='text-name'>Password</div>
                 <div className='text-btn'
-                  onClick={onIsChangePass}>
+                  onClick={onIsChange}>
                   Change password</div>
               </div>
               <div className='info'>
@@ -61,10 +65,10 @@ export const UserPass: React.FC = (props) => {
                   formikError={formik.errors.oldPassword}
                   formikField={formik.getFieldProps('oldPassword')}
                   icon='hide'
-                  changeField={isChangePass}
+                  changeField={isChange}
                 />
               </div>
-              {isChangePass ? (
+              {isChange ? (
                 <>
                   <InputUserInfo
                     type='password'
@@ -75,7 +79,7 @@ export const UserPass: React.FC = (props) => {
                     formikError={formik.errors.newPassword}
                     formikField={formik.getFieldProps('newPassword')}
                     icon='hide'
-                    changeField={isChangePass}
+                    changeField={isChange}
                   />
                   <InputUserInfo
                     type='password'
@@ -86,7 +90,7 @@ export const UserPass: React.FC = (props) => {
                     formikError={formik.errors.confirmPassword}
                     formikField={formik.getFieldProps('confirmPassword')}
                     icon='hide'
-                    changeField={isChangePass}
+                    changeField={isChange}
                   />
                 </>
               ) : (
@@ -94,7 +98,7 @@ export const UserPass: React.FC = (props) => {
               )}
             </div>
           </div>
-          {isChangeInfo || isChangePass ? (
+          {isChange ? (
             <div className='btn'>
               <ButtonSubmit
                 width='170px'

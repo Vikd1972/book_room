@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 
@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import schemaUser from '../../../validation/schemaUser';
 import { loginUser } from '../../../store/usersSlice';
 import { Values } from '../../../interfaces/Interface';
-import InputUserInfo from '../../componentsUI/inputUserInfo/InputUserInfo';
+import InputUserInfo from '../../componentsUI/inputTwoLine/InputTwoLine';
 import { ButtonSubmit } from '../../componentsUI/button/Buttons';
 import UserInfoWrapper from './UserInfo.styles';
 
@@ -16,7 +16,7 @@ export const UserInfo: React.FC = () => {
   const user = useAppSelector(state => state.users.user)
   const [isChange, setIsChange] = useState(false);
 
-  const onIsChangeInfo = () => {
+  const onIsChange = () => {
     setIsChange(true)
   }
 
@@ -27,10 +27,15 @@ export const UserInfo: React.FC = () => {
     } as Values,
     validationSchema: schemaUser,
     onSubmit: async (values) => {      
-      const user = await changeUserData({ values })
-      dispatch(loginUser(user));
-      formik.resetForm()
-      setIsChange(false)
+      try {
+        const user = await changeUserData(values);
+        dispatch(loginUser(user));
+        formik.resetForm();
+        setIsChange(false);
+      }
+      catch (err) {
+        console.log(err);        
+      }
     },
   });
 
@@ -42,7 +47,7 @@ export const UserInfo: React.FC = () => {
             <div className='text-name'>Personal information</div>
             <div
               className='text-btn'
-              onClick={onIsChangeInfo}>
+              onClick={onIsChange}>
               Change information</div>
           </div>
           <div className='info'>
