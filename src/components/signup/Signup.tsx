@@ -2,14 +2,16 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 import signUser from '../../api/signUpUser';
 import { loginUser, UserType } from '../../store/usersSlice';
 import { useAppDispatch } from '../../store/hooks';
 import schemaSign from '../../validation/schemaSign';
 import { Values } from '../../interfaces/Interface';
-import { ButtonSubmit } from '../componentsUI/button/Buttons';
-import InputAuth from '../componentsUI/inputOneLine/InputOneLine';
+import { Button } from '../componentsUI/button/Buttons';
+import InputOneLine from '../componentsUI/inputOneLine/InputOneLine';
+import showToast from '../../validation/showToast';
 
 import SignUpWrapper from './Signup.styles';
 
@@ -33,7 +35,9 @@ export const Signup: React.FC = (props) => {
         navigate(route)
       }
       catch (err) {
-        console.log(err);        
+        if (err instanceof AxiosError) {
+          showToast(err.response?.data.message);
+        }      
       }
     },
   });
@@ -52,38 +56,44 @@ export const Signup: React.FC = (props) => {
         <form
           onSubmit={formik.handleSubmit}
           className='login__form'>
-          <InputAuth
+          <InputOneLine
             type='email'
             placeholder='Email'
+            textWhenChanged='Enter your email'
             formikName={formik.touched.email}
             formikError={formik.errors.email}
             formikField={formik.getFieldProps('email')}
             icon='mail'
           />
-          <InputAuth
+          <InputOneLine
             type='password'
             placeholder='Password'
+            textWhenChanged='Enter your password'
             formikName={formik.touched.password}
             formikError={formik.errors.password}
             formikField={formik.getFieldProps('password')}
             icon='hide'
           />
-          <InputAuth
+          <InputOneLine
             type='password'
             placeholder='Confirm password'
+            textWhenChanged='Replay your password'
             formikName={formik.touched.confirmPassword}
             formikError={formik.errors.confirmPassword}
             formikField={formik.getFieldProps('confirmPassword')}
             icon='hide'
           />
-          <ButtonSubmit
-            width='151px'
+          <Button
+            type='submit'
+            className="btn"
             text='Sign Up'
           />
         </form>
       </div>
       <div className='login-pic'></div>
-      <ToastContainer />
+      <ToastContainer
+        className='toast'
+        bodyClassName='toast-body' /> 
     </SignUpWrapper>
   );
 }

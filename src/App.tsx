@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AxiosError } from 'axios';
 
 import { useAppDispatch } from './store/hooks';
 import { loginUser, UserType } from './store/usersSlice';
@@ -12,6 +14,7 @@ import Cart from './components/cart/Cart';
 import User from './components/user/User';
 import Footer from './components/footer/Footer';
 import getUser from './api/getUser';
+import showToast from './validation/showToast';
 
 import AppWrapper from './App.styles';
 
@@ -30,7 +33,9 @@ export const App: React.FC = () => {
           dispatch(loginUser(user))
         }
         catch (err) {
-          console.log(err);
+          if (err instanceof AxiosError) {
+            showToast(err.message);
+          }
         }
         finally {
           setIsInit(true);
@@ -67,6 +72,9 @@ export const App: React.FC = () => {
           />
         </Routes>
         <Footer />
+        <ToastContainer
+          className='toast'
+          bodyClassName='toast-body' />
       </AppWrapper>
     </Router>
   );

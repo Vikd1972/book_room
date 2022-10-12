@@ -27,7 +27,7 @@ line-height: 30px;
   background-repeat: no-repeat;
   margin-bottom: 40px;
 }
-.btn {
+.navi {
   color: #F0F4EF;
   text-decoration: none;
   margin-bottom: 5px;

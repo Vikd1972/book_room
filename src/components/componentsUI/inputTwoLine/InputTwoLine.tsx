@@ -1,11 +1,11 @@
 import React from 'react';
 
-import InputUserField from './InputTwoLine.styles'
+import InputTwoLineWrapper from './InputTwoLine.styles'
 import { MyInput } from '../../../interfaces/Interface'
 
-const InputUserInfo: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
+const InputTwoLine: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
   return (
-    <InputUserField icon={props.icon}>
+    <InputTwoLineWrapper icon={props.icon}>
       {props.changeField ? (
         <>
           {props.formikName && props.formikError ? (
@@ -28,8 +28,8 @@ const InputUserInfo: React.FC<MyInput> = (props: MyInput, ...formik: any) => {
       ) : (
           <div className='value'>{props.field}</div>
       )}
-    </InputUserField>
+    </InputTwoLineWrapper>
   )
 }
 
-export default InputUserInfo;
+export default InputTwoLine;

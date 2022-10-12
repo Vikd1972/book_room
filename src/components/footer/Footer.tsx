@@ -15,22 +15,22 @@ export const Footer: React.FC = () => {
       </div>
       <nav className='links'>
         <Link
-          className="btn"
+          className="navi"
           to="/">
           Home Page
         </Link><br />
         <Link
-          className="btn"
+          className="navi"
           to="/">
           Catalog
         </Link><br />
         <Link
-          className="btn"
+          className="navi"
           to="/profile">
           My Account
         </Link><br />
         <Link
-          className="btn"
+          className="navi"
           to="/cart">
           Cart
         </Link>

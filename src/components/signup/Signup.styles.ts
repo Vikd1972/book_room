@@ -75,20 +75,6 @@ justify-content: space-between;
 .err {
   color: #ff0000;
 }
-.btn {
-  margin-top: 30px;
-  width: 151px;
-  height: 44px;
-  border-radius: 16px;
-  background-color: #344966;
-  color: #F0F4EF;
-  font-size: 16px;
-  line-height: 24px;
-}
-.btn:hover{
-  cursor: pointer;
-  background-color: #0D1821;
-}
 .login-pic {
   margin-left: 255px;
   margin-bottom: -70px;
@@ -98,12 +84,17 @@ justify-content: space-between;
   background-repeat: no-repeat;
 }
 .toast {
-    width: 400px;
+  width: 400px;
 }
 .toast-body {
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
-   color: #ff9999;
+  color: #ff9999;
+}
+.btn {
+  margin-top: 50px;
+  max-width: 151px;
+  width: 100%;
 }
 `;
 

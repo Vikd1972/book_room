@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 import changeUserData from '../../../api/changUserData';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import schemaUser from '../../../validation/schemaUser';
 import { loginUser } from '../../../store/usersSlice';
 import { Values } from '../../../interfaces/Interface';
-import InputUserInfo from '../../componentsUI/inputTwoLine/InputTwoLine';
-import { ButtonSubmit } from '../../componentsUI/button/Buttons';
+import InputTwoLine from '../../componentsUI/inputTwoLine/InputTwoLine';
+import { Button } from '../../componentsUI/button/Buttons';
 import UserInfoWrapper from './UserInfo.styles';
 import { UserType } from '../../../store/usersSlice';
+import showToast from '../../../validation/showToast';
 
 export const UserInfo: React.FC = () => {  
   const dispatch = useAppDispatch()
@@ -35,7 +37,9 @@ export const UserInfo: React.FC = () => {
         setIsChange(false);
       }
       catch (err) {
-        console.log(err);        
+        if (err instanceof AxiosError) {
+          showToast(err.response?.data.message);
+        }         
       }
     },
   });
@@ -52,7 +56,7 @@ export const UserInfo: React.FC = () => {
               Change information</div>
           </div>
           <div className='info'>
-            <InputUserInfo
+            <InputTwoLine
               type='text'
               textInfo='Your name'
               textWhenChanged={`Your name now is ${user.fullname}. Enter new name`}
@@ -64,7 +68,7 @@ export const UserInfo: React.FC = () => {
               icon='user'
               changeField={isChange}
             />
-            <InputUserInfo
+            <InputTwoLine
               type='email'
               textInfo='Your email'
               textWhenChanged={`Your email now is ${user.email}. Enter new email`}
@@ -81,8 +85,9 @@ export const UserInfo: React.FC = () => {
         </div>
         {isChange ? (
           <div className='btn'>
-            <ButtonSubmit
-              width='170px'
+            <Button
+              type='submit'
+              className="btn"
               text='Confirm'
             />
           </div>

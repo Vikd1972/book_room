@@ -1,11 +1,13 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { loginUser } from '../../../store/usersSlice';
 import photo from '../../../utils/picture/user_photo.png'
 import uploadPhoto from '../../../api/uploadPhoto';
 import { UserType } from '../../../store/usersSlice';
+import showToast from '../../../validation/showToast';
 
 import UserPhotoWrapper from './UserPhoto.styles';
 
@@ -29,7 +31,9 @@ export const UserPhoto: React.FC = () => {
         };
         if (e.target.files) reader.readAsDataURL(e.target.files[0]);
       } catch (err) {
-        console.log(err);
+        if (err instanceof AxiosError) {
+          showToast(err.response?.data.message);
+        }  
       }
     }
   };

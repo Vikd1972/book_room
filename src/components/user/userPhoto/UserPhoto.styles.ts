@@ -51,12 +51,12 @@ flex-direction: row;
   cursor: pointer;
 }
 .toast {
-    width: 400px;
+  width: 400px;
 }
 .toast-body {
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
-   color: #ff9999;
+  color: #ff9999;
 }
 `;
 export default UserPhotoWrapper

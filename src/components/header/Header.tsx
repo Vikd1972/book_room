@@ -4,7 +4,7 @@ import HeaderWrapper from './Header.styles';
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { reset } from '../../store/usersSlice';
-import { ButtonLink } from '../componentsUI/button/Buttons';
+import { Button } from '../componentsUI/button/Buttons';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -48,11 +48,15 @@ export const Header: React.FC = () => {
               to="/profile">
             </Link>
           </nav> :
-          <ButtonLink
-            to="/login"
-            width='231px'
-            text='Log In / Sing Up'
-          />
+          <div>
+            <form action="/login">
+              <Button
+                type='submit'
+                className='btn'
+                text='Log In / Sing Up'
+              />
+            </form>
+          </div>
         }
       </header>
     </HeaderWrapper>

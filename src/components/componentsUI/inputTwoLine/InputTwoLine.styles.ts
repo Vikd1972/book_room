@@ -9,7 +9,7 @@ export interface Icon {
   icon?: string;
 }
 
-const InputUserField = styled.div<Icon>`
+const InputTwoLineWrapper = styled.div<Icon>`
 margin-top: 10px;
 margin-top: 20px;
 width: 100%;
@@ -63,6 +63,7 @@ input {
   line-height: 28px;
   background-color: transparent;
   border: none;
+  outline: none;
 }
 .user__info-password {
   margin-top: 40px;
@@ -72,4 +73,4 @@ input {
 }
 `;
 
-export default InputUserField
+export default InputTwoLineWrapper

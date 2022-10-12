@@ -1,38 +1,22 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 
-import { ButtonLinkStyle, ButtonSubmitStyle } from './Buttons.styles'
-// import { MyButton } from '../../../interfaces/Interface'
+import { ButtonWrapper } from './Buttons.styles'
 
 export interface MyButton {
-  to?: string,
-  width?: string,
   text?: string,
+  className?: string,
+  type?: "button" | "reset" | "submit",
+  onClick?: () => void;
 }
 
-export const ButtonLink: React.FC<MyButton> = (props: MyButton) => {
+export const Button: React.FC<MyButton> = (props) => {
   return (
-    <ButtonLinkStyle width={props.width}>
-      <Link
-        to={`${props.to}`}>
-        <div>
-          {props.text}
-        </div>
-      </Link>
-    </ButtonLinkStyle >
-  )
-}
-
-export const ButtonSubmit: React.FC<MyButton & {className?:string}> = (props) => {
-  return (
-    <ButtonSubmitStyle
-      type='submit'
-      width={props.width}
-    className={props.className}
+    <ButtonWrapper
+      type={props.type}
+      className={props.className}
+      onClick={props.onClick}
     >
-      <div>
-        {props.text}
-      </div>
-    </ButtonSubmitStyle >
+      {props.text}
+    </ButtonWrapper >
   )
 }

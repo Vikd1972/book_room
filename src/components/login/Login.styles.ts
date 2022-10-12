@@ -50,9 +50,9 @@ flex-direction: row;
   color: #ff9999;
 }
 .btn {
+  margin-top: 50px;
   max-width: 151px;
   width: 100%;
-  background-color: red;
 }
 `;
 

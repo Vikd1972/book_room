@@ -1,11 +1,11 @@
 import React from 'react';
 
-import InputField from './InputOneLine.styles';
+import InputOneLineWrapper from './InputOneLine.styles';
 import { MyInput } from '../../../interfaces/Interface'
 
-const InputAuth: React.FC<MyInput> = (props, ...formik: any) => {
+const InputOneLine: React.FC<MyInput> = (props, ...formik: any) => {
   return (
-    <InputField icon={props.icon}>
+    <InputOneLineWrapper icon={props.icon}>
       <div className='input-field'>
         <div className='input-icon'></div>
         <div className='input-width'>
@@ -22,10 +22,10 @@ const InputAuth: React.FC<MyInput> = (props, ...formik: any) => {
       {props.formikName && props.formikError ? (
         <div className='input-name err'>{props.formikError}</div>
       ) : (
-        <div className='input-name'>Enter your email</div>
+          <div className='input-name'>{props.textWhenChanged}</div>
       )}
-    </InputField>
+    </InputOneLineWrapper>
   )
 }
 
-export default InputAuth;
+export default InputOneLine;

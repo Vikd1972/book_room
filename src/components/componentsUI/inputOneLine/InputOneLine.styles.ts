@@ -8,13 +8,14 @@ export interface Icon {
   icon?: string;
 }
 
-const InputField = styled.div<Icon>`
+const InputOneLineWrapper = styled.div<Icon>`
+margin-top: 20px;
 max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
 .input-icon {
-  margin: 2px 0 0 10px;
+  margin: 2px;
   width: 64px;
   height: 62px;
   border-radius: 16px 0 0 16px;
@@ -68,16 +69,17 @@ flex-direction: column;
   border: none;
   font-size: 16px;
   font-weight: 400;
+  outline: none;
   /* background-repeat: no-repeat; */
 }
 .input-name {
   font-size: 14px;
   line-height: 24px;
   color: #344966;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 .err {
   color: #ff0000;
 }`;
 
-export default InputField;
+export default InputOneLineWrapper;

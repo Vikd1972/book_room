@@ -45,6 +45,10 @@ flex-direction: column;
     background-repeat: no-repeat;
   }
 }
+.btn {
+  max-width: 230px;
+  width: 100%;
+}
 `;
 
 export default СatalogWrapper

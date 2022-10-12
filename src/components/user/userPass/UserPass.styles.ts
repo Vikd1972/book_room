@@ -39,20 +39,22 @@ flex-direction: row;
 .info {
   margin-top: 10px;
 }
-.btn {
-  margin-left: 128px;
-  margin-top: 50px;
-}
 .err {
   color: #ff0000;
 }
 .toast {
-    width: 400px;
+  width: 400px;
 }
 .toast-body {
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
-   color: #ff9999;
+  color: #ff9999;
+}
+.btn {
+  margin-left: 64px;
+  margin-top: 20px;
+  max-width: 170px;
+  width: 100%;
 }
 `;
 

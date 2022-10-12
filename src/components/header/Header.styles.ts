@@ -94,7 +94,8 @@ form {
 }
 .btn {
   width: 231px;
-  height: 34px;
+}
+  /* height: 34px;
   background-color: #344966;
   font-size: 16px;
   font-weight: 500;
@@ -107,7 +108,7 @@ form {
 .btn:hover{
   cursor: pointer;
   background-color: #0D1821;
-}
+} */
 `;
 
 export default HeaderWrapper
