@@ -3,9 +3,9 @@ import СatalogFilterWrapper from './CatalogFilter.styles';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-function valuetext(value: number) {
-  return `${value}`;
-}
+// function valuetext(value: number) {
+//   return `${value}`;
+// }
 
 export const CatalogFilter: React.FC = () => {
   const [isSelectByGenre, setIsSelectByGenre] = useState(false);
@@ -28,7 +28,6 @@ export const CatalogFilter: React.FC = () => {
     setIsSelectByGenre(false);
     setIsSelectByPrice(true);
   }
-
   const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
     setPriceValue(newPrice as number[]);
     console.log(newPrice);

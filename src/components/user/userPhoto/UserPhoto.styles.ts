@@ -3,19 +3,9 @@ import styled from 'styled-components'
 import btn_photo from '../../../utils/picture/btn_photo.png'
 
 const UserPhotoWrapper = styled.div`
-/* left: 0px; */
-/* margin-top: 60px; */
-/* margin-right: 330px; */
 max-width: 1280px;
 display: flex;
 flex-direction: row;
-/* .user {
-  max-width: 955px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  justify-content: left;
-} */
 .user__pic-foto {
   width: 305px;
   height: 305px;

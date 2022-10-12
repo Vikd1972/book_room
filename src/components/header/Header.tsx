@@ -1,9 +1,9 @@
 import React from 'react';
-import Heading from './Header.styles';
+
+import HeaderWrapper from './Header.styles';
 import { Link } from "react-router-dom";
-import { useAppDispatch } from '../../store/hooks';
-import { useAppSelector } from '../../store/hooks';
-import { loginUser } from '../../store/usersSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { reset } from '../../store/usersSlice';
 import { ButtonLink } from '../componentsUI/button/Buttons';
 
 export const Header: React.FC = () => {
@@ -12,18 +12,11 @@ export const Header: React.FC = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
-    dispatch(
-      loginUser({
-        id: 0,
-        fullname: '',
-        email: '',
-        photoFilePath: '',
-      })
-    )
+    dispatch(reset())
   }
 
   return (
-    <Heading>
+    <HeaderWrapper>
       <header className='top-panel'>
         <div className='panel__logotype'></div>
         <form>
@@ -47,12 +40,12 @@ export const Header: React.FC = () => {
             </Link>
             <Link
               className="buttons-icon btn-save"
-              onClick={logout} //a temporary solution for testing protected routes
+              onClick={logout} //a temporary solution for testing application
               to="/">
             </Link>
             <Link
               className="buttons-icon btn-user"
-              to="/user_profile">
+              to="/profile">
             </Link>
           </nav> :
           <ButtonLink
@@ -62,7 +55,7 @@ export const Header: React.FC = () => {
           />
         }
       </header>
-    </Heading>
+    </HeaderWrapper>
   );
 }
 

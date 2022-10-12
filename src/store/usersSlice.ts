@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface User {    
-  id?: number,
-  fullname?: string,
-  email?: string,
-  photoFilePath?: string
+export interface UserType {    
+  id: number,
+  fullname: string,
+  email: string,
+  photoFilePath: string
 }
 
 interface UsersState {
-  user: User
+  user: UserType
 }
 
 const initialState: UsersState = {
@@ -24,14 +24,16 @@ export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    loginUser: (state, action: PayloadAction<User>) => {     
+    loginUser: (state, action: PayloadAction<UserType>) => {     
       state.user = action.payload            
     },
-  }  
+    reset: () => initialState,
+  }
 })
 
 export const {
   loginUser,
+  reset,
 } = usersSlice.actions
 
 export default usersSlice.reducer

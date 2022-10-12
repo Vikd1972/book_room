@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Basket from './cart.styles';
+import CartWrapper from './Cart.styles';
 
 export const Cart: React.FC = () => {
   return (
-    <Basket>
+    <CartWrapper>
       <div className='cart'>
         Cart
       </div>
-    </Basket>
+    </CartWrapper>
   )
 }
 

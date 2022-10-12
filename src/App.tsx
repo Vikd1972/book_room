@@ -1,14 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import BookRoom from './components/bookroom/Bookroom';
-import './App.css';
+import { useAppDispatch } from './store/hooks';
+import { loginUser, UserType } from './store/usersSlice';
+import Header from './components/header/Header';
+import Login from './components/login/Login';
+import Signup from './components/signup/Signup';
+import Catalog from './components/catalog/Catalog';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
+import Cart from './components/cart/Cart';
+import User from './components/user/User';
+import Footer from './components/footer/Footer';
+import getUser from './api/getUser';
 
-function App() {
+import AppWrapper from './App.styles';
+
+export const App: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const [isInit, setIsInit] = useState(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      setIsInit(true)
+    } else {
+      (async () => {
+        try {
+          const user: UserType = await getUser()
+          dispatch(loginUser(user))
+        }
+        catch (err) {
+          console.log(err);
+        }
+        finally {
+          setIsInit(true);
+        }
+      })();
+    }
+  }, [dispatch]);
+
+  if (!isInit) {
+    return null
+  }
+
   return (
-    <div className="app">
-      <BookRoom />
-    </div>
+    <Router>
+      <AppWrapper className="bookroom">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Catalog />} />
+
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/signup" element={<Signup />} />
+
+          <Route path="/cart" element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>}
+          />
+
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <User />
+            </PrivateRoute>}
+          />
+        </Routes>
+        <Footer />
+      </AppWrapper>
+    </Router>
   );
 }
 
 export default App;
+

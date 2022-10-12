@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import logo from '../../utils/picture/logo_light.png'
 import map from '../../utils/picture/map.png'
 
-const Basement = styled.div`
+const FooterWrapper = styled.div`
 margin-top: 104px;
 max-width: 1280px;
 width: 100%;
@@ -41,4 +41,4 @@ line-height: 30px;
 }
 `;
 
-export default Basement
+export default FooterWrapper

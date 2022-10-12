@@ -10,6 +10,7 @@ import { Values } from '../../../interfaces/Interface';
 import InputUserInfo from '../../componentsUI/inputTwoLine/InputTwoLine';
 import { ButtonSubmit } from '../../componentsUI/button/Buttons';
 import UserInfoWrapper from './UserInfo.styles';
+import { UserType } from '../../../store/usersSlice';
 
 export const UserInfo: React.FC = () => {  
   const dispatch = useAppDispatch()
@@ -28,7 +29,7 @@ export const UserInfo: React.FC = () => {
     validationSchema: schemaUser,
     onSubmit: async (values) => {      
       try {
-        const user = await changeUserData(values);
+        const user: UserType = await changeUserData(values);
         dispatch(loginUser(user));
         formik.resetForm();
         setIsChange(false);

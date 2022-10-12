@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import men from '../../utils/picture/men1.png'
 
-const LogIn = styled.div`
+const LoginWrapper = styled.div`
 margin-top: 90px;
 max-width: 1280px;
 width: 100%;
@@ -56,4 +56,4 @@ flex-direction: row;
 }
 `;
 
-export default LogIn
+export default LoginWrapper

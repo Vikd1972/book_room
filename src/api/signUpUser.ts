@@ -1,12 +1,12 @@
 import instance from '.';
 
-interface AuthParams {
+interface SignUpParams {
   email: string,
   password: string,
-}
+};
 
-const authUser = async (options: AuthParams) => {
-  const response = await instance.post("/auth/login", {
+const signUpUser = async (options: SignUpParams) => {
+  const response = await instance.post("/auth/sign", {
     email: options.email,
     password: options.password,
   })
@@ -14,4 +14,4 @@ const authUser = async (options: AuthParams) => {
   return response.data.user;
 }
 
-export default authUser;
+export default signUpUser;

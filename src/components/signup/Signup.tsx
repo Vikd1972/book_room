@@ -3,21 +3,21 @@ import { useFormik } from 'formik';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 
-import signUser from '../../api/signUser';
-import { loginUser } from '../../store/usersSlice';
+import signUser from '../../api/signUpUser';
+import { loginUser, UserType } from '../../store/usersSlice';
 import { useAppDispatch } from '../../store/hooks';
 import schemaSign from '../../validation/schemaSign';
 import { Values } from '../../interfaces/Interface';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
 import InputAuth from '../componentsUI/inputOneLine/InputOneLine';
 
-import SignUp from './Signup.styles';
+import SignUpWrapper from './Signup.styles';
 
 export const Signup: React.FC = (props) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state || '/';
+  const route = location.state as string || '/';
 
   const formik = useFormik({
     initialValues: {
@@ -28,7 +28,7 @@ export const Signup: React.FC = (props) => {
     validationSchema: schemaSign,
     onSubmit: async (values) => {
       try {
-        const user = await signUser(values)
+        const user: UserType = await signUser(values)
         dispatch(loginUser(user));
         navigate(route)
       }
@@ -39,7 +39,7 @@ export const Signup: React.FC = (props) => {
   });
 
   return (
-    <SignUp>
+    <SignUpWrapper>
       <div className='login'>
         <div className='login__name'>
           <div>Sign Up /</div>
@@ -84,7 +84,7 @@ export const Signup: React.FC = (props) => {
       </div>
       <div className='login-pic'></div>
       <ToastContainer />
-    </SignUp>
+    </SignUpWrapper>
   );
 }
 

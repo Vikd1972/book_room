@@ -1,12 +1,12 @@
 import React from 'react';
 
 import CatalogFilter from './catalogFilter/CatalogFilter';
-import Сatalogue from './Catalog.styles';
+import СatalogWrapper from './Catalog.styles';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
 
 export const Catalog: React.FC = () => {
   return (
-    <Сatalogue>
+    <СatalogWrapper>
       <div className='poster'>
         <div className='poster__field'>
           <div className='field-name'>Build your library with us</div>
@@ -21,7 +21,7 @@ export const Catalog: React.FC = () => {
       <CatalogFilter />
       <div className='books'></div>
       <div className='auth-now'></div>
-    </Сatalogue >
+    </СatalogWrapper >
   );
 }
 

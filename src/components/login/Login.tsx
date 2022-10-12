@@ -11,26 +11,16 @@ import schemqaLogin from '../../validation/schemaLogin';
 import { Values } from '../../interfaces/Interface';
 import InputAuth from '../componentsUI/inputOneLine/InputOneLine';
 import { ButtonSubmit } from '../componentsUI/button/Buttons';
-import User from '../user/User';
+import { UserType } from '../../store/usersSlice';
 
-import LogIn from './Login.styles';
-
-
+import LoginWrapper from './Login.styles';
+import { string } from 'yup';
 
 export const Login: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state || '/';
-
-  
-  // useEffect((values) => {
-  //     (async (values) => {
-  //       const user = await authUser(values)
-  //         dispatch(loginUser(user))
-  //     })();
-  // }, [dispatch]);
-
+  const route = location.state as string || '/' ;
 
   const formik = useFormik({
     initialValues: {
@@ -40,8 +30,8 @@ export const Login: React.FC = () => {
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
       try {
-        const user = await authUser(values)
-        // if (user) dispatch(loginUser(user));
+        const user: UserType = await authUser(values)
+        dispatch(loginUser(user));
         navigate(route)
       }
       catch(err) {
@@ -51,13 +41,13 @@ export const Login: React.FC = () => {
   });
 
   return (
-    <LogIn>
+    <LoginWrapper>
       <div className='login'>
         <div className='login__name'>
           <div>Log In /</div>
           <Link
             className="login__name-toggle"
-            to="/sign">
+            to="/signup">
             Sign Up
           </Link>
         </div>
@@ -67,7 +57,6 @@ export const Login: React.FC = () => {
           <InputAuth
             type='email'
             placeholder='Email'
-            formikIsValid={formik.isValid}
             formikName={formik.touched.email}
             formikError={formik.errors.email}
             formikField={formik.getFieldProps('email')}
@@ -91,7 +80,7 @@ export const Login: React.FC = () => {
       <ToastContainer
         className='toast'
         bodyClassName='toast-body' />
-    </LogIn>
+    </LoginWrapper>
   );
 }
 

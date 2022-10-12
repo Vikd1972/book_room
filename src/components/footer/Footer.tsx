@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import Basement from './Footer.styles';
+import FooterWrapper from './Footer.styles';
 
 export const Footer: React.FC = () => {
-
   return (
-    <Basement>
+    <FooterWrapper>
       <div className='logo'>
         <div className='logo-logotype'></div>
         <div className='logo-contacts'>
@@ -27,7 +26,7 @@ export const Footer: React.FC = () => {
         </Link><br />
         <Link
           className="btn"
-          to="/user_profile">
+          to="/profile">
           My Account
         </Link><br />
         <Link
@@ -42,7 +41,7 @@ export const Footer: React.FC = () => {
         </span>
         <div className='map-map'></div>
       </div>
-    </Basement>
+    </FooterWrapper>
   );
 }
 

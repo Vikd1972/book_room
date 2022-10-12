@@ -5,14 +5,15 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { loginUser } from '../../../store/usersSlice';
 import photo from '../../../utils/picture/user_photo.png'
 import uploadPhoto from '../../../api/uploadPhoto';
+import { UserType } from '../../../store/usersSlice';
 
 import UserPhotoWrapper from './UserPhoto.styles';
 
-export const UserPhoto: React.FC = (props) => {
+export const UserPhoto: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.users.user)
 
-  let user_Photo = user.photoFilePath?.endsWith('png') ? user.photoFilePath : photo;
+  const userPhoto: string = user.photoFilePath?.endsWith('png') ? user.photoFilePath : photo;
 
   const sendingImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -22,13 +23,11 @@ export const UserPhoto: React.FC = (props) => {
           if (!reader.result) {
             console.log('error');
           };
-          const photo = reader.result as string;
-          const user = await uploadPhoto(photo);
-
+          const photo = reader.result as string;          
+          const user: UserType = await uploadPhoto(photo);
           dispatch(loginUser(user));
         };
         if (e.target.files) reader.readAsDataURL(e.target.files[0]);
-
       } catch (err) {
         console.log(err);
       }
@@ -45,7 +44,7 @@ export const UserPhoto: React.FC = (props) => {
           encType="multipart/form-data">
           <div className='user__pic-foto'>
             <img
-              src={user_Photo}
+              src={userPhoto}
               alt="user"
               id="output" />
           </div>

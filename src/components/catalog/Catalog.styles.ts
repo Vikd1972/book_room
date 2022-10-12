@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import books from '../../utils/picture/books.png'
 import woman from '../../utils/picture/woman.png'
 
-const Сatalogue = styled.div`
+const СatalogWrapper = styled.div`
 margin-top: 40px;
 max-width: 1280px;
 width: 100%;
@@ -47,4 +47,4 @@ flex-direction: column;
 }
 `;
 
-export default Сatalogue
+export default СatalogWrapper

@@ -1,24 +1,22 @@
-import showToast from '../validation/showToast';
 import instance from '.';
 
-const changeUserData = async (props: any) => {
-  try {
-    
-    const response = await instance
-      .put("/users/", {
-        fullname: props.fullname,
-        email: props.email,
-        oldPassword: props.oldPassword,
-        newPassword: props.newPassword,
-        confirmPassword: props.confirmPassword,
-      })
-    
-    return response.data.user;
+interface NewUserData {
+  fullname: string,
+  email: string,
+  oldPassword: string,
+  newPassword: string,
+  confirmPassword: string,
+};
 
-  } catch (err: any) {
-    showToast(err.response.data.message);
-    console.log(err);
-  }
+const changeUserData = async (options: NewUserData) => {
+  const response = await instance.put("/users", {
+    fullname: options.fullname,
+    email: options.email,
+    oldPassword: options.oldPassword,
+    newPassword: options.newPassword,
+    confirmPassword: options.confirmPassword,
+  })
+  return response.data.user;
 }
 
 export default changeUserData;

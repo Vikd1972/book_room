@@ -9,7 +9,7 @@ import { loginUser } from '../../../store/usersSlice';
 import { Values } from '../../../interfaces/Interface';
 import InputUserInfo from '../../componentsUI/inputTwoLine/InputTwoLine';
 import { ButtonSubmit } from '../../componentsUI/button/Buttons';
-
+import { UserType } from '../../../store/usersSlice';
 
 import UserPassWrapper from './UserPass.styles';
 
@@ -30,7 +30,7 @@ export const UserPass: React.FC = (props) => {
     validationSchema: schemaUser,
     onSubmit: async (values) => {
       try {
-        const user = await changeUserData(values);
+        const user: UserType = await changeUserData(values);
         dispatch(loginUser(user));
         formik.resetForm();
         setIsChange(false);

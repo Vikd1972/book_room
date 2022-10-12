@@ -4,7 +4,7 @@ import men from '../../utils/picture/men1.png'
 import mail from '../../utils/picture/mail.png'
 import hide from '../../utils/picture/hide.png'
 
-const SignUp = styled.div`
+const SignUpWrapper = styled.div`
 margin-top: 90px;
 max-width: 1280px;
 width: 100%;
@@ -107,4 +107,4 @@ justify-content: space-between;
 }
 `;
 
-export default SignUp
+export default SignUpWrapper

@@ -6,7 +6,7 @@ import cart from '../../utils/picture/btn_cart.png'
 import save from '../../utils/picture/btn_save.png'
 import user from '../../utils/picture/btn_user.png'
 
-const Heading = styled.div`
+const HeaderWrapper = styled.div`
 margin-top: 24px;
 max-width: 1280px;
 width: 100%;
@@ -108,13 +108,6 @@ form {
   cursor: pointer;
   background-color: #0D1821;
 }
-/* .poster {
-  margin-top: 40px;
-  width: auto;
-  height: 400px;
-  background-color: #F0F4EF;
-  border-radius: 16px;
-} */
 `;
 
-export default Heading
+export default HeaderWrapper
