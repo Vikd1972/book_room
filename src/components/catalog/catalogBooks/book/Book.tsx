@@ -12,7 +12,7 @@ type Props = {
 
 export const Book: React.FC<Props> = (props) => {
   const currentPrice = props.book.paperbackQuantity ? props.book.paperbackPrice : props.book.hardcoverPrice;
-  const textButton = currentPrice.toString();
+  const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
 
   return (
     <BookWrapper>
@@ -23,9 +23,18 @@ export const Book: React.FC<Props> = (props) => {
           alt='cover'
           id='cover' />
       </div>
-      <span className='name'>{props.book.name}</span>
-      <span className='author'>{props.book.author}</span>
-      <div className='rating'>rating</div>
+      <div className='name'>{props.book.name}</div>
+      <div className='author'>{props.book.author}</div>
+      <div className='rating'>
+        <div className='star-container'>
+          <div className='star'></div>
+          <div className='star'></div>
+          <div className='star'></div>
+          <div className='star'></div>
+          <div className='star'></div>
+        </div>
+        <div className='rating-value'>5.0</div>
+      </div>
       <Button
         type='button'
         className="button"

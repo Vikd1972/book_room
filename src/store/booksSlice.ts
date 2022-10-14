@@ -31,7 +31,9 @@ export const booksSlice = createSlice({
     addBook: (state, action: PayloadAction<BookType>) => {
       state.book.push(action.payload)
     },
-    reset: () => initialState,
+    reset: (state) => {
+      state.book.length = 0;
+    },
   }
 })
 

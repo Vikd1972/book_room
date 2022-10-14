@@ -9,6 +9,7 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
+align-items: center;
 .poster {
   height: 400px;
   background-color: #F0F4EF;

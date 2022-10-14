@@ -20,3 +20,5 @@ export const Button: React.FC<MyButton> = (props) => {
     </ButtonWrapper >
   )
 }
+
+export default Button
