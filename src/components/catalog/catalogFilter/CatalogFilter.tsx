@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import СatalogFilterWrapper from './CatalogFilter.styles';
-import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 // function valuetext(value: number) {

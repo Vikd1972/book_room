@@ -1,4 +1,4 @@
-import instance from '.';
+import instance from '..';
 
 const uploadPhoto = async (userPhoto: string) => {
   const response = await instance.post("/upload", { userPhoto })

@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { loginUser } from '../../../store/usersSlice';
 import photo from '../../../utils/picture/user_photo.png'
-import uploadPhoto from '../../../api/uploadPhoto';
+import uploadPhoto from '../../../api/users/uploadPhoto';
 import { UserType } from '../../../store/usersSlice';
 import showToast from '../../../validation/showToast';
 

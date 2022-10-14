@@ -1,4 +1,4 @@
-import instance from '.';
+import instance from '..';
 
 const getUser = async () => {
   const response = await instance.get("/auth/token")

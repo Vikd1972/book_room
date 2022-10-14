@@ -13,7 +13,7 @@ import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Cart from './components/cart/Cart';
 import User from './components/user/User';
 import Footer from './components/footer/Footer';
-import getUser from './api/getUser';
+import getUser from './api/users/getUser';
 import showToast from './validation/showToast';
 
 import AppWrapper from './App.styles';

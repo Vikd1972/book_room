@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import authUser from '../../api/authUser';
+import authUser from '../../api/users/authUser';
 import { loginUser } from '../../store/usersSlice';
 import { useAppDispatch } from '../../store/hooks';
 import showToast from '../../validation/showToast';

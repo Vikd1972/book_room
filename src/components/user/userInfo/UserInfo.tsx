@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import changeUserData from '../../../api/changUserData';
+import changeUserData from '../../../api/users/changUserData';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import schemaUser from '../../../validation/schemaUser';
 import { loginUser } from '../../../store/usersSlice';

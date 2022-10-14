@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import signUser from '../../api/signUpUser';
+import signUser from '../../api/users/signUpUser';
 import { loginUser, UserType } from '../../store/usersSlice';
 import { useAppDispatch } from '../../store/hooks';
 import schemaSign from '../../validation/schemaSign';
