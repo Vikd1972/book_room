@@ -8,6 +8,7 @@ import showToast from '../../../validation/showToast';
 import { addBook, reset } from '../../../store/booksSlice';
 import getBooks from '../../../api/books/getBooks';
 import Pagination from './pagination/Pagination';
+import config from '../../../config';
 
 import СatalogBooksWrapper from './CatalogBooks.styles';
 
@@ -23,7 +24,6 @@ export const CatalogBooks: React.FC = () => {
         const response = await getBooks(skip);
         const allBooks: BookType[] = response.books;
         setQuantityBooks(response.quantityBooks);
-
         dispatch(reset())
         allBooks.forEach(book => {
           dispatch(addBook({
@@ -41,6 +41,19 @@ export const CatalogBooks: React.FC = () => {
     })();
   }, [skip]);
 
+  const quantityPages = Math.ceil(quantityBooks / config.pagination);  
+  const activePage = (skip + config.pagination) / config.pagination;
+
+  const scrolling = (direction: string) => {
+    if (direction === 'left') {
+      setSkip(skip === 0 ? skip : skip - config.pagination)  
+      console.log(skip);      
+    } else {
+      setSkip(skip + config.pagination >= quantityBooks ? skip : skip + config.pagination)
+      console.log(skip);
+    }
+  }
+
   return (
     <>
       <СatalogBooksWrapper>
@@ -54,8 +67,9 @@ export const CatalogBooks: React.FC = () => {
       </СatalogBooksWrapper >
 
       <Pagination
-        quantityBooks={quantityBooks}
-        skip={skip}/>
+        quantityPages={quantityPages}
+        activePage={activePage}
+        scrolling={scrolling} />
     </>
   );
 }

@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import PaginationWrapper from './Pagination.styles';
 import config from '../../../../config'
 
 interface Options {
-  quantityBooks: number,
-  skip: number,
+  quantityPages: number,
+  activePage: number,
+  scrolling: (direction: string) => void,
 }
 
 export const Pagination: React.FC<Options> = (props) => {
-  const quantityPages = Math.ceil(props.quantityBooks / config.pagination);
-  const activePage = (props.skip + config.pagination) / config.pagination;
 
-  const pages = document.querySelector('pages')
+  const pages = document.getElementById('pages')
+  if (pages) pages.innerHTML = ''
+  for (let i = 1; i <= props.quantityPages; i++) {
+    const page = document.createElement('div');
+    page.classList.add('page');
+    if (i === props.activePage) {
+      page.classList.add('active');
+    }
+    pages?.appendChild(page);
+  }
 
   return (
     <PaginationWrapper>
-      <div className='through left'></div>
-      <div className='pages'></div>
-      <div className='through right'></div>
+      <button
+        onClick={() => props.scrolling('left')}
+        className='through left'></button>
+      <div id='pages'></div>
+      <button
+        onClick={() => props.scrolling('right')}
+        className='through right'></button>
     </PaginationWrapper>
   )
 }
