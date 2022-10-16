@@ -11,6 +11,7 @@ import Signup from './components/signup/Signup';
 import Catalog from './components/catalog/Catalog';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Cart from './components/cart/Cart';
+import DetailBook from './components/detailBook/DetailBook';
 import User from './components/user/User';
 import Footer from './components/footer/Footer';
 import getUser from './api/users/getUser';
@@ -58,6 +59,8 @@ export const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
 
           <Route path="/signup" element={<Signup />} />
+
+          <Route path="/detail" element={<DetailBook />} />
 
           <Route path="/cart" element={
             <PrivateRoute>

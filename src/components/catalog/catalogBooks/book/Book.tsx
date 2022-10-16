@@ -16,12 +16,15 @@ export const Book: React.FC<Props> = (props) => {
 
   return (
     <BookWrapper>
+
       <div className='cover-container'>
-        <img
-          className='cover'
-          src={props.book.pathToCover}
-          alt='cover'
-          id='cover' />
+        <a       
+          href={`/detail/?id=${props.book.id}`}>
+          <img
+            src={props.book.pathToCover}
+            alt='cover'
+            id='cover' />
+        </a>
       </div>
       <div className='name'>{props.book.name}</div>
       <div className='author'>{props.book.author}</div>

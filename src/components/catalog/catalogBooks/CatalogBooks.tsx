@@ -16,7 +16,8 @@ export const CatalogBooks: React.FC = () => {
   const dispatch = useAppDispatch()
   const [skip, setSkip] = useState(0)
   const [quantityBooks, setQuantityBooks] = useState(0)
-  const books = useAppSelector(state => state.books.book)
+  const books = useAppSelector(state => state.books.books)
+  
 
   useEffect(() => {
     (async () => {
@@ -47,10 +48,8 @@ export const CatalogBooks: React.FC = () => {
   const scrolling = (direction: string) => {
     if (direction === 'left') {
       setSkip(skip === 0 ? skip : skip - config.pagination)  
-      console.log(skip);      
     } else {
       setSkip(skip + config.pagination >= quantityBooks ? skip : skip + config.pagination)
-      console.log(skip);
     }
   }
 

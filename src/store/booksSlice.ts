@@ -17,11 +17,11 @@ export interface BookType {
 }
 
 interface BooksState {
-  book: BookType[]
+  books: BookType[],
 }
 
 const initialState: BooksState = {
-  book: [],
+  books: [],
 }
 
 export const booksSlice = createSlice({
@@ -29,11 +29,12 @@ export const booksSlice = createSlice({
   initialState,
   reducers: {
     addBook: (state, action: PayloadAction<BookType>) => {
-      state.book.push(action.payload)
+      state.books.push(action.payload)
     },
     reset: (state) => {
-      state.book.length = 0;
+      state.books.length = 0;
     },
+
   }
 })
 
