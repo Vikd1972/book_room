@@ -25,6 +25,7 @@ height: auto;
   width: 305px;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis; 
 }
 .author {
   font-size: 20px;
