@@ -9,13 +9,13 @@ import { Button } from '../componentsUI/button/Buttons';
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
-  const user = useAppSelector(state => state.users.user)  
+  const user = useAppSelector(state => state.users.user)
 
   const logout = () => {
     localStorage.removeItem('token');
     dispatch(reset())
   }
-  
+
   const returnToCatalog = () => {
     navigate('/')
   }
@@ -46,6 +46,7 @@ export const Header: React.FC = () => {
               className="buttons-icon btn-cart"
               to="/cart">
             </Link>
+            <div id='cart'></div>
             <Link
               className="buttons-icon btn-save"
               onClick={logout} //a temporary solution for testing application

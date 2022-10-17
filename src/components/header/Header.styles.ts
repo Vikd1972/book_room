@@ -85,6 +85,22 @@ form {
   background-repeat: no-repeat;
   background-position: center;
 }
+#cart {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+  color: #344966;
+  font-family: 'Poppins', sans-serif;
+  width: 24px;
+  height: 20px;
+  padding-top: 4px;
+  margin-top: -7px;
+  margin-left: -40px;
+  border-radius: 12px;
+  background-color: #BFCC94;
+  text-align: center;
+  visibility: hidden;
+}
 .btn-save {
   background-image: url(${save});
   background-repeat: no-repeat;

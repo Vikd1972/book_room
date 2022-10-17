@@ -16,9 +16,10 @@ type Props = {
 export const Book: React.FC<Props> = (props) => {
   const user = useAppSelector(state => state.users.user)
   // console.log(user);
-  
+
   const [userId, setUserId] = useState<number>(0);
   const [bookId, setBookId] = useState<number>(0);
+  const [quantityInCart, setQuantityInCart] = useState(0);
 
   const currentPrice = props.book.paperbackQuantity ? props.book.paperbackPrice : props.book.hardcoverPrice;
   const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
@@ -28,6 +29,15 @@ export const Book: React.FC<Props> = (props) => {
       try {
         if (userId) {
           const response = await addBookToCart({ userId, bookId });
+          const booksInCart = response.userCart.reduce(
+            (sum: number, item: { count: number; }) => sum + item.count, 0);
+          setQuantityInCart(booksInCart)
+          const count = document.getElementById('cart')
+          if (count) {
+            count.innerHTML = booksInCart + '';
+            count.style.visibility = 'visible';
+          }    
+          console.log(booksInCart);
         }
       }
       catch (err) {
@@ -37,7 +47,7 @@ export const Book: React.FC<Props> = (props) => {
       }
     })();
   }, [bookId]);
-  
+
   const addToCart = () => {
     setUserId(user.id)
     setBookId(props.book.id)
