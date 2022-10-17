@@ -6,15 +6,17 @@ export interface MyButton {
   text?: string,
   className?: string,
   type?: "button" | "reset" | "submit",
-  onClick?: () => void;
+  isDisable?: boolean,
+  onClick?: () => void,
 }
 
 export const Button: React.FC<MyButton> = (props) => {
-  return (
+    return (
     <ButtonWrapper
       type={props.type}
       className={props.className}
       onClick={props.onClick}
+      isDisabled={props.isDisable || false}
     >
       {props.text}
     </ButtonWrapper >

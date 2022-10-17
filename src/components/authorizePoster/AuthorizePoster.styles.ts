@@ -1,33 +1,32 @@
 import styled from 'styled-components'
 
-import books from '../../utils/picture/books.png'
-import woman from '../../utils/picture/woman.png'
+import fairy from '../../utils/picture/fairy.png'
+import castle from '../../utils/picture/castle.png'
 
-const СatalogWrapper = styled.div`
-margin-top: 40px;
+const AuthorizePosterWrapper = styled.div`
+margin-top: 102px;
 max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
+height: 400px;
 .poster {
-  max-width: 1074px;
-  width: 100%;
-  height: 400px;
   background-color: #F0F4EF;
   border-radius: 16px;
-  background-image: url(${books}); 
+  background-image: url(${fairy}); 
   background-repeat: no-repeat;
-  background-position: 0px 135px;
+  background-position: 824px ;
   padding: 0 98px 0 108px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   .poster__field {
+    margin-left: 135px;
     display: flex;
     flex-direction: column;
     .field-name {
-      margin-top: 80px;
+      margin-top: 105px;
       font-size: 40px;
       font-weight: 700;
       line-height: 60px;
@@ -42,16 +41,18 @@ align-items: center;
     }
   }
   .poster__image {
-    width: 406px;
-    height: 400px;
-    background-image: url(${woman}); 
+    width: 521px;
+    height: 462px;
+    margin-top: -62px;
+    background-image: url(${castle}); 
     background-repeat: no-repeat;
   }
 }
-.btn {
+.button {
+  margin-top: 10px;
   max-width: 230px;
   width: 100%;
 }
 `;
 
-export default СatalogWrapper
+export default AuthorizePosterWrapper

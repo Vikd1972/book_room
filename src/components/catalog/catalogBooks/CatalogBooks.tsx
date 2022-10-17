@@ -9,6 +9,7 @@ import { addBook, reset } from '../../../store/booksSlice';
 import getBooks from '../../../api/books/getBooks';
 import Pagination from './pagination/Pagination';
 import config from '../../../config';
+import AuthorizePoster from '../../authorizePoster/AuthorizePoster';
 
 import СatalogBooksWrapper from './CatalogBooks.styles';
 
@@ -17,6 +18,7 @@ export const CatalogBooks: React.FC = () => {
   const [skip, setSkip] = useState(0)
   const [quantityBooks, setQuantityBooks] = useState(0)
   const books = useAppSelector(state => state.books.books)
+  const user = useAppSelector(state => state.users.user)
   
 
   useEffect(() => {
@@ -51,7 +53,7 @@ export const CatalogBooks: React.FC = () => {
     } else {
       setSkip(skip + config.pagination >= quantityBooks ? skip : skip + config.pagination)
     }
-  }
+  }  
 
   return (
     <>
@@ -69,6 +71,7 @@ export const CatalogBooks: React.FC = () => {
         quantityPages={quantityPages}
         activePage={activePage}
         scrolling={scrolling} />
+      {!user.email ? <AuthorizePoster /> : null}
     </>
   );
 }

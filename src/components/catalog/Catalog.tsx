@@ -22,7 +22,6 @@ export const Catalog: React.FC = () => {
       </div>
       <CatalogFilter />
       <CatalogBooks />
-      <div className='auth-now'></div>
     </СatalogWrapper >
   );
 }

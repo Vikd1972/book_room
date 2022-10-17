@@ -1,24 +1,32 @@
 import React from 'react';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import HeaderWrapper from './Header.styles';
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { reset } from '../../store/usersSlice';
 import { Button } from '../componentsUI/button/Buttons';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(state => state.users.user)
+  const navigate = useNavigate();
+  const user = useAppSelector(state => state.users.user)  
 
   const logout = () => {
     localStorage.removeItem('token');
     dispatch(reset())
   }
+  
+  const returnToCatalog = () => {
+    navigate('/')
+  }
 
   return (
     <HeaderWrapper>
       <header className='top-panel'>
-        <div className='panel__logotype'></div>
+        <div
+          onClick={returnToCatalog}
+          className='panel__logotype'>
+        </div>
         <form>
           <div className='panel__search'>Catalog</div>
           <div className='search-icon'></div>

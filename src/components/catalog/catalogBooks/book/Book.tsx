@@ -7,7 +7,7 @@ import { Button } from '../../../componentsUI/button/Buttons';
 import { BookType } from '../../../../store/booksSlice'
 
 type Props = {
-  book: BookType;
+  book: BookType,
 };
 
 export const Book: React.FC<Props> = (props) => {

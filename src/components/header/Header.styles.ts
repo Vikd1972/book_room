@@ -23,6 +23,7 @@ flex-direction: column;
   height: 46px;
   background-image: url(${logo});
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 form {
   font-size: 16px;
