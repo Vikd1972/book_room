@@ -59,7 +59,7 @@ export const UserInfo: React.FC = () => {
             <InputTwoLine
               type='text'
               textInfo='Your name'
-              textWhenChanged={`Your name now is ${user.fullname}. Enter new name`}
+              textWhenChanged={`Your name now is ${user.fullname ? user.fullname : '...'}. Enter new name`}
               field={user.fullname}
               placeholder='Enter your name'
               formikName={formik.touched.fullname}

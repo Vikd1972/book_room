@@ -50,8 +50,8 @@ flex-direction: row;
   font-size: 30px;
   color: #ff9999;
 }
-.btn {
-  margin-left: 64px;
+.button {
+  margin-left: 128px;
   margin-top: 20px;
   max-width: 170px;
   width: 100%;

@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useAppSelector } from '../../store/hooks';
+import { useParams } from "react-router-dom";
 
 import DetailBookWrapper from './DetailBook.styles';
 import { Button } from '../componentsUI/button/Buttons';
@@ -12,20 +12,16 @@ import AuthorizePoster from '../authorizePoster/AuthorizePoster';
 
 import { BookType } from '../../store/booksSlice'
 
-
 export const DetailBook: React.FC = () => {
-  const location = useLocation();
   const user = useAppSelector(state => state.users.user)
-  const [quantityBooks, setQuantityBooks] = useState(0)
   const [book, setBook] = useState<BookType>()
+
+  const { bookId } = useParams();
 
   useEffect(() => {
     (async () => {
-      try {
-        const query = location.search.substring(1).split('&');
-        const bookId = +query[0].split('=')[1]
-        const response = await getDetailBooks(bookId);
-        setQuantityBooks(response.quantityBooks);
+      try {   
+        const response = await getDetailBooks(Number(bookId));
         setBook(response.book)
       }
       catch (err) {
@@ -53,7 +49,6 @@ export const DetailBook: React.FC = () => {
       textButtonHardcover = `$ ${currentPriceHardcover?.toFixed(2).toString()} USD`;
     }
   }
-
 
   return (
     <>
@@ -93,8 +88,7 @@ export const DetailBook: React.FC = () => {
         </div>
       </DetailBookWrapper >
       {!user.email ? <AuthorizePoster /> : null}
-      <Recommendations
-        quantityBooks={quantityBooks} />
+      <Recommendations />
     </>
   );
 }

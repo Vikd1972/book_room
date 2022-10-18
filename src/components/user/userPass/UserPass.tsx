@@ -101,14 +101,12 @@ export const UserPass: React.FC = (props) => {
               )}
             </div>
           </div>
-          {isChange ? (
-            
+          {isChange ? (            
               <Button
                 type='submit'
-                className="btn"
+                className="button"
                 text='Confirm'
-              />
-        
+              />        
           ) :
             null
           }

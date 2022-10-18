@@ -30,6 +30,7 @@ justify-content: space-between;
   color: #0D1821; 
   cursor: pointer;
   text-decoration: none;
+  color: #008888;
 }
 .login__form {
   margin-top: 60px;

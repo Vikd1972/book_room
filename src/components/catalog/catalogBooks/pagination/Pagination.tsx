@@ -6,7 +6,7 @@ import config from '../../../../config'
 interface Options {
   quantityPages: number,
   activePage: number,
-  scrolling: (direction: string) => void,
+  pagination: (direction: string) => void,
 }
 
 export const Pagination: React.FC<Options> = (props) => {
@@ -16,6 +16,7 @@ export const Pagination: React.FC<Options> = (props) => {
   for (let i = 1; i <= props.quantityPages; i++) {
     const page = document.createElement('div');
     page.classList.add('page');
+    page.id = i+'';
     if (i === props.activePage) {
       page.classList.add('active');
     }
@@ -25,11 +26,11 @@ export const Pagination: React.FC<Options> = (props) => {
   return (
     <PaginationWrapper>
       <button
-        onClick={() => props.scrolling('left')}
+        onClick={() => props.pagination('left')}
         className='through left'></button>
       <div id='pages'></div>
       <button
-        onClick={() => props.scrolling('right')}
+        onClick={() => props.pagination('right')}
         className='through right'></button>
     </PaginationWrapper>
   )

@@ -86,7 +86,7 @@ form {
   background-position: center;
 }
 #cart {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 18px;
   font-weight: 700;
   color: #344966;

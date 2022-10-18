@@ -15,7 +15,8 @@ export const UserPhoto: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.users.user)
 
-  const userPhoto: string = user.photoFilePath?.endsWith('png') ? user.photoFilePath : photo;
+  const userPhoto: string = user.photoFilePath?.endsWith('jpeg') ||
+    user.photoFilePath?.endsWith('png') ? user.photoFilePath : photo;
 
   const sendingImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

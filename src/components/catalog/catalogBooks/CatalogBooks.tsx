@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { AxiosError } from 'axios';
+import { useParams } from "react-router-dom";
 
 import Book from './book/Book';
-import { BookType } from '../../../store/booksSlice';
 import showToast from '../../../validation/showToast';
 import { addBook } from '../../../store/booksSlice';
 import getBooks from '../../../api/books/getBooks';
@@ -19,7 +19,8 @@ export const CatalogBooks: React.FC = () => {
   const [quantityBooks, setQuantityBooks] = useState(0)
   const books = useAppSelector(state => state.books.books)
   const user = useAppSelector(state => state.users.user)
-  
+
+  let { pageNumber } = useParams();  
 
   useEffect(() => {
     (async () => {
@@ -35,16 +36,17 @@ export const CatalogBooks: React.FC = () => {
       }
     })();
   }, [skip]);
-
+  
   const quantityPages = Math.ceil(quantityBooks / config.pagination);  
   const activePage = (skip + config.pagination) / config.pagination;
-
-  const scrolling = (direction: string) => {
+  
+  const pagination = (direction: string) => {
     if (direction === 'left') {
-      setSkip(skip === 0 ? skip : skip - config.pagination)  
+      setSkip(skip === 0 ? skip : skip - config.pagination)        
     } else {
-      setSkip(skip + config.pagination >= quantityBooks ? skip : skip + config.pagination)
+      setSkip(skip + config.pagination >= quantityBooks ? skip : skip + config.pagination)   
     }
+    window.location.href = `/catalog/page/${activePage}`;
   }  
 
   return (
@@ -62,7 +64,7 @@ export const CatalogBooks: React.FC = () => {
       <Pagination
         quantityPages={quantityPages}
         activePage={activePage}
-        scrolling={scrolling} />
+        pagination={pagination} />
       {!user.email ? <AuthorizePoster /> : null}
     </>
   );

@@ -42,6 +42,7 @@ export const usersSlice = createSlice({
       state.user = initialState.user;
       state.user = action.payload;           
     },
+    reset: () => initialState,
     addCart: (state, action: PayloadAction<CartType[]>) => {      
       state.cart = action.payload;
     }
@@ -50,6 +51,7 @@ export const usersSlice = createSlice({
 
 export const {
   loginUser,
+  reset,
   addCart
 } = usersSlice.actions
 

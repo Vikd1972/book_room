@@ -3,36 +3,23 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { AxiosError } from 'axios';
 
 import Book from '../catalog/catalogBooks/book/Book';
-import { BookType } from '../../store/booksSlice';
 import showToast from '../../validation/showToast';
 import { addBook } from '../../store/booksSlice';
-import getBooks from '../../api/books/getBooks';
-import config from '../../config';
 import getRecommendationsBooks from '../../api/books/getRecommendationsBooks';
 
 
 import RecommendationsWrapper from './Recommendations.styles';
 
-interface Options {
-  quantityBooks: number,
-}
-
-export const Recommendations: React.FC<Options> = (props) => {
+export const Recommendations: React.FC = () => {
   const dispatch = useAppDispatch()
   const [skip, setSkip] = useState(0)
   const books = useAppSelector(state => state.books.books)
 
-
-
-
   useEffect(() => {
     (async () => {
       try {
-        if (props.quantityBooks) {
-          const response = await getRecommendationsBooks();
-
-          dispatch(addBook( response.books ))
-        }
+        const response = await getRecommendationsBooks();
+        dispatch(addBook(response.books))
       }
       catch (err) {
         if (err instanceof AxiosError) {
@@ -40,8 +27,7 @@ export const Recommendations: React.FC<Options> = (props) => {
         }
       }
     })();
-  }, [props.quantityBooks]);
-
+  }, []);
 
   return (
     <RecommendationsWrapper>

@@ -18,10 +18,12 @@ export interface BookType {
 
 interface BooksState {
   books: BookType[],
+  currentBookId: number,
 }
 
 const initialState: BooksState = {
   books: [],
+  currentBookId: 0
 }
 
 export const booksSlice = createSlice({
@@ -32,11 +34,15 @@ export const booksSlice = createSlice({
       state.books = [];
       state.books = action.payload
     },
+    saveCurrentBookId: (state, action: PayloadAction<number>) => {
+      state.currentBookId = action.payload
+    },
   }
 })
 
 export const {
   addBook,
+  saveCurrentBookId
 } = booksSlice.actions
 
 export default booksSlice.reducer

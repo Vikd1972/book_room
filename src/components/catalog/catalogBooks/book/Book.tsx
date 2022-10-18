@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
-import { AxiosError } from 'axios';
 
-import showToast from '../../../../validation/showToast';
 import BookWrapper from './Book.styles';
 import { Button } from '../../../componentsUI/button/Buttons';
 import addBookToCart from '../../../../api/cart/addBookToCart';
 import { addCart } from '../../../../store/usersSlice';
 import { BookType } from '../../../../store/booksSlice'
 import getCart from '../../../../api/cart/getCart';
-
 
 type Props = {
   book: BookType,
@@ -25,7 +22,7 @@ export const Book: React.FC<Props> = (props) => {
   const addToCart = async () => {
     const userId = user.id;
     const bookId = props.book.id;
-    const response = await addBookToCart({ userId, bookId });
+    await addBookToCart({ userId, bookId });
     const cart = await getCart(userId);
     dispatch(addCart(cart));
   }
@@ -33,8 +30,7 @@ export const Book: React.FC<Props> = (props) => {
   return (
     <BookWrapper>
       <div className='cover-container'>
-        <a
-          href={`/detail/?id=${props.book.id}`}>
+        <a href={`/detail/${props.book.id}`}>
           <img
             src={props.book.pathToCover}
             alt='cover'

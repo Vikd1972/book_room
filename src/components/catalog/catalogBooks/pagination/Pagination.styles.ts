@@ -13,6 +13,7 @@ flex-direction: row;
   height: 17px;
   cursor: pointer;
   border: none;
+  background: none;
 }
 #pages {
   display: flex;

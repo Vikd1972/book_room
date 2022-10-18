@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import HeaderWrapper from './Header.styles';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Button } from '../componentsUI/button/Buttons';
 import { AxiosError } from 'axios';
 import showToast from '../../validation/showToast';
-import { addCart } from '../../store/usersSlice';
+import { addCart, reset } from '../../store/usersSlice';
 import getCart from '../../api/cart/getCart';
 
 export const Header: React.FC = () => {
@@ -33,6 +33,7 @@ export const Header: React.FC = () => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    dispatch(reset())
   }
 
   const returnToCatalog = () => {
