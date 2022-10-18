@@ -6,13 +6,11 @@ interface OrderParams {
 }
 
 const addBookToCart = async (option: OrderParams) => {
-  const response = await instance.post("/cart", {
+  const response = await instance.post("/cart/add", {
     userId: option.userId,
     bookId: option.bookId,
   })
-  
-  console.log(response.data);
-  
+    
   return response.data;
 }
 

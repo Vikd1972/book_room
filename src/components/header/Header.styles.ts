@@ -99,7 +99,6 @@ form {
   border-radius: 12px;
   background-color: #BFCC94;
   text-align: center;
-  visibility: hidden;
 }
 .btn-save {
   background-image: url(${save});

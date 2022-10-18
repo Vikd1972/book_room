@@ -5,7 +5,7 @@ import booksReducer from './booksSlice'
 const store = configureStore({
   reducer: {
     users: usersReducer,
-    books: booksReducer
+    books: booksReducer,
   }
 })
 

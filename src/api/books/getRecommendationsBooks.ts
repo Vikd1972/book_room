@@ -2,8 +2,9 @@ import instance from '..';
 
 import config from '../../config';
 
-const getRecommendationsBooks = async (randomBooks: number[]) => {
-  const response = await instance.post("/books/random", {randomBooks})
+const getRecommendationsBooks = async () => {
+  const response = await instance.get("/books/")
+
   return response.data;
 }
 

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AxiosError } from 'axios';
 
 import { useAppDispatch } from './store/hooks';
-import { loginUser, UserType } from './store/usersSlice';
+import { addCart, loginUser, UserType } from './store/usersSlice';
 import Header from './components/header/Header';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
@@ -15,7 +15,9 @@ import DetailBook from './components/detailBook/DetailBook';
 import User from './components/user/User';
 import Footer from './components/footer/Footer';
 import getUser from './api/users/getUser';
+import getCart from './api/cart/getCart';
 import showToast from './validation/showToast';
+import { CartType } from './store/usersSlice';
 
 import AppWrapper from './App.styles';
 
@@ -30,7 +32,7 @@ export const App: React.FC = () => {
     } else {
       (async () => {
         try {
-          const user: UserType = await getUser()
+          const user = await getUser()
           dispatch(loginUser(user))
         }
         catch (err) {

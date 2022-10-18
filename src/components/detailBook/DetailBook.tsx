@@ -40,13 +40,13 @@ export const DetailBook: React.FC = () => {
   let textButtonHardcover = '';
 
   if (book) {
-    const currentPricePaperback = book.paperbackPrice / 100;
+    const currentPricePaperback = book.paperbackPrice;
     if (!currentPricePaperback) {
       textButtonPaperback = 'Not available'
     } else {
       textButtonPaperback = `$ ${currentPricePaperback?.toFixed(2).toString()} USD`;
     }
-    const currentPriceHardcover = book.hardcoverPrice / 100;
+    const currentPriceHardcover = book.hardcoverPrice;
     if (!currentPriceHardcover) {
       textButtonHardcover = 'Not available'
     } else {

@@ -28,19 +28,15 @@ export const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addBook: (state, action: PayloadAction<BookType>) => {
-      state.books.push(action.payload)
+    addBook: (state, action: PayloadAction<BookType[]>) => {
+      state.books = [];
+      state.books = action.payload
     },
-    reset: (state) => {
-      state.books.length = 0;
-    },
-
   }
 })
 
 export const {
   addBook,
-  reset 
 } = booksSlice.actions
 
 export default booksSlice.reducer

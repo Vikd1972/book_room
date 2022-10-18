@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 import Book from './book/Book';
 import { BookType } from '../../../store/booksSlice';
 import showToast from '../../../validation/showToast';
-import { addBook, reset } from '../../../store/booksSlice';
+import { addBook } from '../../../store/booksSlice';
 import getBooks from '../../../api/books/getBooks';
 import Pagination from './pagination/Pagination';
 import config from '../../../config';
@@ -25,16 +25,8 @@ export const CatalogBooks: React.FC = () => {
     (async () => {
       try {
         const response = await getBooks(skip);
-        const allBooks: BookType[] = response.books;
-        setQuantityBooks(response.quantityBooks);
-        dispatch(reset())
-        allBooks.forEach(book => {
-          dispatch(addBook({
-            ...book,
-            paperbackPrice: book.paperbackPrice / 100,
-            hardcoverPrice: book.hardcoverPrice / 100
-          }))
-        });
+        setQuantityBooks(response.quantityBooks);         
+        dispatch(addBook(response.books))
       }
       catch (err) {
         if (err instanceof AxiosError) {

@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 import Book from '../catalog/catalogBooks/book/Book';
 import { BookType } from '../../store/booksSlice';
 import showToast from '../../validation/showToast';
-import { addBook, reset } from '../../store/booksSlice';
+import { addBook } from '../../store/booksSlice';
 import getBooks from '../../api/books/getBooks';
 import config from '../../config';
 import getRecommendationsBooks from '../../api/books/getRecommendationsBooks';
@@ -29,19 +29,9 @@ export const Recommendations: React.FC<Options> = (props) => {
     (async () => {
       try {
         if (props.quantityBooks) {
-          let randomBooks = [];
-          for (let i = 0; i <= 3; i++) {
-            randomBooks.push(Math.ceil(Math.random() * props.quantityBooks));
-          }
-          const response = await getRecommendationsBooks(randomBooks);
-          const recommendationsBooks: BookType[] = response.books;
-          recommendationsBooks.forEach(book => {
-            dispatch(addBook({
-              ...book,
-              paperbackPrice: book.paperbackPrice / 100,
-              hardcoverPrice: book.hardcoverPrice / 100
-            }))
-          });
+          const response = await getRecommendationsBooks();
+
+          dispatch(addBook( response.books ))
         }
       }
       catch (err) {

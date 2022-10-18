@@ -1,56 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useAppSelector } from '../../../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { AxiosError } from 'axios';
 
 import showToast from '../../../../validation/showToast';
 import BookWrapper from './Book.styles';
 import { Button } from '../../../componentsUI/button/Buttons';
 import addBookToCart from '../../../../api/cart/addBookToCart';
-
+import { addCart } from '../../../../store/usersSlice';
 import { BookType } from '../../../../store/booksSlice'
+import getCart from '../../../../api/cart/getCart';
+
 
 type Props = {
   book: BookType,
 };
 
 export const Book: React.FC<Props> = (props) => {
+  const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.users.user)
-  // console.log(user);
-
-  const [userId, setUserId] = useState<number>(0);
-  const [bookId, setBookId] = useState<number>(0);
-  const [quantityInCart, setQuantityInCart] = useState(0);
 
   const currentPrice = props.book.paperbackQuantity ? props.book.paperbackPrice : props.book.hardcoverPrice;
   const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        if (userId) {
-          const response = await addBookToCart({ userId, bookId });
-          const booksInCart = response.userCart.reduce(
-            (sum: number, item: { count: number; }) => sum + item.count, 0);
-          setQuantityInCart(booksInCart)
-          const count = document.getElementById('cart')
-          if (count) {
-            count.innerHTML = booksInCart + '';
-            count.style.visibility = 'visible';
-          }    
-          console.log(booksInCart);
-        }
-      }
-      catch (err) {
-        if (err instanceof AxiosError) {
-          showToast(err.message);
-        }
-      }
-    })();
-  }, [bookId]);
-
-  const addToCart = () => {
-    setUserId(user.id)
-    setBookId(props.book.id)
+  const addToCart = async () => {
+    const userId = user.id;
+    const bookId = props.book.id;
+    const response = await addBookToCart({ userId, bookId });
+    const cart = await getCart(userId);
+    dispatch(addCart(cart));
   }
 
   return (

@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import HeaderWrapper from './Header.styles';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { reset } from '../../store/usersSlice';
 import { Button } from '../componentsUI/button/Buttons';
+import { AxiosError } from 'axios';
+import showToast from '../../validation/showToast';
+import { addCart } from '../../store/usersSlice';
+import getCart from '../../api/cart/getCart';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const user = useAppSelector(state => state.users.user)
+  const cart = useAppSelector(state => state.users.cart)
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const cart = await getCart(user.id)
+        dispatch(addCart(cart))
+      }
+      catch (err) {
+        if (err instanceof AxiosError) {
+          showToast(err.message);
+        }
+      }
+    })();
+  }, []);
+
+  const count = cart.reduce((sum, item) => sum + item.count, 0);
 
   const logout = () => {
     localStorage.removeItem('token');
-    dispatch(reset())
   }
 
   const returnToCatalog = () => {
@@ -46,7 +65,7 @@ export const Header: React.FC = () => {
               className="buttons-icon btn-cart"
               to="/cart">
             </Link>
-            <div id='cart'></div>
+            {count ? <div id='cart'>{count}</div> : null}
             <Link
               className="buttons-icon btn-save"
               onClick={logout} //a temporary solution for testing application
