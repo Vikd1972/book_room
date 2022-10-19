@@ -12,7 +12,7 @@ export interface UserType {
 export interface CartType {
   id: number,
   count: number,
-  book: BookType[],
+  book: BookType,
 }
 
 interface UsersState {
@@ -30,7 +30,21 @@ const initialState: UsersState = {
   cart: [{
     id: 0,
     count: 0,
-    book: [],
+    book: {
+      id: 0,
+      name: '',
+      author: '',
+      pathToCover: '',
+      description: '',
+      releasedAt: new Date(),
+      paperbackPrice: 0,
+      paperbackQuantity: 0,
+      hardcoverPrice: 0,
+      hardcoverQuantity: 0,
+      isNew: false,
+      isBestseller: false,
+      genres: []
+    }
   }],
 }
 

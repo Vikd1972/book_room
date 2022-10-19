@@ -24,6 +24,7 @@ export const Book: React.FC<Props> = (props) => {
     const bookId = props.book.id;
     await addBookToCart({ userId, bookId });
     const cart = await getCart(userId);
+    
     dispatch(addCart(cart));
   }
 

@@ -32,7 +32,7 @@ export const CatalogBooks: React.FC = () => {
       }
     })();
   }, []);
-
+  
   return (
     <>
       <СatalogBooksWrapper>
