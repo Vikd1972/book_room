@@ -9,19 +9,19 @@ import { AxiosError } from 'axios';
 import showToast from '../../validation/showToast';
 import Recommendations from '../recommendations/Recommendations';
 import AuthorizePoster from '../authorizePoster/AuthorizePoster';
+import addBookToCart from '../../api/cart/addBookToCart';
+import getCart from '../../api/cart/getCart';
+import { addCart } from '../../store/usersSlice';
 
 import { BookType } from '../../store/booksSlice'
 
 export const DetailBook: React.FC = () => {
   const user = useAppSelector(state => state.users.user)
   const dispatch = useAppDispatch();
-  const serviceInfo = useAppSelector(state => state.books.serviceInfo)
 
   const [book, setBook] = useState<BookType>()
 
   const { bookId } = useParams();
-  console.log(bookId);
-  
 
   useEffect(() => {
     (async () => {
@@ -57,6 +57,16 @@ export const DetailBook: React.FC = () => {
     }
   }
 
+  const addToCart = async () => {
+    if (book) {
+      const userId = user.id;
+      const bookId = book?.id;
+      await addBookToCart({ userId, bookId });
+      const cart = await getCart(userId);
+      dispatch(addCart(cart));
+    }
+  }
+
   return (
     <>
       <DetailBookWrapper>
@@ -67,19 +77,20 @@ export const DetailBook: React.FC = () => {
             id='cover' />
         </div>
         <div className='info'>
-          <div className='name'>{book?.name}</div>
-          <div className='author'>{book?.author}</div>
+          <h1 className='name'>{book?.name}</h1>
+          <p className='author'>{book?.author}</p>
           <div className='rating'>rating</div>
-          <div className='description'>
+          <p className='description'>
             <span>Description</span><br /><br />
             {book?.description}
-          </div>
+          </p>
           <div className='purchase'>
             <div>Paperback
               <Button
                 type='button'
                 className="button"
                 text={textButtonPaperback}
+                onClick={addToCart}
                 isDisable={book?.paperbackQuantity ? false : true}
               />
             </div>
@@ -88,6 +99,7 @@ export const DetailBook: React.FC = () => {
                 type='button'
                 className="button"
                 text={textButtonHardcover}
+                onClick={addToCart}
                 isDisable={book?.hardcoverQuantity ? false : true}
               />
             </div>

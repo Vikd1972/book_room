@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import FooterWrapper from './Footer.styles';
 
 export const Footer: React.FC = () => {
+  const activePage = sessionStorage.getItem('activePage') || '1'
+  
   return (
     <FooterWrapper>
       <div className='logo'>
@@ -16,12 +18,12 @@ export const Footer: React.FC = () => {
       <nav className='links'>
         <Link
           className="navi"
-          to="/1">
+          to={`/${activePage}`}>
           Home Page
         </Link><br />
         <Link
           className="navi"
-          to="/1">
+          to={`/${activePage}`}>
           Catalog
         </Link><br />
         <Link

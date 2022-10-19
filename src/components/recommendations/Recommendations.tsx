@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { AxiosError } from 'axios';
 
@@ -7,12 +7,10 @@ import showToast from '../../validation/showToast';
 import { addRecomBooks } from '../../store/booksSlice';
 import getRecommendationsBooks from '../../api/books/getRecommendationsBooks';
 
-
 import RecommendationsWrapper from './Recommendations.styles';
 
 export const Recommendations: React.FC = () => {
   const dispatch = useAppDispatch()
-  const [skip, setSkip] = useState(0)
   const books = useAppSelector(state => state.books.books)
 
   useEffect(() => {

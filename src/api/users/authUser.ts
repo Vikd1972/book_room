@@ -1,4 +1,5 @@
 import instance from '..';
+import { UserType } from '../../store/usersSlice';
 
 interface AuthParams {
   email: string,
@@ -8,7 +9,7 @@ interface AuthParams {
 const authUser = async (options: AuthParams) => {
   const response = await instance.post("/auth/login", options)
   localStorage.setItem('token', response.data.token);
-  return response.data.user;
+  return response.data.user as UserType;
 }
 
 export default authUser;

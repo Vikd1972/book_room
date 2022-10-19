@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 import HeaderWrapper from './Header.styles';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -11,11 +11,9 @@ import getCart from '../../api/cart/getCart';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate();
-  const user = useAppSelector(state => state.users.user)
-  const cart = useAppSelector(state => state.users.cart)
-  const serviceInfo = useAppSelector(state => state.books.serviceInfo)
-  const activePage = sessionStorage.getItem('activePage')
+  const user = useAppSelector(state => state.users.user);
+  const cart = useAppSelector(state => state.users.cart);
+  const activePage = sessionStorage.getItem('activePage') || '1';
 
   useEffect(() => {
     (async () => {
@@ -38,16 +36,11 @@ export const Header: React.FC = () => {
     dispatch(reset())
   }
 
-  // const returnToCatalog = () => {
-  //   navigate('/')
-  // }
-
   return (
     <HeaderWrapper>
       <header className='top-panel'>
         <a
           href={`/${activePage}`}
-          // onClick={returnToCatalog}
           className='panel__logotype'>
         </a>
         <form>

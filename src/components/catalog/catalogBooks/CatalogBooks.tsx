@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { AxiosError } from 'axios';
 import { useParams } from "react-router-dom";
@@ -22,8 +22,7 @@ export const CatalogBooks: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getBooks(Number(pageNumber.activePage));            
-        
+        const response = await getBooks(Number(pageNumber.activePage));    
         dispatch(addBooks(response))
       }
       catch (err) {

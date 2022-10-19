@@ -14,7 +14,7 @@ export const Pagination: React.FC = (props) => {
     const page = document.createElement('a');
     page.classList.add('page');
     page.href = `/${i}`; 
-    page.id = i + '';
+    page.id = i.toString();
     if (i === serviceInfo.activePage) {
       page.classList.add('active');
     }

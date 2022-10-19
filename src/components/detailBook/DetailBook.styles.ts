@@ -29,10 +29,12 @@ flex-direction: row;
   font-size: 40px;
   font-weight: 700;
   line-height: 50px;
+  margin: 0;
 }
 .author {
   font-size: 24px;
   line-height: 36px;
+  margin: 0;
 }
 .rating {
   margin-top: 30px;
@@ -44,7 +46,7 @@ flex-direction: row;
   font-size: 16px;
   line-height: 24px;
   color: #344966;
-  margin-top: 30px;
+  margin: 30px 0 0 0;
   span {
     font-size: 24px;
     line-height: 36px;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { ToastContainer } from 'react-toastify';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AxiosError } from 'axios';
 
 import { useAppDispatch } from './store/hooks';
@@ -23,6 +23,8 @@ export const App: React.FC = () => {
   const activePage = '1';
   const dispatch = useAppDispatch()
   const [isInit, setIsInit] = useState(false)
+  // const navigate = useNavigate()
+  // navigate("/1")
   
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -55,6 +57,8 @@ export const App: React.FC = () => {
       <AppWrapper className="bookroom">
         <Header />
         <Routes>
+          <Route path="/" element={<Navigate to="/1" />} />
+
           <Route path="/:activePage" element={<Catalog />} />
 
           <Route path="/login" element={<Login />} />

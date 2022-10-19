@@ -2,8 +2,6 @@ import instance from '..';
 
 import { BookType } from '../../store/booksSlice';
 
-import config from '../../config';
-
 const getRecommendationsBooks = async () => {
   const response = await instance.get("/books/")
 

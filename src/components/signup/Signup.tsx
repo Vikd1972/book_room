@@ -15,7 +15,7 @@ import showToast from '../../validation/showToast';
 
 import SignUpWrapper from './Signup.styles';
 
-export const Signup: React.FC = (props) => {
+export const Signup: React.FC = () => {
   const activePage = sessionStorage.getItem('activePage')
   const dispatch = useAppDispatch()
   const navigate = useNavigate();

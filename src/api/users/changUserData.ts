@@ -1,4 +1,5 @@
 import instance from '..';
+import { UserType } from '../../store/usersSlice';
 
 interface NewUserData {
   fullname: string,
@@ -9,14 +10,9 @@ interface NewUserData {
 };
 
 const changeUserData = async (options: NewUserData) => {
-  const response = await instance.put("/users", {
-    fullname: options.fullname,
-    email: options.email,
-    oldPassword: options.oldPassword,
-    newPassword: options.newPassword,
-    confirmPassword: options.confirmPassword,
-  })
-  return response.data.user;
+  const response = await instance.put("/users", options)
+  
+  return response.data.user as UserType;
 }
 
 export default changeUserData;

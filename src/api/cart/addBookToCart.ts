@@ -1,4 +1,5 @@
 import instance from '..';
+import { CartType } from '../../store/usersSlice';
 
 interface OrderParams {
   userId: number,
@@ -6,12 +7,9 @@ interface OrderParams {
 }
 
 const addBookToCart = async (option: OrderParams) => {
-  const response = await instance.post("/cart/add", {
-    userId: option.userId,
-    bookId: option.bookId,
-  })
+  const response = await instance.post("/cart/add", option)
     
-  return response.data;
+  return response.data as CartType;
 }
 
 export default addBookToCart;
