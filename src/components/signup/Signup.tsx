@@ -16,10 +16,11 @@ import showToast from '../../validation/showToast';
 import SignUpWrapper from './Signup.styles';
 
 export const Signup: React.FC = (props) => {
+  const activePage = sessionStorage.getItem('activePage')
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state as string || '/';
+  const route = location.state as string || `/${activePage}`;
 
   const formik = useFormik({
     initialValues: {

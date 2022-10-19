@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { AxiosError } from 'axios';
 
-import Book from '../catalog/catalogBooks/book/Book';
+import Book from '../catalog/book/Book';
 import showToast from '../../validation/showToast';
-import { addBook } from '../../store/booksSlice';
+import { addRecomBooks } from '../../store/booksSlice';
 import getRecommendationsBooks from '../../api/books/getRecommendationsBooks';
 
 
@@ -18,8 +18,8 @@ export const Recommendations: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getRecommendationsBooks();
-        dispatch(addBook(response.books))
+        const recommendationsBooks = await getRecommendationsBooks();
+        dispatch(addRecomBooks(recommendationsBooks))
       }
       catch (err) {
         if (err instanceof AxiosError) {

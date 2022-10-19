@@ -14,6 +14,8 @@ export const Header: React.FC = () => {
   const navigate = useNavigate();
   const user = useAppSelector(state => state.users.user)
   const cart = useAppSelector(state => state.users.cart)
+  const serviceInfo = useAppSelector(state => state.books.serviceInfo)
+  const activePage = sessionStorage.getItem('activePage')
 
   useEffect(() => {
     (async () => {
@@ -36,17 +38,18 @@ export const Header: React.FC = () => {
     dispatch(reset())
   }
 
-  const returnToCatalog = () => {
-    navigate('/')
-  }
+  // const returnToCatalog = () => {
+  //   navigate('/')
+  // }
 
   return (
     <HeaderWrapper>
       <header className='top-panel'>
-        <div
-          onClick={returnToCatalog}
+        <a
+          href={`/${activePage}`}
+          // onClick={returnToCatalog}
           className='panel__logotype'>
-        </div>
+        </a>
         <form>
           <div className='panel__search'>Catalog</div>
           <div className='search-icon'></div>
@@ -70,7 +73,7 @@ export const Header: React.FC = () => {
             <Link
               className="buttons-icon btn-save"
               onClick={logout} //a temporary solution for testing application
-              to="/">
+              to={`/${activePage}`}>
             </Link>
             <Link
               className="buttons-icon btn-user"

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import left from '../../../../utils/picture/arrow_left.png'
-import right from '../../../../utils/picture/arrow_right.png'
+import left from '../../../utils/picture/arrow_left.png'
+import right from '../../../utils/picture/arrow_right.png'
 
 const PaginationWrapper = styled.div`  
 margin-top: 78px;
@@ -25,6 +25,7 @@ flex-direction: row;
   margin: 0 20px 0 20px;
   border-radius: 8px;
   border: 2px solid #0D1821;
+  cursor: pointer;
   /* background-color: #0D1821; */
 }
 .active {

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import star1 from '../../../../utils/picture/star1.png'
+import star1 from '../../../utils/picture/star1.png'
 
 const BookWrapper = styled.div`
 margin-top: 50px;

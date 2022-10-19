@@ -20,6 +20,7 @@ import showToast from './validation/showToast';
 import AppWrapper from './App.styles';
 
 export const App: React.FC = () => {
+  const activePage = '1';
   const dispatch = useAppDispatch()
   const [isInit, setIsInit] = useState(false)
   
@@ -54,7 +55,7 @@ export const App: React.FC = () => {
       <AppWrapper className="bookroom">
         <Header />
         <Routes>
-          <Route path="/catalog/page/:pageNumber" element={<Catalog />} />
+          <Route path="/:activePage" element={<Catalog />} />
 
           <Route path="/login" element={<Login />} />
 

@@ -17,10 +17,11 @@ import { UserType } from '../../store/usersSlice';
 import LoginWrapper from './Login.styles';
 
 export const Login: React.FC = () => {
+  const activePage = sessionStorage.getItem('activePage')
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state as string || '/' ;
+  const route = location.state as string || `/${activePage}` ;
 
   const formik = useFormik({
     initialValues: {

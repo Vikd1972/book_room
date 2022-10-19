@@ -1,12 +1,12 @@
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 
 import BookWrapper from './Book.styles';
-import { Button } from '../../../componentsUI/button/Buttons';
-import addBookToCart from '../../../../api/cart/addBookToCart';
-import { addCart } from '../../../../store/usersSlice';
-import { BookType } from '../../../../store/booksSlice'
-import getCart from '../../../../api/cart/getCart';
+import { Button } from '../../componentsUI/button/Buttons';
+import addBookToCart from '../../../api/cart/addBookToCart';
+import { addCart } from '../../../store/usersSlice';
+import { BookType } from '../../../store/booksSlice'
+import getCart from '../../../api/cart/getCart';
 
 type Props = {
   book: BookType,

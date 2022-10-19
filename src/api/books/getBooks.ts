@@ -1,14 +1,15 @@
 import instance from '..';
 
 import config from '../../config';
+import { BooksState } from '../../store/booksSlice'
 
-const getBooks = async (skip: number) => {
+const getBooks = async (currentPage: number) => {
   const response = await instance.post("/books", {
-    skip: skip,
+    currentPage: currentPage,
     pagination: config.pagination
-  })
+  }) 
   
-  return response.data;
+  return response.data as BooksState;
 }
 
 export default getBooks;

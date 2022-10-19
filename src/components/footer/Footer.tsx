@@ -16,12 +16,12 @@ export const Footer: React.FC = () => {
       <nav className='links'>
         <Link
           className="navi"
-          to="/catalog/page/1">
+          to="/1">
           Home Page
         </Link><br />
         <Link
           className="navi"
-          to="/catalog/page/1">
+          to="/1">
           Catalog
         </Link><br />
         <Link

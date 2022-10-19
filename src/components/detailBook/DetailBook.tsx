@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useParams } from "react-router-dom";
 
 import DetailBookWrapper from './DetailBook.styles';
@@ -14,17 +14,24 @@ import { BookType } from '../../store/booksSlice'
 
 export const DetailBook: React.FC = () => {
   const user = useAppSelector(state => state.users.user)
+  const dispatch = useAppDispatch();
+  const serviceInfo = useAppSelector(state => state.books.serviceInfo)
+
   const [book, setBook] = useState<BookType>()
 
   const { bookId } = useParams();
+  console.log(bookId);
+  
 
   useEffect(() => {
     (async () => {
       try {   
-        const response = await getDetailBooks(Number(bookId));
-        setBook(response.book)
+        const detailBook = await getDetailBooks(Number(bookId));   
+        setBook(detailBook)
       }
       catch (err) {
+        console.log('err');
+        
         if (err instanceof AxiosError) {
           showToast(err.message);
         }
