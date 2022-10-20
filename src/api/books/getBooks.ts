@@ -3,10 +3,16 @@ import instance from '..';
 import config from '../../config';
 import { BooksState } from '../../store/booksSlice'
 
-const getBooks = async (currentPage: number) => {
+interface Options {
+  currentPage: number,
+  genres: string[]
+}
+
+const getBooks = async (options: Options) => {
   const response = await instance.post("/books", {
-    currentPage: currentPage,
-    pagination: config.pagination
+    currentPage: options.currentPage,
+    pagination: config.pagination,
+    genres: options.genres
   }) 
   
   return response.data as BooksState;

@@ -7,6 +7,7 @@ margin-top: 50px;
 max-width: 1280px;
 width: 100%;
 height: auto;
+z-index: 1;
 .cover-container {
   width: 100%;
   height: 100%;

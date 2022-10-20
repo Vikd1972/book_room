@@ -14,6 +14,7 @@ import СatalogBooksWrapper from './CatalogBooks.styles';
 
 export const CatalogBooks: React.FC = () => {
   const dispatch = useAppDispatch()
+  const genres = useAppSelector(state => state.books.currentGenres)
   const books = useAppSelector(state => state.books.books)
   const user = useAppSelector(state => state.users.user)
 
@@ -22,7 +23,11 @@ export const CatalogBooks: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getBooks(Number(pageNumber.activePage));    
+        const options = {
+          currentPage: Number(pageNumber.activePage),
+          genres: genres
+        }
+        const response = await getBooks(options);           
         dispatch(addBooks(response))
       }
       catch (err) {

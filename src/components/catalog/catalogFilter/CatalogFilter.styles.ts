@@ -44,6 +44,9 @@ justify-content: space-between;
   background-repeat: no-repeat;
   cursor: pointer;
 }
+.genre-wrapper{
+  position: relative;
+}
 .genre {
   ${(props) => {
     if (props.genre) {
@@ -57,7 +60,7 @@ justify-content: space-between;
           background-position: 185px 17px;
         `;
     }
-  }};
+}};
   .arrow {
     margin-top: 25px;
     background-image: url(${field});

@@ -9,6 +9,7 @@ interface AuthParams {
 const authUser = async (options: AuthParams) => {
   const response = await instance.post("/auth/login", options)
   localStorage.setItem('token', response.data.token);
+  
   return response.data.user as UserType;
 }
 

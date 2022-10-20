@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import СatalogFilterWrapper from './CatalogFilter.styles';
 import Slider from '@mui/material/Slider';
+import ChoiceOfGenre from '../../componentsUI/choiceOfGenre/ChoiceOfGenre';
 
-// function valuetext(value: number) {
-//   return `${value}`;
-// }
+
 
 export const CatalogFilter: React.FC = () => {
   const [isSelectByGenre, setIsSelectByGenre] = useState(false);
@@ -14,26 +13,19 @@ export const CatalogFilter: React.FC = () => {
 
 
   const selectByGenre = () => {
-    setIsSelectByPrice(false);
-    setIsSelectByGenre(true);
-  }
-  const onSelectByGenre = () => {
-    const genre = document.querySelector('input[name="genre"]:checked') as HTMLInputElement;
-    console.log(genre.value);
-    setIsSelectByGenre(false);
+    setIsSelectByGenre(!isSelectByGenre);
   }
 
   const selectByPrice = () => {
-    setIsSelectByGenre(false);
-    setIsSelectByPrice(true);
+    // setIsSelectByPrice(!isSelectByPrice);
   }
   const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
-    setPriceValue(newPrice as number[]);
-    console.log(newPrice);
+    // setPriceValue(newPrice as number[]);
+    // console.log(newPrice);
   }
 
   const sortBy = () => {
-    setSortingBy(true)
+    setSortingBy(!isSortingBy)
   }
 
   return (
@@ -45,30 +37,19 @@ export const CatalogFilter: React.FC = () => {
       <form
         name='selector'
         className='filtering'>
-        <div
-          onClick={selectByGenre}
-          className='filter genre'>Genre
-          {isSelectByGenre ? (
-            <>
-              <div className='arrow'></div>
-              <div className='genre__btn'>
-                <label className="custom-radio">
-                  <input type="radio" name="genre" value="fiction" onChange={onSelectByGenre} />
-                  <span>Fiction</span>
-                </label><br />
-                <label className="custom-radio">
-                  <input type="radio" name="genre" value="non_fiction" onChange={onSelectByGenre} />
-                  <span>Noh-fiction</span>
-                </label><br />
-              </div>
-            </>
-          ) : null}</div>
+        <div className='genre-wrapper'>
+          <div
+            onClick={selectByGenre}
+            className='filter genre'>Genre
+          </div>
+          {isSelectByGenre && <ChoiceOfGenre />}
+        </div>
         <div
           onClick={selectByPrice}
           className='filter price'>Price
           {isSelectByPrice ? (
             <>
-            <div className='arrow'></div>
+              <div className='arrow'></div>
               <Slider
                 className='price-box'
                 getAriaLabel={() => 'Temperature range'}
