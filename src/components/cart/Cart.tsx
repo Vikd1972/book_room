@@ -11,9 +11,10 @@ import CartWrapper from './Cart.styles';
 
 
 export const Cart: React.FC = () => {
-  const fullCart = useAppSelector(state => state.users.cart)
-  // console.log(cart);
-
+  const user = useAppSelector(state => state.users.user)
+  const fullCart = useAppSelector(state => state.users.cart) 
+  console.log(fullCart);
+  
 
   return (
     <CartWrapper>
@@ -22,6 +23,7 @@ export const Cart: React.FC = () => {
         <div key={cart.id}>
           <BookInCart
             cart={cart}
+            userId={user.id}
           />
         </div>
       ))}

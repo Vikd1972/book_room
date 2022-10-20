@@ -1,9 +1,18 @@
 import instance from '..';
 
-const deleteBookInCart = async (id: number) => {
-  const response = await instance.post("/cart/change", id)
+import { CartType } from '../../store/usersSlice';
 
-  return response;
+interface DeleteParams {
+  id: number,
+  userId: number,
+}
+
+const deleteBookInCart = async (options: DeleteParams) => {
+  const response = await instance.delete("/cart/", {
+    data: options
+  })
+
+  return response.data.userCart as CartType[];
 }
 
 export default deleteBookInCart;

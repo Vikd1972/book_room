@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
     })();
   }, []);
 
-  const count = cart.reduce((sum, item) => sum + item.count, 0);
+  const count = Array.from(cart).reduce((sum, item) => sum + item.count, 0);
 
   const logout = () => {
     localStorage.removeItem('token');

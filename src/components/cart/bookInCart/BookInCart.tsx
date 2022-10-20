@@ -10,9 +10,10 @@ import QuantityChange from '../../componentsUI/quantityChange/QuantityChange'
 
 interface Props {
   cart: CartType
+  userId: number
 }
 
-export const BookInCart: React.FC<Props> = (props) => {
+export const BookInCart: React.FC<Props> = (props) => {  
   const book: BookType = props.cart.book
   const paperbackPrice = (book.paperbackPrice / 100).toFixed(2);
   const hardcoverPrice = (book.hardcoverPrice / 100).toFixed(2);
@@ -33,7 +34,8 @@ export const BookInCart: React.FC<Props> = (props) => {
         <p className='author'>{book.author}</p>
         <QuantityChange
           id={props.cart.id}
-          count={props.cart.count} />
+          count={props.cart.count}
+          userId={props.userId} />
         <p className='price'>{textButton}</p>
       </div>
     </BookInCartWrapper>

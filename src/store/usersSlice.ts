@@ -36,7 +36,7 @@ const initialState: UsersState = {
       author: '',
       pathToCover: '',
       description: '',
-      releasedAt: new Date(),
+      releasedAt: new Date(1901, 1, 1),
       paperbackPrice: 0,
       paperbackQuantity: 0,
       hardcoverPrice: 0,

@@ -23,8 +23,6 @@ export const App: React.FC = () => {
   const activePage = '1';
   const dispatch = useAppDispatch()
   const [isInit, setIsInit] = useState(false)
-  // const navigate = useNavigate()
-  // navigate("/1")
   
   useEffect(() => {
     const token = localStorage.getItem('token')

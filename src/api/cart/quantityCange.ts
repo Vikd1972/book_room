@@ -1,8 +1,9 @@
 import instance from '..';
 
 interface OrderParams {
-  count: number
-  id: number
+  count: number,
+  id: number,
+  userId: number,
 }
 
 const quantityCange = async (options: OrderParams) => {
