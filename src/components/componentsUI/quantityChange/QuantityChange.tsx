@@ -3,7 +3,7 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 
 import QuantityCangeWrapper from './QuantityCange.styles';
 import config from '../../../config'
-import quantityCgange from '../../../api/cart/quantityCange'
+import quantityChange from '../../../api/cart/quantityChange'
 import deleteBookInCart from '../../../api/cart/deleteBookInCart'
 import {addCart} from '../../../store/usersSlice'
 
@@ -23,7 +23,9 @@ export const QuantityCange: React.FC<Props> = (props) => {
         count: props.count - 1,
         userId: props.userId
       }
-      await quantityCgange(options)
+      const cart = await quantityChange(options)
+
+      dispatch(addCart(cart));
     }
   }
 
@@ -34,7 +36,9 @@ export const QuantityCange: React.FC<Props> = (props) => {
         count: props.count + 1,
         userId: props.userId
       }
-      await quantityCgange(options)
+      const cart = await quantityChange(options)
+      
+      dispatch(addCart(cart));
     }
   }
   const onDeletingBook = async () => {
@@ -43,7 +47,6 @@ export const QuantityCange: React.FC<Props> = (props) => {
       userId: props.userId
     }
     const cart = await deleteBookInCart(options) 
-    const eee = (Array.from(cart));
     
     dispatch(addCart(cart));
   }
