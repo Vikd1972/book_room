@@ -5,14 +5,13 @@ import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import authUser from '../../api/users/authUser';
-import { loginUser } from '../../store/usersSlice';
+import { loginUser, UserType } from '../../store/usersSlice';
 import { useAppDispatch } from '../../store/hooks';
 import showToast from '../../validation/showToast';
 import schemqaLogin from '../../validation/schemaLogin';
 import { Values } from '../../interfaces/Interface';
 import InputOneLine from '../componentsUI/inputOneLine/InputOneLine';
 import { Button } from '../componentsUI/button/Buttons';
-import { UserType } from '../../store/usersSlice';
 
 import LoginWrapper from './Login.styles';
 

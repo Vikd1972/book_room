@@ -9,9 +9,9 @@ interface OrderParams {
 }
 
 const quantityChange = async (options: OrderParams) => {
-  const response = await instance.post("/cart/change", options)
+  const response = await instance.post<{userCart: CartType[]}>("/cart/change", options)
 
-  return response.data.userCart as CartType[];;
+  return response.data.userCart;
 }
 
 export default quantityChange;

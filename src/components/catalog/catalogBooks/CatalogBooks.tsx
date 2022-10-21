@@ -14,20 +14,20 @@ import СatalogBooksWrapper from './CatalogBooks.styles';
 
 export const CatalogBooks: React.FC = () => {
   const dispatch = useAppDispatch()
-  const genres = useAppSelector(state => state.books.currentGenres)
-  const books = useAppSelector(state => state.books.books)
+  const books = useAppSelector(state => state.books)
   const user = useAppSelector(state => state.users.user)
 
-  let  pageNumber  = useParams();
+  let pageNumber = useParams();
 
   useEffect(() => {
     (async () => {
       try {
         const options = {
           currentPage: Number(pageNumber.activePage),
-          genres: genres
+          genres: books.currentGenres
         }
-        const response = await getBooks(options);           
+        const response = await getBooks(options);  
+        
         dispatch(addBooks(response))
       }
       catch (err) {
@@ -36,12 +36,12 @@ export const CatalogBooks: React.FC = () => {
         }
       }
     })();
-  }, []);
+  }, [pageNumber.activePage]);
   
   return (
     <>
       <СatalogBooksWrapper>
-        {books.map(book => (
+        {books.books.map(book => (
           <div key={book.id}>
             <Book
               book={book}

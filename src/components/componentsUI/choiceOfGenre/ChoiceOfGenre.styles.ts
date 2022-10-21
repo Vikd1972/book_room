@@ -27,13 +27,19 @@ border-radius: 16px;
 .checkbox {
   padding: 5px 15px 0 15px;
 }
+p {
+  margin: 0;
+}
 .checkbox-item {
   display: block;
-	/* margin: 0 0 10px 0; */
+  line-height: 37px;
 	cursor: pointer;
 	user-select: none;
 	position: relative;
-  margin-bottom: -15px;
+  /* margin-bottom: -15px; */
+}
+.name-item {
+  padding: 10px 0 10px 0;
 }
 .checkbox-item input[type=checkbox] {
   position: absolute;
@@ -42,6 +48,7 @@ border-radius: 16px;
 	display: block;
 	width: 0;
 	height: 0;
+  padding: 15px 0 15px 0;
 }
 .checkbox-item span {
   display: inline-block;

@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { useParams } from "react-router-dom";
-
-import DetailBookWrapper from './DetailBook.styles';
-import { Button } from '../componentsUI/button/Buttons';
-import getDetailBooks from '../../api/books/getDetailBook';
 import { AxiosError } from 'axios';
+
+import { Button } from '../componentsUI/button/Buttons';
 import showToast from '../../validation/showToast';
+import getDetailBooks from '../../api/books/getDetailBook';
 import Recommendations from '../recommendations/Recommendations';
 import AuthorizePoster from '../authorizePoster/AuthorizePoster';
 import addBookToCart from '../../api/cart/addBookToCart';
-import getCart from '../../api/cart/getCart';
 import { addCart } from '../../store/usersSlice';
-
 import { BookType } from '../../store/booksSlice'
 
+import DetailBookWrapper from './DetailBook.styles';
+
 export const DetailBook: React.FC = () => {
-  const user = useAppSelector(state => state.users.user)
   const dispatch = useAppDispatch();
+  const user = useAppSelector(state => state.users.user)
 
   const [book, setBook] = useState<BookType>()
 
@@ -25,44 +24,39 @@ export const DetailBook: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      try {   
-        const detailBook = await getDetailBooks(Number(bookId));   
+      try {
+        const detailBook = await getDetailBooks(Number(bookId));
         setBook(detailBook)
       }
       catch (err) {
-        console.log('err');
-        
         if (err instanceof AxiosError) {
           showToast(err.message);
         }
       }
     })();
-  }, []);
+  }, [bookId, user.id]);
 
   let textButtonPaperback = '';
   let textButtonHardcover = '';
 
-  if (book) {
-    const currentPricePaperback = book.paperbackPrice;
-    if (!currentPricePaperback) {
-      textButtonPaperback = 'Not available'
-    } else {
-      textButtonPaperback = `$ ${currentPricePaperback?.toFixed(2).toString()} USD`;
-    }
-    const currentPriceHardcover = book.hardcoverPrice;
-    if (!currentPriceHardcover) {
-      textButtonHardcover = 'Not available'
-    } else {
-      textButtonHardcover = `$ ${currentPriceHardcover?.toFixed(2).toString()} USD`;
-    }
+  const currentPricePaperback = book?.paperbackPrice;
+  if (!book?.paperbackQuantity) {
+    textButtonPaperback = 'Not available'
+  } else {
+    textButtonPaperback = `$ ${currentPricePaperback?.toFixed(2).toString()} USD`;
+  }
+  const currentPriceHardcover = book?.hardcoverPrice;
+  if (!book?.hardcoverQuantity) {
+    textButtonHardcover = 'Not available'
+  } else {
+    textButtonHardcover = `$ ${currentPriceHardcover?.toFixed(2).toString()} USD`;
   }
 
   const addToCart = async () => {
     if (book) {
       const userId = user.id;
       const bookId = book?.id;
-      await addBookToCart({ userId, bookId });
-      const cart = await getCart(userId);
+      const cart = await addBookToCart({ userId, bookId });
       dispatch(addCart(cart));
     }
   }

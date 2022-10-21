@@ -7,10 +7,10 @@ interface SignUpParams {
 };
 
 const signUpUser = async (options: SignUpParams) => {
-  const response = await instance.post("/auth/sign", options)
+  const response = await instance.post<{user: UserType, token: string}>("/auth/sign", options)
   localStorage.setItem('token', response.data.token);
   
-  return response.data.user as UserType;
+  return response.data.user;
 }
 
 export default signUpUser;

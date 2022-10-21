@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
-import { useAppSelector } from '../../store/hooks';
 
 import Button from '../componentsUI/button/Buttons';
+import { useAppSelector } from '../../store/hooks';
 import EmptyCart from './emptyCart/EmptyCart';
-import { CartType } from '../../store/usersSlice';
 import BookInCart from './bookInCart/BookInCart';
 
 import CartWrapper from './Cart.styles';
 
-
 export const Cart: React.FC = () => {
-  const user = useAppSelector(state => state.users.user)
-  const fullCart = useAppSelector(state => state.users.cart)
+  const users = useAppSelector(state => state.users)
   const activePage = sessionStorage.getItem('activePage') || '1'
 
   let total = 0;
-  for (let item of fullCart) {
+  for (let item of users.cart) {
     const currentPrice = item.book.paperbackPrice ?
       item.book.paperbackPrice : item.book.hardcoverPrice;
     const pricePerItem = item.count * (currentPrice / 100)
@@ -25,16 +22,16 @@ export const Cart: React.FC = () => {
 
   return (
     <CartWrapper>
-      {fullCart.length === 0 ? <EmptyCart /> : null}
-      {fullCart.map(cart => (
+      {users.cart.length === 0 ? <EmptyCart /> : null}
+      {users.cart.map(cart => (
         <div key={cart.id}>
           <BookInCart
             cart={cart}
-            userId={user.id}
+            userId={users.user.id}
           />
         </div>
       ))}
-      {fullCart.length !== 0 ?
+      {users.cart.length !== 0 ?
         <>
           <p className='total'>Total: <b>{total.toFixed(2)}</b></p>
           <div className='buttons'>

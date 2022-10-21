@@ -1,35 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useAppSelector } from '../../../store/hooks';
+import { Link } from "react-router-dom";
 
 import PaginationWrapper from './Pagination.styles';
-import config from '../../../config'
 
-export const Pagination: React.FC = (props) => {
+export const Pagination: React.FC = () => {
   const serviceInfo = useAppSelector(state => state.books.serviceInfo)
   sessionStorage.setItem('activePage', serviceInfo.activePage + '');
 
-  const pages = document.getElementById('pages')
-  if (pages) pages.innerHTML = ''
-  for (let i = 1; i <= serviceInfo.quantityPages; i++) {
-    const page = document.createElement('a');
-    page.classList.add('page');
-    page.href = `/${i}`; 
-    page.id = i.toString();
-    if (i === serviceInfo.activePage) {
-      page.classList.add('active');
+  let pages: { id: number, to: string, className: string }[] = [];
+  for (let i = 0; i < serviceInfo.quantityPages; i++) {
+    pages[i] = {
+      id: i,
+      to: `/${i + 1}`,
+      className: `page ${(i + 1) === serviceInfo.activePage && 'active'}`
     }
-    pages?.appendChild(page);
   }
 
   return (
     <PaginationWrapper>
-      <a
-        href={`/${serviceInfo.prevPage}`}
-        className='through left'></a>
-      <div id='pages'></div>
-      <a
-        href={`/${serviceInfo.nextPage}`}
-        className='through right'></a>
+      <Link
+        className='through left'
+        to={`/${serviceInfo.prevPage}`}>
+      </Link>
+      <div className='pages'>
+        {pages.map(page => (
+          <div key={page.id}>
+            <Link
+              to={page.to}>
+              <div className={page.className}></div>
+            </Link>
+          </div>
+        ))}
+      </div>
+      <Link
+        className='through right'
+        to={`/${serviceInfo.nextPage}`}>
+      </Link>
+
     </PaginationWrapper>
   )
 }

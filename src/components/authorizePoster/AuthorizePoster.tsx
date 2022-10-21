@@ -1,7 +1,8 @@
 import React from 'react';
 
-import AuthorizePosterWrapper from './AuthorizePoster.styles';
 import { Button } from '../componentsUI/button/Buttons';
+
+import AuthorizePosterWrapper from './AuthorizePoster.styles';
 
 export const AuthorizePoster: React.FC = () => {
   return (

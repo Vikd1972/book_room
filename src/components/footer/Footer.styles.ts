@@ -27,6 +27,10 @@ line-height: 30px;
   background-repeat: no-repeat;
   margin-bottom: 40px;
 }
+.links {
+  display: flex;
+  flex-direction: column;
+}
 .navi {
   color: #F0F4EF;
   text-decoration: none;

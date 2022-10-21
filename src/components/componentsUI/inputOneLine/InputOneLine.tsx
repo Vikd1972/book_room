@@ -1,7 +1,8 @@
 import React from 'react';
 
-import InputOneLineWrapper from './InputOneLine.styles';
 import { MyInput } from '../../../interfaces/Interface'
+
+import InputOneLineWrapper from './InputOneLine.styles';
 
 const InputOneLine: React.FC<MyInput> = (props, ...formik: any) => {
   return (

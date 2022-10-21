@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AxiosError } from 'axios';
@@ -23,33 +23,32 @@ export const App: React.FC = () => {
   const activePage = '1';
   const dispatch = useAppDispatch()
   const [isInit, setIsInit] = useState(false)
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (!token) {
       setIsInit(true)
-    } else {
-      (async () => {
-        try {
-          const user = await getUser()
-          dispatch(loginUser(user))
-        }
-        catch (err) {
-          if (err instanceof AxiosError) {
-            showToast(err.message);
-          }
-        }
-        finally {
-          setIsInit(true);
-        }
-      })();
+      return;
     }
+    (async () => {
+      try {
+        const user = await getUser()
+        dispatch(loginUser(user))
+      }
+      catch (err) {
+        console.log(err);        
+      }
+      finally {
+        setIsInit(true);
+      }
+    })();
+
   }, [dispatch]);
-  
+
   if (!isInit) {
     return null
   }
-  
+
   return (
     <Router>
       <AppWrapper className="bookroom">

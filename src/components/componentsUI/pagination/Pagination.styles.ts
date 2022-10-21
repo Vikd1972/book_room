@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 import left from '../../../utils/picture/arrow_left.png'
 import right from '../../../utils/picture/arrow_right.png'
+import page from '../../../utils/picture/page.png'
+import active from '../../../utils/picture/active.png'
 
 const PaginationWrapper = styled.div`  
 margin-top: 78px;
@@ -15,21 +17,22 @@ flex-direction: row;
   border: none;
   background: none;
 }
-#pages {
+.pages {
   display: flex;
   flex-direction: row;
 }
 .page {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;  
   margin: 0 20px 0 20px;
-  border-radius: 8px;
-  border: 2px solid #0D1821;
+  background-image: url(${page});
   cursor: pointer;
-  /* background-color: #0D1821; */
+  background-repeat: no-repeat;
 }
 .active {
-  background-color: #0D1821;
+  margin: 0 20px 0 20px;
+  background-image: url(${active});
+  background-repeat: no-repeat;
 }
 .left {
   margin-right: 40px;

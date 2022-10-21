@@ -2,8 +2,9 @@ import React from 'react';
 
 import CatalogFilter from './catalogFilter/CatalogFilter';
 import CatalogBooks from './catalogBooks/CatalogBooks';
-import СatalogWrapper from './Catalog.styles';
 import { Button } from '../componentsUI/button/Buttons';
+
+import СatalogWrapper from './Catalog.styles';
 
 export const Catalog: React.FC = () => {
   return (

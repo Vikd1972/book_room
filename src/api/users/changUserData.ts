@@ -10,9 +10,9 @@ interface NewUserData {
 };
 
 const changeUserData = async (options: NewUserData) => {
-  const response = await instance.put("/users", options)
+  const response = await instance.put<{user: UserType}>("/users", options)
   
-  return response.data.user as UserType;
+  return response.data.user;
 }
 
 export default changeUserData;

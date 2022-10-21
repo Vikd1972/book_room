@@ -7,9 +7,9 @@ interface OrderParams {
 }
 
 const addBookToCart = async (option: OrderParams) => {
-  const response = await instance.post("/cart/add", option)
+  const response = await instance.post<{userCart: CartType[]}>("/cart/add", option)
     
-  return response.data as CartType;
+  return response.data.userCart;
 }
 
 export default addBookToCart;

@@ -25,14 +25,21 @@ export interface ServiceInfo {
   booksPerPage: number,
 }
 
+export interface GenreInfo {
+  id: number,
+  name: string,
+}
+
 export interface BooksState {  
   books: BookType[],
-  currentGenres: string[],
+  genres: GenreInfo[],
+  currentGenres: number[],
   serviceInfo: ServiceInfo,
 }
 
 const initialState: BooksState = {
   books: [],
+  genres: [],
   currentGenres: [],
   serviceInfo: {
     quantityBooks: 0,
@@ -48,17 +55,15 @@ export const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addBooks: (state, action: PayloadAction<BooksState>) => {
-      state.books = [];
+    addBooks: (state: BooksState, action: PayloadAction<BooksState>) => {
       state.books = action.payload.books;
       state.serviceInfo = action.payload.serviceInfo;
+      state.genres = action.payload.genres;
     },
-    addRecomBooks: (state, action: PayloadAction<BookType[]>) => {
-      state.books = [];
+    addRecomBooks: (state: BooksState, action: PayloadAction<BookType[]>) => {
       state.books = action.payload;
     },
-    loadGenres: (state, action: PayloadAction<string[]>) => {
-      state.currentGenres = [];
+    loadGenres: (state: BooksState, action: PayloadAction<number[]>) => {
       state.currentGenres = action.payload;
     },
   }

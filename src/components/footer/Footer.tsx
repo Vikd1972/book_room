@@ -20,17 +20,17 @@ export const Footer: React.FC = () => {
           className="navi"
           to={`/${activePage}`}>
           Home Page
-        </Link><br />
+        </Link>
         <Link
           className="navi"
           to={`/${activePage}`}>
           Catalog
-        </Link><br />
+        </Link>
         <Link
           className="navi"
           to="/profile">
           My Account
-        </Link><br />
+        </Link>
         <Link
           className="navi"
           to="/cart">

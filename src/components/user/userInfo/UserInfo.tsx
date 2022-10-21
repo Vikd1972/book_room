@@ -4,15 +4,15 @@ import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import changeUserData from '../../../api/users/changUserData';
+import { Button } from '../../componentsUI/button/Buttons';
+import InputTwoLine from '../../componentsUI/inputTwoLine/InputTwoLine';
+import { Values } from '../../../interfaces/Interface';
+import { UserType, loginUser } from '../../../store/usersSlice';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import schemaUser from '../../../validation/schemaUser';
-import { loginUser } from '../../../store/usersSlice';
-import { Values } from '../../../interfaces/Interface';
-import InputTwoLine from '../../componentsUI/inputTwoLine/InputTwoLine';
-import { Button } from '../../componentsUI/button/Buttons';
-import UserInfoWrapper from './UserInfo.styles';
-import { UserType } from '../../../store/usersSlice';
 import showToast from '../../../validation/showToast';
+
+import UserInfoWrapper from './UserInfo.styles';
 
 export const UserInfo: React.FC = () => {  
   const dispatch = useAppDispatch()

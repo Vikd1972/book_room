@@ -27,25 +27,7 @@ const initialState: UsersState = {
     email: '',
     photoFilePath: ''
   },
-  cart: [{
-    id: 0,
-    count: 0,
-    book: {
-      id: 0,
-      name: '',
-      author: '',
-      pathToCover: '',
-      description: '',
-      releasedAt: new Date(1901, 1, 1),
-      paperbackPrice: 0,
-      paperbackQuantity: 0,
-      hardcoverPrice: 0,
-      hardcoverQuantity: 0,
-      isNew: false,
-      isBestseller: false,
-      genres: []
-    }
-  }],
+  cart: [],
 }
 
 export const usersSlice = createSlice({

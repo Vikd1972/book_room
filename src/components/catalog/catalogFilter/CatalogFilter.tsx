@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import СatalogFilterWrapper from './CatalogFilter.styles';
 import Slider from '@mui/material/Slider';
+
 import ChoiceOfGenre from '../../componentsUI/choiceOfGenre/ChoiceOfGenre';
+
+import СatalogFilterWrapper from './CatalogFilter.styles';
 
 
 
@@ -17,11 +19,10 @@ export const CatalogFilter: React.FC = () => {
   }
 
   const selectByPrice = () => {
-    // setIsSelectByPrice(!isSelectByPrice);
+    setIsSelectByPrice(!isSelectByPrice)
   }
+
   const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
-    // setPriceValue(newPrice as number[]);
-    // console.log(newPrice);
   }
 
   const sortBy = () => {
@@ -56,8 +57,6 @@ export const CatalogFilter: React.FC = () => {
                 max={500}
                 value={priceValue}
                 onChange={onSelectByPrice}
-              // valueLabelDisplay="auto"
-              // getAriaValueText={valuetext}
               />
             </>
           ) : null}</div>

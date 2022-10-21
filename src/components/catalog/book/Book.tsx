@@ -1,12 +1,13 @@
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { Link } from "react-router-dom";
 
-import BookWrapper from './Book.styles';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../../componentsUI/button/Buttons';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import { addCart } from '../../../store/usersSlice';
 import { BookType } from '../../../store/booksSlice'
-import getCart from '../../../api/cart/getCart';
+
+import BookWrapper from './Book.styles';
 
 type Props = {
   book: BookType,
@@ -22,21 +23,20 @@ export const Book: React.FC<Props> = (props) => {
   const addToCart = async () => {
     const userId = user.id;
     const bookId = props.book.id;
-    await addBookToCart({ userId, bookId });
-    const cart = await getCart(userId);
-    
+    const cart = await addBookToCart({ userId, bookId });
     dispatch(addCart(cart));
   }
 
   return (
     <BookWrapper>
       <div className='cover-container'>
-        <a href={`/detail/${props.book.id}`}>
+        <Link
+          to={`/detail/${props.book.id}`}>
           <img
             src={props.book.pathToCover}
             alt='cover'
             id='cover' />
-        </a>
+        </Link>
       </div>
       <div className='name'>{props.book.name}</div>
       <div className='author'>{props.book.author}</div>

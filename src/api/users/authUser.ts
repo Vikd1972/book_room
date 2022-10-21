@@ -7,10 +7,10 @@ interface AuthParams {
 }
 
 const authUser = async (options: AuthParams) => {
-  const response = await instance.post("/auth/login", options)
+  const response = await instance.post<{user: UserType, token: string}>("/auth/login", options)
   localStorage.setItem('token', response.data.token);
   
-  return response.data.user as UserType;
+  return response.data.user;
 }
 
 export default authUser;

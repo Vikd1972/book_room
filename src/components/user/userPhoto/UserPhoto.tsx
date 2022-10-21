@@ -2,12 +2,11 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { loginUser } from '../../../store/usersSlice';
-import photo from '../../../utils/picture/user_photo.png'
 import uploadPhoto from '../../../api/users/uploadPhoto';
-import { UserType } from '../../../store/usersSlice';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { UserType, loginUser } from '../../../store/usersSlice';
 import showToast from '../../../validation/showToast';
+import photo from '../../../utils/picture/user_photo.png'
 
 import UserPhotoWrapper from './UserPhoto.styles';
 
@@ -26,15 +25,15 @@ export const UserPhoto: React.FC = () => {
           if (!reader.result) {
             console.log('error');
           };
-          const photo = reader.result as string;          
+          const photo = reader.result as string;
           const user: UserType = await uploadPhoto(photo);
           dispatch(loginUser(user));
         };
-        if (e.target.files) reader.readAsDataURL(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.response?.data.message);
-        }  
+        }
       }
     }
   };

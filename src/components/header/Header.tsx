@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import HeaderWrapper from './Header.styles';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Button } from '../componentsUI/button/Buttons';
 import { AxiosError } from 'axios';
@@ -9,16 +8,17 @@ import showToast from '../../validation/showToast';
 import { addCart, reset } from '../../store/usersSlice';
 import getCart from '../../api/cart/getCart';
 
+import HeaderWrapper from './Header.styles';
+
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(state => state.users.user);
-  const cart = useAppSelector(state => state.users.cart);
-  const activePage = sessionStorage.getItem('activePage') || '1';
+  const users = useAppSelector(state => state.users);
+  const activePage = sessionStorage.getItem('activePage') || '1';  
 
   useEffect(() => {
     (async () => {
       try {
-        const cart = await getCart(user.id)
+        const cart = await getCart(users.user.id)
         dispatch(addCart(cart))
       }
       catch (err) {
@@ -27,9 +27,9 @@ export const Header: React.FC = () => {
         }
       }
     })();
-  }, []);
+  }, [users.user.id, dispatch]);
 
-  const count = Array.from(cart).reduce((sum, item) => sum + item.count, 0);
+  const count = Array.from(users.cart).reduce((sum, item) => sum + item.count, 0);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -39,10 +39,10 @@ export const Header: React.FC = () => {
   return (
     <HeaderWrapper>
       <header className='top-panel'>
-        <a
-          href={`/${activePage}`}
-          className='panel__logotype'>
-        </a>
+        <Link
+          className="panel__logotype"
+          to={`/${activePage}`}>         
+        </Link>
         <form>
           <div className='panel__search'>Catalog</div>
           <div className='search-icon'></div>
@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
             </div>
           </div>
         </form>
-        {user.email ?
+        {users.user.email ?
           <nav className='panel__buttons'>
             <Link
               className="buttons-icon btn-cart"

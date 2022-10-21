@@ -5,17 +5,17 @@ import { BooksState } from '../../store/booksSlice'
 
 interface Options {
   currentPage: number,
-  genres: string[]
+  genres: number[]
 }
 
-const getBooks = async (options: Options) => {
-  const response = await instance.post("/books", {
+const getBooks = async (options: Options) => {  
+  const response = await instance.post<BooksState>("/books", {
     currentPage: options.currentPage,
     pagination: config.pagination,
-    genres: options.genres
+    currentGenres: options.genres
   }) 
   
-  return response.data as BooksState;
+  return response.data;
 }
 
 export default getBooks;

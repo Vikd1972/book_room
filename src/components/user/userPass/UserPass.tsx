@@ -4,14 +4,13 @@ import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import changeUserData from '../../../api/users/changUserData';
-import { useAppDispatch } from '../../../store/hooks';
-import schemaUser from '../../../validation/schemaUser';
-import { loginUser } from '../../../store/usersSlice';
-import { Values } from '../../../interfaces/Interface';
+import { Button } from '../../componentsUI/button/Buttons';
 import InputOneLine from '../../componentsUI/inputOneLine/InputOneLine';
 import InputTwoLine from '../../componentsUI/inputTwoLine/InputTwoLine';
-import { Button } from '../../componentsUI/button/Buttons';
-import { UserType } from '../../../store/usersSlice';
+import { Values } from '../../../interfaces/Interface';
+import { UserType, loginUser } from '../../../store/usersSlice';
+import { useAppDispatch } from '../../../store/hooks';
+import schemaUser from '../../../validation/schemaUser';
 import showToast from '../../../validation/showToast';
 
 import UserPassWrapper from './UserPass.styles';
