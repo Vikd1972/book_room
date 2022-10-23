@@ -24,7 +24,7 @@ export const CatalogBooks: React.FC = () => {
       try {
         const options = {
           currentPage: Number(pageNumber.activePage),
-          genres: books.currentGenres
+          queryOptions: books.queryOptions,
         }
         const response = await getBooks(options);  
         
@@ -36,7 +36,7 @@ export const CatalogBooks: React.FC = () => {
         }
       }
     })();
-  }, [pageNumber.activePage]);
+  }, [pageNumber.activePage, books.queryOptions, dispatch]);
   
   return (
     <>

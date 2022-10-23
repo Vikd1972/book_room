@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import Slider from '@mui/material/Slider';
 
 import ChoiceOfGenre from '../../componentsUI/choiceOfGenre/ChoiceOfGenre';
+import ChoiceByPrice from '../../componentsUI/choiceByPrice/ChoiceByPrice';
 
 import СatalogFilterWrapper from './CatalogFilter.styles';
-
-
 
 export const CatalogFilter: React.FC = () => {
   const [isSelectByGenre, setIsSelectByGenre] = useState(false);
   const [isSelectByPrice, setIsSelectByPrice] = useState(false);
   const [isSortingBy, setSortingBy] = useState(false);
-  const [priceValue, setPriceValue] = useState([0, 300]);
 
 
   const selectByGenre = () => {
@@ -20,9 +17,6 @@ export const CatalogFilter: React.FC = () => {
 
   const selectByPrice = () => {
     setIsSelectByPrice(!isSelectByPrice)
-  }
-
-  const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
   }
 
   const sortBy = () => {
@@ -38,29 +32,23 @@ export const CatalogFilter: React.FC = () => {
       <form
         name='selector'
         className='filtering'>
-        <div className='genre-wrapper'>
+        <div className='filter-wrapper'>
           <div
             onClick={selectByGenre}
             className='filter genre'>Genre
           </div>
           {isSelectByGenre && <ChoiceOfGenre />}
         </div>
+        <div className='filter-wrapper'>
+          <div
+            onClick={selectByPrice}
+            className='filter price'>Price
+          </div>
+          {isSelectByPrice && <ChoiceByPrice />}
+        </div>
         <div
-          onClick={selectByPrice}
-          className='filter price'>Price
-          {isSelectByPrice ? (
-            <>
-              <div className='arrow'></div>
-              <Slider
-                className='price-box'
-                getAriaLabel={() => 'Temperature range'}
-                max={500}
-                value={priceValue}
-                onChange={onSelectByPrice}
-              />
-            </>
-          ) : null}</div>
-        <div className='filter sort'>Sort by...</div>
+          onClick={sortBy}
+          className='filter sort'>Sort by...</div>
       </form>
     </СatalogFilterWrapper >
   );

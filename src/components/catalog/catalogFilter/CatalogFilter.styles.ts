@@ -44,7 +44,7 @@ justify-content: space-between;
   background-repeat: no-repeat;
   cursor: pointer;
 }
-.genre-wrapper{
+.filter-wrapper{
   position: relative;
 }
 .genre {
