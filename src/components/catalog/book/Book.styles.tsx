@@ -67,7 +67,7 @@ z-index: 1;
 }
 .button {
   margin-top: 32px;
-  width: 305px;
+  width: 100%;
   font-size: 20px;
   font-weight: 500;
   line-height: 28px;

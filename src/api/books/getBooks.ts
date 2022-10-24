@@ -9,7 +9,6 @@ interface Options {
 }
 
 const getBooks = async (options: Options) => {  
-  console.log(options);
   
   const response = await instance.post<BooksState>("/books", {
     currentPage: options.currentPage,

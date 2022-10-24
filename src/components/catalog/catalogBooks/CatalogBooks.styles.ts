@@ -7,7 +7,7 @@ display: flex;
 flex-direction: row;
 flex-wrap: wrap;
 div {
-  width: 25%;
+  padding: 0 2px;
   height: auto;
 }
 `;
