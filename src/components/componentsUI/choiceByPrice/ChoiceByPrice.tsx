@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import Slider from '@mui/material/Slider';
 
-import { useAppDispatch } from '../../../store/hooks';
-import { loadPrice } from '../../../store/booksSlice';
+import { useAppSelector } from '../../../store/hooks';
 import СhoiceByPriceWrapper from './ChoiceByPrice.styles'
 
-export const СhoiceByPrice: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const [priceValue, setPriceValue] = useState([0, 100]);
+interface SelectByPrice {
+  onSelectByPrice: (currentPrice: number[]) => void
+}
 
+export const СhoiceByPrice: React.FC<SelectByPrice> = (props) => {
+  const price = useAppSelector(state => state.books.queryOptions.price)
+  const [priceValue, setPriceValue] = useState(price);
 
-  const onSelectByPrice = (event: Event | MouseEvent | TouchEvent, newPrice: number | number[]) => {
-    // if (event.touchend) {
-    // console.log(event.type);
-    
-  // }
-      setPriceValue(newPrice as number[]);
-      dispatch(loadPrice(priceValue))      
+  const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
+    setPriceValue(newPrice as number[]);
+    props.onSelectByPrice(priceValue)
   }
 
   return (

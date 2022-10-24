@@ -36,7 +36,6 @@ p {
 	cursor: pointer;
 	user-select: none;
 	position: relative;
-  /* margin-bottom: -15px; */
 }
 .name-item {
   padding: 10px 0 10px 0;

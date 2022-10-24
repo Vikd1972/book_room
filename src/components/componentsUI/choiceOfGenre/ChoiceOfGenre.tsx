@@ -1,37 +1,28 @@
 import React from 'react';
+import { useParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { loadCurrentGenres } from '../../../store/booksSlice';
-import { useParams } from "react-router-dom";
-import getBooks from '../../../api/books/getBooks';
-import { addBooks } from '../../../store/booksSlice';
 
 import ChoiceOfGenreWrapper from './ChoiceOfGenre.styles';
 
-export const ChoiceOfGenre: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const params = useAppSelector(state => state.books)
+interface SelectByGenres {
+  onSelectByGenres: (currentGenres: number[]) => void
+}
 
-  let pageNumber = useParams();
+export const ChoiceOfGenre: React.FC<SelectByGenres> = (props) => {
+  const params = useAppSelector(state => state.books)
 
   let currentGenres: number[] = [];
 
-  const onSelectByGenre = async () => {
+  const onSelectByGenre = () => {
     currentGenres = [];
     for (let genre of params.genres) {
       const checkbox = document.querySelector(`input[name=${genre.name.replace(/[^a-zA-Z]/g, '')}]:checked`) as HTMLInputElement;
       if (checkbox) {
         currentGenres.push(Number(checkbox.value))
       }
-    };    
-    dispatch(loadCurrentGenres(currentGenres))
-
-    const options = {
-      currentPage: Number(pageNumber.activePage),
-      queryOptions: params.queryOptions
-    }
-    const response = await getBooks(options);
-    dispatch(addBooks(response))
+    };       
+    props.onSelectByGenres(currentGenres)
   }
 
   return (

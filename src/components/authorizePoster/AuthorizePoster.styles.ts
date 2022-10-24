@@ -21,10 +21,14 @@ height: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .poster__field {
+    &__field {
     margin-left: 135px;
     display: flex;
     flex-direction: column;
+
+    &__image {
+
+    }
     .field-name {
       margin-top: 105px;
       font-size: 40px;

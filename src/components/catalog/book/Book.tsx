@@ -21,10 +21,15 @@ export const Book: React.FC<Props> = (props) => {
   const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
 
   const addToCart = async () => {
-    const userId = user.id;
-    const bookId = props.book.id;
-    const cart = await addBookToCart({ userId, bookId });
-    dispatch(addCart(cart));
+    try {
+      const userId = user.id;
+      const bookId = props.book.id;
+      const cart = await addBookToCart({ userId, bookId });
+      dispatch(addCart(cart));
+    }
+    catch (err) {
+      console.log(err);      
+    }
   }
 
   return (

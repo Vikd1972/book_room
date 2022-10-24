@@ -26,8 +26,7 @@ export const CatalogBooks: React.FC = () => {
           currentPage: Number(pageNumber.activePage),
           queryOptions: books.queryOptions,
         }
-        const response = await getBooks(options);  
-        
+        const response = await getBooks(options);          
         dispatch(addBooks(response))
       }
       catch (err) {
