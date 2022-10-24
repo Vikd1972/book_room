@@ -3,27 +3,27 @@ import React from 'react';
 import SortByWrapper from './SortBy.styles';
 
 interface SortByType {
-  onSortBy: (sort: string) => void
+  onSortBy: (name: string) => void
 }
 
 export const SortBy: React.FC<SortByType> = (props) => {
   const sortЕypes = [
-    { id: 1, name: 'Price' },
-    { id: 2, name: 'Name' },
-    { id: 3, name: 'Author name' },
-    { id: 4, name: 'Rating' },
-    { id: 5, name: 'Date of ussue' }
+    { id: 1, name: 'Price'},
+    { id: 2, name: 'Name'},
+    { id: 3, name: 'Author name'},
+    { id: 4, name: 'Rating'},
+    { id: 5, name: 'Date of ussue'}
   ];
 
-  const onSortingBy = (id: string) => {
+  const onSortingBy = ( name: string) => {
     const othersItems = document.querySelectorAll(`.sorting`)
     for (let item of othersItems) {
       item?.classList.remove('active')
     }    
-    const activeItem = document.querySelector(`#${id.replace(/[^a-zA-Z]/g, '')}`)
+    const activeItem = document.querySelector(`#${name.replace(/[^a-zA-Z]/g, '')}`)
    
     activeItem?.classList.add('active')    
-    props.onSortBy(id)
+    props.onSortBy(name)
   }
 
   return (
