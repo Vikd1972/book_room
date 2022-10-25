@@ -12,6 +12,7 @@ import Catalog from './components/catalog/Catalog';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Cart from './components/cart/Cart';
 import DetailBook from './components/detailBook/DetailBook';
+import Favorites from './components/favorites/Favorites';
 import User from './components/user/User';
 import Footer from './components/footer/Footer';
 import getUser from './api/users/getUser';
@@ -63,6 +64,12 @@ export const App: React.FC = () => {
           <Route path="/signup" element={<Signup />} />
 
           <Route path="/detail/:bookId" element={<DetailBook />} />
+
+          <Route path="/favorites" element={
+            <PrivateRoute>
+              <Favorites />
+            </PrivateRoute>}
+          />
 
           <Route path="/cart" element={
             <PrivateRoute>

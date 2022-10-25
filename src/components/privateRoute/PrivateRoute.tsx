@@ -8,7 +8,7 @@ interface Children {
 
 const PrivateRoute: React.FC<Children> = ({children}) => {  
   const location = useLocation()  
-  const user = useAppSelector(state => state.users.user)
+  const user = useAppSelector(state => state.users.user)  
 
   return user.email ? children : <Navigate to="/login" state={ location.pathname } />;
 }

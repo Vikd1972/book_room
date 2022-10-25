@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const RecommendationsWrapper = styled.div`
+const FavoritesWrapper = styled.div`
 max-width: 1280px;
 width: 100%;
 margin-top: 110px;
@@ -24,4 +24,4 @@ div {
 }
 `;
 
-export default RecommendationsWrapper
+export default FavoritesWrapper

@@ -8,6 +8,7 @@ import showToast from '../../validation/showToast';
 import { addCart, reset } from '../../store/usersSlice';
 import { loadSearchText } from '../../store/booksSlice';
 import getCart from '../../api/cart/getCart';
+import { UserType } from '../../store/usersSlice';
 
 import HeaderWrapper from './Header.styles';
 
@@ -16,12 +17,14 @@ export const Header: React.FC = () => {
   const [searchText, setSearchText] = useState<string>('')
   const users = useAppSelector(state => state.users);
   const activePage = sessionStorage.getItem('activePage') || '1';  
-
+  
   useEffect(() => {
     (async () => {
       try {
-        const cart = await getCart(users.user.id)
-        dispatch(addCart(cart))
+        if (users.user.email) {
+          const cart = await getCart(users.user.id)
+          dispatch(addCart(cart))
+        }
       }
       catch (err) {
         if (err instanceof AxiosError) {
@@ -32,11 +35,7 @@ export const Header: React.FC = () => {
   }, [users.user.id, dispatch]);
 
   const count = Array.from(users.cart).reduce((sum, item) => sum + item.count, 0);
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    dispatch(reset())
-  }
+  const favorites = users.userFavorites.length;
 
   const onSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value)
@@ -80,9 +79,9 @@ export const Header: React.FC = () => {
             {count ? <div id='cart'>{count}</div> : null}
             <Link
               className="buttons-icon btn-save"
-              onClick={logout} //a temporary solution for testing application
-              to={`/${activePage}`}>
+              to="/favorites">
             </Link>
+            {favorites ? <div id='cart'>{favorites}</div> : null}
             <Link
               className="buttons-icon btn-user"
               to="/profile">

@@ -1,10 +1,19 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+import { useAppDispatch } from '../../store/hooks';
+import { reset } from '../../store/usersSlice';
+
 import FooterWrapper from './Footer.styles';
 
 export const Footer: React.FC = () => {
+  const dispatch = useAppDispatch();
   const activePage = sessionStorage.getItem('activePage') || '1'
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    dispatch(reset())
+  }
   
   return (
     <FooterWrapper>
@@ -35,6 +44,12 @@ export const Footer: React.FC = () => {
           className="navi"
           to="/cart">
           Cart
+        </Link>
+        <Link
+          className="navi"
+          onClick={logout} //a temporary solution for testing application
+          to={`/${activePage}`}>
+          Log Out
         </Link>
       </nav>
       <div className='map'>

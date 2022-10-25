@@ -11,11 +11,22 @@ z-index: 1;
 .cover-container {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 .cover-container img {
   border-radius: 16px;
   width: 305px;
   height: 448px;
+}
+.favorites {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+.favorites img {
+  width: 48px;
+  height: 48px;
 }
 .name {
   margin-top: 25px;
