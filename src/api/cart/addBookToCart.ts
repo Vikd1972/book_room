@@ -8,7 +8,7 @@ interface OrderParams {
 
 const addBookToCart = async (option: OrderParams) => {
   const response = await instance.post<{userCart: CartType[]}>("/cart/add", option)
-    
+  
   return response.data.userCart;
 }
 

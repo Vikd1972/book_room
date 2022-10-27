@@ -8,10 +8,10 @@ interface DeleteParams {
 }
 
 const deleteBookInCart = async (options: DeleteParams) => {
-  const response = await instance.delete<{userCart: CartType[]}>("/cart/", {
+  const response = await instance.delete<{userCart: CartType[]}>("/cart", {
     data: options
   })
-
+   
   return response.data.userCart;
 }
 

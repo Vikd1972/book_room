@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { AxiosError } from 'axios';
 
 import { useAppDispatch } from './store/hooks';
 import { loginUser } from './store/usersSlice';
-import Header from './components/header/Header';
-import Login from './components/login/Login';
-import Signup from './components/signup/Signup';
-import Catalog from './components/catalog/Catalog';
-import PrivateRoute from './components/privateRoute/PrivateRoute';
-import Cart from './components/cart/Cart';
-import DetailBook from './components/detailBook/DetailBook';
-import Favorites from './components/favorites/Favorites';
-import User from './components/user/User';
-import Footer from './components/footer/Footer';
-import getUser from './api/users/getUser';
-import showToast from './validation/showToast';
+import Header from './ui/containers/Header/Header';
+import Login from './ui/pages/Login/Login';
+import Signup from './ui/pages/SignUp/Signup';
+import Catalog from './ui/pages/Catalog/Catalog';
+import PrivateRoute from './ui/containers/PrivateRoute/PrivateRoute';
+import Cart from './ui/pages/Cart/Cart';
+import DetailBook from './ui/pages/DetailBook/DetailBook';
+import Favorites from './ui/pages/Favorites/Favorites';
+import User from './ui/pages/User/User';
+import Footer from './ui/containers/Footer/Footer';
+import getUser from './api/auth/restoreUser';
 
 import AppWrapper from './App.styles';
 
 export const App: React.FC = () => {
-  const activePage = '1';
   const dispatch = useAppDispatch()
   const [isInit, setIsInit] = useState(false)
 
@@ -37,7 +34,7 @@ export const App: React.FC = () => {
         dispatch(loginUser(user))
       }
       catch (err) {
-        console.log(err);        
+        console.log(err);
       }
       finally {
         setIsInit(true);

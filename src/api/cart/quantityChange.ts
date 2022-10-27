@@ -9,7 +9,7 @@ interface OrderParams {
 }
 
 const quantityChange = async (options: OrderParams) => {
-  const response = await instance.post<{userCart: CartType[]}>("/cart/change", options)
+  const response = await instance.patch<{ userCart: CartType[] }>("/cart/change", options)
 
   return response.data.userCart;
 }
