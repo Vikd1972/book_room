@@ -1,9 +1,9 @@
 import React from 'react';
-import { useAppDispatch } from '../../../../store/hooks';
+import { useAppDispatch } from '../../../../../store/hooks';
 
-import quantityChange from '../../../../api/cart/quantityChange'
-import deleteBookInCart from '../../../../api/cart/deleteBookInCart'
-import { addCart } from '../../../../store/usersSlice'
+import quantityChange from '../../../../../api/cart/quantityChange'
+import deleteBookInCart from '../../../../../api/cart/deleteBookInCart'
+import { addCart } from '../../../../../store/usersSlice'
 
 import QuantityCangeWrapper from './QuantityCange.styles';
 

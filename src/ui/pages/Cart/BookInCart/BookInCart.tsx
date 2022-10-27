@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CartType } from '../../../../store/usersSlice';
 import { BookType } from '../../../../store/booksSlice';
-import QuantityChange from '../QuantityChange/QuantityChange'
+import QuantityChange from '../components/QuantityChange/QuantityChange'
 
 import BookInCartWrapper from './BookInCart.styles'
 
