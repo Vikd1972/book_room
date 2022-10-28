@@ -37,7 +37,7 @@ export const Cart: React.FC = () => {
           <div className='buttons'>
             <Link
               className="navi"
-              to={`/${activePage}`}>
+              to={`/?page=${activePage}`}>
               Continue shopping
             </Link>
             <Button

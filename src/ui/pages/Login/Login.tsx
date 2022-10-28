@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
 import schemqaLogin from '../../../validation/schemaLogin';
 import { Values } from '../User/Interface';
-import InputOneLine from '../../components/InputTwoLine/InputTwoLine';
+import InputOneLine from '../../components/InputOneLine/InputOneLine';
 import { Button } from '../../components/Button/Buttons';
 
 import LoginWrapper from './Login.styles';

@@ -11,9 +11,9 @@ import СatalogFilterWrapper from './CatalogFilter.styles';
 export const CatalogFilter: React.FC = () => {
   const dispatch = useAppDispatch();
   const [isSelectByGenre, setIsSelectByGenre] = useState(false);
-  const [genres, setGenres] = useState<number[]>([]);
+  const [genres, setGenres] = useState<string>('');
   const [isSelectByPrice, setIsSelectByPrice] = useState(false);
-  const [price, setPrice] = useState<number[]>([0, 100]);
+  const [price, setPrice] = useState<number[]>([]);
   const [isSortingBy, setSortingBy] = useState(false);
   const [sort, setSort] = useState<string>('...');
 
@@ -24,34 +24,33 @@ export const CatalogFilter: React.FC = () => {
       dispatch(loadCurrentGenres(genres))
     }
     if (!isSelectByGenre) {
-      setGenres([])
+      setGenres('')
     }
   }
-  const onSelectByGenres = (currentGenres: number[]) => {
+  const onSelectByGenres = (currentGenres: string) => {
     setGenres(currentGenres)
+    // console.log(genres.join(','));
   }
 
   const selectByPrice = () => {
     setIsSelectByPrice(!isSelectByPrice)
-    dispatch(loadPrice(price))
+
+    dispatch(loadPrice(price.join(',')))
   }
   const onSelectByPrice = (currentPrice: number[]) => {
     setPrice(currentPrice)
   }
 
   const sortBy = () => {
-    setSortingBy(!isSortingBy)
-    dispatch(loadSort(sort))
+    setSortingBy(!isSortingBy);
+    dispatch(loadSort(sort));
   }
   const onSortBy = (sort: string) => {
     setSort(sort)
   }
 
   return (
-    <СatalogFilterWrapper
-      genre={isSelectByGenre}
-      price={isSelectByPrice}
-      sort={isSortingBy}>
+    <СatalogFilterWrapper >
       <div className='name'>Catalog</div>
       <form
         name='selector'

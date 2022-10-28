@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 
 import { useAppDispatch } from '../../../store/hooks';
 import { reset } from '../../../store/usersSlice';
+import QueryString from '../../components/QueryString';
 
 import FooterWrapper from './Footer.styles';
+
 
 export const Footer: React.FC = () => {
   const dispatch = useAppDispatch();
   const activePage = sessionStorage.getItem('activePage') || '1'
+  const queryString = QueryString();
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -27,12 +30,12 @@ export const Footer: React.FC = () => {
       <nav className='links'>
         <Link
           className="navi"
-          to={`/${activePage}`}>
+          to={`${queryString}page=${activePage}`}>
           Home Page
         </Link>
         <Link
           className="navi"
-          to={`/${activePage}`}>
+          to={`${queryString}page=${activePage}`}>
           Catalog
         </Link>
         <Link
@@ -48,7 +51,7 @@ export const Footer: React.FC = () => {
         <Link
           className="navi"
           onClick={logout} //a temporary solution for testing application
-          to={`/${activePage}`}>
+          to={`${queryString}page=${activePage}`}>
           Log Out
         </Link>
       </nav>

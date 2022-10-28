@@ -5,20 +5,19 @@ import { useAppSelector } from '../../../../../store/hooks';
 import ChoiceOfGenreWrapper from './ChoiceOfGenre.styles';
 
 interface SelectByGenres {
-  onSelectByGenres: (currentGenres: number[]) => void
+  onSelectByGenres: (currentGenres: string) => void
 }
 
 export const ChoiceOfGenre: React.FC<SelectByGenres> = (props) => {
   const params = useAppSelector(state => state.books)
 
-  let currentGenres: number[] = [];
-
+  
   const onSelectByGenre = () => {
-    currentGenres = [];
+    let currentGenres = '';
     for (let genre of params.genres) {
       const checkbox = document.querySelector(`input[name=${genre.name.replace(/[^a-zA-Z]/g, '')}]:checked`) as HTMLInputElement;
       if (checkbox) {
-        currentGenres.push(Number(checkbox.value))
+        currentGenres += checkbox.value;
       }
     };
     props.onSelectByGenres(currentGenres)

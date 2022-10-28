@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { useAppDispatch } from './store/hooks';
 import { loginUser } from './store/usersSlice';
-import Header from './ui/containers/Header/Header';
-import Footer from './ui/containers/Footer/Footer';
-import Login from './ui/pages/Login/Login';
-import Signup from './ui/pages/SignUp/Signup';
-import Catalog from './ui/pages/Catalog/Catalog';
-import PrivateRoute from './ui/containers/PrivateRoute/PrivateRoute';
-import Cart from './ui/pages/Cart/Cart';
-import DetailBook from './ui/pages/DetailBook/DetailBook';
-import Favorites from './ui/pages/Favorites/Favorites';
-import User from './ui/pages/User/User';
 import restoreUser from './api/auth/restoreUser';
 import Navigation from './ui/containers/Navigations';
 

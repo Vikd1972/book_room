@@ -7,11 +7,11 @@ import { AxiosError } from 'axios';
 import signUser from '../../../api/auth/signUpUser';
 import { loginUser, UserType } from '../../../store/usersSlice';
 import { useAppDispatch } from '../../../store/hooks';
+import showToast from '../../../validation/showToast';
 import schemaSign from '../../../validation/schemaSign';
 import { Values } from '../User/Interface';
-import { Button } from '../../components/Button/Buttons';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
-import showToast from '../../../validation/showToast';
+import { Button } from '../../components/Button/Buttons';
 
 import SignUpWrapper from './Signup.styles';
 

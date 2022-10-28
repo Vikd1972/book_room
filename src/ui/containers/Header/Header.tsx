@@ -8,6 +8,7 @@ import showToast from '../../../validation/showToast';
 import { addCart } from '../../../store/usersSlice';
 import { loadSearchText } from '../../../store/booksSlice';
 import getCart from '../../../api/cart/getCart';
+import QueryString from '../../components/QueryString';
 
 import HeaderWrapper from './Header.styles';
 
@@ -15,7 +16,8 @@ export const Header: React.FC = () => {
   const dispatch = useAppDispatch()
   const [searchText, setSearchText] = useState<string>('')
   const users = useAppSelector(state => state.users);
-  const activePage = sessionStorage.getItem('activePage') || '1';
+  const activePage = sessionStorage.getItem('activePage');
+  const queryString = QueryString();
 
   useEffect(() => {
     (async () => {
@@ -52,7 +54,7 @@ export const Header: React.FC = () => {
       <header className='top-panel'>
         <Link
           className="panel__logotype"
-          to={`/${activePage}`}>
+          to={`${queryString}page=${activePage}`}>
         </Link>
         <form
           onSubmit={onSendingSearchText}>

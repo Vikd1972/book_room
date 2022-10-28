@@ -20,7 +20,7 @@ type RouteType = {
 
 const routes: RouteType[] = [
   {
-    path: '/:activePage',
+    path: '/',
     requiredIsAuth: false,
     element: Catalog,
   },
@@ -57,6 +57,7 @@ const routes: RouteType[] = [
 ];
 
 const Navigation = () => {
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

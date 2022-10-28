@@ -11,11 +11,13 @@ interface MyInput {
   formikField?: any,
   icon?: string,
   changeField?: boolean,
+  textInfo?: string,
+  field?: string,
 }
-// textInfo?: string,
-// field?: string,
 
 const InputOneLine: React.FC<MyInput> = (props, ...formik: any) => {
+  console.log(props.placeholder);
+  
   return (
     <InputOneLineWrapper icon={props.icon}>
       <div className='input-field'>

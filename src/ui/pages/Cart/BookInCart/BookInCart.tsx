@@ -19,12 +19,12 @@ export const BookInCart: React.FC<Props> = (props) => {
   const currentPrice = paperbackPrice ?
     paperbackPrice : hardcoverPrice;
   const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
-
+  
   return (
     <BookInCartWrapper>
       <div className='cover-container'>
         <img
-          src={book.pathToCover}
+          src={`http://localhost:4001/covers/${book.pathToCover}`}
           alt='cover'
           id='cover' />
       </div>

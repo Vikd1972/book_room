@@ -10,7 +10,7 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: row;
-justify-content: space-between;
+/* justify-content: space-between; */
 .login {
   display: flex;
   flex-direction: column;
@@ -36,16 +36,16 @@ justify-content: space-between;
   margin-top: 60px;
   width: 413px;
 }
-.login-form__input-width {
+/* .login-form__input-width {
   width: 100%;
   height: 64px;
   margin-bottom: 9px;
-}
-.login-form__width-setter {
+} */
+/* .login-form__width-setter {
   margin-left: 64px;
   height: 64px;
-}
-.login-form__width-setter input {
+} */
+/* .login-form__width-setter input {
   width: 100%;
   height: 64px;
   padding-left: 64px;
@@ -56,26 +56,26 @@ justify-content: space-between;
   
   font-size: 16px;
   font-weight: 400;
-}
-.mail input {
+} */
+/* .mail input {
   background-image: url(${mail});
   background-repeat: no-repeat;
-}
-.hide input {
+} */
+/* .hide input {
   background-image: url(${hide});
   background-repeat: no-repeat;
   background-position-x: 25px;
   background-position-y: 20px;
-}
-.login-form__input-name {
+} */
+/* .login-form__input-name {
   font-size: 14px;
   line-height: 24px;
   color: #344966;
   margin-bottom: 30px;
-}
-.err {
+} */
+/* .err {
   color: #ff0000;
-}
+} */
 .login-pic {
   margin-left: 255px;
   margin-bottom: -70px;

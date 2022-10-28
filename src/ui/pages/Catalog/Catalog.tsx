@@ -7,6 +7,7 @@ import { Button } from '../../components/Button/Buttons';
 import СatalogWrapper from './Catalog.styles';
 
 export const Catalog: React.FC = () => {
+
   return (
     <СatalogWrapper>
       <div className='poster'>

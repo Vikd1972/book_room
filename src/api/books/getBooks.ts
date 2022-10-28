@@ -8,8 +8,7 @@ interface Options {
   queryOptions: QueryOptionsType
 }
 
-const getBooks = async (options: Options) => {  
-  
+const getBooks = async (options: Options) => {    
   const response = await instance.post<BooksState>("/books", {
     currentPage: options.currentPage,
     queryOptions: options.queryOptions,
