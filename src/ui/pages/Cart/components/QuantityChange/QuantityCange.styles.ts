@@ -6,7 +6,7 @@ import removal from '../../../../assets/picture/removal.png'
 
 const QuantityCangeWrapper = styled.div`  
 margin-top: 50px;
-height: 24px;
+height: auto;
 display: flex;
 flex-direction: row;
 .through {

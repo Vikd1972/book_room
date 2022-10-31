@@ -29,30 +29,17 @@ export interface GenreType {
   id: number,
   name: string,
 }
-
-export interface QueryOptionsType {
-  currentGenres: string,
-  price: string,
-  sort: string,
-  searchText: string
-}
-
-export interface BooksState {  
+export interface BooksState {
   books: BookType[],
   genres: GenreType[],
-  queryOptions: QueryOptionsType,
+  queryString: string,
   serviceInfo: ServiceInfo,
 }
 
 const initialState: BooksState = {
   books: [],
   genres: [],
-  queryOptions: {
-    currentGenres: '',
-    price: '',
-    sort: '',
-    searchText: '',
-  },
+  queryString: '',
   serviceInfo: {
     quantityBooks: 0,
     quantityPages: 0,
@@ -75,17 +62,8 @@ export const booksSlice = createSlice({
     addRecomBooks: (state: BooksState, action: PayloadAction<BookType[]>) => {
       state.books = action.payload;
     },
-    loadCurrentGenres: (state: BooksState, action: PayloadAction<string>) => {
-      state.queryOptions.currentGenres = action.payload;
-    },
-    loadPrice: (state: BooksState, action: PayloadAction<number[]>) => {
-      state.queryOptions.price = action.payload;
-    },
-    loadSort: (state: BooksState, action: PayloadAction<string>) => {
-      state.queryOptions.sort = action.payload;
-    },
-    loadSearchText: (state: BooksState, action: PayloadAction<string>) => {
-      state.queryOptions.searchText = action.payload;
+    loadQueryString: (state: BooksState, action: PayloadAction<string>) => {
+      state.queryString = action.payload;
     },
   }
 })
@@ -93,10 +71,7 @@ export const booksSlice = createSlice({
 export const {
   addBooks,
   addRecomBooks,
-  loadCurrentGenres,
-  loadPrice,
-  loadSort,
-  loadSearchText,
+  loadQueryString,
 } = booksSlice.actions
 
 export default booksSlice.reducer

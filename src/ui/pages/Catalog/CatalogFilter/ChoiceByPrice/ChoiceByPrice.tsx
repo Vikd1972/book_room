@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Slider from '@mui/material/Slider';
 
-import { useAppSelector } from '../../../../../store/hooks';
+// import { useAppSelector } from '../../../../../store/hooks';
 import СhoiceByPriceWrapper from './ChoiceByPrice.styles'
 
 interface SelectByPrice {
@@ -9,8 +9,7 @@ interface SelectByPrice {
 }
 
 export const СhoiceByPrice: React.FC<SelectByPrice> = (props) => {
-  const price = useAppSelector(state => state.books.queryOptions.price)
-  const [priceValue, setPriceValue] = useState(price);
+  const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
 
   const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
     setPriceValue(newPrice as number[]);
@@ -30,10 +29,10 @@ export const СhoiceByPrice: React.FC<SelectByPrice> = (props) => {
         />
         <div className='value-price'>
           <div>
-            {`$ ${priceValue[0].toFixed(2)}`}
+            {`$ ${priceValue[0]}`}
           </div>
           <div>
-            {`$ ${priceValue[1].toFixed(2)}`}
+            {`$ ${priceValue[1]}`}
           </div>
         </div>
       </div>

@@ -1,33 +1,32 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
-import { AxiosError } from 'axios';
 import showToast from '../../../validation/showToast';
 import { addCart } from '../../../store/usersSlice';
-import { loadSearchText } from '../../../store/booksSlice';
 import getCart from '../../../api/cart/getCart';
-import QueryString from '../../components/QueryString';
+import { loadQueryString } from '../../../store/booksSlice';
 
 import HeaderWrapper from './Header.styles';
 
 export const Header: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const [searchText, setSearchText] = useState<string>('')
-  const users = useAppSelector(state => state.users);
-  const activePage = sessionStorage.getItem('activePage');
-  const queryString = QueryString();
+  const dispatch = useAppDispatch();
+  const [searchText, setSearchText] = useState<string>('');
+  const users = useAppSelector((state) => state.users);
+  const queryString = useAppSelector((state) => state.books.queryString);
+  const url = new URL(window.location.href);
 
   useEffect(() => {
     (async () => {
       try {
         if (users.user.email) {
-          const cart = await getCart(users.user.id)
-          dispatch(addCart(cart))
+          const cart = await getCart(users.user.id);
+          dispatch(addCart(cart));
         }
-      }
-      catch (err) {
+      } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
         }
@@ -36,72 +35,86 @@ export const Header: React.FC = () => {
   }, [users.user.id, users.user.email, dispatch]);
 
   const count = Array.from(users.cart).reduce((sum, item) => sum + item.count, 0);
-
   const favorites = users.userFavorites.length;
 
   const onSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value)
-  }
+    setSearchText(e.target.value);
+  };
 
   const onSendingSearchText = (e: React.KeyboardEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    dispatch(loadSearchText(searchText))
-    setSearchText('')
-  }
+    e.preventDefault();
+
+    if (searchText.length) {
+      console.log(searchText);
+      if (url.searchParams.has('search')) {
+        url.searchParams.set('search', searchText);
+      } else {
+        url.searchParams.append('search', searchText);
+      }
+    } else {
+      url.searchParams.delete('search');
+    }
+    dispatch(loadQueryString(url.search));
+    setSearchText('');
+  };
 
   return (
     <HeaderWrapper>
-      <header className='top-panel'>
+      <header className="top-panel">
         <Link
           className="panel__logotype"
-          to={`${queryString}page=${activePage}`}>
-        </Link>
+          to={`/${queryString}`}
+        />
         <form
-          onSubmit={onSendingSearchText}>
-          <div className='panel__search'>Catalog</div>
-          <div className='search-icon'></div>
-          <div className='search__width-setter'>
-            <div className='search__searchfield'>
+          onSubmit={onSendingSearchText}
+        >
+          <div className="panel__search">Catalog</div>
+          <div className="search-icon" />
+          <div className="search__width-setter">
+            <div className="search__searchfield">
               <input
-                name='catalog'
-                type='text'
+                name="catalog"
+                type="text"
                 value={searchText}
                 onChange={onSearchText}
-                placeholder='Search'>
-              </input>
+                placeholder="Search"
+              />
             </div>
           </div>
         </form>
-        {users.user.email ?
-          <nav className='panel__buttons'>
-            <Link
-              className="buttons-icon btn-cart"
-              to="/cart">
-            </Link>
-            {count ? <div id='cart'>{count}</div> : null}
-            <Link
-              className="buttons-icon btn-save"
-              to="/favorites">
-            </Link>
-            {favorites ? <div id='cart'>{favorites}</div> : null}
-            <Link
-              className="buttons-icon btn-user"
-              to="/profile">
-            </Link>
-          </nav> :
-          <div>
-            <form action="/login">
-              <Button
-                type='submit'
-                className='btn'
-                text='Log In / Sing Up'
+        {users.user.email
+          ? (
+            <nav className="panel__buttons">
+              <Link
+                className="buttons-icon btn-cart"
+                to="/cart"
               />
-            </form>
-          </div>
+              {count ? <div id="cart">{count}</div> : null}
+              <Link
+                className="buttons-icon btn-save"
+                to="/favorites"
+              />
+              {favorites ? <div id="cart">{favorites}</div> : null}
+              <Link
+                className="buttons-icon btn-user"
+                to="/profile"
+              />
+            </nav>
+          ) : (
+            <div>
+              <form action="/login">
+                <Button
+                  type="submit"
+                  className="btn"
+                  text="Log In / Sing Up"
+                />
+              </form>
+            </div>
+          )
         }
       </header>
     </HeaderWrapper>
   );
-}
+};
 
-export default Header
+export default Header;

@@ -85,7 +85,7 @@ export const DetailBook: React.FC = () => {
                 className="button"
                 text={textButtonPaperback}
                 onClick={addToCart}
-                isDisable={book?.paperbackQuantity ? false : true}
+                isDisable={!book?.paperbackQuantity}
               />
             </div>
             <div>Hardcover
@@ -94,7 +94,7 @@ export const DetailBook: React.FC = () => {
                 className="button"
                 text={textButtonHardcover}
                 onClick={addToCart}
-                isDisable={book?.hardcoverQuantity ? false : true}
+                isDisable={!book?.hardcoverQuantity}
               />
             </div>
           </div>
