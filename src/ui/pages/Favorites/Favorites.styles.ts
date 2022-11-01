@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const FavoritesWrapper = styled.div`
 max-width: 1280px;
@@ -24,4 +24,4 @@ div {
 }
 `;
 
-export default FavoritesWrapper
+export default FavoritesWrapper;

@@ -1,42 +1,44 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface BookType {
-  id: number,
-  name: string,
-  author: string,
-  pathToCover: string,
-  description: string,
-  releasedAt: Date,
-  paperbackPrice: number,
-  paperbackQuantity: number,
-  hardcoverPrice: number,
-  hardcoverQuantity: number,
-  isNew: boolean,
-  isBestseller: boolean,
-  genres: string[]
+export interface IBookType {
+  id: number;
+  name: string;
+  author: string;
+  pathToCover: string;
+  description: string;
+  releasedAt: Date;
+  paperbackPrice: number;
+  paperbackQuantity: number;
+  hardcoverPrice: number;
+  hardcoverQuantity: number;
+  isNew: boolean;
+  isBestseller: boolean;
+  genres: string[];
 }
 
-export interface ServiceInfo {
-  quantityBooks: number,
-  quantityPages: number,
-  activePage: number,
-  prevPage: number,
-  nextPage: number,
-  booksPerPage: number,
+export interface IServiceInfo {
+  quantityBooks: number;
+  quantityPages: number;
+  activePage: number;
+  prevPage: number;
+  nextPage: number;
+  booksPerPage: number;
 }
 
-export interface GenreType {
-  id: number,
-  name: string,
+export interface IGenreType {
+  id: number;
+  name: string;
 }
-export interface BooksState {
-  books: BookType[],
-  genres: GenreType[],
-  queryString: string,
-  serviceInfo: ServiceInfo,
+export interface IBooksState {
+  books: IBookType[];
+  genres: IGenreType[];
+  queryString: string;
+  serviceInfo: IServiceInfo;
 }
 
-const initialState: BooksState = {
+const initialState: IBooksState = {
   books: [],
   genres: [],
   queryString: '',
@@ -47,31 +49,31 @@ const initialState: BooksState = {
     prevPage: 0,
     nextPage: 0,
     booksPerPage: 0,
-  }
-}
+  },
+};
 
 export const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addBooks: (state: BooksState, action: PayloadAction<BooksState>) => {
+    addBooks: (state: IBooksState, action: PayloadAction<IBooksState>) => {
       state.books = action.payload.books;
       state.serviceInfo = action.payload.serviceInfo;
       state.genres = action.payload.genres;
     },
-    addRecomBooks: (state: BooksState, action: PayloadAction<BookType[]>) => {
+    addRecomBooks: (state: IBooksState, action: PayloadAction<IBookType[]>) => {
       state.books = action.payload;
     },
-    loadQueryString: (state: BooksState, action: PayloadAction<string>) => {
+    loadQueryString: (state: IBooksState, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
-  }
-})
+  },
+});
 
 export const {
   addBooks,
   addRecomBooks,
   loadQueryString,
-} = booksSlice.actions
+} = booksSlice.actions;
 
-export default booksSlice.reducer
+export default booksSlice.reducer;

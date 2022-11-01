@@ -4,8 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const showToast = (message: string) => {
   toast(message, {
     position: toast.POSITION.TOP_CENTER,
-    transition: Flip
-  })
+    transition: Flip,
+  });
 };
 
-export default showToast
+export default showToast;

@@ -1,19 +1,18 @@
-import styled from 'styled-components'
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import arrow_right from '../../../assets/picture/arrow_right.png'
-import arrow_bottom from '../../../assets/picture/arrow_bottom.png'
-import checked from '../../../assets/picture/radio_checked.png'
-import unchecked from '../../../assets/picture/radio_unchecked.png'
-import field from '../../../assets/picture/arrow_up_field.png'
+import arrow_right from '../../../assets/picture/arrow_right.png';
+import arrow_bottom from '../../../assets/picture/arrow_bottom.png';
+import checked from '../../../assets/picture/radio_checked.png';
+import unchecked from '../../../assets/picture/radio_unchecked.png';
+import field from '../../../assets/picture/arrow_up_field.png';
 
-export interface Picture {
+export interface IPicture {
   genre?: boolean;
   price?: boolean;
   sort?: boolean;
 }
 
-const СatalogFilterWrapper = styled.div<Picture>`
+const СatalogFilterWrapper = styled.div<IPicture>`
 margin-top: 110px;
 max-width: 1280px;
 width: 100%;
@@ -54,13 +53,12 @@ justify-content: space-between;
           background-image: url(${arrow_bottom});
           background-position: 185px 20px;
           `;
-    } else {
-      return css`
-          background-image: url(${arrow_right});
-          background-position: 185px 17px;
-        `;
     }
-}};
+    return css`
+        background-image: url(${arrow_right});
+        background-position: 185px 17px;
+    `;
+  }};
   .arrow {
     margin-top: 25px;
     background-image: url(${field});
@@ -109,12 +107,11 @@ justify-content: space-between;
           background-image: url(${arrow_bottom});
           background-position: 185px 20px;
           `;
-    } else {
-      return css`
-          background-image: url(${arrow_right});
-          background-position: 185px 17px;
-        `;
     }
+    return css`
+        background-image: url(${arrow_right});
+        background-position: 185px 17px;
+    `;
   }};
   .price-box {
     margin-top: 30px;
@@ -135,16 +132,15 @@ justify-content: space-between;
           background-image: url(${arrow_bottom});
           background-position: 185px 20px;
           `;
-    } else {
-      return css`
-          background-image: url(${arrow_right});
-          background-position: 185px 17px;
-        `;
     }
+    return css`
+        background-image: url(${arrow_right});
+        background-position: 185px 17px;
+    `;
   }};
   background-color: white;
 }
 
 `;
 
-export default СatalogFilterWrapper
+export default СatalogFilterWrapper;

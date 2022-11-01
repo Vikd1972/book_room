@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const UserPassWrapper = styled.div`
 margin-top: 60px;
@@ -58,4 +58,4 @@ flex-direction: row;
 }
 `;
 
-export default UserPassWrapper
+export default UserPassWrapper;

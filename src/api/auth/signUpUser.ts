@@ -1,16 +1,16 @@
 import instance from '..';
-import { UserType } from '../../store/usersSlice';
+import type { IUserType } from '../../store/usersSlice';
 
-interface SignUpParams {
-  email: string,
-  password: string,
-};
-
-const signUpUser = async (options: SignUpParams) => {
-  const response = await instance.post<{user: UserType, token: string}>("/auth", options)
-  localStorage.setItem('token', response.data.token);
-  
-  return response.data.user;
+interface ISignUpParams {
+  email: string;
+  password: string;
 }
+
+const signUpUser = async (options: ISignUpParams) => {
+  const response = await instance.post<{ user: IUserType; token: string }>('/auth', options);
+  localStorage.setItem('token', response.data.token);
+
+  return response.data.user;
+};
 
 export default signUpUser;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const BookInCartWrapper = styled.div`
 max-width: 1280px;
@@ -45,4 +45,4 @@ border-bottom: 1px solid #D6D8E7;
 }
 `;
 
-export default BookInCartWrapper
+export default BookInCartWrapper;

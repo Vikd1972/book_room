@@ -1,8 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import men from '../../assets/picture/men1.png'
-import mail from '../../assets/picture/mail.png'
-import hide from '../../assets/picture/hide.png'
+import men from '../../assets/picture/men1.png';
 
 const SignUpWrapper = styled.div`
 margin-top: 90px;
@@ -10,7 +8,6 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: row;
-/* justify-content: space-between; */
 .login {
   display: flex;
   flex-direction: column;
@@ -36,46 +33,6 @@ flex-direction: row;
   margin-top: 60px;
   width: 413px;
 }
-/* .login-form__input-width {
-  width: 100%;
-  height: 64px;
-  margin-bottom: 9px;
-} */
-/* .login-form__width-setter {
-  margin-left: 64px;
-  height: 64px;
-} */
-/* .login-form__width-setter input {
-  width: 100%;
-  height: 64px;
-  padding-left: 64px;
-  margin-left: -64px;
-  border-radius: 16px;
-  background-color: #F0F4EF;
-  border: none;
-  
-  font-size: 16px;
-  font-weight: 400;
-} */
-/* .mail input {
-  background-image: url(${mail});
-  background-repeat: no-repeat;
-} */
-/* .hide input {
-  background-image: url(${hide});
-  background-repeat: no-repeat;
-  background-position-x: 25px;
-  background-position-y: 20px;
-} */
-/* .login-form__input-name {
-  font-size: 14px;
-  line-height: 24px;
-  color: #344966;
-  margin-bottom: 30px;
-} */
-/* .err {
-  color: #ff0000;
-} */
 .login-pic {
   margin-left: 255px;
   margin-bottom: -70px;
@@ -99,4 +56,4 @@ flex-direction: row;
 }
 `;
 
-export default SignUpWrapper
+export default SignUpWrapper;

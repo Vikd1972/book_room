@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { ButtonWrapper } from './Buttons.styles'
+import { ButtonWrapper } from './Buttons.styles';
 
-export interface MyButton {
-  text?: string,
-  className?: string,
-  type?: "button" | "reset" | "submit",
-  isDisable?: boolean,
-  onClick?: () => void,
+export interface IMyButton {
+  text?: string;
+  className?: string;
+  type?: 'button' | 'reset' | 'submit';
+  isDisable?: boolean;
+  onClick?: () => void;
 }
 
-export const Button: React.FC<MyButton> = (props) => {
-    return (
+export const Button: React.FC<IMyButton> = (props) => {
+  return (
     <ButtonWrapper
       type={props.type}
       className={props.className}
@@ -20,7 +20,7 @@ export const Button: React.FC<MyButton> = (props) => {
     >
       {props.text}
     </ButtonWrapper >
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

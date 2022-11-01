@@ -1,9 +1,9 @@
-interface Config {
-  pagination: number,
+interface IConfig {
+  pagination: number;
 }
 
-const config: Config = {
-  pagination: 12
+const config: IConfig = {
+  pagination: 12,
 };
 
 export default config;

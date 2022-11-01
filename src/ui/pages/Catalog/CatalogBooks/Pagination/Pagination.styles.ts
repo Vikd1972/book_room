@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import left from '../../../../assets/picture/arrow_left.png'
-import right from '../../../../assets/picture/arrow_right.png'
-import page from '../../../../assets/picture/page.png'
-import active from '../../../../assets/picture/active.png'
+import left from '../../../../assets/picture/arrow_left.png';
+import right from '../../../../assets/picture/arrow_right.png';
+import page from '../../../../assets/picture/page.png';
+import active from '../../../../assets/picture/active.png';
 
 const PaginationWrapper = styled.div`  
 margin-top: 78px;

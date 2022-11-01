@@ -1,20 +1,19 @@
 import instance from '..';
 
 import config from '../../config';
-import { BooksState } from '../../store/booksSlice'
+import type { IBooksState } from '../../store/booksSlice';
 
-interface Options {
-  currentPage: number,
+interface IOptions {
+  currentPage: number;
 }
 
-const getBooks = async (options: Options) => {
-
-  const response = await instance.post<BooksState>("/books", {
+const getBooks = async (options: IOptions) => {
+  const response = await instance.post<IBooksState>('/books', {
     currentPage: options.currentPage,
     pagination: config.pagination,
-  })
+  });
 
   return response.data;
-}
+};
 
 export default getBooks;

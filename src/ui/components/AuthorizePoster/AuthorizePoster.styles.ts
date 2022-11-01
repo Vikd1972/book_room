@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import fairy from '../../assets/picture/fairy.png'
-import castle from '../../assets/picture/castle.png'
+import fairy from '../../assets/picture/fairy.png';
+import castle from '../../assets/picture/castle.png';
 
 const AuthorizePosterWrapper = styled.div`
 margin-top: 102px;
@@ -59,4 +59,4 @@ height: 400px;
 }
 `;
 
-export default AuthorizePosterWrapper
+export default AuthorizePosterWrapper;

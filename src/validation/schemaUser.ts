@@ -1,5 +1,5 @@
 import { object, string } from 'yup';
-import { SchemaUser } from './schemaType';
+import type { ISchemaUser } from './schemaType';
 
 const schemaUser = object().shape({
   fullname: string().matches(/^$|\w{3,}/, 'must be at least 3 characters long'),
@@ -7,6 +7,6 @@ const schemaUser = object().shape({
   oldPassword: string().min(3, 'must be at least 3 characters long'),
   newPassword: string().min(3, 'must be at least 3 characters long'),
   confirmPassword: string().min(3, 'must be at least 3 characters long'),
-}) as SchemaUser;
+}) as ISchemaUser;
 
 export default schemaUser;

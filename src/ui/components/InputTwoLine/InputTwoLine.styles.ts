@@ -1,15 +1,14 @@
-import styled from 'styled-components'
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import user from '../../assets/picture/user.png'
-import mail from '../../assets/picture/mail.png'
-import hide from '../../assets/picture/hide.png'
+import user from '../../assets/picture/user.png';
+import mail from '../../assets/picture/mail.png';
+import hide from '../../assets/picture/hide.png';
 
-export interface Icon {
+export interface ICon {
   icon?: string;
 }
 
-const InputTwoLineWrapper = styled.div<Icon>`
+const InputTwoLineWrapper = styled.div<ICon>`
 margin-top: 10px;
 margin-top: 20px;
 width: 100%;
@@ -26,26 +25,23 @@ flex-direction: column;
           background-image: url(${user});
           background-position: 24px 20px;
         `;
-        // eslint-disable-next-line no-unreachable
         break;
       case 'mail':
         return css`
           background-image: url(${mail});
           background-position: 0 -3px;
         `;
-        // eslint-disable-next-line no-unreachable
         break;
       case 'hide':
         return css`
           background-image: url(${hide});
           background-position: 24px 20px;
         `;
-        // eslint-disable-next-line no-unreachable
         break;
       default:
         return css`
           background-image: none;
-        `;      
+        `;
     }
   }}
 background-repeat: no-repeat;
@@ -76,4 +72,4 @@ input {
 }
 `;
 
-export default InputTwoLineWrapper
+export default InputTwoLineWrapper;

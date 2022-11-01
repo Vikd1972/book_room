@@ -1,15 +1,15 @@
 import instance from '..';
-import { UserType } from '../../store/usersSlice'
+import type { IUserType } from '../../store/usersSlice';
 
-interface OrderParams {
-  userId: number,
-  bookId: number
+interface IOrderParams {
+  userId: number;
+  bookId: number;
 }
 
-const addToFavorites = async (option: OrderParams) => {
-  const response = await instance.post<{newUser: UserType}>("/favorites", option)
+const addToFavorites = async (option: IOrderParams) => {
+  const response = await instance.post<{ newUser: IUserType }>('/favorites', option);
 
   return response.data.newUser;
-}
+};
 
 export default addToFavorites;

@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import men from '../../assets/picture/men1.png'
+import men from '../../assets/picture/men1.png';
 
 const LoginWrapper = styled.div`
 margin-top: 90px;
@@ -57,4 +57,4 @@ flex-direction: row;
 }
 `;
 
-export default LoginWrapper
+export default LoginWrapper;

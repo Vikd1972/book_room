@@ -1,21 +1,20 @@
-interface SchemaLogin {
-  email?: string,
-  password?: string,
+interface ISchemaLogin {
+  email?: string;
+  password?: string;
 }
 
-interface SchemaSign {
-  email?: string,
-  password?: string,
-  confirmPassword?: string,
+interface ISchemaSign {
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
 }
 
-interface SchemaUser {
-  fullname?: string,
-  email?: string,
-  oldPassword?: string,
-  newPassword?: string,
-  confirmPassword?: string,
+interface ISchemaUser {
+  fullname?: string;
+  email?: string;
+  oldPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
 }
 
-
-export { SchemaLogin, SchemaSign, SchemaUser };
+export { ISchemaLogin, ISchemaSign, ISchemaUser };

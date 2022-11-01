@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import field from '../../../../assets/picture/arrow_up_field.png'
+import field from '../../../../assets/picture/arrow_up_field.png';
 
 const SortByWrapper = styled.div`
 position: absolute;
@@ -35,4 +35,4 @@ z-index: 999;
 }
 `;
 
-export default SortByWrapper
+export default SortByWrapper;

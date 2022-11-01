@@ -1,18 +1,18 @@
 import instance from '..';
-import { UserType } from '../../store/usersSlice';
+import type { IUserType } from '../../store/usersSlice';
 
-interface NewUserData {
-  fullname: string,
-  email: string,
-  oldPassword: string,
-  newPassword: string,
-  confirmPassword: string,
-};
-
-const changeUserData = async (options: NewUserData) => {
-  const response = await instance.patch<{user: UserType}>("/users", options)
-  
-  return response.data.user;
+interface INewUserData {
+  fullname: string;
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 }
+
+const changeUserData = async (options: INewUserData) => {
+  const response = await instance.patch<{ user: IUserType }>('/users', options);
+
+  return response.data.user;
+};
 
 export default changeUserData;

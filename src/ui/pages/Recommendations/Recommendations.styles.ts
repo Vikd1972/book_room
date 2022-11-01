@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const RecommendationsWrapper = styled.div`
 max-width: 1280px;
@@ -24,4 +24,4 @@ div {
 }
 `;
 
-export default RecommendationsWrapper
+export default RecommendationsWrapper;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
 import getDetailBooks from '../../../api/books/getDetailBook';
@@ -10,15 +10,15 @@ import Recommendations from '../Recommendations/Recommendations';
 import AuthorizePoster from '../../components/AuthorizePoster/AuthorizePoster';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import { addCart } from '../../../store/usersSlice';
-import { BookType } from '../../../store/booksSlice'
+import type { IBookType } from '../../../store/booksSlice';
 
 import DetailBookWrapper from './DetailBook.styles';
 
 export const DetailBook: React.FC = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(state => state.users.user)
+  const user = useAppSelector((state) => state.users.user);
 
-  const [book, setBook] = useState<BookType>()
+  const [book, setBook] = useState<IBookType>();
 
   const { bookId } = useParams();
 
@@ -26,9 +26,8 @@ export const DetailBook: React.FC = () => {
     (async () => {
       try {
         const detailBook = await getDetailBooks(Number(bookId));
-        setBook(detailBook)
-      }
-      catch (err) {
+        setBook(detailBook);
+      } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
         }
@@ -41,13 +40,13 @@ export const DetailBook: React.FC = () => {
 
   const currentPricePaperback = book?.paperbackPrice;
   if (!book?.paperbackQuantity) {
-    textButtonPaperback = 'Not available'
+    textButtonPaperback = 'Not available';
   } else {
     textButtonPaperback = `$ ${currentPricePaperback?.toFixed(2).toString()} USD`;
   }
   const currentPriceHardcover = book?.hardcoverPrice;
   if (!book?.hardcoverQuantity) {
-    textButtonHardcover = 'Not available'
+    textButtonHardcover = 'Not available';
   } else {
     textButtonHardcover = `$ ${currentPriceHardcover?.toFixed(2).toString()} USD`;
   }
@@ -59,29 +58,30 @@ export const DetailBook: React.FC = () => {
       const cart = await addBookToCart({ userId, bookId });
       dispatch(addCart(cart));
     }
-  }
+  };
 
   return (
     <>
       <DetailBookWrapper>
-        <div className='cover-container'>
+        <div className="cover-container">
           <img
             src={book?.pathToCover}
-            alt='cover'
-            id='cover' />
+            alt="cover"
+            id="cover"
+          />
         </div>
-        <div className='info'>
-          <h1 className='name'>{book?.name}</h1>
-          <p className='author'>{book?.author}</p>
-          <div className='rating'>rating</div>
-          <p className='description'>
+        <div className="info">
+          <h1 className="name">{book?.name}</h1>
+          <p className="author">{book?.author}</p>
+          <div className="rating">rating</div>
+          <p className="description">
             <span>Description</span><br /><br />
             {book?.description}
           </p>
-          <div className='purchase'>
+          <div className="purchase">
             <div>Paperback
               <Button
-                type='button'
+                type="button"
                 className="button"
                 text={textButtonPaperback}
                 onClick={addToCart}
@@ -90,7 +90,7 @@ export const DetailBook: React.FC = () => {
             </div>
             <div>Hardcover
               <Button
-                type='button'
+                type="button"
                 className="button"
                 text={textButtonHardcover}
                 onClick={addToCart}
@@ -104,6 +104,6 @@ export const DetailBook: React.FC = () => {
       <Recommendations />
     </>
   );
-}
+};
 
 export default DetailBook;

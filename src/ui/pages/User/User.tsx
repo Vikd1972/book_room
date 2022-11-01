@@ -11,15 +11,16 @@ export const User: React.FC = () => {
   return (
     <UserWrapper>
       <UserPhoto />
-      <div className='user-profile'>
+      <div className="user-profile">
         <UserInfo />
         <UserPass />
       </div>
       <ToastContainer
-        className='toast'
-        bodyClassName='toast-body' />
+        className="toast"
+        bodyClassName="toast-body"
+      />
     </UserWrapper>
   );
-}
+};
 
-export default User
+export default User;

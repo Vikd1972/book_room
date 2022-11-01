@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const AppWrapper = styled.div`
 margin: 0 auto;
@@ -15,4 +15,4 @@ align-items: center;
 }
 `;
 
-export default AppWrapper
+export default AppWrapper;

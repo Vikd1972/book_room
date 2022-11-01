@@ -1,15 +1,15 @@
 import instance from '..';
-import { CartType } from '../../store/usersSlice';
+import type { ICartType } from '../../store/usersSlice';
 
-interface OrderParams {
-  userId: number,
-  bookId: number
+interface IOrderParams {
+  userId: number;
+  bookId: number;
 }
 
-const addBookToCart = async (option: OrderParams) => {
-  const response = await instance.post<{userCart: CartType[]}>("/cart/add", option)
-  
+const addBookToCart = async (option: IOrderParams) => {
+  const response = await instance.post<{ userCart: ICartType[] }>('/cart/add', option);
+
   return response.data.userCart;
-}
+};
 
 export default addBookToCart;

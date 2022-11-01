@@ -1,14 +1,13 @@
-import styled from 'styled-components'
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import mail from '../../assets/picture/mail.png'
-import hide from '../../assets/picture/hide.png'
+import mail from '../../assets/picture/mail.png';
+import hide from '../../assets/picture/hide.png';
 
-export interface Icon {
+export interface ICon {
   icon?: string;
 }
 
-const InputOneLineWrapper = styled.div<Icon>`
+const InputOneLineWrapper = styled.div<ICon>`
 margin-top: 20px;
 max-width: 1280px;
 width: 100%;
@@ -30,7 +29,6 @@ flex-direction: column;
           background-image: url(${mail});
           background-position-x: 1px;
         `;
-        // eslint-disable-next-line no-unreachable
         break;
       case 'hide':
         return css`
@@ -38,7 +36,6 @@ flex-direction: column;
           background-position-x: 25px;
           background-position-y: 20px;
         `;
-        // eslint-disable-next-line no-unreachable
         break;
       default:
         return css`
@@ -58,7 +55,6 @@ flex-direction: column;
   margin-bottom: 9px;
 }
 .width-setter {
-  /* margin-left: 1px; */
   height: 64px;
 }
 .width-setter input {
@@ -72,7 +68,6 @@ flex-direction: column;
   font-size: 16px;
   font-weight: 400;
   outline: none;
-  /* background-repeat: no-repeat; */
 }
 .input-name {
   font-size: 14px;

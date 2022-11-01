@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const UserWrapper = styled.div`
 margin-top: 60px;
@@ -20,4 +20,4 @@ flex-direction: row;
 }
 `;
 
-export default UserWrapper
+export default UserWrapper;

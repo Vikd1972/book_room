@@ -14,13 +14,13 @@ export const EmptyCart: React.FC = () => {
       </p>
       <form action="/">
         <Button
-          type='submit'
-          className='button'
-          text='Go to catalog'
+          type="submit"
+          className="button"
+          text="Go to catalog"
         />
       </form>
     </EmptyCartWrapper>
-  )
-}
+  );
+};
 
-export default EmptyCart
+export default EmptyCart;

@@ -1,10 +1,10 @@
 import instance from '..';
-import { UserType } from '../../store/usersSlice';
+import type { IUserType } from '../../store/usersSlice';
 
-const restoreUser = async () => {  
-  const response = await instance.get<{ user: UserType }>("/auth")
+const restoreUser = async () => {
+  const response = await instance.get<{ user: IUserType }>('/auth');
 
   return response.data.user;
-}
+};
 
 export default restoreUser;

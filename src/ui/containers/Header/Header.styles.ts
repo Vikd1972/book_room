@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import logo from '../../assets/picture/logo_dark.png'
-import search from '../../assets/picture/search.png'
-import cart from '../../assets/picture/btn_cart.png'
-import save from '../../assets/picture/btn_save.png'
-import user from '../../assets/picture/btn_user.png'
+import logo from '../../assets/picture/logo_dark.png';
+import search from '../../assets/picture/search.png';
+import cart from '../../assets/picture/btn_cart.png';
+import save from '../../assets/picture/btn_save.png';
+import user from '../../assets/picture/btn_user.png';
 
 const HeaderWrapper = styled.div`
 margin-top: 24px;
@@ -112,20 +112,6 @@ form {
 .btn {
   width: 231px;
 }
-  /* height: 34px;
-  background-color: #344966;
-  font-size: 16px;
-  font-weight: 500;
-  color: #F0F4EF;
-  border-radius: 16px;
-  text-align: center;
-  padding-top: 10px;
-  text-decoration: none;
-}
-.btn:hover{
-  cursor: pointer;
-  background-color: #0D1821;
-} */
 `;
 
-export default HeaderWrapper
+export default HeaderWrapper;

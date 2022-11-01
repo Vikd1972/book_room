@@ -1,17 +1,17 @@
 import instance from '..';
 
-import { CartType } from '../../store/usersSlice';
+import type { ICartType } from '../../store/usersSlice';
 
-interface OrderParams {
-  count: number,
-  id: number,
-  userId: number,
+interface IOrderParams {
+  count: number;
+  id: number;
+  userId: number;
 }
 
-const quantityChange = async (options: OrderParams) => {
-  const response = await instance.patch<{ userCart: CartType[] }>("/cart/change", options)
+const quantityChange = async (options: IOrderParams) => {
+  const response = await instance.patch<{ userCart: ICartType[] }>('/cart/change', options);
 
   return response.data.userCart;
-}
+};
 
 export default quantityChange;

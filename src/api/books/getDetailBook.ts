@@ -1,13 +1,13 @@
 import instance from '..';
 
-import { BookType } from '../../store/booksSlice'
+import type { IBookType } from '../../store/booksSlice';
 
 const getDetailBooks = async (id: number) => {
-  const response = await instance.post<{book: BookType}>("/books/detail", {
-    id: id,
-  })
-  
+  const response = await instance.post<{ book: IBookType }>('/books/detail', {
+    id,
+  });
+
   return response.data.book;
-}
+};
 
 export default getDetailBooks;

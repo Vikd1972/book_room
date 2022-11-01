@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const UserInfoWrapper = styled.div`
 max-width: 1280px;
@@ -52,4 +52,4 @@ flex-direction: row;
 }
 `;
 
-export default UserInfoWrapper
+export default UserInfoWrapper;

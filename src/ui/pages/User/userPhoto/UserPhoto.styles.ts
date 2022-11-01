@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import btn_photo from '../../../assets/picture//btn_photo.png'
+import btn_photo from '../../../assets/picture/btn_photo.png';
 
 const UserPhotoWrapper = styled.div`
 max-width: 1280px;
@@ -59,4 +59,4 @@ flex-direction: row;
   color: #ff9999;
 }
 `;
-export default UserPhotoWrapper
+export default UserPhotoWrapper;

@@ -1,9 +1,9 @@
 import instance from '..';
-import { CartType } from '../../store/usersSlice';
+import type { ICartType } from '../../store/usersSlice';
 
-const getCart = async (id: number) => {  
-  const response = await instance.post<{userCart: CartType[]}>("/cart", { id })
-  
+const getCart = async (id: number) => {
+  const response = await instance.post<{ userCart: ICartType[] }>('/cart', { id });
+
   return response.data.userCart;
-}
+};
 export default getCart;

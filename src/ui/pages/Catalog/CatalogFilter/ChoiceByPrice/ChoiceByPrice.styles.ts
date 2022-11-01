@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const СhoiceByPriceWrapper = styled.div`
 position: absolute;
@@ -48,4 +48,4 @@ z-index: 999;
 }
 `;
 
-export default СhoiceByPriceWrapper
+export default СhoiceByPriceWrapper;

@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import reduction from '../../../../assets/picture/reduction.png'
-import addition from '../../../../assets/picture/addition.png'
-import removal from '../../../../assets/picture/removal.png'
+import reduction from '../../../../assets/picture/reduction.png';
+import addition from '../../../../assets/picture/addition.png';
+import removal from '../../../../assets/picture/removal.png';
 
 const QuantityCangeWrapper = styled.div`  
 margin-top: 50px;

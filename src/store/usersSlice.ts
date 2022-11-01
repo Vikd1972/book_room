@@ -1,64 +1,66 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { BookType } from "./booksSlice";
+import type { IBookType } from './booksSlice';
 
-export interface UserType {    
-  id: number,
-  fullname: string,
-  email: string,
-  photoFilePath: string,
-  favorites: BookType[]
+export interface IUserType {
+  id: number;
+  fullname: string;
+  email: string;
+  photoFilePath: string;
+  favorites: IBookType[];
 }
 
-export interface CartType {
-  id: number,
-  count: number,
-  book: BookType,
+export interface ICartType {
+  id: number;
+  count: number;
+  book: IBookType;
 }
 
-interface UsersState {
-  user: UserType,
-  cart: CartType[],
-  userFavorites: number[],
+interface IUsersState {
+  user: IUserType;
+  cart: ICartType[];
+  userFavorites: number[];
 }
 
-const initialState: UsersState = {
+const initialState: IUsersState = {
   user: {
     id: 0,
     fullname: '',
     email: '',
     photoFilePath: '',
-    favorites: []
+    favorites: [],
   },
   cart: [],
-  userFavorites: []
-}
+  userFavorites: [],
+};
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    loginUser: (state, action: PayloadAction<UserType>) => {  
+    loginUser: (state, action: PayloadAction<IUserType>) => {
       state.userFavorites = [];
       state.user = initialState.user;
-      state.user = action.payload;     
-      if (state.user.favorites) {        
-        for (let book of Array.from(state.user.favorites)) {   
-          state.userFavorites.push(book.id)
+      state.user = action.payload;
+      if (state.user.favorites) {
+        for (const book of Array.from(state.user.favorites)) {
+          state.userFavorites.push(book.id);
         }
       }
     },
     reset: () => initialState,
-    addCart: (state, action: PayloadAction<CartType[]>) => {      
+    addCart: (state, action: PayloadAction<ICartType[]>) => {
       state.cart = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
 export const {
   loginUser,
   reset,
-  addCart
-} = usersSlice.actions
+  addCart,
+} = usersSlice.actions;
 
-export default usersSlice.reducer
+export default usersSlice.reducer;

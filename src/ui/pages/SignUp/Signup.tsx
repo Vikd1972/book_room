@@ -1,23 +1,24 @@
 import React from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import signUser from '../../../api/auth/signUpUser';
-import { loginUser, UserType } from '../../../store/usersSlice';
+import { loginUser } from '../../../store/usersSlice';
+import type { IUserType } from '../../../store/usersSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
 import schemaSign from '../../../validation/schemaSign';
-import { Values } from '../User/Interface';
+import type { Values } from '../User/Interface';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
 import { Button } from '../../components/Button/Buttons';
 
 import SignUpWrapper from './Signup.styles';
 
 export const Signup: React.FC = () => {
-  const activePage = sessionStorage.getItem('activePage')
-  const dispatch = useAppDispatch()
+  const activePage = sessionStorage.getItem('activePage');
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const route = location.state as string || `/${activePage}`;
@@ -31,11 +32,10 @@ export const Signup: React.FC = () => {
     validationSchema: schemaSign,
     onSubmit: async (values) => {
       try {
-        const user: UserType = await signUser(values)
+        const user: IUserType = await signUser(values);
         dispatch(loginUser(user));
-        navigate(route)
-      }
-      catch (err) {
+        navigate(route);
+      } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.response?.data.message);
         }
@@ -45,58 +45,61 @@ export const Signup: React.FC = () => {
 
   return (
     <SignUpWrapper>
-      <div className='login'>
-        <div className='login__name'>
+      <div className="login">
+        <div className="login__name">
           <div>Sign Up /</div>
           <Link
             className="login__name-toggle"
-            to="/login">
+            to="/login"
+          >
             Log In
           </Link>
         </div>
         <form
           onSubmit={formik.handleSubmit}
-          className='login__form'>
+          className="login__form"
+        >
           <InputOneLine
-            type='email'
-            placeholder='Email'
-            textWhenChanged='Enter your email'
+            type="email"
+            placeholder="Email"
+            textWhenChanged="Enter your email"
             formikName={formik.touched.email}
             formikError={formik.errors.email}
             formikField={formik.getFieldProps('email')}
-            icon='mail'
+            icon="mail"
           />
           <InputOneLine
-            type='password'
-            placeholder='Password'
-            textWhenChanged='Enter your password'
+            type="password"
+            placeholder="Password"
+            textWhenChanged="Enter your password"
             formikName={formik.touched.password}
             formikError={formik.errors.password}
             formikField={formik.getFieldProps('password')}
-            icon='hide'
+            icon="hide"
           />
           <InputOneLine
-            type='password'
-            placeholder='Confirm password'
-            textWhenChanged='Replay your password'
+            type="password"
+            placeholder="Confirm password"
+            textWhenChanged="Replay your password"
             formikName={formik.touched.confirmPassword}
             formikError={formik.errors.confirmPassword}
             formikField={formik.getFieldProps('confirmPassword')}
-            icon='hide'
+            icon="hide"
           />
           <Button
-            type='submit'
+            type="submit"
             className="btn"
-            text='Sign Up'
+            text="Sign Up"
           />
         </form>
       </div>
-      <div className='login-pic'></div>
+      <div className="login-pic" />
       <ToastContainer
-        className='toast'
-        bodyClassName='toast-body' />
+        className="toast"
+        bodyClassName="toast-body"
+      />
     </SignUpWrapper>
   );
-}
+};
 
-export default Signup
+export default Signup;

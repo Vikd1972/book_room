@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import book from '../../../assets/picture/books2.png'
+import book from '../../../assets/picture/books2.png';
 
 const EmptyCartWrapper = styled.div`
 max-width: 580px;
@@ -34,4 +34,4 @@ p {
 }
 `;
 
-export default EmptyCartWrapper
+export default EmptyCartWrapper;

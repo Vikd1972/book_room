@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import books from '../../assets/picture/books.png'
-import woman from '../../assets/picture/woman.png'
+import books from '../../assets/picture/books.png';
+import woman from '../../assets/picture/woman.png';
 
 const СatalogWrapper = styled.div`
 margin-top: 40px;
@@ -54,4 +54,4 @@ align-items: center;
 }
 `;
 
-export default СatalogWrapper
+export default СatalogWrapper;

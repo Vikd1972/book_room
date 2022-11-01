@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-
+import styled from 'styled-components';
 
 const DetailBookWrapper = styled.div`
 margin-top: 60px;
@@ -70,4 +69,4 @@ flex-direction: row;
 }
 `;
 
-export default DetailBookWrapper
+export default DetailBookWrapper;

@@ -1,9 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import checked from '../../../../assets/picture/radio_checked.png'
-import unchecked from '../../../../assets/picture/radio_unchecked.png'
-import field from '../../../../assets/picture/arrow_up_field.png'
-
+import checked from '../../../../assets/picture/radio_checked.png';
+import unchecked from '../../../../assets/picture/radio_unchecked.png';
+import field from '../../../../assets/picture/arrow_up_field.png';
 
 const ChoiceOfGenreWrapper = styled.div`
 position: absolute;
@@ -33,39 +32,39 @@ p {
 .checkbox-item {
   display: block;
   line-height: 37px;
-	cursor: pointer;
-	user-select: none;
-	position: relative;
+  user-select: none;
+  position: relative;
+  cursor: pointer;
 }
 .name-item {
   padding: 10px 0 10px 0;
 }
 .checkbox-item input[type=checkbox] {
   position: absolute;
-	z-index: -1;
-	opacity: 0;
-	display: block;
-	width: 0;
-	height: 0;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
   padding: 15px 0 15px 0;
 }
 .checkbox-item span {
   display: inline-block;
-	position: relative; 
-	padding: 0 0 0 35px;
+  position: relative; 
+  padding: 0 0 0 35px;
   color : #344966;
   font-size: 16px;
   font-weight: 500;
-	line-height: 28px;  
+  line-height: 28px;  
 }
 .checkbox-item span:before {
   content: "";
-	display: inline-block;
-	width: 25px;
-	height: 25px;
-	position: absolute;
-	left: 0;
-	top: 0;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: 0;
+  top: 0;
   background-image: url(${unchecked});
   background-repeat: no-repeat;
 } 
@@ -74,4 +73,4 @@ p {
 }
 `;
 
-export default ChoiceOfGenreWrapper
+export default ChoiceOfGenreWrapper;

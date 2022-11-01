@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const CartWrapper = styled.div`
 max-width: 1280px;
@@ -32,4 +32,4 @@ width: 100%;
 }
 `;
 
-export default CartWrapper
+export default CartWrapper;

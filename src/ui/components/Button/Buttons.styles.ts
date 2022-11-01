@@ -1,11 +1,10 @@
-import styled from 'styled-components'
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-interface Disable {
-  isDisabled: boolean
+interface IDisable {
+  isDisabled: boolean;
 }
 
-const ButtonWrapper = styled.button<Disable>`  
+const ButtonWrapper = styled.button<IDisable>`  
 background-color: #344966;
 font-size: 16px;
 font-weight: 500;
@@ -20,16 +19,16 @@ border: none;
 } 
 
 ${(props) => {
-  if (props.isDisabled) {
-    return css`
+    if (props.isDisabled) {
+      return css`
       background-color: #B9BAC3;
       &:hover{
         cursor: auto;
         background-color: #B9BAC3;
       } 
     `;
-  }
-}}
+    }
+  }}
 `;
 
 export { ButtonWrapper };

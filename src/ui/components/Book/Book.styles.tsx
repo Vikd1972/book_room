@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import star from '../../assets/picture/star1.png'
+import star from '../../assets/picture/star1.png';
 
 const BookWrapper = styled.div`
 margin-top: 50px;
@@ -86,4 +86,4 @@ z-index: 1;
 }
 `;
 
-export default BookWrapper
+export default BookWrapper;
