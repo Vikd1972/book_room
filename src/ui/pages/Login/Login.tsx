@@ -7,32 +7,34 @@ import { AxiosError } from 'axios';
 import authUser from '../../../api/auth/authUser';
 import { loginUser } from '../../../store/usersSlice';
 import type { IUserType } from '../../../store/usersSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
 import schemqaLogin from '../../../validation/schemaLogin';
-import type { Values } from '../User/Interface';
+import type { IValues } from '../User/Interface';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
 import { Button } from '../../components/Button/Buttons';
 
 import LoginWrapper from './Login.styles';
 
 export const Login: React.FC = () => {
-  const activePage = sessionStorage.getItem('activePage');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state as string || `/${activePage}`;
+  const queryString = useAppSelector((state) => state.books.queryString);
+  const route = location.state as string || `/${queryString}`;
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
-    } as Values,
+    } as IValues,
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
       try {
         const user: IUserType = await authUser(values);
         dispatch(loginUser(user));
+        // eslint-disable-next-line no-console
+        console.log(route);
         navigate(route);
       } catch (err) {
         if (err instanceof AxiosError) {

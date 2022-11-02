@@ -10,8 +10,9 @@ export const AuthorizePoster: React.FC = () => {
       <div className="poster">
         <div className="poster__image" />
         <div className="poster__field">
-          <div className="field-name">Authorize now</div>
-          <div className="field-text">Authorize now and discover the fabulous<br />world of books</div>
+          <h1 className="poster__field_name">Authorize now</h1>
+          <p className="poster__field_text">Authorize now and discover the fabulous</p>
+          <p className="poster__field_text">world of books</p>
           <form action="/login">
             <Button
               type="submit"

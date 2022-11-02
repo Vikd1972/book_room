@@ -17,9 +17,6 @@ interface IMyInput {
 }
 
 const InputOneLine: React.FC<IMyInput> = (props) => {
-  // eslint-disable-next-line no-console
-  console.log(props.placeholder);
-
   return (
     <InputOneLineWrapper icon={props.icon}>
       <div className="input-field">

@@ -23,7 +23,7 @@ export const Header: React.FC = () => {
     (async () => {
       try {
         if (users.user.email) {
-          const cart = await getCart(users.user.id);
+          const cart = await getCart();
           dispatch(addCart(cart));
         }
       } catch (err) {
@@ -86,17 +86,17 @@ export const Header: React.FC = () => {
           ? (
             <nav className="panel__buttons">
               <Link
-                className="buttons-icon btn-cart"
+                className="buttons-icon button-cart"
                 to="/cart"
               />
               {count ? <div id="cart">{count}</div> : null}
               <Link
-                className="buttons-icon btn-save"
+                className="buttons-icon button-favorite"
                 to="/favorites"
               />
               {favorites ? <div id="cart">{favorites}</div> : null}
               <Link
-                className="buttons-icon btn-user"
+                className="buttons-icon button-user"
                 to="/profile"
               />
             </nav>
@@ -105,7 +105,7 @@ export const Header: React.FC = () => {
               <form action="/login">
                 <Button
                   type="submit"
-                  className="btn"
+                  className="button"
                   text="Log In / Sing Up"
                 />
               </form>

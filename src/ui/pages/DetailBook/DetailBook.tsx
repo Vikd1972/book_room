@@ -52,11 +52,15 @@ export const DetailBook: React.FC = () => {
   }
 
   const addToCart = async () => {
-    if (book) {
-      const userId = user.id;
-      const bookId = book?.id;
-      const cart = await addBookToCart({ userId, bookId });
-      dispatch(addCart(cart));
+    try {
+      if (book) {
+        const bookId = book?.id;
+        const cart = await addBookToCart({ bookId });
+        dispatch(addCart(cart));
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
     }
   };
 
@@ -75,7 +79,7 @@ export const DetailBook: React.FC = () => {
           <p className="author">{book?.author}</p>
           <div className="rating">rating</div>
           <p className="description">
-            <span>Description</span><br /><br />
+            <h1>Description</h1>
             {book?.description}
           </p>
           <div className="purchase">

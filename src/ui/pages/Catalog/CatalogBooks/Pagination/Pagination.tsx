@@ -12,7 +12,10 @@ export const Pagination: React.FC = () => {
   const queryString = useAppSelector((state) => state.books.queryString);
   const url = new URL(window.location.href);
 
-  const prevPage = async () => {
+  const prevPage = () => {
+    if (serviceInfo.activePage === serviceInfo.prevPage) {
+      return;
+    }
     if (url.searchParams.has('page')) {
       url.searchParams.set('page', (serviceInfo.prevPage).toString());
     } else {
@@ -22,6 +25,9 @@ export const Pagination: React.FC = () => {
   };
 
   const nextPage = () => {
+    if (serviceInfo.activePage === serviceInfo.nextPage) {
+      return;
+    }
     if (url.searchParams.has('page')) {
       url.searchParams.set('page', (serviceInfo.nextPage).toString());
     } else {
@@ -31,6 +37,9 @@ export const Pagination: React.FC = () => {
   };
 
   const selectPage = (pageId: number) => {
+    if (serviceInfo.activePage === pageId) {
+      return;
+    }
     if (url.searchParams.has('page')) {
       url.searchParams.set('page', (pageId).toString());
     } else {
@@ -67,7 +76,7 @@ export const Pagination: React.FC = () => {
             <Link
               onClick={() => selectPage(page.id + 1)}
               to={page.to}
-              >
+            >
               <div className={page.className} />
             </Link>
           </div>

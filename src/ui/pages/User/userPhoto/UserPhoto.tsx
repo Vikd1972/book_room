@@ -23,13 +23,18 @@ export const UserPhoto: React.FC = () => {
       try {
         const reader = new FileReader();
         reader.onload = async () => {
-          if (!reader.result) {
+          try {
+            if (!reader.result) {
+              // eslint-disable-next-line no-console
+              console.log('error');
+            }
+            const photo = reader.result as string;
+            const user: IUserType = await uploadPhoto(photo);
+            dispatch(loginUser(user));
+          } catch (err) {
             // eslint-disable-next-line no-console
-            console.log('error');
+            console.log(err);
           }
-          const photo = reader.result as string;
-          const user: IUserType = await uploadPhoto(photo);
-          dispatch(loginUser(user));
         };
         reader.readAsDataURL(e.target.files[0]);
       } catch (err) {

@@ -2,7 +2,6 @@ import instance from '..';
 import type { IUserType } from '../../store/usersSlice';
 
 interface IOrderParams {
-  userId: number;
   bookId: number;
 }
 

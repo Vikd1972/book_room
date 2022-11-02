@@ -20,16 +20,18 @@ h1 {
   font-weight: 700;
   line-height: 60px;
   color: #0D1821;
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 p {
   font-size: 24px;
   font-weight: 500;
   line-height: 36px;
   color: #344966;
-  margin-top: 20px;
+  margin: 0;
 }
-.button {
+.button-catalog {
+  margin-top: 40px;
+  margin-left: 0;
   width: 219px;
 }
 `;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +46,6 @@ export const CatalogBooks: React.FC = () => {
   }, [
     dispatch,
     navigate,
-    url.searchParams,
     books.queryString,
     activePage,
   ]);

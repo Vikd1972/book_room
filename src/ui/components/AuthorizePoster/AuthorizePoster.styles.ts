@@ -21,29 +21,6 @@ height: 400px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-    &__field {
-    margin-left: 135px;
-    display: flex;
-    flex-direction: column;
-
-    &__image {
-
-    }
-    .field-name {
-      margin-top: 105px;
-      font-size: 40px;
-      font-weight: 700;
-      line-height: 60px;
-      color: #0D1821;
-    }
-    .field-text {
-      margin-top: 10px;
-      font-size: 20px;
-      line-height: 30px;
-      color: #344966;
-      margin-bottom: 50px;
-    }
-  }
   .poster__image {
     width: 521px;
     height: 462px;
@@ -51,11 +28,29 @@ height: 400px;
     background-image: url(${castle}); 
     background-repeat: no-repeat;
   }
+  .poster__field {
+    margin-left: 135px;
+    display: flex;
+    flex-direction: column;
+    &_name {
+      margin-top: 80px;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 60px;
+      color: #0D1821;
+    }
+    &_text {
+      margin: 0;
+      font-size: 20px;
+      line-height: 30px;
+      color: #344966;
+    }
+    .button {
+      margin-top: 60px;
+      max-width: 230px;
+      width: 100%;
+    }
 }
-.button {
-  margin-top: 10px;
-  max-width: 230px;
-  width: 100%;
 }
 `;
 

@@ -26,7 +26,7 @@ const InputTwoLine: React.FC<IMyInput> = (props) => {
           ? (<div className="name err">{props.formikError}</div>)
           : (<div className="name">{props.textWhenChanged}</div>)
         : (<div className="name">{props.textInfo}</div>)
-      };
+      }
       {props.changeField
         ? (<input
           className="value"
@@ -36,7 +36,7 @@ const InputTwoLine: React.FC<IMyInput> = (props) => {
           {...props.formikField}
         />)
         : (<div className="value">{props.field}</div>)
-      };
+      }
     </InputTwoLineWrapper>
   );
 };

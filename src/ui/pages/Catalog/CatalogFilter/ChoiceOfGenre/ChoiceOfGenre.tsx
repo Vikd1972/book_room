@@ -1,25 +1,38 @@
+/* eslint-disable no-console */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../../../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../../../../store/hooks';
+import { loadQueryString } from '../../../../../store/booksSlice';
 
 import ChoiceOfGenreWrapper from './ChoiceOfGenre.styles';
 
-interface ISelectByGenres {
-  onSelectByGenres: (currentGenres: string) => void;
-}
-
-export const ChoiceOfGenre: React.FC<ISelectByGenres> = (props) => {
+export const ChoiceOfGenre: React.FC = () => {
   const params = useAppSelector((state) => state.books);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const url = new URL(window.location.href);
 
-  const onSelectByGenre = () => {
+  const onSelectByGenre = async () => {
     let currentGenres = '';
     for (const genre of params.genres) {
       const checkbox = document.querySelector(`input[name=${genre.name.replace(/[^a-zA-Z]/g, '')}]:checked`) as HTMLInputElement;
       if (checkbox) {
-        currentGenres += checkbox.value;
+        // eslint-disable-next-line prefer-template
+        currentGenres += checkbox.value + ',';
       }
     }
-    props.onSelectByGenres(currentGenres);
+    if (currentGenres.length) {
+      if (url.searchParams.has('genres')) {
+        url.searchParams.set('genres', currentGenres);
+      } else {
+        url.searchParams.append('genres', currentGenres);
+      }
+    } else {
+      url.searchParams.delete('genres');
+    }
+    dispatch(loadQueryString(url.search));
+    navigate(url.search);
   };
 
   return (

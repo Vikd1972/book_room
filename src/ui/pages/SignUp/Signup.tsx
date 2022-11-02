@@ -7,28 +7,28 @@ import { AxiosError } from 'axios';
 import signUser from '../../../api/auth/signUpUser';
 import { loginUser } from '../../../store/usersSlice';
 import type { IUserType } from '../../../store/usersSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
 import schemaSign from '../../../validation/schemaSign';
-import type { Values } from '../User/Interface';
+import type { IValues } from '../User/Interface';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
 import { Button } from '../../components/Button/Buttons';
 
 import SignUpWrapper from './Signup.styles';
 
 export const Signup: React.FC = () => {
-  const activePage = sessionStorage.getItem('activePage');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const route = location.state as string || `/${activePage}`;
+  const queryString = useAppSelector((state) => state.books.queryString);
+  const route = location.state as string || `/${queryString}`;
 
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
       confirmPassword: '',
-    } as Values,
+    } as IValues,
     validationSchema: schemaSign,
     onSubmit: async (values) => {
       try {

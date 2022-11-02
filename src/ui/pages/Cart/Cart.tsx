@@ -11,7 +11,7 @@ import CartWrapper from './Cart.styles';
 
 export const Cart: React.FC = () => {
   const users = useAppSelector((state) => state.users);
-  const activePage = sessionStorage.getItem('activePage') || '1';
+  const queryString = useAppSelector((state) => state.books.queryString);
 
   let total = 0;
   for (const item of users.cart) {
@@ -39,7 +39,7 @@ export const Cart: React.FC = () => {
           <div className="buttons">
             <Link
               className="navi"
-              to={`/?page=${activePage}`}
+              to={`/${queryString}`}
             >
               Continue shopping
             </Link>
@@ -49,7 +49,7 @@ export const Cart: React.FC = () => {
               text="Checkout"
             />
           </div>
-          </>)
+        </>)
         : null}
     </CartWrapper>
   );

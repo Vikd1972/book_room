@@ -78,10 +78,10 @@ form {
 .buttons-icon {
   width: 48px;
   height: 48px;
-  background-image: url(${cart});
-  background-repeat: no-repeat;
+  /* background-image: url(${cart});
+  background-repeat: no-repeat; */
 }
-.btn-cart{
+.button-cart{
   background-image: url(${cart});
   background-repeat: no-repeat;
   background-position: center;
@@ -101,15 +101,15 @@ form {
   background-color: #BFCC94;
   text-align: center;
 }
-.btn-save {
+.button-favorite {
   background-image: url(${save});
   background-repeat: no-repeat;
 }
-.btn-user {
+.button-user {
   background-image: url(${user});
   background-repeat: no-repeat;
 }
-.btn {
+.button {
   width: 231px;
 }
 `;

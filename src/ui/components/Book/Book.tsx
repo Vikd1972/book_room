@@ -24,12 +24,16 @@ export const Book: React.FC<PropsType> = (props) => {
   const currentPrice = props.book.paperbackQuantity
     ? props.book.paperbackPrice : props.book.hardcoverPrice;
   const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
+  const bookId = props.book.id;
+  const idBooksInCart: number[] = [];
+  users.cart.forEach((item) => {
+    idBooksInCart.push(item.book.id);
+  });
+  const isPurchased = idBooksInCart.includes(bookId);
 
   const addToCart = async () => {
     try {
-      const userId = users.user.id;
-      const bookId = props.book.id;
-      const cart = await addBookToCart({ userId, bookId });
+      const cart = await addBookToCart({ bookId });
       dispatch(addCart(cart));
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -39,9 +43,7 @@ export const Book: React.FC<PropsType> = (props) => {
 
   const addBookToFavorites = async () => {
     try {
-      const userId = users.user.id;
-      const bookId = props.book.id;
-      const newUser = await addToFavorites({ userId, bookId });
+      const newUser = await addToFavorites({ bookId });
       dispatch(loginUser(newUser));
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -78,12 +80,23 @@ export const Book: React.FC<PropsType> = (props) => {
         </div>
         <div className="rating-value">5.0</div>
       </div>
-      <Button
-        type="button"
-        className="button"
-        onClick={addToCart}
-        text={textButton}
-      />
+      {isPurchased
+        ? (
+          <Button
+            type="button"
+            className="button in-cart"
+            text="Added to cart"
+          />
+        )
+        : (
+          <Button
+            type="button"
+            className="button"
+            onClick={addToCart}
+            text={textButton}
+          />
+        )
+      }
     </BookWrapper >
   );
 };

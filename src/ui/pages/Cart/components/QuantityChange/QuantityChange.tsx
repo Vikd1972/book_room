@@ -17,36 +17,51 @@ export const QuantityCange: React.FC<IProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const onQuantityReduction = async () => {
-    if (props.count > 1) {
-      const options = {
-        id: props.id,
-        count: props.count - 1,
-        userId: props.userId,
-      };
-      const cart = await quantityChange(options);
-      dispatch(addCart(cart));
+    try {
+      if (props.count > 1) {
+        const options = {
+          id: props.id,
+          count: props.count - 1,
+          userId: props.userId,
+        };
+        const cart = await quantityChange(options);
+        dispatch(addCart(cart));
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
     }
   };
 
   const onQuantityAddition = async () => {
-    if (props.count < 5) {
-      const options = {
-        id: props.id,
-        count: props.count + 1,
-        userId: props.userId,
-      };
-      const cart = await quantityChange(options);
-      dispatch(addCart(cart));
+    try {
+      if (props.count < 5) {
+        const options = {
+          id: props.id,
+          count: props.count + 1,
+          userId: props.userId,
+        };
+        const cart = await quantityChange(options);
+        dispatch(addCart(cart));
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
     }
   };
 
   const onDeletingBook = async () => {
-    const options = {
-      id: props.id,
-      userId: props.userId,
-    };
-    const cart = await deleteBookInCart(options);
-    dispatch(addCart(cart));
+    try {
+      const options = {
+        id: props.id,
+        userId: props.userId,
+      };
+      const cart = await deleteBookInCart(options);
+      dispatch(addCart(cart));
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
+    }
   };
 
   return (

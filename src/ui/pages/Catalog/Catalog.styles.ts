@@ -26,19 +26,18 @@ align-items: center;
   .poster__field {
     display: flex;
     flex-direction: column;
-    .field-name {
+    &_name {
       margin-top: 80px;
       font-size: 40px;
       font-weight: 700;
       line-height: 60px;
       color: #0D1821;
     }
-    .field-text {
-      margin-top: 10px;
+    &_text {
+      margin: 0;
       font-size: 20px;
       line-height: 30px;
       color: #344966;
-      margin-bottom: 50px;
     }
   }
   .poster__image {
@@ -49,6 +48,7 @@ align-items: center;
   }
 }
 .btn {
+  margin-top: 50px;
   max-width: 230px;
   width: 100%;
 }

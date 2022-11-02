@@ -4,7 +4,6 @@ import type { ICartType } from '../../store/usersSlice';
 
 interface IDeleteParams {
   id: number;
-  userId: number;
 }
 
 const deleteBookInCart = async (options: IDeleteParams) => {

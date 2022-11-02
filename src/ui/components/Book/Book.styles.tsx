@@ -84,6 +84,12 @@ z-index: 1;
   line-height: 28px;
   color: #F0F4EF;
 }
+.in-cart {
+  background-color: #ffffff;
+  color: #0D1821;
+  border: 1px solid #344966;
+  padding: 9px 0 9px 0;
+}
 `;
 
 export default BookWrapper;

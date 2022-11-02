@@ -27,6 +27,9 @@ line-height: 30px;
   background-repeat: no-repeat;
   margin-bottom: 40px;
 }
+.logo-contacts {
+  margin: 0;
+}
 .links {
   display: flex;
   flex-direction: column;
@@ -37,7 +40,7 @@ line-height: 30px;
   margin-bottom: 5px;
   line-height: 35px;
 }
-.map-map {
+.map-picture {
   width: 413px;
   height: 160px;
   background-image: url(${map});

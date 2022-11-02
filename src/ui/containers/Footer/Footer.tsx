@@ -19,10 +19,8 @@ export const Footer: React.FC = () => {
     <FooterWrapper>
       <div className="logo">
         <div className="logo-logotype" />
-        <div className="logo-contacts">
-          tranthuy.nute@gmail.com <br />
-          (480) 555-0103
-        </div>
+        <p className="logo-contacts">tranthuy.nute@gmail.com </p>
+        <p className="logo-contacts">(480) 555-0103</p>
       </div>
       <nav className="links">
         <Link
@@ -61,7 +59,7 @@ export const Footer: React.FC = () => {
         <span className="map-address">
           6391 Elgin St. Celina, Delaware 10299
         </span>
-        <div className="map-map" />
+        <div className="map-picture" />
       </div>
     </FooterWrapper>
   );

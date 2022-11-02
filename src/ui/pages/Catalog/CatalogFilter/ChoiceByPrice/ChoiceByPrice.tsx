@@ -1,18 +1,32 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import Slider from '@mui/material/Slider';
+import { useNavigate } from 'react-router';
 
+import { useAppDispatch } from '../../../../../store/hooks';
+import { loadQueryString } from '../../../../../store/booksSlice';
 import СhoiceByPriceWrapper from './ChoiceByPrice.styles';
 
-interface ISelectByPrice {
-  onSelectByPrice: (currentPrice: number[]) => void;
-}
-
-export const СhoiceByPrice: React.FC<ISelectByPrice> = (props) => {
+export const СhoiceByPrice: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
+  const url = new URL(window.location.href);
 
-  const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
+  const onSelectByPrice = (event: React.SyntheticEvent | Event, newPrice: number | number[]) => {
     setPriceValue(newPrice as number[]);
-    props.onSelectByPrice(priceValue);
+    console.log(newPrice);
+    if (priceValue[0] > 0 || priceValue[1] < 100) {
+      if (url.searchParams.has('price')) {
+        url.searchParams.set('price', priceValue.join(','));
+      } else {
+        url.searchParams.append('price', priceValue.join(','));
+      }
+    } else {
+      url.searchParams.delete('price');
+    }
+    dispatch(loadQueryString(url.search));
+    navigate(url.search);
   };
 
   return (
@@ -24,7 +38,7 @@ export const СhoiceByPrice: React.FC<ISelectByPrice> = (props) => {
           getAriaLabel={() => 'Temperature range'}
           value={priceValue}
           max={100}
-          onChange={onSelectByPrice}
+          onChangeCommitted={onSelectByPrice}
         />
         <div className="value-price">
           <div>

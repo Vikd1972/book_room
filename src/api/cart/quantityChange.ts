@@ -5,7 +5,6 @@ import type { ICartType } from '../../store/usersSlice';
 interface IOrderParams {
   count: number;
   id: number;
-  userId: number;
 }
 
 const quantityChange = async (options: IOrderParams) => {

@@ -46,10 +46,11 @@ flex-direction: row;
   line-height: 24px;
   color: #344966;
   margin: 30px 0 0 0;
-  span {
+  h1 {
     font-size: 24px;
     line-height: 36px;
     margin-bottom: 10px;
+    font-weight: 500;
   }
 }
 .purchase {

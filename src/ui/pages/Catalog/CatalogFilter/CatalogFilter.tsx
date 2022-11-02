@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,53 +13,33 @@ export const CatalogFilter: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isSelectByGenre, setIsSelectByGenre] = useState(false);
-  const [genres, setGenres] = useState<string>('');
   const [isSelectByPrice, setIsSelectByPrice] = useState(false);
-  const [price, setPrice] = useState<number[]>([0, 100]);
   const [isSortingBy, setSortingBy] = useState(false);
   const [sort, setSort] = useState<string>('...');
   const url = new URL(window.location.href);
 
-  const selectByGenre = () => {
-    setIsSelectByGenre(!isSelectByGenre);
-    if (isSelectByGenre) {
-      if (genres.length) {
-        if (url.searchParams.has('genres')) {
-          url.searchParams.set('genres', genres);
-        } else {
-          url.searchParams.append('genres', genres);
-        }
-      } else {
-        url.searchParams.delete('genres');
+  const chooseByGenre = document.getElementById('choose-by-genre');
+
+  document.onclick = (e) => {
+    if (chooseByGenre) {
+      const chapter = e.target as HTMLElement;
+      if (!chapter.closest('#choose-by-genre')) {
+        setIsSelectByGenre(false);
       }
-      dispatch(loadQueryString(url.search));
-      setGenres('');
-      navigate(url.search);
     }
   };
-  const onSelectByGenres = (genres: string) => {
-    setGenres(genres);
+
+  const selectByGenre = () => {
+    setIsSelectByGenre(!isSelectByGenre);
+    if (!isSelectByGenre) {
+      url.searchParams.delete('genres');
+      dispatch(loadQueryString(url.search));
+      navigate(url.search);
+    }
   };
 
   const selectByPrice = () => {
     setIsSelectByPrice(!isSelectByPrice);
-    if (isSelectByPrice) {
-      if (price[0] > 0 || price[1] < 100) {
-        if (url.searchParams.has('price')) {
-          url.searchParams.set('price', price.join(','));
-        } else {
-          url.searchParams.append('price', price.join(','));
-        }
-      } else {
-        url.searchParams.delete('price');
-      }
-      dispatch(loadQueryString(url.search));
-      setPrice([0, 100]);
-      navigate(url.search);
-    }
-  };
-  const onSelectByPrice = (price: number[]) => {
-    setPrice(price);
   };
 
   const sortBy = () => {
@@ -92,13 +73,16 @@ export const CatalogFilter: React.FC = () => {
         name="selector"
         className="filtering"
       >
-        <div className="filter-wrapper">
+        <div
+          id="choose-by-genre"
+          className="filter-wrapper"
+        >
           <div
             onClick={selectByGenre}
             className="filter genre"
           >Genre
           </div>
-          {isSelectByGenre && <ChoiceOfGenre onSelectByGenres={onSelectByGenres} />}
+          {isSelectByGenre && <ChoiceOfGenre />}
         </div>
         <div className="filter-wrapper">
           <div
@@ -106,7 +90,7 @@ export const CatalogFilter: React.FC = () => {
             className="filter price"
           >Price
           </div>
-          {isSelectByPrice && <ChoiceByPrice onSelectByPrice={onSelectByPrice} />}
+          {isSelectByPrice && <ChoiceByPrice />}
         </div>
         <div className="filter-wrapper">
           <div
