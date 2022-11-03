@@ -6,11 +6,14 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
 import getDetailBooks from '../../../api/books/getDetailBook';
+import Rating from './Rating/Rating';
 import Recommendations from '../Recommendations/Recommendations';
 import AuthorizePoster from '../../components/AuthorizePoster/AuthorizePoster';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import { addCart } from '../../../store/usersSlice';
 import type { IBookType } from '../../../store/booksSlice';
+
+import arrow from '../../assets/picture/arrow_back.png';
 
 import DetailBookWrapper from './DetailBook.styles';
 
@@ -77,11 +80,26 @@ export const DetailBook: React.FC = () => {
         <div className="info">
           <h1 className="name">{book?.name}</h1>
           <p className="author">{book?.author}</p>
-          <div className="rating">rating</div>
-          <p className="description">
+          <div className="rating">
+            <div className="rating-book">{book?.rating && 0}</div>
+            <div className="rating-my">
+              <Rating
+                bookId={Number(bookId)}
+              />
+              <div className="rating-arrow">
+                <img
+                  src={arrow}
+                  alt="arrow"
+                  id="arrow"
+                />
+              </div>
+              <p>Rate this book</p>
+            </div>
+          </div>
+          <div className="description">
             <h1>Description</h1>
             {book?.description}
-          </p>
+          </div>
           <div className="purchase">
             <div>Paperback
               <Button

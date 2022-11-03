@@ -37,6 +37,8 @@ export const CatalogFilter: React.FC = () => {
 
   const selectByGenre = () => {
     setIsSelectByGenre(!isSelectByGenre);
+    setIsSelectByPrice(false);
+    setSortingBy(false);
     if (!isSelectByGenre) {
       url.searchParams.delete('genres');
       dispatch(loadQueryString(url.search));
@@ -46,6 +48,8 @@ export const CatalogFilter: React.FC = () => {
 
   const selectByPrice = () => {
     setIsSelectByPrice(!isSelectByPrice);
+    setIsSelectByGenre(false);
+    setSortingBy(false);
     if (!isSelectByPrice) {
       url.searchParams.delete('price');
       dispatch(loadQueryString(url.search));
@@ -55,6 +59,8 @@ export const CatalogFilter: React.FC = () => {
 
   const sortBy = () => {
     setSortingBy(!isSortingBy);
+    setIsSelectByGenre(false);
+    setIsSelectByPrice(false);
     if (!isSortingBy) {
       url.searchParams.delete('sort');
       dispatch(loadQueryString(url.search));

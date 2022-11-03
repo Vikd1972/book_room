@@ -40,6 +40,26 @@ flex-direction: row;
   font-size: 16px;
   line-height: 24px;
   color: #B9BAC4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &-book {
+    padding-top: 4px;
+  }
+  &-my {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: row;
+    width: 396px;
+    p {
+      padding-top: 4px;
+      margin: 0 0 0 10px;
+    }
+    .rating-arrow {
+      padding-top: 4px;
+      margin-left: 40px;
+    }
+  }
 }
 .description {
   font-size: 16px;

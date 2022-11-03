@@ -16,6 +16,8 @@ export interface IBookType {
   isNew: boolean;
   isBestseller: boolean;
   genres: string[];
+  comment: string[];
+  rating: number[];
 }
 
 export interface IServiceInfo {
@@ -31,10 +33,16 @@ export interface IGenreType {
   id: number;
   name: string;
 }
+export interface IRatingType {
+  id: number;
+  name: string;
+}
+
 export interface IBooksState {
   books: IBookType[];
   genres: IGenreType[];
   queryString: string;
+  rating: number;
   serviceInfo: IServiceInfo;
 }
 
@@ -42,6 +50,7 @@ const initialState: IBooksState = {
   books: [],
   genres: [],
   queryString: '',
+  rating: 0,
   serviceInfo: {
     quantityBooks: 0,
     quantityPages: 0,
@@ -67,6 +76,9 @@ export const booksSlice = createSlice({
     loadQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
+    setOverallRating: (state, action: PayloadAction<number>) => {
+      state.rating = action.payload;
+    },
   },
 });
 
@@ -74,6 +86,7 @@ export const {
   addBooks,
   addRecomBooks,
   loadQueryString,
+  setOverallRating,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;
