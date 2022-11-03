@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../../../store/hooks';
+import { loadQueryString } from '../../../../../store/booksSlice';
+
 import SortByWrapper from './SortBy.styles';
 
-interface ISortByType {
-  onSortBy: (name: string) => void;
-}
-
-export const SortBy: React.FC<ISortByType> = (props) => {
-  const sortЕypes = [
+export const SortBy: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const url = new URL(window.location.href);
+  const sortTypes = [
     { id: 1, name: 'Price' },
     { id: 2, name: 'Name' },
     { id: 3, name: 'Author name' },
@@ -21,15 +24,20 @@ export const SortBy: React.FC<ISortByType> = (props) => {
       item?.classList.remove('active');
     }
     const activeItem = document.querySelector(`#${name.replace(/[^a-zA-Z]/g, '')}`);
-
     activeItem?.classList.add('active');
-    props.onSortBy(name);
+    if (url.searchParams.has('sort')) {
+      url.searchParams.set('sort', name);
+    } else {
+      url.searchParams.append('sort', name);
+    }
+    dispatch(loadQueryString(url.search));
+    navigate(url.search);
   };
 
   return (
     <SortByWrapper>
       <div className="arrow" />
-      {sortЕypes.map((sort) => (
+      {sortTypes.map((sort) => (
         <div key={sort.id}>
           <p
             id={sort.name.replace(/[^a-zA-Z]/g, '')}

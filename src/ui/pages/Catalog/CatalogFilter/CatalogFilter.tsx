@@ -15,16 +15,22 @@ export const CatalogFilter: React.FC = () => {
   const [isSelectByGenre, setIsSelectByGenre] = useState(false);
   const [isSelectByPrice, setIsSelectByPrice] = useState(false);
   const [isSortingBy, setSortingBy] = useState(false);
-  const [sort, setSort] = useState<string>('...');
   const url = new URL(window.location.href);
+  const sort = url.searchParams.get('sort') || '...';
 
   const chooseByGenre = document.getElementById('choose-by-genre');
+  const chooseByPrice = document.getElementById('choose-by-price');
+  const chooseBySort = document.getElementById('choose-by-sort');
 
   document.onclick = (e) => {
-    if (chooseByGenre) {
-      const chapter = e.target as HTMLElement;
-      if (!chapter.closest('#choose-by-genre')) {
+    if (chooseByGenre && chooseByPrice && chooseBySort) {
+      const choose = e.target as HTMLElement;
+      if (!choose.closest('#choose-by-genre') &&
+        !choose.closest('#choose-by-price') &&
+        !choose.closest('#choose-by-sort')) {
         setIsSelectByGenre(false);
+        setIsSelectByPrice(false);
+        setSortingBy(false);
       }
     }
   };
@@ -40,26 +46,20 @@ export const CatalogFilter: React.FC = () => {
 
   const selectByPrice = () => {
     setIsSelectByPrice(!isSelectByPrice);
-  };
-
-  const sortBy = () => {
-    setSortingBy(!isSortingBy);
-    if (isSortingBy) {
-      if (sort !== '...') {
-        if (url.searchParams.has('sort')) {
-          url.searchParams.set('sort', sort);
-        } else {
-          url.searchParams.append('sort', sort);
-        }
-      } else {
-        url.searchParams.delete('sort');
-      }
+    if (!isSelectByPrice) {
+      url.searchParams.delete('price');
       dispatch(loadQueryString(url.search));
       navigate(url.search);
     }
   };
-  const onSortBy = (sort: string) => {
-    setSort(sort);
+
+  const sortBy = () => {
+    setSortingBy(!isSortingBy);
+    if (!isSortingBy) {
+      url.searchParams.delete('sort');
+      dispatch(loadQueryString(url.search));
+      navigate(url.search);
+    }
   };
 
   return (
@@ -84,7 +84,10 @@ export const CatalogFilter: React.FC = () => {
           </div>
           {isSelectByGenre && <ChoiceOfGenre />}
         </div>
-        <div className="filter-wrapper">
+        <div
+          id="choose-by-price"
+          className="filter-wrapper"
+        >
           <div
             onClick={selectByPrice}
             className="filter price"
@@ -92,13 +95,16 @@ export const CatalogFilter: React.FC = () => {
           </div>
           {isSelectByPrice && <ChoiceByPrice />}
         </div>
-        <div className="filter-wrapper">
+        <div
+          id="choose-by-sort"
+          className="filter-wrapper"
+        >
           <div
             onClick={sortBy}
             className="filter sort"
           >{`Sort by ${sort.split(' ')[0]}`}
           </div>
-          {isSortingBy && <SortBy onSortBy={onSortBy} />}
+          {isSortingBy && <SortBy />}
         </div>
       </form>
     </СatalogFilterWrapper >

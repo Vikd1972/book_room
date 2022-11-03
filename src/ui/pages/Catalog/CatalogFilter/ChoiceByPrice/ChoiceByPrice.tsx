@@ -15,15 +15,16 @@ export const СhoiceByPrice: React.FC = () => {
 
   const onSelectByPrice = (event: React.SyntheticEvent | Event, newPrice: number | number[]) => {
     setPriceValue(newPrice as number[]);
-    console.log(newPrice);
-    if (priceValue[0] > 0 || priceValue[1] < 100) {
-      if (url.searchParams.has('price')) {
-        url.searchParams.set('price', priceValue.join(','));
+    if (Array.isArray(newPrice)) {
+      if (newPrice[0] > 0 || newPrice[1] < 100) {
+        if (url.searchParams.has('price')) {
+          url.searchParams.set('price', newPrice.join(','));
+        } else {
+          url.searchParams.append('price', newPrice.join(','));
+        }
       } else {
-        url.searchParams.append('price', priceValue.join(','));
+        url.searchParams.delete('price');
       }
-    } else {
-      url.searchParams.delete('price');
     }
     dispatch(loadQueryString(url.search));
     navigate(url.search);
