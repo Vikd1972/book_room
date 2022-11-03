@@ -56,15 +56,15 @@ export const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addBooks: (state: IBooksState, action: PayloadAction<IBooksState>) => {
+    addBooks: (state, action: PayloadAction<IBooksState>) => {
       state.books = action.payload.books;
       state.serviceInfo = action.payload.serviceInfo;
       state.genres = action.payload.genres;
     },
-    addRecomBooks: (state: IBooksState, action: PayloadAction<IBookType[]>) => {
+    addRecomBooks: (state, action: PayloadAction<IBookType[]>) => {
       state.books = action.payload;
     },
-    loadQueryString: (state: IBooksState, action: PayloadAction<string>) => {
+    loadQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
   },

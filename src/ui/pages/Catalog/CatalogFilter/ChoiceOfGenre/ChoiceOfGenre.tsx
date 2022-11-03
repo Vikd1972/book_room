@@ -14,19 +14,19 @@ export const ChoiceOfGenre: React.FC = () => {
   const url = new URL(window.location.href);
 
   const onSelectByGenre = async () => {
-    let currentGenres = '';
+    const currentGenres: string[] = [];
     for (const genre of params.genres) {
       const checkbox = document.querySelector(`input[name=${genre.name.replace(/[^a-zA-Z]/g, '')}]:checked`) as HTMLInputElement;
       if (checkbox) {
         // eslint-disable-next-line prefer-template
-        currentGenres += checkbox.value + ',';
+        currentGenres.push(checkbox.value);
       }
     }
     if (currentGenres.length) {
       if (url.searchParams.has('genres')) {
-        url.searchParams.set('genres', currentGenres);
+        url.searchParams.set('genres', currentGenres.join(','));
       } else {
-        url.searchParams.append('genres', currentGenres);
+        url.searchParams.append('genres', currentGenres.join(','));
       }
     } else {
       url.searchParams.delete('genres');

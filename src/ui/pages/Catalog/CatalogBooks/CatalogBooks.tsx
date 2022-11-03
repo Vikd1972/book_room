@@ -27,6 +27,7 @@ export const CatalogBooks: React.FC = () => {
       try {
         const options = {
           currentPage: Number(activePage),
+          queryString: books.queryString,
           queryOptions: {
             currentGenres: url.searchParams.get('genres') || '',
             price: url.searchParams.get('price') || '',
