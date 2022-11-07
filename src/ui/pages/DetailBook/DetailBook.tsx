@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
@@ -6,7 +7,8 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
 import getDetailBooks from '../../../api/books/getDetailBook';
-import Rating from './Rating/Rating';
+import RatingFiveStars from '../../components/RatingFiveStars/RatingFiveStars';
+import RatingOneStar from '../../components/RatingOneStar/RatingOneStar';
 import Recommendations from '../Recommendations/Recommendations';
 import AuthorizePoster from '../../components/AuthorizePoster/AuthorizePoster';
 import addBookToCart from '../../../api/cart/addBookToCart';
@@ -22,6 +24,10 @@ export const DetailBook: React.FC = () => {
   const user = useAppSelector((state) => state.users.user);
 
   const [book, setBook] = useState<IBookType>();
+  const [myRating, setMyRating] = useState<number>();
+
+  // console.log(book?.averageRating);
+  // console.log(book);
 
   const { bookId } = useParams();
 
@@ -29,7 +35,8 @@ export const DetailBook: React.FC = () => {
     (async () => {
       try {
         const detailBook = await getDetailBooks(Number(bookId));
-        setBook(detailBook);
+        setMyRating(detailBook.myRating);
+        setBook(detailBook.book);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
@@ -62,7 +69,6 @@ export const DetailBook: React.FC = () => {
         dispatch(addCart(cart));
       }
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err);
     }
   };
@@ -81,9 +87,12 @@ export const DetailBook: React.FC = () => {
           <h1 className="name">{book?.name}</h1>
           <p className="author">{book?.author}</p>
           <div className="rating">
-            <div className="rating-book">{book?.rating && 0}</div>
+            <RatingOneStar
+              averageRating={book?.averageRating || 0}
+            />
             <div className="rating-my">
-              <Rating
+              <RatingFiveStars
+                myRating={myRating || 0}
                 bookId={Number(bookId)}
               />
               <div className="rating-arrow">

@@ -44,7 +44,7 @@ flex-direction: row;
   flex-direction: row;
   align-items: center;
   &-book {
-    padding-top: 4px;
+    padding-top: 2px;
   }
   &-my {
     margin-left: 40px;
