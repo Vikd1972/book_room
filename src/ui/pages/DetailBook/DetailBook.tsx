@@ -15,6 +15,7 @@ import Recommendations from '../Recommendations/Recommendations';
 import AuthorizePoster from '../../components/AuthorizePoster/AuthorizePoster';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import { addCart } from '../../../store/usersSlice';
+import Comments from './Comments/Comments';
 import type { IBookType } from '../../../store/booksSlice';
 
 import arrow from '../../assets/picture/arrow_back.png';
@@ -136,6 +137,9 @@ export const DetailBook: React.FC = () => {
           </div>
         </div>
       </DetailBookWrapper >
+      <Comments
+        bookId={Number(bookId)}
+      />
       {!user.email ? <AuthorizePoster /> : null}
       <Recommendations />
     </>

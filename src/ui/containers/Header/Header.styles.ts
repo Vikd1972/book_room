@@ -66,7 +66,7 @@ form {
   border: none;
   font-size: 16px;
   font-weight: 400;
-   outline: none;
+  outline: none;
 }
 .panel__buttons {
   width: 198px;

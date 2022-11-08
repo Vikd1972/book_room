@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import type { IUserType } from './usersSlice';
 
 export interface IBookType {
   id: number;
@@ -39,11 +40,19 @@ export interface IRatingType {
   rating: number;
 }
 
+export interface ICommentType {
+  id: number;
+  comment: string;
+  commentData: Date;
+  user: IUserType;
+}
+
 export interface IBooksState {
   books: IBookType[];
   genres: IGenreType[];
   queryString: string;
   ratingBook: number;
+  comments: ICommentType[];
   serviceInfo: IServiceInfo;
 }
 
@@ -52,6 +61,7 @@ const initialState: IBooksState = {
   genres: [],
   queryString: '',
   ratingBook: 0,
+  comments: [],
   serviceInfo: {
     quantityBooks: 0,
     quantityPages: 0,
