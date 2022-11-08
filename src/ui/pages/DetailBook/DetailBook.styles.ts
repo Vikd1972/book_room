@@ -52,11 +52,11 @@ flex-direction: row;
     flex-direction: row;
     width: 396px;
     p {
-      padding-top: 4px;
+      padding-top: 6px;
       margin: 0 0 0 10px;
     }
     .rating-arrow {
-      padding-top: 4px;
+      padding-top: 6px;
       margin-left: 40px;
     }
   }

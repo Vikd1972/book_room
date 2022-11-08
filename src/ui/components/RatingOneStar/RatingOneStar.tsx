@@ -2,23 +2,23 @@
 import React from 'react';
 import Rating from '@mui/material/Rating';
 
+import { useAppSelector } from '../../../store/hooks';
+
 import RatingOneStarWrapper from './RatingOneStar.styles';
 
-interface IOption {
-  averageRating: number;
-}
+export const RatingOneStar: React.FC = () => {
+  const averageRating = useAppSelector((state) => state.books.ratingBook);
 
-export const RatingOneStar: React.FC<IOption> = (props) => {
   return (
     <RatingOneStarWrapper>
       <Rating
         precision={0.1}
-        value={props.averageRating && props.averageRating / 5}
+        value={averageRating && averageRating / 5}
         size="large"
         readOnly
         max={1}
       />
-      <p>{props.averageRating}</p>
+      <p>{averageRating}</p>
     </RatingOneStarWrapper>
   );
 };

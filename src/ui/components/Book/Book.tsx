@@ -6,6 +6,7 @@ import { Button } from '../Button/Buttons';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import addToFavorites from '../../../api/favorites/addToFavorites';
 import { addCart, loginUser } from '../../../store/usersSlice';
+import RatingFiveStars from '../RatingFiveStars/RatingFiveStars';
 import type { IBookType } from '../../../store/booksSlice';
 import favorites from '../../assets/picture/btn_save.png';
 import favoritesActive from '../../assets/picture/btn_save_active.png';
@@ -72,13 +73,13 @@ export const Book: React.FC<PropsType> = (props) => {
       <div className="author">{props.book.author}</div>
       <div className="rating">
         <div className="star-container">
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
-          <div className="star" />
+          <RatingFiveStars
+            readOnly
+            myRating={props.book.averageRating}
+            bookId={props.book.id}
+          />
         </div>
-        <div className="rating-value">5.0</div>
+        <div className="rating-value">{props.book.averageRating}</div>
       </div>
       {isPurchased
         ? (

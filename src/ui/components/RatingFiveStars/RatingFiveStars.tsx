@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Rating from '@mui/material/Rating';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppDispatch } from '../../../store/hooks';
 import setRating from '../../../api/rating/setRating';
 import { setOverallRating } from '../../../store/booksSlice';
 
@@ -10,44 +10,59 @@ import RatingFiveStarsWrapper from './RatingFiveStars.styles';
 
 interface IOptions {
   bookId: number;
-  myRating: number;
+  myRating: number | undefined;
+  readOnly?: boolean;
 }
 
 export const RatingFiveStars: React.FC<IOptions> = (props) => {
   const dispatch = useAppDispatch();
   const { bookId, myRating } = props;
 
-  const [onRating, setOnRating] = useState<number>(myRating);
+  const [onRating, setOnRating] = useState<number>(myRating || 0);
+
+  const setMyRating = async (value: number) => {
+    try {
+      if (value) {
+        setOnRating(value);
+        const ratingBook = await setRating({ onRating: value, bookId });
+        dispatch(setOverallRating(ratingBook));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    (async () => {
+    (() => {
       try {
-        if (onRating) {
-          console.log(onRating);
-          const rating = await setRating({ onRating, bookId });
-          dispatch(setOverallRating(rating));
-        }
+        setOnRating(myRating || 0);
       } catch (err) {
         console.log(err);
       }
     })();
   }, [
-    dispatch,
-    onRating,
     myRating,
-    bookId,
   ]);
 
   return (
     <RatingFiveStarsWrapper>
-      <Rating
-        precision={0.5}
-        value={myRating}
-        size="large"
-        onChange={(event, value) => {
-          setOnRating(value || 0);
-        }}
-      />
+      {props.readOnly ? (
+        <Rating
+          precision={0.5}
+          value={onRating}
+          size="large"
+          readOnly
+        />
+      ) : (
+        <Rating
+          precision={0.5}
+          value={onRating}
+          size="large"
+          onChange={(event, value) => {
+            setMyRating(value || 0);
+          }}
+        />
+      )}
     </RatingFiveStarsWrapper>
   );
 };

@@ -7,6 +7,8 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
 import getDetailBooks from '../../../api/books/getDetailBook';
+import { setOverallRating } from '../../../store/booksSlice';
+import getRating from '../../../api/rating/getRating';
 import RatingFiveStars from '../../components/RatingFiveStars/RatingFiveStars';
 import RatingOneStar from '../../components/RatingOneStar/RatingOneStar';
 import Recommendations from '../Recommendations/Recommendations';
@@ -26,24 +28,28 @@ export const DetailBook: React.FC = () => {
   const [book, setBook] = useState<IBookType>();
   const [myRating, setMyRating] = useState<number>();
 
-  // console.log(book?.averageRating);
-  // console.log(book);
-
   const { bookId } = useParams();
 
   useEffect(() => {
     (async () => {
       try {
+        dispatch(setOverallRating(0));
         const detailBook = await getDetailBooks(Number(bookId));
-        setMyRating(detailBook.myRating);
-        setBook(detailBook.book);
+        setBook(detailBook);
+        dispatch(setOverallRating(detailBook.averageRating));
+        const getMyRating = await getRating(Number(bookId));
+        setMyRating(getMyRating.rating);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
         }
       }
     })();
-  }, [bookId, user.id]);
+  }, [
+    bookId,
+    user.id,
+    dispatch,
+  ]);
 
   let textButtonPaperback = '';
   let textButtonHardcover = '';
@@ -87,12 +93,11 @@ export const DetailBook: React.FC = () => {
           <h1 className="name">{book?.name}</h1>
           <p className="author">{book?.author}</p>
           <div className="rating">
-            <RatingOneStar
-              averageRating={book?.averageRating || 0}
-            />
+            <RatingOneStar />
             <div className="rating-my">
               <RatingFiveStars
-                myRating={myRating || 0}
+                readOnly={false}
+                myRating={myRating}
                 bookId={Number(bookId)}
               />
               <div className="rating-arrow">

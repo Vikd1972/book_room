@@ -2,8 +2,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import type { IUserType } from './usersSlice';
-
 export interface IBookType {
   id: number;
   name: string;
@@ -45,7 +43,7 @@ export interface IBooksState {
   books: IBookType[];
   genres: IGenreType[];
   queryString: string;
-  rating: IRatingType;
+  ratingBook: number;
   serviceInfo: IServiceInfo;
 }
 
@@ -53,10 +51,7 @@ const initialState: IBooksState = {
   books: [],
   genres: [],
   queryString: '',
-  rating: {
-    id: 0,
-    rating: 0,
-  },
+  ratingBook: 0,
   serviceInfo: {
     quantityBooks: 0,
     quantityPages: 0,
@@ -82,8 +77,8 @@ export const booksSlice = createSlice({
     loadQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
-    setOverallRating: (state, action: PayloadAction<IRatingType>) => {
-      state.rating = action.payload;
+    setOverallRating: (state, action: PayloadAction<number>) => {
+      state.ratingBook = action.payload;
     },
   },
 });

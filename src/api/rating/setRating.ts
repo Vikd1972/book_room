@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import instance from '..';
-import type { IRatingType } from '../../store/booksSlice';
 
 interface IRatingParams {
   onRating: number | null;
@@ -8,9 +7,9 @@ interface IRatingParams {
 }
 
 const setRating = async (options: IRatingParams) => {
-  const response = await instance.post<{ myRating: IRatingType }>('/rating', options);
+  const response = await instance.post<{ averageRatingBook: number }>('/rating', options);
 
-  return response.data.myRating;
+  return response.data.averageRatingBook;
 };
 
 export default setRating;

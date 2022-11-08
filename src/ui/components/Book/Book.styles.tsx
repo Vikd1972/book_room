@@ -56,19 +56,17 @@ z-index: 1;
   justify-content: space-between;
   .star-container {
     width: 250px;
-    height: 26px;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    .star {
-      width: 24px;
-      height: 24px;
-      background-image: url(${star});
-      background-repeat: no-repeat;
+    & .MuiRating-icon {
+      padding-right: 15px;
     }
   }
   .rating-value {
     width: 25px;
+    padding-top: 8px;
     height: 25px;
     font-size: 16px;
     font-weight: 500;

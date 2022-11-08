@@ -21,7 +21,7 @@ justify-content: space-between;
   color: #BFCC94;
 }
 & .MuiRating-icon {
-  padding: 0 6px 0 6px;
+  padding: 3px 6px 0 6px;
 }
 `;
 
