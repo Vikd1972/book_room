@@ -28,6 +28,28 @@ z-index: 1;
   width: 48px;
   height: 48px;
 }
+.marker {
+  position: absolute;
+  padding: 10px 0 10px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 10px;
+  font-weight: 500;
+  font-style: italic;
+  text-align: center;
+  left: 20px;
+  bottom: 20px;
+}
+.is-new {
+  width: 132px;
+  background-color: #BFCC94;
+  color: #0D1821;
+}
+.is-bestseller {
+  width: 175px;
+  background-color: #344966;
+  color: #F0F4EF;
+}
 .name {
   margin-top: 25px;
   font-size: 20px;

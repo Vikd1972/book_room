@@ -2,14 +2,12 @@
 import instance from '..';
 import type { ICommentType } from '../../store/booksSlice';
 
-interface IRatingParams {
+interface ICommentsParams {
   comments: string;
   bookId: number;
 }
 
-const setComments = async (options: IRatingParams) => {
-  console.log(options);
-
+const setComments = async (options: ICommentsParams) => {
   const response = await instance.post<{ commentsOfBook: ICommentType[] }>('/comments', options);
 
   return response.data.commentsOfBook;

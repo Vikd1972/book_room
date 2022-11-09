@@ -68,6 +68,8 @@ export const Book: React.FC<PropsType> = (props) => {
         >
           <img src={favoritesButton} alt="favorites" />
         </div>
+        {props.book.isNew && <div className="marker is-new">New</div>}
+        {props.book.isBestseller && <div className="marker is-bestseller">Bestseller</div>}
       </div>
       <div className="name">{props.book.name}</div>
       <div className="author">{props.book.author}</div>

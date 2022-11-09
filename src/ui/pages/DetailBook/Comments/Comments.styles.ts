@@ -12,6 +12,9 @@ h1 {
   font-weight: 700;
   margin: 0;
 }
+.comments-books {
+  margin-top: 40px;
+}
 form {
   margin-top: 60px;
   font-size: 16px;

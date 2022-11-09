@@ -7,7 +7,8 @@ import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
 import getDetailBooks from '../../../api/books/getDetailBook';
-import { setOverallRating } from '../../../store/booksSlice';
+import getComments from '../../../api/comments/getComments';
+import { setOverallRating, getCommentsOfBook } from '../../../store/booksSlice';
 import getRating from '../../../api/rating/getRating';
 import RatingFiveStars from '../../components/RatingFiveStars/RatingFiveStars';
 import RatingOneStar from '../../components/RatingOneStar/RatingOneStar';
@@ -40,6 +41,8 @@ export const DetailBook: React.FC = () => {
         dispatch(setOverallRating(detailBook.averageRating));
         const getMyRating = await getRating(Number(bookId));
         setMyRating(getMyRating.rating);
+        const allCommentsOfBook = await getComments(Number(bookId));
+        dispatch(getCommentsOfBook(allCommentsOfBook));
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
@@ -95,21 +98,23 @@ export const DetailBook: React.FC = () => {
           <p className="author">{book?.author}</p>
           <div className="rating">
             <RatingOneStar />
-            <div className="rating-my">
-              <RatingFiveStars
-                readOnly={false}
-                myRating={myRating}
-                bookId={Number(bookId)}
-              />
-              <div className="rating-arrow">
-                <img
-                  src={arrow}
-                  alt="arrow"
-                  id="arrow"
+            {user.email && (
+              <div className="rating-my">
+                <RatingFiveStars
+                  readOnly={false}
+                  myRating={myRating}
+                  bookId={Number(bookId)}
                 />
+                <div className="rating-arrow">
+                  <img
+                    src={arrow}
+                    alt="arrow"
+                    id="arrow"
+                  />
+                </div>
+                <p>Rate this book</p>
               </div>
-              <p>Rate this book</p>
-            </div>
+            )}
           </div>
           <div className="description">
             <h1>Description</h1>

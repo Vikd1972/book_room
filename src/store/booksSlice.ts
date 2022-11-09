@@ -90,6 +90,9 @@ export const booksSlice = createSlice({
     setOverallRating: (state, action: PayloadAction<number>) => {
       state.ratingBook = action.payload;
     },
+    getCommentsOfBook: (state, action: PayloadAction<ICommentType[]>) => {
+      state.comments = action.payload;
+    },
   },
 });
 
@@ -98,6 +101,7 @@ export const {
   addRecomBooks,
   loadQueryString,
   setOverallRating,
+  getCommentsOfBook,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;
