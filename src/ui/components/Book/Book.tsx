@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../Button/Buttons';
@@ -19,14 +20,19 @@ type PropsType = {
 
 export const Book: React.FC<PropsType> = (props) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const users = useAppSelector((state) => state.users);
+
   const favoritesButton = users.userFavorites.includes(props.book.id)
     ? favoritesActive : favorites;
+
   const currentPrice = props.book.paperbackQuantity
     ? props.book.paperbackPrice : props.book.hardcoverPrice;
+
   const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
   const bookId = props.book.id;
   const idBooksInCart: number[] = [];
+
   users.cart.forEach((item) => {
     idBooksInCart.push(item.book.id);
   });
@@ -34,20 +40,24 @@ export const Book: React.FC<PropsType> = (props) => {
 
   const addToCart = async () => {
     try {
+      if (!users.user.email) {
+        navigate('/login');
+      }
       const cart = await addBookToCart({ bookId });
       dispatch(addCart(cart));
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err);
     }
   };
 
   const addBookToFavorites = async () => {
     try {
+      if (!users.user.email) {
+        navigate('/login');
+      }
       const newUser = await addToFavorites({ bookId });
       dispatch(loginUser(newUser));
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err);
     }
   };
@@ -59,7 +69,6 @@ export const Book: React.FC<PropsType> = (props) => {
           <img
             src={props.book.pathToCover}
             alt="cover"
-            id="cover"
           />
         </Link>
         <div
@@ -71,17 +80,19 @@ export const Book: React.FC<PropsType> = (props) => {
         {props.book.isNew && <div className="marker is-new">New</div>}
         {props.book.isBestseller && <div className="marker is-bestseller">Bestseller</div>}
       </div>
-      <div className="name">{props.book.name}</div>
-      <div className="author">{props.book.author}</div>
+      <h2 className="name">{props.book.name}</h2>
+      <h4 className="author">{props.book.author}</h4>
       <div className="rating">
-        <div className="star-container">
+        <div className="rating__stars">
           <RatingFiveStars
             readOnly
             myRating={props.book.averageRating}
             bookId={props.book.id}
           />
         </div>
-        <div className="rating-value">{props.book.averageRating}</div>
+        <div className="rating__value">
+          {props.book.averageRating && (props.book.averageRating.toFixed(1))}
+        </div>
       </div>
       {isPurchased
         ? (

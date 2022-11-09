@@ -6,7 +6,6 @@ const getComments = async (bookId: number) => {
   const response = await instance.post<{ commentsOfBook: ICommentType[] }>('/comments/get', {
     bookId,
   });
-  console.log(response.data.commentsOfBook);
 
   return response.data.commentsOfBook;
 };

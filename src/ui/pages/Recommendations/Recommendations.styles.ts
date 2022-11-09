@@ -13,14 +13,11 @@ flex-direction: column;
   color: #0D1821;
 }
 .books {
-  max-width: 1280px;
-width: 100%;
-display: flex;
-flex-wrap: wrap;
-}
-div {
-  padding: 0 2px;
-  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 `;
 

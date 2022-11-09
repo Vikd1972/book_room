@@ -4,7 +4,7 @@ import fairy from '../../assets/picture/fairy.png';
 import castle from '../../assets/picture/castle.png';
 
 const AuthorizePosterWrapper = styled.div`
-margin-top: 102px;
+margin-top: 130px;
 max-width: 1280px;
 width: 100%;
 display: flex;
@@ -12,8 +12,8 @@ flex-direction: column;
 align-items: center;
 height: 400px;
 .poster {
-  background-color: #F0F4EF;
-  border-radius: 16px;
+  background-color: ${({ theme }) => theme.backrground};
+  border-radius: ${({ theme }) => theme.borderRadius};
   background-image: url(${fairy}); 
   background-repeat: no-repeat;
   background-position: 824px ;

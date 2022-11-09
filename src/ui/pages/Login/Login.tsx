@@ -33,8 +33,6 @@ export const Login: React.FC = () => {
       try {
         const user: IUserType = await authUser(values);
         dispatch(loginUser(user));
-        // eslint-disable-next-line no-console
-        console.log(route);
         navigate(route);
       } catch (err) {
         if (err instanceof AxiosError) {

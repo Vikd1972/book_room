@@ -13,6 +13,10 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
+.input-field {
+  display: flex;
+  flex-direction: row;
+}
 .input-icon {
   margin: 2px;
   width: 64px;
@@ -43,10 +47,6 @@ flex-direction: column;
         `;
     }
   }}
-}
-.input-field {
-  display: flex;
-  flex-direction: row;
 }
 .input-width {
   width: 100%;

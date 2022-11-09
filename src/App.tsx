@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { ThemeProvider } from 'styled-components';
+import bookroomTheme from './bookroomTheme';
 import { useAppDispatch } from './store/hooks';
 import { loginUser } from './store/usersSlice';
 import restoreUser from './api/auth/restoreUser';
@@ -37,15 +39,17 @@ export const App: React.FC = () => {
   }
 
   return (
-    <Router>
-      <AppWrapper className="bookroom">
-        <Navigation />
-        <ToastContainer
-          className="toast"
-          bodyClassName="toast-body"
-        />
-      </AppWrapper>
-    </Router>
+    <ThemeProvider theme={bookroomTheme}>
+      <Router>
+        <AppWrapper className="bookroom">
+          <Navigation />
+          <ToastContainer
+            className="toast"
+            bodyClassName="toast-body"
+          />
+        </AppWrapper>
+      </Router>
+    </ThemeProvider>
   );
 };
 

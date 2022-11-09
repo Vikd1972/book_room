@@ -6,10 +6,7 @@ width: 100%;
 display: flex;
 flex-direction: row;
 flex-wrap: wrap;
-div {
-  padding: 0 2px;
-  height: auto;
-}
+justify-content: space-between;
 `;
 
 export default СatalogBooksWrapper;

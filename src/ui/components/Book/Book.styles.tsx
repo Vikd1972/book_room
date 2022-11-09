@@ -1,20 +1,16 @@
 import styled from 'styled-components';
 
-import star from '../../assets/picture/star1.png';
-
 const BookWrapper = styled.div`
-margin-top: 50px;
-max-width: 1280px;
-width: 100%;
+margin-top: 60px;
+width: 305px;
 height: auto;
-z-index: 1;
 .cover-container {
   width: 100%;
   height: 100%;
   position: relative;
 }
 .cover-container img {
-  border-radius: 16px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   width: 305px;
   height: 448px;
 }
@@ -51,7 +47,7 @@ z-index: 1;
   color: #F0F4EF;
 }
 .name {
-  margin-top: 25px;
+  margin: 25px 0 0 0;
   font-size: 20px;
   font-weight: 500;
   line-height: 30px;
@@ -62,6 +58,7 @@ z-index: 1;
   text-overflow: ellipsis; 
 }
 .author {
+  margin: 0;
   font-size: 20px;
   line-height: 30px;
   font-weight: 500;
@@ -76,20 +73,19 @@ z-index: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .star-container {
-    width: 250px;
+  .rating__stars {
     height: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    & .MuiRating-icon {
-      padding-right: 15px;
+    & .MuiRating-icon { 
+      padding: 0;
+    }
+    & .MuiRating-decimal { 
+      padding: 0 23px 0 0;
     }
   }
-  .rating-value {
-    width: 25px;
-    padding-top: 8px;
-    height: 25px;
+  .rating__value {
+    width: auto;
+    padding-top: 6px;
+    height: auto;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
@@ -97,7 +93,7 @@ z-index: 1;
   }
 }
 .button {
-  margin-top: 32px;
+  margin-top: 30px;
   width: 100%;
   font-size: 20px;
   font-weight: 500;
