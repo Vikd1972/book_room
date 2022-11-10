@@ -1,24 +1,40 @@
 /* eslint-disable react/jsx-closing-tag-location */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
-import Button from '../../components/Button/Buttons';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setCart } from '../../../store/usersSlice';
+import getCart from '../../../api/cart/getCart';
+import showToast from '../../../validation/showToast';
 import EmptyCart from './EmptyCart/EmptyCart';
 import BookInCart from './BookInCart/BookInCart';
+import Button from '../../components/Button/Buttons';
 
 import CartWrapper from './Cart.styles';
 
 export const Cart: React.FC = () => {
+  const dispatch = useAppDispatch();
   const users = useAppSelector((state) => state.users);
   const queryString = useAppSelector((state) => state.books.queryString);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const myCart = await getCart();
+        dispatch(setCart(myCart));
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          showToast(err.message);
+        }
+      }
+    })();
+  }, [dispatch]);
+
   let total = 0;
+
   for (const item of users.cart) {
-    const currentPrice = item.book.paperbackPrice
-      ? item.book.paperbackPrice
-      : item.book.hardcoverPrice;
-    const pricePerItem = item.count * (currentPrice / 100);
+    const pricePerItem = item.count * (item.book.paperbackPrice / 100);
     total += pricePerItem;
   }
 
@@ -29,7 +45,6 @@ export const Cart: React.FC = () => {
         <div key={cart.id}>
           <BookInCart
             cart={cart}
-            userId={users.user.id}
           />
         </div>
       ))}
@@ -38,7 +53,7 @@ export const Cart: React.FC = () => {
           <p className="total">Total: <b>{total.toFixed(2)}</b></p>
           <div className="buttons">
             <Link
-              className="navi"
+              className="continue-shopping"
               to={`/${queryString}`}
             >
               Continue shopping

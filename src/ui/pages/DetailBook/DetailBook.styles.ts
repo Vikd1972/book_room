@@ -54,6 +54,7 @@ flex-direction: row;
     p {
       padding-top: 6px;
       margin: 0 0 0 10px;
+      white-space: nowrap;
     }
     .rating-arrow {
       padding-top: 6px;

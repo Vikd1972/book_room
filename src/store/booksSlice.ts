@@ -84,7 +84,7 @@ export const booksSlice = createSlice({
     addRecomBooks: (state, action: PayloadAction<IBookType[]>) => {
       state.books = action.payload;
     },
-    loadQueryString: (state, action: PayloadAction<string>) => {
+    setQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
     setOverallRating: (state, action: PayloadAction<number>) => {
@@ -99,7 +99,7 @@ export const booksSlice = createSlice({
 export const {
   addBooks,
   addRecomBooks,
-  loadQueryString,
+  setQueryString,
   setOverallRating,
   getCommentsOfBook,
 } = booksSlice.actions;

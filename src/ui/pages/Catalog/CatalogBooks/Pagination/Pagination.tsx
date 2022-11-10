@@ -2,7 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../../../store/hooks';
-import { loadQueryString } from '../../../../../store/booksSlice';
+import { setQueryString } from '../../../../../store/booksSlice';
+
+import left from '../../../../assets/picture/arrow_left.png';
+import right from '../../../../assets/picture/arrow_right.png';
 
 import PaginationWrapper from './Pagination.styles';
 
@@ -21,7 +24,7 @@ export const Pagination: React.FC = () => {
     } else {
       url.searchParams.append('page', (serviceInfo.prevPage).toString());
     }
-    dispatch(loadQueryString(url.search));
+    dispatch(setQueryString(url.search));
   };
 
   const nextPage = () => {
@@ -33,7 +36,7 @@ export const Pagination: React.FC = () => {
     } else {
       url.searchParams.append('page', (serviceInfo.nextPage).toString());
     }
-    dispatch(loadQueryString(url.search));
+    dispatch(setQueryString(url.search));
   };
 
   const selectPage = (pageId: number) => {
@@ -45,7 +48,7 @@ export const Pagination: React.FC = () => {
     } else {
       url.searchParams.append('page', (pageId).toString());
     }
-    dispatch(loadQueryString(url.search));
+    dispatch(setQueryString(url.search));
   };
 
   const pages: {
@@ -66,10 +69,12 @@ export const Pagination: React.FC = () => {
   return (
     <PaginationWrapper>
       <Link
-        className="through left"
+        className="pagination"
         onClick={prevPage}
         to={`/${queryString}`}
-      />
+      >
+        <img src={left} alt="left" />
+      </Link>
       <div className="pages">
         {pages.map((page) => (
           <div key={page.id}>
@@ -83,10 +88,12 @@ export const Pagination: React.FC = () => {
         ))}
       </div>
       <Link
-        className="through right"
+        className="pagination"
         onClick={nextPage}
         to={`/${queryString}`}
-      />
+      >
+        <img src={right} alt="right" />
+      </Link>
 
     </PaginationWrapper>
   );

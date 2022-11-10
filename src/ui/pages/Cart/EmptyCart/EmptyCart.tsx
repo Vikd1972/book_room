@@ -16,7 +16,7 @@ export const EmptyCart: React.FC = () => {
       <form action={`/${queryString}`}>
         <Button
           type="submit"
-          className="button-catalog"
+          className="button"
           text="Go to catalog"
         />
       </form>

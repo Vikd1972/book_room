@@ -18,7 +18,7 @@ export const RatingOneStar: React.FC = () => {
         readOnly
         max={1}
       />
-      <p>{averageRating}</p>
+      <p>{averageRating.toFixed(1)}</p>
     </RatingOneStarWrapper>
   );
 };

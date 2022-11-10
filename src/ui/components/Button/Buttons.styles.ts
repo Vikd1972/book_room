@@ -5,15 +5,16 @@ interface IDisable {
 }
 
 const ButtonWrapper = styled.button<IDisable>`  
-background-color: ${({ theme }) => theme.button.backrground};
-font-size: ${({ theme }) => theme.button.fontSize};
-font-weight: ${({ theme }) => theme.button.fontWeight};
-line-height: ${({ theme }) => theme.button.fontHeight};
-border-radius: ${({ theme }) => theme.borderRadius};
-padding: ${({ theme }) => theme.button.padding};
-color: ${({ theme }) => theme.button.fontColor};
-font-family: 'Poppins', sans-serif;
-border: none;
+  background-color: ${({ theme }) => theme.button.backrground};
+  font-size: ${({ theme }) => theme.button.fontSize};
+  font-weight: ${({ theme }) => theme.button.fontWeight};
+  line-height: ${({ theme }) => theme.button.fontHeight};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  padding: ${({ theme }) => theme.button.padding};
+  color: ${({ theme }) => theme.button.fontColor};
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  letter-spacing: 0.75px;
 &:hover{
   cursor: pointer;
   background-color: #0D1821;

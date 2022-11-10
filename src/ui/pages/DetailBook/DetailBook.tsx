@@ -15,7 +15,7 @@ import RatingOneStar from '../../components/RatingOneStar/RatingOneStar';
 import Recommendations from '../Recommendations/Recommendations';
 import AuthorizePoster from '../../components/AuthorizePoster/AuthorizePoster';
 import addBookToCart from '../../../api/cart/addBookToCart';
-import { addCart } from '../../../store/usersSlice';
+import { setCart } from '../../../store/usersSlice';
 import Comments from './Comments/Comments';
 import type { IBookType } from '../../../store/booksSlice';
 
@@ -30,18 +30,24 @@ export const DetailBook: React.FC = () => {
   const [book, setBook] = useState<IBookType>();
   const [myRating, setMyRating] = useState<number>();
 
-  const { bookId } = useParams();
+  const { currentBook } = useParams();
+  const bookId = Number(currentBook);
+
+  const userId = user.id;
 
   useEffect(() => {
     (async () => {
       try {
         dispatch(setOverallRating(0));
-        const detailBook = await getDetailBooks(Number(bookId));
+
+        const detailBook = await getDetailBooks(bookId);
         setBook(detailBook);
         dispatch(setOverallRating(detailBook.averageRating));
-        const getMyRating = await getRating(Number(bookId));
+
+        const getMyRating = await getRating({ userId, bookId });
         setMyRating(getMyRating.rating);
-        const allCommentsOfBook = await getComments(Number(bookId));
+
+        const allCommentsOfBook = await getComments(bookId);
         dispatch(getCommentsOfBook(allCommentsOfBook));
       } catch (err) {
         if (err instanceof AxiosError) {
@@ -51,6 +57,7 @@ export const DetailBook: React.FC = () => {
     })();
   }, [
     bookId,
+    userId,
     user.id,
     dispatch,
   ]);
@@ -76,7 +83,7 @@ export const DetailBook: React.FC = () => {
       if (book) {
         const bookId = book?.id;
         const cart = await addBookToCart({ bookId });
-        dispatch(addCart(cart));
+        dispatch(setCart(cart));
       }
     } catch (err) {
       console.log(err);

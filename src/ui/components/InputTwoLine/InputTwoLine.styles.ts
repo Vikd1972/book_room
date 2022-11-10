@@ -1,63 +1,64 @@
 import styled, { css } from 'styled-components';
 
-import user from '../../assets/picture/user.png';
-import mail from '../../assets/picture/mail.png';
-import hide from '../../assets/picture/hide.png';
-
-export interface ICon {
-  icon?: string;
+interface IValid {
+  isValid: boolean | undefined;
+  isActive: boolean | undefined;
 }
 
-const InputTwoLineWrapper = styled.div<ICon>`
+const InputTwoLineWrapper = styled.div<IValid>`
 margin-top: 10px;
 margin-top: 20px;
 width: 100%;
 height: 64px;
-border-radius: 16px;
-background-color: #F0F4EF;
+border-radius: ${({ theme }) => theme.borderRadius};
 color: #344966;
 display: flex;
-flex-direction: column;
+flex-direction: row;
+background-repeat: no-repeat;
   ${(props) => {
-    switch (props.icon) {
-      case 'user':
-        return css`
-          background-image: url(${user});
-          background-position: 24px 20px;
-        `;
-        break;
-      case 'mail':
-        return css`
-          background-image: url(${mail});
-          background-position: 0 -3px;
-        `;
-        break;
-      case 'hide':
-        return css`
-          background-image: url(${hide});
-          background-position: 24px 20px;
-        `;
-        break;
-      default:
-        return css`
-          background-image: none;
+    if (!props.isActive) {
+      return css`
+        background-color: ${({ theme }) => theme.backrground};
+        border: 2px solid ${({ theme }) => theme.backrground};
         `;
     }
+    if (props.isValid) {
+      return css`
+        background-color: #FFF2F7;
+        border: 2px solid #ED2E7E;
+        `;
+    }
+    return css`
+      background-color: #F3FDFA;
+      border: 2px solid #00BA88;
+        `;
   }}
-background-repeat: no-repeat;
+.input-icon {
+  padding: 0 24px;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.input-icon img {
+  width: 24px;
+  height: 22px;
+}
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
 .name {
   margin-top: 6px;
-  margin-left: 64px;
   font-size: 14px;
   line-height: 24px;
 }
 .value {
-  margin-left: 64px;
   font-size: 16px;
   line-height: 28px;
 }
 input {
-  margin-left: 64px;
   font-size: 16px;
   line-height: 28px;
   background-color: transparent;
@@ -67,7 +68,7 @@ input {
 .user__info-password {
   margin-top: 40px;
 }
-.err {
+.error {
   color: #ff0000;
 }
 `;

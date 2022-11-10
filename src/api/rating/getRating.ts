@@ -2,10 +2,13 @@
 import instance from '..';
 import type { IRatingType } from '../../store/booksSlice';
 
-const getRating = async (bookId: number) => {
-  const response = await instance.post<{ myRating: IRatingType }>('/rating/get', {
-    bookId,
-  });
+interface IRatingParams {
+  userId: number;
+  bookId: number;
+}
+
+const getRating = async (options: IRatingParams) => {
+  const response = await instance.post<{ myRating: IRatingType }>('/rating/get', options);
 
   return response.data.myRating;
 };

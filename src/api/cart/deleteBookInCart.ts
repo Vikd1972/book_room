@@ -3,7 +3,7 @@ import instance from '..';
 import type { ICartType } from '../../store/usersSlice';
 
 interface IDeleteParams {
-  id: number;
+  cartId: number;
 }
 
 const deleteBookInCart = async (options: IDeleteParams) => {

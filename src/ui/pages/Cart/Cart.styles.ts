@@ -7,7 +7,7 @@ width: 100%;
   font-size: 36px;
   line-height: 54px;
   font-weight: 500;
-  margin: 10px 0 0 0;
+  margin-top: 10px;
   color: #0D1821;
 }
 .buttons {
@@ -15,20 +15,17 @@ width: 100%;
   display: flex;
   flex-direction: row;
 }
-.navi {
-  font-size: 16px;
-  line-height: 28px;
+.continue-shopping {
   font-weight: 600;
   padding: 10px 50px;
   color: #344966;
   border: 1px solid #344966;
-  border-radius: 16px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   text-decoration: none;
+  margin-right: 20px;
 }
 .button {
-  margin-left: 20px;
-  max-width: 174px;
-  width: 100%;
+  width: 174px;
 }
 `;
 

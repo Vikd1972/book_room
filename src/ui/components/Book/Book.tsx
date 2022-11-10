@@ -3,12 +3,13 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { Button } from '../Button/Buttons';
+import type { IBookType } from '../../../store/booksSlice';
+import { setCart, loginUser } from '../../../store/usersSlice';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import addToFavorites from '../../../api/favorites/addToFavorites';
-import { addCart, loginUser } from '../../../store/usersSlice';
 import RatingFiveStars from '../RatingFiveStars/RatingFiveStars';
-import type { IBookType } from '../../../store/booksSlice';
+import { Button } from '../Button/Buttons';
+
 import favorites from '../../assets/picture/btn_save.png';
 import favoritesActive from '../../assets/picture/btn_save_active.png';
 
@@ -44,7 +45,7 @@ export const Book: React.FC<PropsType> = (props) => {
         navigate('/login');
       }
       const cart = await addBookToCart({ bookId });
-      dispatch(addCart(cart));
+      dispatch(setCart(cart));
     } catch (err) {
       console.log(err);
     }

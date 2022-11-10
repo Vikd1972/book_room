@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../../store/hooks';
-import { loadQueryString } from '../../../../../store/booksSlice';
+import { setQueryString } from '../../../../../store/booksSlice';
 
 import SortByWrapper from './SortBy.styles';
 
@@ -30,7 +30,7 @@ export const SortBy: React.FC = () => {
     } else {
       url.searchParams.append('sort', name);
     }
-    dispatch(loadQueryString(url.search));
+    dispatch(setQueryString(url.search));
     navigate(url.search);
   };
 

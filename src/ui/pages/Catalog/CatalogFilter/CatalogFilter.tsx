@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../../../store/hooks';
-import { loadQueryString } from '../../../../store/booksSlice';
+import { setQueryString } from '../../../../store/booksSlice';
 import ChoiceOfGenre from '../CatalogFilter/ChoiceOfGenre/ChoiceOfGenre';
 import ChoiceByPrice from '../CatalogFilter/ChoiceByPrice/ChoiceByPrice';
 import SortBy from '../CatalogFilter/SortBy/SortBy';
@@ -41,7 +41,7 @@ export const CatalogFilter: React.FC = () => {
     setSortingBy(false);
     if (!isSelectByGenre) {
       url.searchParams.delete('genres');
-      dispatch(loadQueryString(url.search));
+      dispatch(setQueryString(url.search));
       navigate(url.search);
     }
   };
@@ -52,7 +52,7 @@ export const CatalogFilter: React.FC = () => {
     setSortingBy(false);
     if (!isSelectByPrice) {
       url.searchParams.delete('price');
-      dispatch(loadQueryString(url.search));
+      dispatch(setQueryString(url.search));
       navigate(url.search);
     }
   };
@@ -63,7 +63,7 @@ export const CatalogFilter: React.FC = () => {
     setIsSelectByPrice(false);
     if (!isSortingBy) {
       url.searchParams.delete('sort');
-      dispatch(loadQueryString(url.search));
+      dispatch(setQueryString(url.search));
       navigate(url.search);
     }
   };

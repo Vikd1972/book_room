@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Rating from '@mui/material/Rating';
 
 import { useAppDispatch } from '../../../store/hooks';
-import setRating from '../../../api/rating/setRating';
 import { setOverallRating } from '../../../store/booksSlice';
+import setRating from '../../../api/rating/setRating';
 
 import RatingFiveStarsWrapper from './RatingFiveStars.styles';
 

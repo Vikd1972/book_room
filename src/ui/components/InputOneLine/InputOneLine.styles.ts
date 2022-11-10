@@ -1,81 +1,73 @@
 import styled, { css } from 'styled-components';
 
-import mail from '../../assets/picture/mail.png';
-import hide from '../../assets/picture/hide.png';
-
-export interface ICon {
-  icon?: string;
+interface IValid {
+  isValid: boolean | undefined;
+  isActive: boolean | undefined;
 }
 
-const InputOneLineWrapper = styled.div<ICon>`
+const InputOneLineWrapper = styled.div<IValid>`
 margin-top: 20px;
 max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
 .input-field {
-  display: flex;
   flex-direction: row;
-}
-.input-icon {
-  margin: 2px;
-  width: 64px;
-  height: 62px;
-  border-radius: 16px 0 0 16px;
-  background-color: #F0F4EF;
-  background-repeat: no-repeat;
-  background-position: center center;
-  z-index: 1;
+  display: flex;
+  border-radius: ${({ theme }) => theme.borderRadius};
   ${(props) => {
-    switch (props.icon) {
-      case 'mail':
-        return css`
-          background-image: url(${mail});
-          background-position-x: 1px;
-        `;
-        break;
-      case 'hide':
-        return css`
-          background-image: url(${hide});
-          background-position-x: 25px;
-          background-position-y: 20px;
-        `;
-        break;
-      default:
-        return css`
-          background-image: none;
+    if (!props.isActive) {
+      return css`
+        background-color: ${({ theme }) => theme.backrground};
+        border: 2px solid ${({ theme }) => theme.backrground};
         `;
     }
+    if (props.isValid) {
+      return css`
+        background-color: #FFF2F7;
+        border: 2px solid #ED2E7E;
+        `;
+    }
+    return css`
+      background-color: #F3FDFA;
+      border: 2px solid #00BA88;
+        `;
   }}
+}
+.input-icon {
+  padding: 22px 24px;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+}
+.input-icon img {
+  width: 24px;
+  height: 22px;
 }
 .input-width {
   width: 100%;
-  margin-left: -1px;
-  height: 64px;
-  margin-bottom: 9px;
 }
-.width-setter {
-  height: 64px;
-}
-.width-setter input {
+.input-width input {
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.75px;
   width: 100%;
   height: 64px;
-  padding-left: 64px;
-  margin-left: -54px;
-  border-radius: 16px;
-  background-color: #F0F4EF;
+  background-color: transparent;
   border: none;
   font-size: 16px;
   font-weight: 400;
   outline: none;
 }
-.input-name {
+.input-title {
   font-size: 14px;
   line-height: 24px;
   color: #344966;
-  margin-bottom: 10px;
+  margin: 10px 0 9px;
 }
-.err {
+.input-title p {
+  margin: 0;
+}
+.error {
   color: #ff0000;
 }`;
 

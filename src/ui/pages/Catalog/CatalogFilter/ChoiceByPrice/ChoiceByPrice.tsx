@@ -4,7 +4,7 @@ import Slider from '@mui/material/Slider';
 import { useNavigate } from 'react-router';
 
 import { useAppDispatch } from '../../../../../store/hooks';
-import { loadQueryString } from '../../../../../store/booksSlice';
+import { setQueryString } from '../../../../../store/booksSlice';
 import СhoiceByPriceWrapper from './ChoiceByPrice.styles';
 
 export const СhoiceByPrice: React.FC = () => {
@@ -26,7 +26,7 @@ export const СhoiceByPrice: React.FC = () => {
         url.searchParams.delete('price');
       }
     }
-    dispatch(loadQueryString(url.search));
+    dispatch(setQueryString(url.search));
     navigate(url.search);
   };
 

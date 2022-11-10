@@ -51,7 +51,7 @@ export const usersSlice = createSlice({
       }
     },
     reset: () => initialState,
-    addCart: (state, action: PayloadAction<ICartType[]>) => {
+    setCart: (state, action: PayloadAction<ICartType[]>) => {
       state.cart = action.payload;
     },
   },
@@ -60,7 +60,7 @@ export const usersSlice = createSlice({
 export const {
   loginUser,
   reset,
-  addCart,
+  setCart,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

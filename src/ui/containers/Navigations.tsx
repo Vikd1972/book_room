@@ -25,7 +25,7 @@ const routes: RouteType[] = [
     element: Catalog,
   },
   {
-    path: '/detail/:bookId',
+    path: '/detail/:currentBook',
     requiredIsAuth: false,
     element: DetailBook,
   },

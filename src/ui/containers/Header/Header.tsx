@@ -1,39 +1,26 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AxiosError } from 'axios';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setQueryString } from '../../../store/booksSlice';
 import { Button } from '../../components/Button/Buttons';
-import showToast from '../../../validation/showToast';
-import { addCart } from '../../../store/usersSlice';
-import getCart from '../../../api/cart/getCart';
-import { loadQueryString } from '../../../store/booksSlice';
+
+import logo from '../../assets/picture/logo_dark.png';
+import search from '../../assets/picture/search.png';
+import cart from '../../assets/picture/cart.png';
+import heart from '../../assets/picture/heart.png';
+import user from '../../assets/picture/user_profile.png';
 
 import HeaderWrapper from './Header.styles';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [searchText, setSearchText] = useState<string>('');
-  const users = useAppSelector((state) => state.users);
   const queryString = useAppSelector((state) => state.books.queryString);
+  const users = useAppSelector((state) => state.users);
+
+  const [searchText, setSearchText] = useState<string>('');
   const url = new URL(window.location.href);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        if (users.user.email) {
-          const cart = await getCart();
-          dispatch(addCart(cart));
-        }
-      } catch (err) {
-        if (err instanceof AxiosError) {
-          showToast(err.message);
-        }
-      }
-    })();
-  }, [users.user.id, users.user.email, dispatch]);
-
   const count = Array.from(users.cart).reduce((sum, item) => sum + item.count, 0);
   const favorites = users.userFavorites.length;
 
@@ -54,65 +41,86 @@ export const Header: React.FC = () => {
     } else {
       url.searchParams.delete('search');
     }
-    dispatch(loadQueryString(url.search));
+    dispatch(setQueryString(url.search));
     setSearchText('');
   };
 
   return (
     <HeaderWrapper>
-      <header className="top-panel">
-        <Link
-          className="panel__logotype"
-          to={`/${queryString}`}
+      <Link
+        className="panel__logotype"
+        to={`/${queryString}`}
+      >
+        <img
+          src={logo}
+          alt="logo"
         />
-        <form
-          onSubmit={onSendingSearchText}
-        >
-          <div className="panel__search">Catalog</div>
-          <div className="search-icon" />
-          <div className="search__width-setter">
-            <div className="search__searchfield">
-              <input
-                name="catalog"
-                type="text"
-                value={searchText}
-                onChange={onSearchText}
-                placeholder="Search"
-              />
-            </div>
+      </Link>
+      <form onSubmit={onSendingSearchText}>
+        <p className="search__title">Catalog</p>
+        <div className="search__field">
+          <div className="search__field-icon">
+            <img
+              src={search}
+              alt="search"
+            />
           </div>
-        </form>
-        {users.user.email
-          ? (
-            <nav className="panel__buttons">
-              <Link
-                className="buttons-icon button-cart"
-                to="/cart"
+          <div className="search__input">
+            <input
+              name="catalog"
+              type="text"
+              value={searchText}
+              onChange={onSearchText}
+              placeholder="Search"
+            />
+          </div>
+        </div>
+      </form>
+      {users.user.email
+        ? (
+          <nav className="panel__buttons">
+            <Link
+              className="button__icon"
+              to="/cart"
+            >
+              <img
+                src={cart}
+                alt="cart"
               />
-              {count ? <div id="cart">{count}</div> : null}
-              <Link
-                className="buttons-icon button-favorite"
-                to="/favorites"
+            </Link>
+            {count ? <div className="counter">{count}</div> : null}
+            <Link
+              className="button__icon"
+              to="/favorites"
+            >
+              <img
+                src={heart}
+                alt="heart"
               />
-              {favorites ? <div id="cart">{favorites}</div> : null}
-              <Link
-                className="buttons-icon button-user"
-                to="/profile"
+            </Link>
+            {favorites ? <div className="counter">{favorites}</div> : null}
+            <Link
+              className="button__icon"
+              to="/profile"
+            >
+              <img
+                src={user}
+                alt="user profile"
               />
-            </nav>
-          ) : (
-            <div>
-              <form action="/login">
-                <Button
-                  type="submit"
-                  className="button"
-                  text="Log In / Sing Up"
-                />
-              </form>
-            </div>
-          )
-        }
-      </header>
+            </Link>
+          </nav>
+        ) : (
+          <div>
+            <form action="/login">
+              <Button
+                type="submit"
+                className="button"
+                text="Log In / Sing Up"
+              />
+            </form>
+          </div>
+        )
+      }
     </HeaderWrapper>
   );
 };

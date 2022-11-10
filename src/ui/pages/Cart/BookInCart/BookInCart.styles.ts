@@ -12,11 +12,11 @@ border-bottom: 1px solid #D6D8E7;
   height: 100%;
 }
 .cover-container img {
-  border-radius: 16px;
+  border-radius: ${({ theme }) => theme.borderRadius};
   width: 197px;
   height: 287px;
 }
-.buy-info {
+.purchase-info {
   margin-left: 20px;
   display: flex;
   flex-direction: column;
@@ -35,13 +35,10 @@ border-bottom: 1px solid #D6D8E7;
   line-height: 36px;
   margin: 0;
 }
-.quantity {
-  margin-top: 50px;
-}
 .price {
   font-size: 36px;
   line-height: 54px;
-  margin: 50px 0 0 0;
+  margin-top: 50px;
 }
 `;
 

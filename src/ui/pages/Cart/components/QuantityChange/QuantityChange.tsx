@@ -1,16 +1,20 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { useAppDispatch } from '../../../../../store/hooks';
 
 import quantityChange from '../../../../../api/cart/quantityChange';
 import deleteBookInCart from '../../../../../api/cart/deleteBookInCart';
-import { addCart } from '../../../../../store/usersSlice';
+import { setCart } from '../../../../../store/usersSlice';
+
+import reduction from '../../../../assets/picture/minus.png';
+import addition from '../../../../assets/picture/plus.png';
+import removal from '../../../../assets/picture/removal.png';
 
 import QuantityCangeWrapper from './QuantityCange.styles';
 
 interface IProps {
   count: number;
-  id: number;
-  userId: number;
+  cartId: number;
 }
 
 export const QuantityCange: React.FC<IProps> = (props) => {
@@ -20,15 +24,13 @@ export const QuantityCange: React.FC<IProps> = (props) => {
     try {
       if (props.count > 1) {
         const options = {
-          id: props.id,
+          cartId: props.cartId,
           count: props.count - 1,
-          userId: props.userId,
         };
         const cart = await quantityChange(options);
-        dispatch(addCart(cart));
+        dispatch(setCart(cart));
       }
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err);
     }
   };
@@ -37,15 +39,13 @@ export const QuantityCange: React.FC<IProps> = (props) => {
     try {
       if (props.count < 5) {
         const options = {
-          id: props.id,
+          cartId: props.cartId,
           count: props.count + 1,
-          userId: props.userId,
         };
         const cart = await quantityChange(options);
-        dispatch(addCart(cart));
+        dispatch(setCart(cart));
       }
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err);
     }
   };
@@ -53,13 +53,11 @@ export const QuantityCange: React.FC<IProps> = (props) => {
   const onDeletingBook = async () => {
     try {
       const options = {
-        id: props.id,
-        userId: props.userId,
+        cartId: props.cartId,
       };
       const cart = await deleteBookInCart(options);
-      dispatch(addCart(cart));
+      dispatch(setCart(cart));
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err);
     }
   };
@@ -68,17 +66,23 @@ export const QuantityCange: React.FC<IProps> = (props) => {
     <QuantityCangeWrapper>
       <button
         onClick={onQuantityReduction}
-        className="through reduction"
-      />
-      <div id="pages">{props.count}</div>
+        className="quantity-change reduction"
+      >
+        <img src={reduction} alt="reduction" />
+      </button>
+      <div className="quantity-books">{props.count}</div>
       <button
         onClick={onQuantityAddition}
-        className="through addition"
-      />
+        className="quantity-change addition"
+      >
+        <img src={addition} alt="addition" />
+      </button>
       <button
         onClick={onDeletingBook}
-        className="through removal"
-      />
+        className="quantity-change removal"
+      >
+        <img src={removal} alt="removal" />
+      </button>
     </QuantityCangeWrapper>
   );
 };

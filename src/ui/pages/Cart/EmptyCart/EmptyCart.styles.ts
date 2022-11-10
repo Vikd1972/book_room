@@ -29,9 +29,8 @@ p {
   color: #344966;
   margin: 0;
 }
-.button-catalog {
-  margin-top: 40px;
-  margin-left: 0;
+.button {
+  margin-top: 70px;
   width: 219px;
 }
 `;

@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../../../store/hooks';
-import { loadQueryString } from '../../../../../store/booksSlice';
+import { setQueryString } from '../../../../../store/booksSlice';
 
 import ChoiceOfGenreWrapper from './ChoiceOfGenre.styles';
 
@@ -31,7 +31,7 @@ export const ChoiceOfGenre: React.FC = () => {
     } else {
       url.searchParams.delete('genres');
     }
-    dispatch(loadQueryString(url.search));
+    dispatch(setQueryString(url.search));
     navigate(url.search);
   };
 

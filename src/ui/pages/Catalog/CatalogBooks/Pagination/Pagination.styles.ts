@@ -1,48 +1,34 @@
 import styled from 'styled-components';
 
-import left from '../../../../assets/picture/arrow_left.png';
-import right from '../../../../assets/picture/arrow_right.png';
-import page from '../../../../assets/picture/page.png';
-import active from '../../../../assets/picture/active.png';
-
 const PaginationWrapper = styled.div`  
 margin-top: 78px;
-height: 24px;
+height: 16px;
 display: flex;
 flex-direction: row;
-.through {
+align-items: center;
+.pagination {
   width: 10px;
-  height: 17px;
+  height: 16px;
   cursor: pointer;
-  border: none;
-  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .pages {
+  margin: 0 40px;
   display: flex;
   flex-direction: row;
 }
 .page {
-  width: 15px;
-  height: 15px;  
+  width: 10px;
+  height: 10px; 
+  border-radius: 7px;
+  border: 2px solid #0D1821;
   margin: 0 20px 0 20px;
-  background-image: url(${page});
   cursor: pointer;
-  background-repeat: no-repeat;
 }
 .active {
-  margin: 0 20px 0 20px;
-  background-image: url(${active});
-  background-repeat: no-repeat;
-}
-.left {
-  margin-right: 40px;
-  background-image: url(${left});
-  background-repeat: no-repeat;
-}
-.right {
-  margin-left: 40px;
-  background-image: url(${right});
-  background-repeat: no-repeat;
+background-color: #0D1821;
 }
 `;
 

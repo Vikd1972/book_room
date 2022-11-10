@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { reset } from '../../../store/usersSlice';
 
+import logo from '../../assets/picture/logo_light.png';
+import map from '../../assets/picture/map.png';
+
 import FooterWrapper from './Footer.styles';
 
 export const Footer: React.FC = () => {
@@ -18,9 +21,14 @@ export const Footer: React.FC = () => {
   return (
     <FooterWrapper>
       <div className="logo">
-        <div className="logo-logotype" />
-        <p className="logo-contacts">tranthuy.nute@gmail.com </p>
-        <p className="logo-contacts">(480) 555-0103</p>
+        <div className="logo__image">
+          <img
+            src={logo}
+            alt="logo"
+          />
+        </div>
+        <p className="logo__contacts">tranthuy.nute@gmail.com </p>
+        <p className="logo__contacts">(480) 555-0103</p>
       </div>
       <nav className="links">
         <Link
@@ -56,10 +64,15 @@ export const Footer: React.FC = () => {
         </Link>
       </nav>
       <div className="map">
-        <span className="map-address">
+        <p className="map__address">
           6391 Elgin St. Celina, Delaware 10299
-        </span>
-        <div className="map-picture" />
+        </p>
+        <div className="map__image">
+          <img
+            src={map}
+            alt="map"
+          />
+        </div>
       </div>
     </FooterWrapper>
   );
