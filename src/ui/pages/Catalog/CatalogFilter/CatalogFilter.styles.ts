@@ -2,9 +2,6 @@ import styled, { css } from 'styled-components';
 
 import arrow_right from '../../../assets/picture/arrow_right.png';
 import arrow_bottom from '../../../assets/picture/arrow_bottom.png';
-import checked from '../../../assets/picture/radio_checked.png';
-import unchecked from '../../../assets/picture/radio_unchecked.png';
-import field from '../../../assets/picture/arrow_up_field.png';
 
 export interface IPicture {
   genre?: boolean;
@@ -19,12 +16,12 @@ width: 100%;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-.name {
+.title {
   font-size: 40px;
   line-height: 60px;
   font-weight: 700;
 }
-.filtering {
+.filter-bank {
   display: flex;
   flex-direction: row;
 
@@ -35,10 +32,9 @@ justify-content: space-between;
   font-size: 18px;
   line-height: 28px;
   margin-left: 20px;
-  background-color: #F0F4EF;
-  border-radius: 16px;
-  padding-top: 10px;
-  padding-left: 15px;
+  background-color: ${({ theme }) => theme.backrground};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  padding: 10px 0 0 15px;
   letter-spacing: 0.75px;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -59,46 +55,6 @@ justify-content: space-between;
         background-position: 185px 17px;
     `;
   }};
-  .arrow {
-    margin-top: 25px;
-    background-image: url(${field});
-    background-repeat: no-repeat;
-    background-position: 10px 0px;
-    height: 20px;
-  }
-  .genre__btn {
-    margin-top: -5px;
-    margin-left: -15px;
-    width: 305px;
-    height: auto;
-    border-radius: 16px;
-    background-color: #F0F4EF;
-  }
-  .custom-radio input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-  }
-  .custom-radio span {
-    display: inline-flex;
-    align-items: center;
-    user-select: none;
-    padding-top: 5px;   
-      cursor: pointer; 
-  }
-  .custom-radio span::before {
-    content: '';
-    display: inline-block;
-    background-image: url(${unchecked});
-    background-repeat: no-repeat;
-    width: 39px;
-    height: 24px;
-    margin-right: 10px;
-    background-position: 15px;  
-  }
-  .custom-radio input:checked+span::before {
-    background-image: url(${checked});
-  }
 }
 .price {
   ${(props) => {
@@ -113,20 +69,9 @@ justify-content: space-between;
         background-position: 185px 17px;
     `;
   }};
-  .price-box {
-    margin-top: 30px;
-    padding: 16px 0;
-    width: 416px;
-    height: 151px;
-    border-radius: 16px;
-    background-color: #F0F4EF; 
-    color: #BFCC94;
-    height: 12px;
-    
-  }
 }
 .sort {
-    ${(props) => {
+  ${(props) => {
     if (props.sort) {
       return css`
           background-image: url(${arrow_bottom});
@@ -140,7 +85,6 @@ justify-content: space-between;
   }};
   background-color: white;
 }
-
 `;
 
 export default СatalogFilterWrapper;

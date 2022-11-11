@@ -62,7 +62,7 @@ flex-direction: column;
   font-size: 14px;
   line-height: 24px;
   color: #344966;
-  margin: 10px 0 9px;
+  margin: 10px 0 0 0;
 }
 .input-title p {
   margin: 0;

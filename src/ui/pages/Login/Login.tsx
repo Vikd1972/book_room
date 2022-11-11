@@ -78,12 +78,12 @@ export const Login: React.FC = () => {
           />
           <Button
             type="submit"
-            className="btn"
+            className="button"
             text="Log In"
           />
         </form>
       </div>
-      <div className="login-pic" />
+      <div className="login-image" />
       <ToastContainer
         className="toast"
         bodyClassName="toast-body"

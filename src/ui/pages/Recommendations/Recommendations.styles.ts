@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 const RecommendationsWrapper = styled.div`
-max-width: 1280px;
-width: 100%;
+width: 1300px;
 margin-top: 110px;
 display: flex;
 flex-direction: column;
 .title {
+  margin-left: 10px;
   font-size: 40px;
   font-weight: 700;
   line-height: 60px;
@@ -15,9 +15,7 @@ flex-direction: column;
 .books {
   width: 100%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 `;
 

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 
 import { useAppDispatch } from '../../../../../store/hooks';
 import { setQueryString } from '../../../../../store/booksSlice';
+
 import СhoiceByPriceWrapper from './ChoiceByPrice.styles';
 
 export const СhoiceByPrice: React.FC = () => {
@@ -32,7 +33,6 @@ export const СhoiceByPrice: React.FC = () => {
 
   return (
     <СhoiceByPriceWrapper>
-      <div className="arrow" />
       <div className="slider-container">
         <Slider
           className="slider"
@@ -43,10 +43,10 @@ export const СhoiceByPrice: React.FC = () => {
         />
         <div className="value-price">
           <div>
-            {`$ ${priceValue[0]}`}
+            {`$ ${priceValue[0].toFixed(2)}`}
           </div>
           <div>
-            {`$ ${priceValue[1]}`}
+            {`$ ${priceValue[1].toFixed(2)}`}
           </div>
         </div>
       </div>

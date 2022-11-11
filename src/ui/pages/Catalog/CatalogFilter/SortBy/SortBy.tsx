@@ -11,11 +11,11 @@ export const SortBy: React.FC = () => {
   const navigate = useNavigate();
   const url = new URL(window.location.href);
   const sortTypes = [
-    { id: 1, name: 'Price' },
-    { id: 2, name: 'Name' },
-    { id: 3, name: 'Author name' },
-    { id: 4, name: 'Rating' },
-    { id: 5, name: 'Date of ussue' },
+    'Price',
+    'Name',
+    'Author name',
+    'Rating',
+    'Date of ussue',
   ];
 
   const onSortingBy = (name: string) => {
@@ -36,14 +36,13 @@ export const SortBy: React.FC = () => {
 
   return (
     <SortByWrapper>
-      <div className="arrow" />
       {sortTypes.map((sort) => (
-        <div key={sort.id}>
+        <div key={sort}>
           <p
-            id={sort.name.replace(/[^a-zA-Z]/g, '')}
-            onClick={() => onSortingBy(sort.name)}
+            id={sort.replace(/[^a-zA-Z]/g, '')}
+            onClick={() => onSortingBy(sort)}
             className="sorting"
-          >{sort.name}
+          >{sort}
           </p>
         </div>
       ))}

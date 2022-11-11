@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import checked from '../../../../assets/picture/radio_checked.png';
 import unchecked from '../../../../assets/picture/radio_unchecked.png';
-import field from '../../../../assets/picture/arrow_up_field.png';
 
 const ChoiceOfGenreWrapper = styled.div`
 position: absolute;
@@ -11,33 +10,16 @@ left: 20px;
 width: 275px;
 height: auto;
 margin-top: 20px;
-background-color: #F0F4EF;
-border-radius: 16px;
+background-color: ${({ theme }) => theme.backrground};
+border-radius: ${({ theme }) => theme.borderRadius};
 z-index: 999;
-.arrow {
-  position: relative;
-  margin-top: -10px;
-  margin-left: -20px;
-  background-image: url(${field});
-  background-repeat: no-repeat;
-  background-position: 50px 0px;
-  height: 20px;
-}
-.checkbox {
-  padding: 5px 15px 0 15px;
-}
-p {
-  margin: 0;
-}
+padding: 10px 15px 5px 15px;
 .checkbox-item {
   display: block;
   line-height: 37px;
   user-select: none;
   position: relative;
   cursor: pointer;
-}
-.name-item {
-  padding: 10px 0 10px 0;
 }
 .checkbox-item input[type=checkbox] {
   position: absolute;
@@ -48,7 +30,7 @@ p {
   height: 0;
   padding: 15px 0 15px 0;
 }
-.checkbox-item span {
+.name-item {
   display: inline-block;
   position: relative; 
   padding: 0 0 0 35px;
@@ -57,7 +39,7 @@ p {
   font-weight: 500;
   line-height: 28px;  
 }
-.checkbox-item span:before {
+.name-item:before {
   content: "";
   display: inline-block;
   width: 25px;

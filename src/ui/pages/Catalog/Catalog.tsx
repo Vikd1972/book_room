@@ -16,7 +16,7 @@ export const Catalog: React.FC = () => {
           <p className="poster__field_text">get one for free</p>
           <Button
             type="submit"
-            className="btn"
+            className="button"
             text="Choose a book"
           />
         </div>

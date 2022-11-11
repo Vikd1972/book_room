@@ -14,8 +14,8 @@ align-items: center;
   max-width: 1074px;
   width: 100%;
   height: 400px;
-  background-color: #F0F4EF;
-  border-radius: 16px;
+  background-color: ${({ theme }) => theme.backrground};
+  border-radius: ${({ theme }) => theme.borderRadius};
   background-image: url(${books}); 
   background-repeat: no-repeat;
   background-position: 0px 135px;
@@ -47,10 +47,9 @@ align-items: center;
     background-repeat: no-repeat;
   }
 }
-.btn {
+.button {
   margin-top: 50px;
-  max-width: 230px;
-  width: 100%;
+  width: 230px;
 }
 `;
 

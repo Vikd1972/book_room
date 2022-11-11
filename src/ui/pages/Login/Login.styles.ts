@@ -20,10 +20,8 @@ flex-direction: row;
   display: flex;
   flex-direction: row;
 }
-.login__name div {
-  margin-right: 5px;
-}
 .login__name-toggle {
+  margin-left: 5px;
   color: #0D1821; 
   cursor: pointer;
   text-decoration: none;
@@ -34,13 +32,18 @@ flex-direction: row;
   width: 413px;
   margin-bottom: 60px;
 }
-.login-pic {
+.login-image {
   margin-left: 255px;
   margin-bottom: -70px;
   width: 612px;
   height: 522px;
   background-image: url(${men});
   background-repeat: no-repeat;
+}
+.button {
+  margin-top: 50px;
+  max-width: 151px;
+  width: 100%;
 }
 .toast {
   width: 400px;
@@ -49,11 +52,6 @@ flex-direction: row;
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
   color: #ff9999;
-}
-.btn {
-  margin-top: 50px;
-  max-width: 151px;
-  width: 100%;
 }
 `;
 

@@ -9,19 +9,22 @@ flex-direction: row;
   width: 522px;
   display: flex;
   flex-direction: column;
+  &-title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  &-inputs {
+    margin-top: 10px;
+  }
 }
-.text {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.text-name {
+.title-name {
   font-size: 20px;
   line-height: 30px;
   color: #0D1821;
 }
-.text-btn {
+.title-button {
   margin-top: 5px;
   font-size: 14px;
   line-height: 21px;
@@ -29,12 +32,9 @@ flex-direction: row;
   text-decoration: underline;
   cursor: pointer;
 }
-.info {
-  margin-top: 10px;
-}
-.btn {
-  margin-left: 128px;
+.button {
   margin-top: 50px;
+  width: 170px;
 }
 .toast {
   width: 400px;
@@ -43,12 +43,6 @@ flex-direction: row;
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
   color: #ff9999;
-}
-.btn {
-  margin-left: 64px;
-  margin-top: 20px;
-  max-width: 170px;
-  width: 100%;
 }
 `;
 

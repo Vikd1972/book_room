@@ -7,7 +7,9 @@ import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { loginUser } from '../../../../store/usersSlice';
 import type { IUserType } from '../../../../store/usersSlice';
 import showToast from '../../../../validation/showToast';
+
 import photo from '../../../assets/picture/user_photo.png';
+import camera from '../../../assets/picture/camera.png';
 
 import UserPhotoWrapper from './UserPhoto.styles';
 
@@ -47,30 +49,24 @@ export const UserPhoto: React.FC = () => {
 
   return (
     <UserPhotoWrapper>
-      <div className="user">
-        <form
-          className="user__pic"
-          action="/upload"
-          method="post"
-          encType="multipart/form-data"
-        >
-          <div className="user__pic-foto">
-            <img
-              src={userPhoto}
-              alt="user"
-              id="output"
-            />
-          </div>
-          <div className="user__pic-btn">
-            <input
-              className="user__pic-input"
-              accept="image/*"
-              onChange={sendingImage}
-              type="file"
-            />
-          </div>
-        </form>
-      </div>
+      <form>
+        <div className="user-photo">
+          <img
+            src={userPhoto}
+            alt="user"
+            id="output"
+          />
+        </div>
+        <div className="button">
+          <img src={camera} alt="camera" />
+          <input
+            className="input-field"
+            accept="image/*"
+            onChange={sendingImage}
+            type="file"
+          />
+        </div>
+      </form>
       <ToastContainer
         className="toast"
         bodyClassName="toast-body"

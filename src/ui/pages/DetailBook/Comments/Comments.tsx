@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 
 import { Button } from '../../../components/Button/Buttons';
@@ -28,12 +27,10 @@ export const Comments: React.FC<IOptions> = (props) => {
   const onSendingCommentsText = async (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
     const comments = (document.getElementById('comments') as HTMLInputElement).value;
-    console.log(comments);
 
     if (comments.length) {
       const newComments = await setComments({ bookId, comments });
       dispatch(getCommentsOfBook(newComments));
-      console.log(newComments);
     }
     (document.getElementById('comments') as HTMLInputElement).value = '';
   };
@@ -41,27 +38,23 @@ export const Comments: React.FC<IOptions> = (props) => {
   return (
     <CommentsWrapper>
       <h1>Comments</h1>
-      <div className="comments-books">
-        {allCommentsOfBook.map((comment) => (
-          <div key={comment.id}>
-            <OneComment
-              comment={comment}
-            />
-          </div>
-        ))}
-      </div>
+      {allCommentsOfBook.map((comment) => (
+        <div key={comment.id}>
+          <OneComment
+            comment={comment}
+          />
+        </div>
+      ))}
       {user.email && (
         <form
           onSubmit={onSendingCommentsText}
         >
-          <div className="comments-width">
-            <div className="comments-input">
-              <textarea
-                id="comments"
-                name="comments"
-                placeholder="Share a comment"
-              />
-            </div>
+          <div className="comments-input">
+            <textarea
+              id="comments"
+              name="comments"
+              placeholder="Share a comment"
+            />
           </div>
           <Button
             type="submit"

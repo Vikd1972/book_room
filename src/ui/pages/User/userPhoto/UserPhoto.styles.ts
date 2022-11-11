@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-import btn_photo from '../../../assets/picture/btn_photo.png';
-
 const UserPhotoWrapper = styled.div`
 max-width: 1280px;
 display: flex;
 flex-direction: row;
-.user__pic-foto {
+.user-photo {
   width: 305px;
   height: 305px;
   border-radius: 16px;
@@ -15,6 +13,10 @@ flex-direction: row;
   justify-content: center;
   align-items: center;
   border: 1px solid #F0F4EF;
+}
+.user-photo img {
+  height: auto;
+  width: auto;
 }
 #output {
   display: inline-block;
@@ -25,30 +27,30 @@ flex-direction: row;
   flex-shrink: 0;
   object-fit: cover;
 }
-.user__pic-foto img {
-  height: auto;
-  width: auto;
-}
-.user__pic-btn {
+.button {
   position: absolute;
   margin-left: 237px;
   margin-top: -68px;
   width: 48px;
   height: 48px;
-  background-image: url(${btn_photo});
-  background-repeat: no-repeat;
-  z-index: 9999;
+  border-radius: 24px;
+  background-color: #344966;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
-.user__pic-input {
+.button:hover {
+  background-color: #0D1821;
+}
+.input-field {
+  cursor: pointer;
   position: absolute;
   opacity: 0;
   margin-left: 0; 
   width: 48px;
   height: 48px;
   z-index: 9999;
-}
-.user__pic-btn:hover {
-  cursor: pointer;
 }
 .toast {
   width: 400px;

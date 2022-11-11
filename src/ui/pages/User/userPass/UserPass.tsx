@@ -47,71 +47,65 @@ export const UserPass: React.FC = () => {
 
   return (
     <UserPassWrapper>
-      <div className="user">
-        <form
-          onSubmit={formik.handleSubmit}
-        >
-          <div className="user__info">
-            <div className="user__info-password">
-              <div className="text">
-                <div className="text-name">Password</div>
-                <div className="text-btn"
-                  onClick={onIsChange}
-                >Change password
-                </div>
-              </div>
-              <div className="info">
-                <InputTwoLine
-                  type="password"
-                  textInfo="Your password"
-                  textWhenChanged="Old password"
-                  field="****************"
-                  placeholder="Enter old password"
-                  formikName={formik.touched.oldPassword}
-                  formikError={formik.errors.oldPassword}
-                  formikField={formik.getFieldProps('oldPassword')}
-                  icon="hide"
-                  changeField={isChange}
-                />
-              </div>
-              {isChange ? (
-                <>
-                  <InputOneLine
-                    type="password"
-                    placeholder="New password"
-                    textWhenChanged="Enter new password"
-                    formikName={formik.touched.newPassword}
-                    formikError={formik.errors.newPassword}
-                    formikField={formik.getFieldProps('newPassword')}
-                    changeField={isChange}
-                    icon="hide"
-                  />
-                  <InputOneLine
-                    type="password"
-                    textWhenChanged="Replay new password"
-                    placeholder="Confirm password"
-                    formikName={formik.touched.confirmPassword}
-                    formikError={formik.errors.confirmPassword}
-                    formikField={formik.getFieldProps('confirmPassword')}
-                    icon="hide"
-                    changeField={isChange}
-                  />
-                </>
-              ) : (
-                null
-              )}
-            </div>
+      <form
+        className="user__info"
+        onSubmit={formik.handleSubmit}
+      >
+        <div className="user__info-title">
+          <div className="title-name">Password</div>
+          <div className="title-button"
+            onClick={onIsChange}
+          >Change password
           </div>
-          {isChange
-            ? (<Button
-              type="submit"
-              className="button"
-              text="Confirm"
-            />)
-            : null
-          }
-        </form>
-      </div>
+        </div>
+        <InputTwoLine
+          type="password"
+          textInfo="Your password"
+          textWhenChanged="Old password"
+          field="****************"
+          placeholder="Enter old password"
+          formikName={formik.touched.oldPassword}
+          formikError={formik.errors.oldPassword}
+          formikField={formik.getFieldProps('oldPassword')}
+          icon="hide"
+          changeField={isChange}
+        />
+        {isChange ? (
+          <>
+            <InputOneLine
+              type="password"
+              placeholder="New password"
+              textWhenChanged="Enter new password"
+              formikName={formik.touched.newPassword}
+              formikError={formik.errors.newPassword}
+              formikField={formik.getFieldProps('newPassword')}
+              changeField={isChange}
+              icon="hide"
+            />
+            <InputOneLine
+              type="password"
+              textWhenChanged="Replay new password"
+              placeholder="Confirm password"
+              formikName={formik.touched.confirmPassword}
+              formikError={formik.errors.confirmPassword}
+              formikField={formik.getFieldProps('confirmPassword')}
+              icon="hide"
+              changeField={isChange}
+            />
+          </>
+        ) : (
+          null
+        )}
+
+        {isChange
+          ? (<Button
+            type="submit"
+            className="button"
+            text="Confirm"
+          />)
+          : null
+        }
+      </form>
       <ToastContainer
         className="toast"
         bodyClassName="toast-body"

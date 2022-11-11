@@ -17,12 +17,10 @@ flex-direction: row;
   height: 779px;
 }
 .info {
-  font-family: 'Poppins', sans-serif;
   max-width: 640px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  font-weight: 500;
 }
 .name {
   font-size: 40px;
@@ -37,7 +35,6 @@ flex-direction: row;
 }
 .rating {
   margin-top: 30px;
-  font-size: 16px;
   line-height: 24px;
   color: #B9BAC4;
   display: flex;
@@ -70,7 +67,7 @@ flex-direction: row;
   h1 {
     font-size: 24px;
     line-height: 36px;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
     font-weight: 500;
   }
 }
@@ -85,9 +82,6 @@ flex-direction: row;
   margin-right: 80px;
   width: 240px;
   font-size: 20px;
-  font-weight: 500;
-  line-height: 28px;
-  color: #F0F4EF;
 }
 `;
 

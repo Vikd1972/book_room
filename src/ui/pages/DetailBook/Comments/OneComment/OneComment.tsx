@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 import React from 'react';
 
-import photo from '../../../../assets/picture/user_photo.png';
+import config from '../../../../../config';
 import type { ICommentType } from '../../../../../store/booksSlice';
+
+import photo from '../../../../assets/picture/user_photo.png';
 
 import OneCommentWrapper from './OneComment.styles';
 
@@ -14,7 +16,7 @@ export const OneComment: React.FC<IOptions> = (props) => {
   const today = new Date();
 
   const userPhoto: string = props.comment.user.photoFilePath?.endsWith('jpeg') ||
-    props.comment.user.photoFilePath?.endsWith('png') ? `http://localhost:4001/uploads/${props.comment.user.photoFilePath}` : photo;
+    props.comment.user.photoFilePath?.endsWith('png') ? `${config.pathToUserPhoto}${props.comment.user.photoFilePath}` : photo;
 
   const quantityDays = (commentData: Date) => {
     return Math.round((

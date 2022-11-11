@@ -1,43 +1,39 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
-import Book from '../../../components/Book/Book';
-import showToast from '../../../../validation/showToast';
 import { addBooks } from '../../../../store/booksSlice';
 import getBooks from '../../../../api/books/getBooks';
+import getCart from '../../../../api/cart/getCart';
+import showToast from '../../../../validation/showToast';
 import Pagination from './Pagination/Pagination';
+import Book from '../../../components/Book/Book';
 import AuthorizePoster from '../../../components/AuthorizePoster/AuthorizePoster';
 
 import СatalogBooksWrapper from './CatalogBooks.styles';
+import { setCart } from '../../../../store/usersSlice';
 
 export const CatalogBooks: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const books = useAppSelector((state) => state.books);
   const user = useAppSelector((state) => state.users.user);
-  const url = new URL(window.location.href);
-
-  const activePage = url.searchParams.get('page') ? url.searchParams.get('page') : '1';
 
   useEffect(() => {
     (async () => {
       try {
         const options = {
-          currentPage: Number(activePage),
           queryString: books.queryString,
-          queryOptions: {
-            currentGenres: url.searchParams.get('genres') || '',
-            price: url.searchParams.get('price') || '',
-            sort: url.searchParams.get('sort') || '',
-            searchText: url.searchParams.get('search') || '',
-          },
         };
-        const response = await getBooks(options);
-        dispatch(addBooks(response));
+        const booksFromSever = await getBooks(options);
+        dispatch(addBooks(booksFromSever));
         navigate(`${books.queryString}`);
+
+        if (user.email) {
+          const nyCart = await getCart();
+          dispatch(setCart(nyCart));
+        }
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
@@ -48,7 +44,7 @@ export const CatalogBooks: React.FC = () => {
     dispatch,
     navigate,
     books.queryString,
-    activePage,
+    user.email,
   ]);
 
   return (
@@ -64,7 +60,7 @@ export const CatalogBooks: React.FC = () => {
       </СatalogBooksWrapper >
 
       <Pagination />
-      {!user.email ? <AuthorizePoster /> : null}
+      {!user.email && <AuthorizePoster />}
     </>
   );
 };

@@ -12,9 +12,11 @@ import СatalogFilterWrapper from './CatalogFilter.styles';
 export const CatalogFilter: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const [isSelectByGenre, setIsSelectByGenre] = useState(false);
   const [isSelectByPrice, setIsSelectByPrice] = useState(false);
   const [isSortingBy, setSortingBy] = useState(false);
+
   const url = new URL(window.location.href);
   const sort = url.searchParams.get('sort') || '...';
 
@@ -74,11 +76,8 @@ export const CatalogFilter: React.FC = () => {
       price={isSelectByPrice}
       sort={isSortingBy}
     >
-      <div className="name">Catalog</div>
-      <form
-        name="selector"
-        className="filtering"
-      >
+      <div className="title">Catalog</div>
+      <div className="filter-bank">
         <div
           id="choose-by-genre"
           className="filter-wrapper"
@@ -112,7 +111,7 @@ export const CatalogFilter: React.FC = () => {
           </div>
           {isSortingBy && <SortBy />}
         </div>
-      </form>
+      </div>
     </СatalogFilterWrapper >
   );
 };

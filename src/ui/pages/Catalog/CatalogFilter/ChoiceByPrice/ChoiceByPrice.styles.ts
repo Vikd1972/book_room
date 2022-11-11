@@ -10,15 +10,13 @@ z-index: 999;
   margin-top: 30px;
   width: 390px;
   height: auto;
-  background-color: #F0F4EF;
+  background-color: ${({ theme }) => theme.backrground};
+  border-radius: ${({ theme }) => theme.borderRadius};
   padding: 40px 25px;
-  border-radius: 16px;
 }
 .slider {  
   width: 100%;
   height: 151px;
-  border-radius: 16px;
-  background-color: #F0F4EF; 
   color: #BFCC94;
   height: 12px;
 }
@@ -41,8 +39,6 @@ z-index: 999;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
   line-height: 34px;
   font-weight: 400;
 }

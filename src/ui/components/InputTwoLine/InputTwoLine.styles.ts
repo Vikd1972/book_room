@@ -7,7 +7,6 @@ interface IValid {
 
 const InputTwoLineWrapper = styled.div<IValid>`
 margin-top: 10px;
-margin-top: 20px;
 width: 100%;
 height: 64px;
 border-radius: ${({ theme }) => theme.borderRadius};
@@ -64,9 +63,6 @@ input {
   background-color: transparent;
   border: none;
   outline: none;
-}
-.user__info-password {
-  margin-top: 40px;
 }
 .error {
   color: #ff0000;

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-tag-location */
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
@@ -46,52 +47,50 @@ export const UserInfo: React.FC = () => {
 
   return (
     <UserInfoWrapper>
-      <form onSubmit={formik.handleSubmit}>
-        <div className="user__info">
-          <div className="text">
-            <div className="text-name">Personal information</div>
-            <div
-              className="text-btn"
-              onClick={onIsChange}
-            >Change information
-            </div>
+      <form
+        className="user__info"
+        onSubmit={formik.handleSubmit}
+      >
+        <div className="user__info-title">
+          <div className="title-name">Personal information</div>
+          <div
+            className="title-button"
+            onClick={onIsChange}
+          >Change information
           </div>
-          <div className="info">
-            <InputTwoLine
-              type="text"
-              textInfo="Your name"
-              textWhenChanged={`Your name now is ${user.fullname ? user.fullname : '...'}. Enter new name`}
-              field={user.fullname}
-              placeholder="Enter your name"
-              formikName={formik.touched.fullname}
-              formikError={formik.errors.fullname}
-              formikField={formik.getFieldProps('fullname')}
-              icon="user"
-              changeField={isChange}
-            />
-            <InputTwoLine
-              type="email"
-              textInfo="Your email"
-              textWhenChanged={`Your email now is ${user.email}. Enter new email`}
-              field={user.email}
-              placeholder="Enter your email"
-              formikName={formik.touched.email}
-              formikError={formik.errors.email}
-              formikField={formik.getFieldProps('email')}
-              icon="mail"
-              changeField={isChange}
-            />
-          </div>
-
+        </div>
+        <div className="user__info-inputs">
+          <InputTwoLine
+            type="text"
+            textInfo="Your name"
+            textWhenChanged={`Your name now is ${user.fullname ? user.fullname : '...'}. Enter new name`}
+            field={user.fullname}
+            placeholder="Enter your name"
+            formikName={formik.touched.fullname}
+            formikError={formik.errors.fullname}
+            formikField={formik.getFieldProps('fullname')}
+            icon="user"
+            changeField={isChange}
+          />
+          <InputTwoLine
+            type="email"
+            textInfo="Your email"
+            textWhenChanged={`Your email now is ${user.email}. Enter new email`}
+            field={user.email}
+            placeholder="Enter your email"
+            formikName={formik.touched.email}
+            formikError={formik.errors.email}
+            formikField={formik.getFieldProps('email')}
+            icon="mail"
+            changeField={isChange}
+          />
         </div>
         {isChange
-          ? (<div className="btn">
-              <Button
-                type="submit"
-                className="btn"
-                text="Confirm"
-              />
-             </div>)
+          ? (<Button
+            type="submit"
+            className="button"
+            text="Confirm"
+          />)
           : null
         }
       </form>

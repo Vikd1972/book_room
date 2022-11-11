@@ -11,42 +11,17 @@ import PaginationWrapper from './Pagination.styles';
 
 export const Pagination: React.FC = () => {
   const dispatch = useAppDispatch();
-  const serviceInfo = useAppSelector((state) => state.books.serviceInfo);
-  const queryString = useAppSelector((state) => state.books.queryString);
+  const books = useAppSelector((state) => state.books);
   const url = new URL(window.location.href);
 
-  const prevPage = () => {
-    if (serviceInfo.activePage === serviceInfo.prevPage) {
+  const changePage = (pageNumber: number) => {
+    if (books.serviceInfo.activePage === pageNumber) {
       return;
     }
     if (url.searchParams.has('page')) {
-      url.searchParams.set('page', (serviceInfo.prevPage).toString());
+      url.searchParams.set('page', (pageNumber).toString());
     } else {
-      url.searchParams.append('page', (serviceInfo.prevPage).toString());
-    }
-    dispatch(setQueryString(url.search));
-  };
-
-  const nextPage = () => {
-    if (serviceInfo.activePage === serviceInfo.nextPage) {
-      return;
-    }
-    if (url.searchParams.has('page')) {
-      url.searchParams.set('page', (serviceInfo.nextPage).toString());
-    } else {
-      url.searchParams.append('page', (serviceInfo.nextPage).toString());
-    }
-    dispatch(setQueryString(url.search));
-  };
-
-  const selectPage = (pageId: number) => {
-    if (serviceInfo.activePage === pageId) {
-      return;
-    }
-    if (url.searchParams.has('page')) {
-      url.searchParams.set('page', (pageId).toString());
-    } else {
-      url.searchParams.append('page', (pageId).toString());
+      url.searchParams.append('page', (pageNumber).toString());
     }
     dispatch(setQueryString(url.search));
   };
@@ -57,12 +32,12 @@ export const Pagination: React.FC = () => {
     className: string;
   }[] = [];
 
-  for (let i = 0; i < serviceInfo.quantityPages; i++) {
+  for (let i = 0; i < books.serviceInfo.quantityPages; i++) {
     url.searchParams.set('page', (i + 1).toString());
     pages[i] = {
       id: i,
       to: `/${url.search}`,
-      className: `page ${(i + 1) === serviceInfo.activePage && 'active'}`,
+      className: `page ${(i + 1) === books.serviceInfo.activePage && 'active'}`,
     };
   }
 
@@ -70,8 +45,8 @@ export const Pagination: React.FC = () => {
     <PaginationWrapper>
       <Link
         className="pagination"
-        onClick={prevPage}
-        to={`/${queryString}`}
+        onClick={() => changePage(books.serviceInfo.prevPage)}
+        to={`/${books.queryString}`}
       >
         <img src={left} alt="left" />
       </Link>
@@ -79,7 +54,7 @@ export const Pagination: React.FC = () => {
         {pages.map((page) => (
           <div key={page.id}>
             <Link
-              onClick={() => selectPage(page.id + 1)}
+              onClick={() => changePage(page.id + 1)}
               to={page.to}
             >
               <div className={page.className} />
@@ -89,8 +64,8 @@ export const Pagination: React.FC = () => {
       </div>
       <Link
         className="pagination"
-        onClick={nextPage}
-        to={`/${queryString}`}
+        onClick={() => changePage(books.serviceInfo.nextPage)}
+        to={`/${books.queryString}`}
       >
         <img src={right} alt="right" />
       </Link>

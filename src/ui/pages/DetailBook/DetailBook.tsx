@@ -1,23 +1,22 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { setOverallRating, getCommentsOfBook } from '../../../store/booksSlice';
+import { setCart } from '../../../store/usersSlice';
+import type { IBookType } from '../../../store/booksSlice';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
 import getDetailBooks from '../../../api/books/getDetailBook';
 import getComments from '../../../api/comments/getComments';
-import { setOverallRating, getCommentsOfBook } from '../../../store/booksSlice';
+import addBookToCart from '../../../api/cart/addBookToCart';
 import getRating from '../../../api/rating/getRating';
 import RatingFiveStars from '../../components/RatingFiveStars/RatingFiveStars';
 import RatingOneStar from '../../components/RatingOneStar/RatingOneStar';
-import Recommendations from '../Recommendations/Recommendations';
 import AuthorizePoster from '../../components/AuthorizePoster/AuthorizePoster';
-import addBookToCart from '../../../api/cart/addBookToCart';
-import { setCart } from '../../../store/usersSlice';
+import Recommendations from '../Recommendations/Recommendations';
 import Comments from './Comments/Comments';
-import type { IBookType } from '../../../store/booksSlice';
 
 import arrow from '../../assets/picture/arrow_back.png';
 
@@ -38,8 +37,6 @@ export const DetailBook: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        dispatch(setOverallRating(0));
-
         const detailBook = await getDetailBooks(bookId);
         setBook(detailBook);
         dispatch(setOverallRating(detailBook.averageRating));
@@ -58,7 +55,6 @@ export const DetailBook: React.FC = () => {
   }, [
     bookId,
     userId,
-    user.id,
     dispatch,
   ]);
 
@@ -86,6 +82,7 @@ export const DetailBook: React.FC = () => {
         dispatch(setCart(cart));
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
   };
@@ -97,7 +94,6 @@ export const DetailBook: React.FC = () => {
           <img
             src={book?.pathToCover}
             alt="cover"
-            id="cover"
           />
         </div>
         <div className="info">
@@ -116,7 +112,6 @@ export const DetailBook: React.FC = () => {
                   <img
                     src={arrow}
                     alt="arrow"
-                    id="arrow"
                   />
                 </div>
                 <p>Rate this book</p>

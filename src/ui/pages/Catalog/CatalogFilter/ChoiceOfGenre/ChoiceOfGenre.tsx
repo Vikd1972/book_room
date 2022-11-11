@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,12 +12,11 @@ export const ChoiceOfGenre: React.FC = () => {
   const navigate = useNavigate();
   const url = new URL(window.location.href);
 
-  const onSelectByGenre = async () => {
+  const onSelectByGenre = () => {
     const currentGenres: string[] = [];
     for (const genre of params.genres) {
       const checkbox = document.querySelector(`input[name=${genre.name.replace(/[^a-zA-Z]/g, '')}]:checked`) as HTMLInputElement;
       if (checkbox) {
-        // eslint-disable-next-line prefer-template
         currentGenres.push(checkbox.value);
       }
     }
@@ -37,23 +35,19 @@ export const ChoiceOfGenre: React.FC = () => {
 
   return (
     <ChoiceOfGenreWrapper>
-      <div className="arrow" />
-      <div className="checkbox" id="checkbox">
-        {params.genres.map((genre) => (
-          <p key={genre.id}>
-            <label className="checkbox-item">
-              <input
-                type="checkbox"
-                name={genre.name.replace(/[^a-zA-Z]/g, '')}
-                value={genre.id}
-                onChange={onSelectByGenre}
-              />
-              <span className="name-item">{genre.name}</span>
-            </label>
-          </p>
-        ))}
-
-      </div>
+      {params.genres.map((genre) => (
+        <div key={genre.id}>
+          <label className="checkbox-item">
+            <input
+              type="checkbox"
+              name={genre.name.replace(/[^a-zA-Z]/g, '')}
+              value={genre.id}
+              onChange={onSelectByGenre}
+            />
+            <span className="name-item">{genre.name}</span>
+          </label>
+        </div>
+      ))}
     </ChoiceOfGenreWrapper >
   );
 };

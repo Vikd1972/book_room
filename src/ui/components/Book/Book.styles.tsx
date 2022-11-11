@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const BookWrapper = styled.div`
 margin-top: 60px;
 width: 305px;
+padding: 0 10px;
 height: auto;
 .cover-container {
   width: 100%;
@@ -11,7 +12,7 @@ height: auto;
 }
 .cover-container img {
   border-radius: ${({ theme }) => theme.borderRadius};
-  width: 305px;
+  width: 100%;
   height: 448px;
 }
 .favorites {
@@ -47,6 +48,7 @@ height: auto;
   color: #F0F4EF;
 }
 .name {
+  width: 100%;
   margin: 25px 0 0 0;
   font-size: 20px;
   font-weight: 500;
@@ -58,6 +60,7 @@ height: auto;
   text-overflow: ellipsis; 
 }
 .author {
+  width: 100%;
   margin: 0;
   font-size: 20px;
   line-height: 30px;
@@ -68,7 +71,7 @@ height: auto;
   overflow: hidden;
 }
 .rating {
-  width: 305px;
+  width: 100%;
   margin-top: 20px;
   display: flex;
   flex-direction: row;
