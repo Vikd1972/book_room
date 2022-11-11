@@ -56,24 +56,25 @@ export const Header: React.FC = () => {
           alt="logo"
         />
       </Link>
-      <form onSubmit={onSendingSearchText}>
-        <p className="search__title">Catalog</p>
-        <div className="search__field">
-          <div className="search__field-icon">
-            <img
-              src={search}
-              alt="search"
-            />
-          </div>
-          <div className="search__input">
-            <input
-              name="catalog"
-              type="text"
-              value={searchText}
-              onChange={onSearchText}
-              placeholder="Search"
-            />
-          </div>
+      <p className="search__title">Catalog</p>
+      <form
+        className="search__field"
+        onSubmit={onSendingSearchText}
+      >
+        <div className="search__field-icon">
+          <img
+            src={search}
+            alt="search"
+          />
+        </div>
+        <div className="search__input">
+          <input
+            name="catalog"
+            type="text"
+            value={searchText}
+            onChange={onSearchText}
+            placeholder="Search"
+          />
         </div>
       </form>
       {users.user.email
@@ -115,7 +116,7 @@ export const Header: React.FC = () => {
               <Button
                 type="submit"
                 className="button"
-                text="Log In / Sing Up"
+                text="Log In/Sing Up"
               />
             </form>
           </div>

@@ -8,31 +8,61 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 align-items: center;
+@media (max-width: 1440px) {
+  max-width: 804px;
+}
+@media (max-width: 834px) {
+  max-width: 290px;
+  flex-wrap: wrap;
+}
 .panel__logotype {
   min-width: 88px;
   height: 46px;
   cursor: pointer;
+  @media (max-width: 834px) {
+    min-width: 62px;
+    height: 31px;
+  }
 }
-form {
-  font-size: 16px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 770px;
-  width: 100%;
+.panel__logotype img {
+  @media (max-width: 834px) {
+  min-width: 62px;
+  height: 31px;
+  }
 }
 .search__title {
-  width: 110px;
+  padding-left: 28px;
+  width: 67px;
+  @media (max-width: 834px) {
+    padding: 0;
+    width: auto;
+    font-size: 14px;
+  }
 }
 .search__field {
   max-width: 630px;
   width: 100%;
-  margin-left: 20px;
+  padding-right: 28px;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   border-radius: ${({ theme }) => theme.borderRadius};
-  background-color: #F0F4EF;
+  background-color: ${({ theme }) => theme.backrground};
+  @media (max-width: 1440px) {
+    @media (min-width: 835px) {
+      max-width: 247px;
+      width: 100%;
+      margin-right: 40px;
+    }
+  }
+  @media (max-width: 834px) {
+    width: 290px;
+    width: 100%;
+    margin-top: 17px;
+    padding-right: 0;
+    order: 1;
+  }
 }
 .search__field-icon {
   padding: 22px 24px;
@@ -64,6 +94,10 @@ form {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 835px) {
+    width: 135px;
+    margin-left: 0;
+  }
 }
 .button__icon {
   width: 48px;
@@ -73,6 +107,18 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 835px) {
+    width: 33px;
+    height: 33px;
+    border-radius: 16px;
+  }
+}
+.button__icon img {
+  @media (max-width: 835px) {
+    object-fit: cover;
+    width: 18px;
+    height: 18px;
+  }
 }
 .button__icon:hover {
   background-color: #0D1821;
@@ -90,9 +136,23 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 834px) {
+    margin-left: -25px;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    font-size: 10px;
+    line-height: 10px;
+  }
 }
 .button {
   width: 231px;
+  font-family: 'Poppins', sans-serif;
+  @media (max-width: 834px) {
+    width: 135px;
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
 `;
 

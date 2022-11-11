@@ -10,6 +10,9 @@ width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
+@media (max-width: 1440px) {
+  max-width: 804px;
+}
 .poster {
   max-width: 1074px;
   width: 100%;
@@ -23,6 +26,9 @@ align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 1440px) {
+  max-width: 804px;
+}
   .poster__field {
     display: flex;
     flex-direction: column;
