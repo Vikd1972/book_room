@@ -7,12 +7,19 @@ height: auto;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
+@media (max-width: 1440px) {
+  width: 196px;
+}
 .star-container {
   cursor: pointer;
 }
 .star-container img {
   width: 28px;
   height: 28px;
+  @media (max-width: 1440px) {
+    width: 18px;
+    height: 18px;
+  }
 }
 & .MuiRating-iconFilled {
   color: #BFCC94;

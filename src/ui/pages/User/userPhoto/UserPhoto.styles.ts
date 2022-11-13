@@ -13,6 +13,14 @@ flex-direction: row;
   justify-content: center;
   align-items: center;
   border: 1px solid #F0F4EF;
+  @media (max-width: 1440px) {
+    width: 255px;
+    height: 255px;
+  }
+  @media (max-width: 834px) {
+    width: 290px;
+    height: 290px;
+  }
 }
 .user-photo img {
   height: auto;
@@ -39,6 +47,12 @@ flex-direction: row;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  @media (max-width: 1440px) {
+    margin-left: 187px;
+  }
+  @media (max-width: 834px) {
+    margin-left: 222px;
+  }
 }
 .button:hover {
   background-color: #0D1821;

@@ -1,21 +1,23 @@
 import styled from 'styled-components';
 
 const UserPassWrapper = styled.div`
-margin-top: 60px;
 max-width: 1280px;
 display: flex;
 flex-direction: row;
-/* .user {
-  max-width: 955px;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-} */
+@media (max-width: 834px) {
+  max-width: 290px;
+  width: 100%;
+}
 .user__info {
+  margin-top: 60px;
   margin-left: 128px;
   width: 522px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1440px) {
+    margin: 40px 0 0 20px;
+    
+  }
   &-title {
     width: 100%;
     display: flex;
@@ -28,6 +30,10 @@ flex-direction: row;
   font-size: 20px;
   line-height: 30px;
   color: #0D1821;
+  @media (max-width: 1440px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
 .title-button {
   margin-top: 5px;
@@ -36,10 +42,11 @@ flex-direction: row;
   color: #8D9F4F;
   text-decoration: underline;
   cursor: pointer;
+  @media (max-width: 1440px) {
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
-/* .err {
-  color: #ff0000;
-} */
 .toast {
   width: 400px;
 }
@@ -51,6 +58,9 @@ flex-direction: row;
 .button {
   margin-top: 50px;
   width: 170px;
+  @media (max-width: 1440px) {
+    margin-top: 40px;
+  }
 }
 `;
 

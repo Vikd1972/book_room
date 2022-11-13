@@ -6,6 +6,15 @@ top: 50px;
 left: 20px;
 display: flex;
 z-index: 999;
+@media (max-width: 1440px) {
+  top: 30px;
+  left: 0;
+  width: 290px;
+}
+@media (max-width: 1440px) {
+  top: 60px;
+  left: 0;
+}
 .slider-container {
   margin-top: 30px;
   width: 390px;
@@ -13,6 +22,9 @@ z-index: 999;
   background-color: ${({ theme }) => theme.backrground};
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 40px 25px;
+  @media (max-width: 1440px) {
+    padding: 30px 20px;
+  }
 }
 .slider {  
   width: 100%;
@@ -41,6 +53,9 @@ z-index: 999;
   justify-content: space-between;
   line-height: 34px;
   font-weight: 400;
+  @media (max-width: 1440px) {
+    font-size: 14px;
+  }
 }
 `;
 

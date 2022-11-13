@@ -14,6 +14,8 @@ import type { IValues } from '../User/Interface';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
 import { Button } from '../../components/Button/Buttons';
 
+import man from '../../assets/picture/men1.png';
+
 import LoginWrapper from './Login.styles';
 
 export const Login: React.FC = () => {
@@ -83,7 +85,9 @@ export const Login: React.FC = () => {
           />
         </form>
       </div>
-      <div className="login-image" />
+      <div className="login-image">
+        <img src={man} alt="man" />
+      </div>
       <ToastContainer
         className="toast"
         bodyClassName="toast-body"

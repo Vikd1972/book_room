@@ -4,6 +4,8 @@ import CatalogFilter from './CatalogFilter/CatalogFilter';
 import CatalogBooks from './CatalogBooks/CatalogBooks';
 import { Button } from '../../components/Button/Buttons';
 
+import woman from '../../assets/picture/woman.png';
+
 import СatalogWrapper from './Catalog.styles';
 
 export const Catalog: React.FC = () => {
@@ -20,7 +22,9 @@ export const Catalog: React.FC = () => {
             text="Choose a book"
           />
         </div>
-        <div className="poster__image" />
+        <div className="poster__image">
+          <img src={woman} alt="woman" />
+        </div>
       </div>
       <CatalogFilter />
       <CatalogBooks />

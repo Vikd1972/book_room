@@ -6,6 +6,15 @@ margin-right: 330px;
 max-width: 1280px;
 display: flex;
 flex-direction: row;
+@media (max-width: 1440px) {
+  max-width: 805px;
+  margin-right: 0;
+  width: auto;
+}
+@media (max-width: 834px) {
+  margin-top: 50px;
+  flex-direction: column;
+}
 .user-profile {
   display: flex;
   flex-direction: column;

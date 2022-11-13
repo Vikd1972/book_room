@@ -6,6 +6,12 @@ height: 16px;
 display: flex;
 flex-direction: row;
 align-items: center;
+@media (max-width: 1440px) {
+  margin-top: 59px;
+}
+@media (max-width: 834px) {
+  margin-top: 48px;
+}
 .pagination {
   width: 10px;
   height: 16px;

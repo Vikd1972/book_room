@@ -11,6 +11,9 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
+@media (max-width: 1440px) {
+  margin-top: 10px;
+}
 .input-field {
   flex-direction: row;
   display: flex;
@@ -39,6 +42,9 @@ flex-direction: column;
   height: 100%;
   z-index: 1;
   display: flex;
+  @media (max-width: 834px) {
+    padding: 13px 14px;
+  }
 }
 .input-icon img {
   width: 24px;
@@ -57,6 +63,9 @@ flex-direction: column;
   font-size: 16px;
   font-weight: 400;
   outline: none;
+  @media (max-width: 834px) {
+    height: 48px
+  }
 }
 .input-title {
   font-size: 14px;

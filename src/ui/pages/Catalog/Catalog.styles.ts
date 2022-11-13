@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import books from '../../assets/picture/books.png';
-import woman from '../../assets/picture/woman.png';
 
 const СatalogWrapper = styled.div`
 margin-top: 40px;
@@ -12,6 +11,9 @@ flex-direction: column;
 align-items: center;
 @media (max-width: 1440px) {
   max-width: 804px;
+}
+@media (max-width: 834px) {
+  max-width: 290px;
 }
 .poster {
   max-width: 1074px;
@@ -27,8 +29,23 @@ align-items: center;
   flex-direction: row;
   justify-content: space-between;
   @media (max-width: 1440px) {
-  max-width: 804px;
-}
+    background-size: 361px 218px;
+    background-position: 0px 70px;
+    background-repeat: no-repeat;
+    max-width: 751px;
+    width: 100%;
+    height: auto;
+    padding: 0 14px 0 40px;    
+  }
+  @media (max-width: 834px) {
+    background-size: 80%;
+    background-position: 50px 20px;
+    flex-direction: column;
+    max-width: 256px;
+    width: 100%;
+    height: auto;
+    padding-left: 20px;
+  }
   .poster__field {
     display: flex;
     flex-direction: column;
@@ -38,24 +55,69 @@ align-items: center;
       font-weight: 700;
       line-height: 60px;
       color: #0D1821;
+      @media (max-width: 1440px) {
+        margin-top: 46px;
+        font-size: 32px;
+        line-height: 48px;
+      }
+      @media (max-width: 834px) {
+        margin-top: 20px;
+        font-size: 18px;
+        line-height: 27px;
+      }
     }
     &_text {
       margin: 0;
       font-size: 20px;
       line-height: 30px;
       color: #344966;
+      @media (max-width: 1440px) {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      @media (max-width: 834px) {
+        font-size: 14px;
+        line-height: 21px;
+      }
     }
   }
   .poster__image {
     width: 406px;
     height: 400px;
-    background-image: url(${woman}); 
-    background-repeat: no-repeat;
+    @media (max-width: 1440px) {
+      width: 328px;
+      height: 364px;
+      margin-top: -75px;
+    }
+    @media (max-width: 834px) {
+      width: 253px;
+      height: 282px;
+      margin-top: 56px;
+    }
+  }
+  .poster__image img {
+    width: 406px;
+    height: 400px;
+    @media (max-width: 1440px) {
+      width: 328px;
+      height: 364px;
+    }
+    @media (max-width: 834px) {
+      width: 253px;
+      height: 282px;
+    }
   }
 }
 .button {
   margin-top: 50px;
   width: 230px;
+  @media (max-width: 1440px) {
+   margin-top: 40px;
+  }
+  @media (max-width: 1440px) {
+   margin-top: 20px;
+   width: 200px;
+  }
 }
 `;
 

@@ -14,12 +14,24 @@ background-color: ${({ theme }) => theme.backrground};
 border-radius: ${({ theme }) => theme.borderRadius};
 z-index: 999;
 padding: 10px 15px 5px 15px;
+@media (max-width: 1440px) {
+  top: 40px;
+  left: -1px;
+  width: 260px;
+}
+@media (max-width: 834px) {
+  top: 70px;
+  left: 0;
+}
 .checkbox-item {
   display: block;
   line-height: 37px;
   user-select: none;
   position: relative;
   cursor: pointer;
+  @media (max-width: 1440px) {
+    line-height: 35px;
+  }
 }
 .checkbox-item input[type=checkbox] {
   position: absolute;

@@ -5,6 +5,14 @@ margin-top: 60px;
 width: 305px;
 padding: 0 10px;
 height: auto;
+@media (max-width: 1440px) {
+  margin-top: 32px;
+  width: 254px;
+}
+@media (max-width: 834px) {
+  margin-top: 20px;
+  width: 135px;
+}
 .cover-container {
   width: 100%;
   height: 100%;
@@ -14,16 +22,30 @@ height: auto;
   border-radius: ${({ theme }) => theme.borderRadius};
   width: 100%;
   height: 448px;
+  @media (max-width: 1440px) {
+    height: 372px;
+  }
+  @media (max-width: 834px) {
+    height: 192px;
+  }
 }
 .favorites {
   position: absolute;
   top: 20px;
   left: 20px;
   cursor: pointer;
+  @media (max-width: 834px) {
+    top: 16px;
+    left: 16px;
+  }
 }
 .favorites img {
   width: 48px;
   height: 48px;
+  @media (max-width: 834px) {
+    width: 25px;
+    height: 25px;
+  }
 }
 .marker {
   position: absolute;
@@ -36,28 +58,47 @@ height: auto;
   text-align: center;
   left: 20px;
   bottom: 20px;
+  @media (max-width: 834px) {
+    left: 10px;
+    font-size: 10px;
+    line-height: 10px;
+  }
 }
 .is-new {
   width: 132px;
   background-color: #BFCC94;
   color: #0D1821;
+  @media (max-width: 834px) {
+    width: 113px;
+  }
 }
 .is-bestseller {
   width: 175px;
   background-color: #344966;
   color: #F0F4EF;
+  @media (max-width: 834px) {
+    width: 113px;
+  }
 }
 .name {
   width: 100%;
   margin: 25px 0 0 0;
   font-size: 20px;
-  font-weight: 500;
   line-height: 30px;
+  font-weight: 500;
   color: #344966;
-  width: 305px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; 
+  @media (max-width: 1440px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  @media (max-width: 834px) {
+    margin: 14px 0 0 0;
+    font-size: 14px;
+    line-height: 21px;
+  }
 }
 .author {
   width: 100%;
@@ -66,9 +107,17 @@ height: auto;
   line-height: 30px;
   font-weight: 500;
   color: #B9BAC3;
-  width: 305px;
   white-space: nowrap;
   overflow: hidden;
+  @media (max-width: 1440px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  @media (max-width: 834px) {
+    margin: 3px 0 0 0;
+    font-size: 14px;
+    line-height: 21px;
+  }
 }
 .rating {
   width: 100%;
@@ -83,6 +132,9 @@ height: auto;
     }
     & .MuiRating-decimal { 
       padding: 0 23px 0 0;
+    }
+    @media (max-width: 834px) {
+      margin-top: 12px;
     }
   }
   .rating__value {
@@ -99,9 +151,17 @@ height: auto;
   margin-top: 30px;
   width: 100%;
   font-size: 20px;
-  font-weight: 500;
   line-height: 28px;
+  font-weight: 500;
   color: #F0F4EF;
+  @media (max-width: 1440px) {
+    font-size: 16px;
+  }
+  @media (max-width: 834px) {
+    margin-top: 17px;
+    font-size: 14px;
+    padding: 3px 0;
+  }
 }
 .in-cart {
   background-color: #ffffff;
