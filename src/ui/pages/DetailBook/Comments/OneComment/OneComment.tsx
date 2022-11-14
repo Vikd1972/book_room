@@ -33,9 +33,13 @@ export const OneComment: React.FC<IOptions> = (props) => {
         />
       </div>
       <div className="contents">
-        <h2>{props.comment.user.fullname}</h2>
-        <h4>Left a comment {quantityDays(props.comment.commentData)} days ago</h4>
-        <p>{props.comment.comment}</p>
+        <div>
+          <h2>{props.comment.user.fullname}</h2>
+          <h4>Left a comment {quantityDays(props.comment.commentData)} days ago</h4>
+        </div>
+        <div className="comment-wrapper">
+          <p>{props.comment.comment}</p>
+        </div>
       </div>
     </OneCommentWrapper>
   );

@@ -6,16 +6,16 @@ import fairySmall from '../../assets/picture/fairy1.png';
 const AuthorizePosterWrapper = styled.div`
 margin-top: 130px;
 max-width: 1280px;
+height: auto;
 width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
-height: 400px;
 @media (max-width: 1440px) {
   margin-top: 87px;
 }
 @media (max-width: 834px) {
-  margin-top: 20px;
+  margin-top: 60px;
 }
 .poster {
   background-color: ${({ theme }) => theme.backrground};

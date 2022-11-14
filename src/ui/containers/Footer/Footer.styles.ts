@@ -22,6 +22,7 @@ line-height: 30px;
 }
 @media (max-width: 834px) {
   max-width: 290px;
+  margin-top: 100px;
   flex-direction: column;
   padding: 73px 15px 30px;
 }

@@ -8,7 +8,6 @@ interface IValid {
 const InputTwoLineWrapper = styled.div<IValid>`
 margin-top: 10px;
 width: 100%;
-height: 64px;
 border-radius: ${({ theme }) => theme.borderRadius};
 color: #344966;
 display: flex;
@@ -33,12 +32,13 @@ background-repeat: no-repeat;
         `;
   }}
 .input-icon {
-  padding: 0 24px;
+  padding: 19px 24px;
   height: 100%;
   z-index: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  @media (max-width: 834px) {
+    padding: 13px 13px;
+  }
 }
 .input-icon img {
   width: 24px;
@@ -47,15 +47,27 @@ background-repeat: no-repeat;
 .input-field {
   display: flex;
   flex-direction: column;
+  @media (max-width: 834px) {
+    height: 54px;
+  }
 }
 .name {
   margin-top: 6px;
   font-size: 14px;
   line-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  @media (max-width: 834px) {
+    margin-top: 0;
+    font-size: 12px;
+  }
 }
 .value {
   font-size: 16px;
   line-height: 28px;
+  @media (max-width: 834px) {
+    font-size: 14px;
+  }
 }
 input {
   font-size: 16px;
@@ -63,6 +75,9 @@ input {
   background-color: transparent;
   border: none;
   outline: none;
+  @media (max-width: 834px) {
+    font-size: 14px;
+  }
 }
 .error {
   color: #ff0000;

@@ -12,6 +12,7 @@ interface IOptions {
   bookId: number;
   myRating: number | undefined;
   readOnly?: boolean;
+  size: 'small' | 'medium' | 'large' | undefined;
 }
 
 export const RatingFiveStars: React.FC<IOptions> = (props) => {
@@ -50,14 +51,14 @@ export const RatingFiveStars: React.FC<IOptions> = (props) => {
         <Rating
           precision={0.5}
           value={onRating}
-          size="large"
+          size={props.size}
           readOnly
         />
       ) : (
         <Rating
           precision={0.5}
           value={onRating}
-          size="large"
+          size={props.size}
           onChange={(event, value) => {
             setMyRating(value || 0);
           }}

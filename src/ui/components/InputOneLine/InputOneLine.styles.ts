@@ -11,6 +11,8 @@ max-width: 1280px;
 width: 100%;
 display: flex;
 flex-direction: column;
+overflow: hidden;
+text-overflow: ellipsis; 
 @media (max-width: 1440px) {
   margin-top: 10px;
 }

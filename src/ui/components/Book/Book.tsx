@@ -86,6 +86,7 @@ export const Book: React.FC<PropsType> = (props) => {
       <div className="rating">
         <div className="rating__stars">
           <RatingFiveStars
+            size="large"
             readOnly
             myRating={props.book.averageRating}
             bookId={props.book.id}
@@ -99,14 +100,14 @@ export const Book: React.FC<PropsType> = (props) => {
         ? (
           <Button
             type="button"
-            className="button in-cart"
+            className="purchase-button in-cart"
             text="Added to cart"
           />
         )
         : (
           <Button
             type="button"
-            className="button"
+            className="purchase-button"
             onClick={addToCart}
             text={textButton}
           />

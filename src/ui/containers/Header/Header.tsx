@@ -46,7 +46,8 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper
+    >
       <Link
         className="panel__logotype"
         to={`/${queryString}`}

@@ -16,11 +16,17 @@ flex-direction: row;
   @media (max-width: 1440px) {
     margin-left: 20px;
   }
+  @media (max-width: 834px) {
+    margin: 30px 0 0 0;
+  }
   &-title {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    @media (max-width: 834px) {
+      flex-direction: column;
+    }
   }
   &-inputs {
     margin-top: 10px;
@@ -48,6 +54,9 @@ flex-direction: row;
   @media (max-width: 1440px) {
     font-size: 12px;
     line-height: 18px;
+  }
+  @media (max-width: 834px) {
+    margin-top: 10px;
   }
 }
 .button {

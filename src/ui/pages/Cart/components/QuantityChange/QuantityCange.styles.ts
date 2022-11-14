@@ -5,6 +5,9 @@ margin-top: 50px;
 height: auto;
 display: flex;
 flex-direction: row;
+@media (max-width: 834px) {
+  margin-top: 27px;
+}
 .quantity-change {
   width: 33px;
   height: 33px;
@@ -21,14 +24,22 @@ flex-direction: row;
   background-color: #BFCC94;
 }
 .quantity-books {
+  width: 12px;
+  text-align: center;
   margin: 0 14px;
   font-size: 14px;
   font-weight: 600;
   line-height: 34px;
+  @media (max-width: 834px) {
+    margin: 0 2px;
+  }
 }
 .removal {
   margin-left: 50px;
   background-color: transparent;
+  @media (max-width: 834px) {
+    margin-left: 20px;
+  }
 }
 `;
 

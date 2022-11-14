@@ -27,8 +27,15 @@ justify-content: space-between;
 & .MuiRating-iconHover {
   color: #BFCC94;
 }
-& .MuiRating-icon {
-  padding: 3px 6px 0 6px;
+& .MuiRating-decimal {
+  @media (max-width: 1440px) {
+    width: 20px;
+    height: auto;
+  }
+  @media (max-width: 834px) {
+    width: 18px;
+    height: auto;
+  }
 }
 `;
 

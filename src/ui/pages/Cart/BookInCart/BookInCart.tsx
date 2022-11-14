@@ -24,7 +24,9 @@ export const BookInCart: React.FC<IProps> = (props) => {
         />
       </div>
       <div className="purchase-info">
-        <h1 className="name">{book.name}</h1>
+        <div className="wrapper-name">
+          <h1 className="name">{book.name}</h1>
+        </div>
         <p className="author">{book.author}</p>
         <QuantityChange
           cartId={props.cart.id}

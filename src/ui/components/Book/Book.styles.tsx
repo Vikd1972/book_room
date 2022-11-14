@@ -95,7 +95,7 @@ height: auto;
     line-height: 24px;
   }
   @media (max-width: 834px) {
-    margin: 14px 0 0 0;
+    margin: 10px 0 0 0;
     font-size: 14px;
     line-height: 21px;
   }
@@ -114,7 +114,7 @@ height: auto;
     line-height: 24px;
   }
   @media (max-width: 834px) {
-    margin: 3px 0 0 0;
+    margin: 0;
     font-size: 14px;
     line-height: 21px;
   }
@@ -125,16 +125,30 @@ height: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 834px) {
+    width: 135px;
+  }
   .rating__stars {
     height: auto;
+    @media (max-width: 834px) {
+      width: 105px;
+    }
     & .MuiRating-icon { 
       padding: 0;
     }
     & .MuiRating-decimal { 
       padding: 0 23px 0 0;
+      @media (max-width: 1440px) {
+        padding: 0 20px 0 0;
+      }
+      @media (max-width: 834px) {
+        padding: 0 3px 0 0;
+      }
     }
-    @media (max-width: 834px) {
-      margin-top: 12px;
+    & .MuiRating-root {
+      @media (max-width: 834px) {
+        font-size: 1.3rem;
+      }
     }
   }
   .rating__value {
@@ -145,9 +159,14 @@ height: auto;
     font-weight: 500;
     line-height: 24px;
     color: #B9BAC3;
+    @media (max-width: 834px) {
+      padding-top: 1px;
+      font-size: 13px;
+      line-height: 20px;
+    }
   }
 }
-.button {
+.purchase-button {
   margin-top: 30px;
   width: 100%;
   font-size: 20px;
@@ -167,7 +186,10 @@ height: auto;
   background-color: #ffffff;
   color: #0D1821;
   border: 1px solid #344966;
-  padding: 9px 0 9px 0;
+  padding: 9px 0;
+  @media (max-width: 834px) {
+    padding: 2px 0;
+  }
 }
 `;
 

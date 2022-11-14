@@ -15,8 +15,10 @@ flex-direction: row;
   display: flex;
   flex-direction: column;
   @media (max-width: 1440px) {
-    margin: 40px 0 0 20px;
-    
+    margin: 40px 0 0 20px; 
+  }
+  @media (max-width: 834px) {
+    margin: 30px 0 0 0;
   }
   &-title {
     width: 100%;
@@ -47,6 +49,13 @@ flex-direction: row;
     line-height: 18px;
   }
 }
+.button {
+  margin-top: 50px;
+  width: 170px;
+  @media (max-width: 1440px) {
+    margin-top: 40px;
+  }
+}
 .toast {
   width: 400px;
 }
@@ -54,13 +63,6 @@ flex-direction: row;
   font-family: 'Poppins', sans-serif;
   font-size: 30px;
   color: #ff9999;
-}
-.button {
-  margin-top: 50px;
-  width: 170px;
-  @media (max-width: 1440px) {
-    margin-top: 40px;
-  }
 }
 `;
 

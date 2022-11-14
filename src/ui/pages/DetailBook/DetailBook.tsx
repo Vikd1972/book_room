@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
@@ -45,6 +46,7 @@ export const DetailBook: React.FC = () => {
         setMyRating(getMyRating.rating);
 
         const allCommentsOfBook = await getComments(bookId);
+
         dispatch(getCommentsOfBook(allCommentsOfBook));
       } catch (err) {
         if (err instanceof AxiosError) {
@@ -97,26 +99,29 @@ export const DetailBook: React.FC = () => {
           />
         </div>
         <div className="info">
-          <h1 className="name">{book?.name}</h1>
-          <p className="author">{book?.author}</p>
-          <div className="rating">
-            <RatingOneStar />
-            {user.email && (
-              <div className="rating-my">
-                <RatingFiveStars
-                  readOnly={false}
-                  myRating={myRating}
-                  bookId={Number(bookId)}
-                />
-                <div className="rating-arrow">
-                  <img
-                    src={arrow}
-                    alt="arrow"
+          <div className="info-title">
+            <h1 className="name">{book?.name}</h1>
+            <p className="author">{book?.author}</p>
+            <div className="rating">
+              <RatingOneStar />
+              {user.email && (
+                <div className="rating-my">
+                  <RatingFiveStars
+                    size="large"
+                    readOnly={false}
+                    myRating={myRating}
+                    bookId={Number(bookId)}
                   />
+                  <div className="rating-arrow">
+                    <img
+                      src={arrow}
+                      alt="arrow"
+                    />
+                  </div>
+                  <p>Rate this book</p>
                 </div>
-                <p>Rate this book</p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className="description">
             <h1>Description</h1>
