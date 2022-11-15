@@ -13,9 +13,9 @@ export const Catalog: React.FC = () => {
     <СatalogWrapper>
       <div className="poster">
         <div className="poster__field">
-          <h1 className="poster__field_name">Build your library with us</h1>
-          <p className="poster__field_text">Buy two books and</p>
-          <p className="poster__field_text">get one for free</p>
+          <h1 className="poster__field-name">Build your library with us</h1>
+          <p className="poster__field-text">Buy two books and</p>
+          <p className="poster__field-text">get one for free</p>
           <Button
             type="submit"
             className="button"

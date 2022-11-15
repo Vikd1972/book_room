@@ -15,7 +15,7 @@ import CartWrapper from './Cart.styles';
 
 export const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.users);
+  const cart = useAppSelector((state) => state.users.cart);
   const queryString = useAppSelector((state) => state.books.queryString);
 
   useEffect(() => {
@@ -33,22 +33,22 @@ export const Cart: React.FC = () => {
 
   let total = 0;
 
-  for (const item of users.cart) {
+  for (const item of cart) {
     const pricePerItem = item.count * (item.book.paperbackPrice / 100);
     total += pricePerItem;
   }
 
   return (
     <CartWrapper>
-      {!users.cart.length && <EmptyCart />}
-      {users.cart.map((cart) => (
-        <div key={cart.id}>
+      {!cart.length && <EmptyCart />}
+      {cart.map((item) => (
+        <div key={item.id}>
           <BookInCart
-            cart={cart}
+            cart={item}
           />
         </div>
       ))}
-      {users.cart.length !== 0
+      {cart.length !== 0
         ? (<>
           <p className="total">Total: <b>{total.toFixed(2)}</b></p>
           <div className="buttons">

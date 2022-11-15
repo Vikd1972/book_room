@@ -13,7 +13,7 @@ interface IProps {
 export const BookInCart: React.FC<IProps> = (props) => {
   const book = props.cart.book;
 
-  const textButton = `$ ${(book.paperbackPrice / 100).toFixed(2).toString()} USD`;
+  const textButton = `$ ${((book.paperbackPrice * props.cart.count) / 100).toFixed(2).toString()} USD`;
 
   return (
     <BookInCartWrapper>

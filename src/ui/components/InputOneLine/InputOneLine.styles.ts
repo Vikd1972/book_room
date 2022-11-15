@@ -17,6 +17,7 @@ text-overflow: ellipsis;
   margin-top: 10px;
 }
 .input-field {
+  margin-left: 5px;
   flex-direction: row;
   display: flex;
   border-radius: ${({ theme }) => theme.borderRadius};

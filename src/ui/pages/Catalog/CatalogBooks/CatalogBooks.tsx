@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { addBooks } from '../../../../store/booksSlice';
 import getBooks from '../../../../api/books/getBooks';
+import { setCart, setFavorites } from '../../../../store/usersSlice';
 import getCart from '../../../../api/cart/getCart';
 import showToast from '../../../../validation/showToast';
 import Pagination from './Pagination/Pagination';
@@ -12,7 +14,6 @@ import Book from '../../../components/Book/Book';
 import AuthorizePoster from '../../../components/AuthorizePoster/AuthorizePoster';
 
 import СatalogBooksWrapper from './CatalogBooks.styles';
-import { setCart } from '../../../../store/usersSlice';
 
 export const CatalogBooks: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,17 +24,17 @@ export const CatalogBooks: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const options = {
+        const booksFromSever = await getBooks({
           queryString: books.queryString,
-        };
-        const booksFromSever = await getBooks(options);
+        });
         dispatch(addBooks(booksFromSever));
-        navigate(`${books.queryString}`);
 
-        if (user.email) {
-          const nyCart = await getCart();
-          dispatch(setCart(nyCart));
-        }
+        const myCart = await getCart();
+        dispatch(setCart(myCart));
+
+        dispatch(setFavorites(user.favorites));
+
+        navigate(`${books.queryString}`);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
@@ -44,7 +45,7 @@ export const CatalogBooks: React.FC = () => {
     dispatch,
     navigate,
     books.queryString,
-    user.email,
+    user.favorites,
   ]);
 
   return (

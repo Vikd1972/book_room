@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import type { IBookType } from '../../../store/booksSlice';
-import { setCart, loginUser } from '../../../store/usersSlice';
+import { setCart, setFavorites } from '../../../store/usersSlice';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import addToFavorites from '../../../api/favorites/addToFavorites';
 import RatingFiveStars from '../RatingFiveStars/RatingFiveStars';
@@ -24,18 +24,27 @@ export const Book: React.FC<PropsType> = (props) => {
   const navigate = useNavigate();
   const users = useAppSelector((state) => state.users);
 
-  const favoritesButton = users.userFavorites.includes(props.book.id)
-    ? favoritesActive : favorites;
-
   const currentPrice = props.book.paperbackQuantity
     ? props.book.paperbackPrice : props.book.hardcoverPrice;
 
   const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
   const bookId = props.book.id;
+
+  const idBooksIsFavorites: number[] = [];
+  users.favorites.forEach((item) => {
+    if (item.id) {
+      idBooksIsFavorites.push(item.id);
+    }
+  });
+
+  const favoritesButton = idBooksIsFavorites.includes(bookId) ? favoritesActive : favorites;
+
   const idBooksInCart: number[] = [];
 
   users.cart.forEach((item) => {
-    idBooksInCart.push(item.book.id);
+    if (item.book) {
+      idBooksInCart.push(item.book.id);
+    }
   });
   const isPurchased = idBooksInCart.includes(bookId);
 
@@ -45,6 +54,8 @@ export const Book: React.FC<PropsType> = (props) => {
         navigate('/login');
       }
       const cart = await addBookToCart({ bookId });
+      console.log(cart);
+
       dispatch(setCart(cart));
     } catch (err) {
       console.log(err);
@@ -56,8 +67,10 @@ export const Book: React.FC<PropsType> = (props) => {
       if (!users.user.email) {
         navigate('/login');
       }
-      const newUser = await addToFavorites({ bookId });
-      dispatch(loginUser(newUser));
+      const favorites = await addToFavorites({ bookId });
+      // console.log(favorites);
+
+      dispatch(setFavorites(favorites));
     } catch (err) {
       console.log(err);
     }

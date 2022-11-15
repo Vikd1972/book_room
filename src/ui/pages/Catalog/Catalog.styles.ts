@@ -49,7 +49,7 @@ align-items: center;
   .poster__field {
     display: flex;
     flex-direction: column;
-    &_name {
+    &-name {
       margin-top: 80px;
       font-size: 40px;
       font-weight: 700;
@@ -66,7 +66,7 @@ align-items: center;
         line-height: 27px;
       }
     }
-    &_text {
+    &-text {
       margin: 0;
       font-size: 20px;
       line-height: 30px;

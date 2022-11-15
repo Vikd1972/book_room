@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
   const [searchText, setSearchText] = useState<string>('');
   const url = new URL(window.location.href);
   const count = Array.from(users.cart).reduce((sum, item) => sum + item.count, 0);
-  const favorites = users.userFavorites.length;
+  const favorites = users.favorites.length;
 
   const onSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);

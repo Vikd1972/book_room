@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-closing-tag-location */
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
@@ -33,8 +34,12 @@ export const UserInfo: React.FC = () => {
     validationSchema: schemaUser,
     onSubmit: async (values) => {
       try {
-        const user: IUserType = await changeUserData(values);
-        dispatch(loginUser(user));
+        console.log(values);
+
+        if (values.fullname || values.email) {
+          const user: IUserType = await changeUserData(values);
+          dispatch(loginUser(user));
+        }
         formik.resetForm();
         setIsChange(false);
       } catch (err) {

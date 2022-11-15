@@ -5,11 +5,12 @@ import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import authUser from '../../../api/auth/authUser';
-import { loginUser } from '../../../store/usersSlice';
+import { loginUser, setCart, setFavorites } from '../../../store/usersSlice';
 import type { IUserType } from '../../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
 import schemqaLogin from '../../../validation/schemaLogin';
+import getCart from '../../../api/cart/getCart';
 import type { IValues } from '../User/Interface';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
 import { Button } from '../../components/Button/Buttons';
@@ -35,6 +36,12 @@ export const Login: React.FC = () => {
       try {
         const user: IUserType = await authUser(values);
         dispatch(loginUser(user));
+
+        const myCart = await getCart();
+        dispatch(setCart(myCart));
+
+        dispatch(setFavorites(user.favorites));
+
         navigate(route);
       } catch (err) {
         if (err instanceof AxiosError) {

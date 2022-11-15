@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import instance from '..';
 import type { IUserType } from '../../store/usersSlice';
 
@@ -10,6 +11,8 @@ interface INewUserData {
 }
 
 const changeUserData = async (options: INewUserData) => {
+  console.log(options);
+
   const response = await instance.patch<{ user: IUserType }>('/users', options);
 
   return response.data.user;

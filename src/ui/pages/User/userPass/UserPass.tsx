@@ -33,8 +33,10 @@ export const UserPass: React.FC = () => {
     validationSchema: schemaUser,
     onSubmit: async (values) => {
       try {
-        const user: IUserType = await changeUserData(values);
-        dispatch(loginUser(user));
+        if (values.oldPassword && values.newPassword && values.confirmPassword) {
+          const user: IUserType = await changeUserData(values);
+          dispatch(loginUser(user));
+        }
         formik.resetForm();
         setIsChange(false);
       } catch (err) {

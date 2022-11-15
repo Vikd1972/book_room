@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import instance from '..';
 import type { IUserType } from '../../store/usersSlice';
 
@@ -7,7 +8,7 @@ interface ISignUpParams {
 }
 
 const signUpUser = async (options: ISignUpParams) => {
-  const response = await instance.post<{ user: IUserType; token: string }>('/auth', options);
+  const response = await instance.post<{ user: IUserType; token: string }>('/auth/sign', options);
   localStorage.setItem('token', response.data.token);
 
   return response.data.user;

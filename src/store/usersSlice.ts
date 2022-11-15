@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -9,6 +10,7 @@ export interface IUserType {
   fullname: string;
   email: string;
   photoFilePath: string;
+  cart: ICartType[];
   favorites: IBookType[];
 }
 
@@ -20,8 +22,8 @@ export interface ICartType {
 
 interface IUsersState {
   user: IUserType;
+  favorites: IBookType[];
   cart: ICartType[];
-  userFavorites: number[];
 }
 
 const initialState: IUsersState = {
@@ -30,10 +32,12 @@ const initialState: IUsersState = {
     fullname: '',
     email: '',
     photoFilePath: '',
+    cart: [],
     favorites: [],
+
   },
+  favorites: [],
   cart: [],
-  userFavorites: [],
 };
 
 export const usersSlice = createSlice({
@@ -41,18 +45,17 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action: PayloadAction<IUserType>) => {
-      state.userFavorites = [];
       state.user = initialState.user;
       state.user = action.payload;
-      if (state.user.favorites) {
-        for (const book of Array.from(state.user.favorites)) {
-          state.userFavorites.push(book.id);
-        }
-      }
+      state.cart = action.payload.cart;
+      state.favorites = action.payload.favorites;
     },
     reset: () => initialState,
     setCart: (state, action: PayloadAction<ICartType[]>) => {
       state.cart = action.payload;
+    },
+    setFavorites: (state, action: PayloadAction<IBookType[]>) => {
+      state.favorites = action.payload;
     },
   },
 });
@@ -61,6 +64,7 @@ export const {
   loginUser,
   reset,
   setCart,
+  setFavorites,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

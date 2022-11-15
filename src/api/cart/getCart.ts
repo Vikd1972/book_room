@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import instance from '..';
 import type { ICartType } from '../../store/usersSlice';
 

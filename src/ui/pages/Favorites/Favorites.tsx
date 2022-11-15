@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { AxiosError } from 'axios';
 
@@ -12,12 +13,20 @@ import FavoritesWrapper from './Favorites.styles';
 export const Favorites: React.FC = () => {
   const dispatch = useAppDispatch();
   const books = useAppSelector((state) => state.books.books);
-  const favorites = useAppSelector((state) => state.users.userFavorites);
+  const favorites = useAppSelector((state) => state.users.favorites);
 
   useEffect(() => {
     (async () => {
       try {
-        const favoritesBooks = await getFavoritesBooks(favorites);
+        const idBooksIsFavorites: number[] = [];
+        favorites.forEach((item) => {
+          if (item.id) {
+            idBooksIsFavorites.push(item.id);
+          }
+        });
+        const favoritesBooks = await getFavoritesBooks(idBooksIsFavorites);
+        console.log(favoritesBooks);
+
         dispatch(addRecomBooks(favoritesBooks));
       } catch (err) {
         if (err instanceof AxiosError) {
