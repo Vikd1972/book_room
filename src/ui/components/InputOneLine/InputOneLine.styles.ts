@@ -55,19 +55,19 @@ text-overflow: ellipsis;
 }
 .input-width {
   width: 100%;
-}
-.input-width input {
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 0.75px;
-  width: 100%;
-  height: 64px;
-  background-color: transparent;
-  border: none;
-  font-size: 16px;
-  font-weight: 400;
-  outline: none;
-  @media (max-width: 834px) {
-    height: 48px
+  input {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.75px;
+    width: 100%;
+    height: 64px;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    @media (max-width: 834px) {
+      height: 48px
+    }
   }
 }
 .input-title {

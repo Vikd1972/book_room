@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useMemo } from 'react';
+import dayjs from 'dayjs';
 
 import config from '../../../../../config';
 import type { ICommentType } from '../../../../../store/booksSlice';
@@ -13,16 +14,15 @@ interface IOptions {
 }
 
 export const OneComment: React.FC<IOptions> = (props) => {
-  const today = new Date();
+  dayjs().format();
+  const today = dayjs(new Date());
 
   const userPhoto: string = props.comment.user.photoFilePath?.endsWith('jpeg') ||
     props.comment.user.photoFilePath?.endsWith('png') ? `${config.pathToUserPhoto}${props.comment.user.photoFilePath}` : photo;
 
-  const quantityDays = (commentData: Date) => {
-    return Math.round((
-      new Date(today).getTime() - new Date(commentData).getTime()
-    ) / 86400000);
-  };
+  const quantityDays = useMemo(() => {
+    return today.diff(props.comment.commentData, 'day');
+  }, [props.comment.commentData, today]);
 
   return (
     <OneCommentWrapper>
@@ -35,7 +35,7 @@ export const OneComment: React.FC<IOptions> = (props) => {
       <div className="contents">
         <div>
           <h2>{props.comment.user.fullname}</h2>
-          <h4>Left a comment {quantityDays(props.comment.commentData)} days ago</h4>
+          <h4>Left a comment {quantityDays} days ago</h4>
         </div>
         <div className="comment-wrapper">
           <p>{props.comment.comment}</p>

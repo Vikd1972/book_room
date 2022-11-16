@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Rating from '@mui/material/Rating';
 
 import { useAppDispatch } from '../../../store/hooks';
-import { setOverallRating } from '../../../store/booksSlice';
+import { setAverageRating } from '../../../store/booksSlice';
 import setRating from '../../../api/rating/setRating';
 
 import RatingFiveStarsWrapper from './RatingFiveStars.styles';
@@ -26,7 +26,7 @@ export const RatingFiveStars: React.FC<IOptions> = (props) => {
       if (value) {
         setOnRating(value);
         const ratingBook = await setRating({ onRating: value, bookId });
-        dispatch(setOverallRating(ratingBook));
+        dispatch(setAverageRating(ratingBook));
       }
     } catch (err) {
       console.log(err);

@@ -3,7 +3,7 @@ import instance from '..';
 import type { ICommentType } from '../../store/booksSlice';
 
 interface ICommentsParams {
-  comments: string;
+  comment: string;
   bookId: number;
 }
 

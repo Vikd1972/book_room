@@ -24,10 +24,7 @@ export const Book: React.FC<PropsType> = (props) => {
   const navigate = useNavigate();
   const users = useAppSelector((state) => state.users);
 
-  const currentPrice = props.book.paperbackQuantity
-    ? props.book.paperbackPrice : props.book.hardcoverPrice;
-
-  const textButton = `$ ${currentPrice.toFixed(2).toString()} USD`;
+  const textButton = `$ ${props.book.paperbackPrice.toFixed(2).toString()} USD`;
   const bookId = props.book.id;
 
   const idBooksIsFavorites: number[] = [];
@@ -68,8 +65,6 @@ export const Book: React.FC<PropsType> = (props) => {
         navigate('/login');
       }
       const favorites = await addToFavorites({ bookId });
-      // console.log(favorites);
-
       dispatch(setFavorites(favorites));
     } catch (err) {
       console.log(err);

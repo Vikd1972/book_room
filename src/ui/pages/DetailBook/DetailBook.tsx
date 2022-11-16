@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { setOverallRating, getCommentsOfBook } from '../../../store/booksSlice';
+import { setAverageRating, getCommentsOfBook } from '../../../store/booksSlice';
 import { setCart } from '../../../store/usersSlice';
 import type { IBookType } from '../../../store/booksSlice';
 import { Button } from '../../components/Button/Buttons';
@@ -28,26 +29,26 @@ export const DetailBook: React.FC = () => {
   const user = useAppSelector((state) => state.users.user);
 
   const [book, setBook] = useState<IBookType>();
-  const [myRating, setMyRating] = useState<number>();
+  const [myRating, setMyRating] = useState(0);
 
   const { currentBook } = useParams();
   const bookId = Number(currentBook);
 
-  const userId = user.id;
-
   useEffect(() => {
     (async () => {
       try {
-        const detailBook = await getDetailBooks(bookId);
-        setBook(detailBook);
-        dispatch(setOverallRating(detailBook.averageRating));
-
-        const getMyRating = await getRating({ userId, bookId });
-        setMyRating(getMyRating.rating);
-
-        const allCommentsOfBook = await getComments(bookId);
-
-        dispatch(getCommentsOfBook(allCommentsOfBook));
+        Promise.all([
+          await getDetailBooks(bookId),
+          await getComments(bookId),
+          user.email && await getRating(bookId),
+        ]).then((result) => {
+          setBook(result[0]);
+          dispatch(setAverageRating(result[0].averageRating));
+          dispatch(getCommentsOfBook(result[1]));
+          if (result[2]) {
+            setMyRating(result[2].rating);
+          }
+        });
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
@@ -56,7 +57,6 @@ export const DetailBook: React.FC = () => {
     })();
   }, [
     bookId,
-    userId,
     dispatch,
   ]);
 

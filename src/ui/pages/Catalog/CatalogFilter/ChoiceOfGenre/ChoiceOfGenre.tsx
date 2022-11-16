@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../../../store/hooks';
@@ -7,18 +8,21 @@ import { setQueryString } from '../../../../../store/booksSlice';
 import ChoiceOfGenreWrapper from './ChoiceOfGenre.styles';
 
 export const ChoiceOfGenre: React.FC = () => {
-  const params = useAppSelector((state) => state.books);
+  const allGenres = useAppSelector((state) => state.books.genres);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const url = new URL(window.location.href);
+  const [currentGenres, setCurrentGenres] = useState<string[]>([]);
 
-  const onSelectByGenre = () => {
-    const currentGenres: string[] = [];
-    for (const genre of params.genres) {
-      const checkbox = document.querySelector(`input[name=${genre.name.replace(/[^a-zA-Z]/g, '')}]:checked`) as HTMLInputElement;
-      if (checkbox) {
-        currentGenres.push(checkbox.value);
-      }
+  const onSelectByGenre = (genreId: number) => {
+    const genreIndex = currentGenres.findIndex((item) => item === genreId.toString());
+    const changeGenres = currentGenres;
+    if (genreIndex === -1) {
+      changeGenres.push(genreId.toString());
+      setCurrentGenres(changeGenres);
+    } else {
+      changeGenres.splice(genreIndex, 1);
+      setCurrentGenres(changeGenres);
     }
     if (currentGenres.length) {
       if (url.searchParams.has('genres')) {
@@ -35,14 +39,14 @@ export const ChoiceOfGenre: React.FC = () => {
 
   return (
     <ChoiceOfGenreWrapper>
-      {params.genres.map((genre) => (
+      {allGenres.map((genre) => (
         <div key={genre.id}>
           <label className="checkbox-item">
             <input
               type="checkbox"
               name={genre.name.replace(/[^a-zA-Z]/g, '')}
               value={genre.id}
-              onChange={onSelectByGenre}
+              onChange={() => onSelectByGenre(genre.id)}
             />
             <span className="name-item">{genre.name}</span>
           </label>

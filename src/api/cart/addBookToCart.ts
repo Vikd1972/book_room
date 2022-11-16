@@ -6,7 +6,10 @@ interface IOrderParams {
 }
 
 const addBookToCart = async (option: IOrderParams) => {
-  const response = await instance.post<{ userCart: ICartType[] }>('/cart/add', option);
+  const response = await instance.post<{ userCart: ICartType[] }>(
+    '/cart/add',
+    option,
+  );
 
   return response.data.userCart;
 };

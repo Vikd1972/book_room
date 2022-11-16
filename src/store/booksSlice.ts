@@ -81,13 +81,16 @@ export const booksSlice = createSlice({
       state.serviceInfo = action.payload.serviceInfo;
       state.genres = action.payload.genres;
     },
-    addRecomBooks: (state, action: PayloadAction<IBookType[]>) => {
+    addRecommendationsBooks: (state, action: PayloadAction<IBookType[]>) => {
+      state.books = action.payload;
+    },
+    addFavoritesBooks: (state, action: PayloadAction<IBookType[]>) => {
       state.books = action.payload;
     },
     setQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
-    setOverallRating: (state, action: PayloadAction<number>) => {
+    setAverageRating: (state, action: PayloadAction<number>) => {
       state.ratingBook = action.payload;
     },
     getCommentsOfBook: (state, action: PayloadAction<ICommentType[]>) => {
@@ -98,9 +101,10 @@ export const booksSlice = createSlice({
 
 export const {
   addBooks,
-  addRecomBooks,
+  addRecommendationsBooks,
+  addFavoritesBooks,
   setQueryString,
-  setOverallRating,
+  setAverageRating,
   getCommentsOfBook,
 } = booksSlice.actions;
 

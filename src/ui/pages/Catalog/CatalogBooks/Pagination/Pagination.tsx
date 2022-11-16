@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../../../store/hooks';
@@ -32,14 +33,22 @@ export const Pagination: React.FC = () => {
     className: string;
   }[] = [];
 
-  for (let i = 0; i < books.serviceInfo.quantityPages; i++) {
-    url.searchParams.set('page', (i + 1).toString());
-    pages[i] = {
-      id: i,
-      to: `/${url.search}`,
-      className: `page ${(i + 1) === books.serviceInfo.activePage && 'active'}`,
-    };
-  }
+  useMemo(() => {
+    for (let i = 0; i < books.serviceInfo.quantityPages; i++) {
+      url.searchParams.set('page', (i + 1).toString());
+      pages[i] = {
+        id: i,
+        to: `/${url.search}`,
+        className: `page ${(i + 1) === books.serviceInfo.activePage && 'active'}`,
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    books.serviceInfo.activePage,
+    books.serviceInfo.quantityPages,
+    url.searchParams,
+    url.search,
+  ]);
 
   return (
     <PaginationWrapper>

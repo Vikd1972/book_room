@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 
 import { Button } from '../../../components/Button/Buttons';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
@@ -17,28 +18,26 @@ export const Comments: React.FC<IOptions> = (props) => {
   const commentsOfBook = useAppSelector((state) => state.books.comments);
   const user = useAppSelector((state) => state.users.user);
   const { bookId } = props;
+  const [comment, setComment] = useState<string>('');
 
-  const allCommentsOfBook = [...commentsOfBook];
-
-  allCommentsOfBook.sort(
-    (a, b) => (new Date(a.commentData).getTime()) - (new Date(b.commentData).getTime()),
-  );
+  const addComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
+    console.log(comment);
+  };
 
   const onSendingCommentsText = async (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const comments = (document.getElementById('comments') as HTMLInputElement).value;
-
-    if (comments.length) {
-      const newComments = await setComments({ bookId, comments });
+    if (comment.length) {
+      const newComments = await setComments({ bookId, comment });
       dispatch(getCommentsOfBook(newComments));
+      setComment('');
     }
-    (document.getElementById('comments') as HTMLInputElement).value = '';
   };
 
   return (
     <CommentsWrapper>
       <h1>Comments</h1>
-      {allCommentsOfBook.map((comment) => (
+      {commentsOfBook.map((comment) => (
         <div key={comment.id}>
           <OneComment
             comment={comment}
@@ -53,7 +52,9 @@ export const Comments: React.FC<IOptions> = (props) => {
             <textarea
               id="comments"
               name="comments"
+              value={comment}
               placeholder="Share a comment"
+              onChange={addComment}
             />
           </div>
           <Button

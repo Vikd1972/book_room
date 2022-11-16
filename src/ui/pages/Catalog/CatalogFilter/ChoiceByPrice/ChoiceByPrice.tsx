@@ -8,45 +8,67 @@ import { setQueryString } from '../../../../../store/booksSlice';
 
 import СhoiceByPriceWrapper from './ChoiceByPrice.styles';
 
-export const СhoiceByPrice: React.FC = () => {
+interface IOption {
+  priceValue: number[];
+  changePrice: (newPrice: number[]) => void;
+}
+
+export const СhoiceByPrice: React.FC<IOption> = (props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
   const url = new URL(window.location.href);
 
-  const onSelectByPrice = (event: React.SyntheticEvent | Event, newPrice: number | number[]) => {
-    setPriceValue(newPrice as number[]);
-    if (Array.isArray(newPrice)) {
-      if (newPrice[0] > 0 || newPrice[1] < 100) {
-        if (url.searchParams.has('price')) {
-          url.searchParams.set('price', newPrice.join(','));
-        } else {
-          url.searchParams.append('price', newPrice.join(','));
-        }
-      } else {
-        url.searchParams.delete('price');
-      }
-    }
-    dispatch(setQueryString(url.search));
+  const onSelectByPrice = (event: Event, newPrice: number | number[]) => {
+    props.changePrice(newPrice as number[]);
+
+    // console.log(event);
+
+    // if (Array.isArray(newPrice)) {
+    //   if (newPrice[0] > 0 || newPrice[1] < 100) {
+    //     if (url.searchParams.has('price')) {
+    //       url.searchParams.set('price', newPrice.join(','));
+    //     } else {
+    //       url.searchParams.append('price', newPrice.join(','));
+    //     }
+    //   } else {
+    //     url.searchParams.delete('price');
+    //   }
+    // }
+    // boolPr = true;
+    // dispatch(setQueryString(url.search));
     navigate(url.search);
+    const slider = document.getElementById('slider');
+    slider?.addEventListener('mouseup', (event) => {
+      event.preventDefault();
+      console.log(props.priceValue);
+    });
   };
+
+  // if (boolPr) setTimeout(() => currentPriceValue(), 2000);
+
+  // const currentPriceValue = () => {
+  //   console.log(props.priceValue);
+  //   boolPr = false;
+  // };
 
   return (
     <СhoiceByPriceWrapper>
-      <div className="slider-container">
+      <div
+        id="slader"
+        className="slider-container"
+      >
         <Slider
           className="slider"
-          getAriaLabel={() => 'Temperature range'}
-          value={priceValue}
+          value={props.priceValue}
           max={100}
-          onChangeCommitted={onSelectByPrice}
+          onChange={onSelectByPrice}
         />
         <div className="value-price">
           <div>
-            {`$ ${priceValue[0].toFixed(2)}`}
+            {`$ ${props.priceValue[0].toFixed(2)}`}
           </div>
           <div>
-            {`$ ${priceValue[1].toFixed(2)}`}
+            {`$ ${props.priceValue[1].toFixed(2)}`}
           </div>
         </div>
       </div>

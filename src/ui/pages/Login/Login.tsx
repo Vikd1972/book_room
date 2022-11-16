@@ -6,7 +6,6 @@ import { AxiosError } from 'axios';
 
 import authUser from '../../../api/auth/authUser';
 import { loginUser, setCart, setFavorites } from '../../../store/usersSlice';
-import type { IUserType } from '../../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
 import schemqaLogin from '../../../validation/schemaLogin';
@@ -34,15 +33,15 @@ export const Login: React.FC = () => {
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
       try {
-        const user: IUserType = await authUser(values);
-        dispatch(loginUser(user));
-
-        const myCart = await getCart();
-        dispatch(setCart(myCart));
-
-        dispatch(setFavorites(user.favorites));
-
-        navigate(route);
+        Promise.all([
+          await authUser(values),
+          await getCart(),
+        ]).then((result) => {
+          dispatch(loginUser(result[0]));
+          dispatch(setCart(result[1]));
+          dispatch(setFavorites(result[0].favorites));
+          navigate(route);
+        });
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.response?.data.message);

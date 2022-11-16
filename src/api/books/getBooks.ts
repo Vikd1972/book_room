@@ -7,7 +7,9 @@ interface IOptions {
 }
 
 const getBooks = async (options: IOptions) => {
-  const response = await instance.get<IBooksState>(`/books/${options.queryString}`);
+  const response = await instance.get<IBooksState>(
+    `/books/${options.queryString}`,
+  );
 
   return response.data;
 };

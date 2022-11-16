@@ -7,9 +7,12 @@ interface IDeleteParams {
 }
 
 const deleteBookInCart = async (options: IDeleteParams) => {
-  const response = await instance.delete<{ userCart: ICartType[] }>('/cart', {
-    data: options,
-  });
+  const response = await instance.delete<{ userCart: ICartType[] }>(
+    '/cart',
+    {
+      data: options,
+    },
+  );
 
   return response.data.userCart;
 };

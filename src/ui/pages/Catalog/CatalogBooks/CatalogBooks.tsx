@@ -19,33 +19,31 @@ export const CatalogBooks: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const books = useAppSelector((state) => state.books);
-  const user = useAppSelector((state) => state.users.user);
+  const users = useAppSelector((state) => state.users);
 
   useEffect(() => {
     (async () => {
       try {
-        const booksFromSever = await getBooks({
-          queryString: books.queryString,
+        Promise.all([
+          await getBooks({ queryString: books.queryString }),
+          users.user.email && await getCart(),
+        ]).then((result) => {
+          dispatch(addBooks(result[0]));
+          if (result[1]) {
+            dispatch(setCart(result[1] || []));
+          }
+          dispatch(setFavorites(users.favorites));
+          navigate(`${books.queryString}`);
         });
-        dispatch(addBooks(booksFromSever));
-
-        const myCart = await getCart();
-        dispatch(setCart(myCart));
-
-        dispatch(setFavorites(user.favorites));
-
-        navigate(`${books.queryString}`);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
         }
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    dispatch,
-    navigate,
     books.queryString,
-    user.favorites,
   ]);
 
   return (
@@ -61,7 +59,7 @@ export const CatalogBooks: React.FC = () => {
       </СatalogBooksWrapper >
 
       <Pagination />
-      {!user.email && <AuthorizePoster />}
+      {!users.user.email && <AuthorizePoster />}
     </>
   );
 };

@@ -8,7 +8,10 @@ interface IOrderParams {
 }
 
 const quantityChange = async (options: IOrderParams) => {
-  const response = await instance.patch<{ userCart: ICartType[] }>('/cart/change', options);
+  const response = await instance.patch<{ userCart: ICartType[] }>(
+    '/cart/change',
+    options,
+  );
 
   return response.data.userCart;
 };

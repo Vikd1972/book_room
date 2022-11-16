@@ -13,9 +13,12 @@ export const CatalogFilter: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [isSelectByGenre, setIsSelectByGenre] = useState(false);
-  const [isSelectByPrice, setIsSelectByPrice] = useState(false);
-  const [isSortingBy, setSortingBy] = useState(false);
+  const [filterBy, setFilterBy] = useState('');
+  const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
+
+  const changePrice = (newPriceValue: number[]) => {
+    setPriceValue(newPriceValue);
+  };
 
   const url = new URL(window.location.href);
   const sort = url.searchParams.get('sort') || '...';
@@ -24,57 +27,34 @@ export const CatalogFilter: React.FC = () => {
   const chooseByPrice = document.getElementById('choose-by-price');
   const chooseBySort = document.getElementById('choose-by-sort');
 
+  // chooseByPrice?.addEventListener('mouseup', (event) => {
+  //   event.preventDefault();
+  //   console.log('priceValue');
+  // });
+
   document.onclick = (e) => {
     if (chooseByGenre && chooseByPrice && chooseBySort) {
       const choose = e.target as HTMLElement;
       if (!choose.closest('#choose-by-genre') &&
         !choose.closest('#choose-by-price') &&
         !choose.closest('#choose-by-sort')) {
-        setIsSelectByGenre(false);
-        setIsSelectByPrice(false);
-        setSortingBy(false);
+        setFilterBy('');
       }
     }
   };
 
-  const selectByGenre = () => {
-    setIsSelectByGenre(!isSelectByGenre);
-    setIsSelectByPrice(false);
-    setSortingBy(false);
-    if (!isSelectByGenre) {
-      url.searchParams.delete('genres');
-      dispatch(setQueryString(url.search));
-      navigate(url.search);
-    }
-  };
-
-  const selectByPrice = () => {
-    setIsSelectByPrice(!isSelectByPrice);
-    setIsSelectByGenre(false);
-    setSortingBy(false);
-    if (!isSelectByPrice) {
-      url.searchParams.delete('price');
-      dispatch(setQueryString(url.search));
-      navigate(url.search);
-    }
-  };
-
-  const sortBy = () => {
-    setSortingBy(!isSortingBy);
-    setIsSelectByGenre(false);
-    setIsSelectByPrice(false);
-    if (!isSortingBy) {
-      url.searchParams.delete('sort');
-      dispatch(setQueryString(url.search));
-      navigate(url.search);
-    }
+  const selectBy = (type: string) => {
+    setFilterBy(type);
+    url.searchParams.delete(type);
+    dispatch(setQueryString(url.search));
+    navigate(url.search);
   };
 
   return (
     <СatalogFilterWrapper
-      genre={isSelectByGenre}
-      price={isSelectByPrice}
-      sort={isSortingBy}
+      genre={filterBy === 'genres'}
+      price={filterBy === 'price'}
+      sort={filterBy === 'sort'}
     >
       <div className="title">Catalog</div>
       <div className="filter-bank">
@@ -83,33 +63,36 @@ export const CatalogFilter: React.FC = () => {
           className="filter-wrapper"
         >
           <div
-            onClick={selectByGenre}
+            onClick={() => selectBy('genres')}
             className="filter genre"
           >Genre
           </div>
-          {isSelectByGenre && <ChoiceOfGenre />}
+          {filterBy === 'genres' && <ChoiceOfGenre />}
         </div>
         <div
           id="choose-by-price"
           className="filter-wrapper"
         >
           <div
-            onClick={selectByPrice}
+            onClick={() => selectBy('price')}
             className="filter price"
           >Price
           </div>
-          {isSelectByPrice && <ChoiceByPrice />}
+          {filterBy === 'price' && (<ChoiceByPrice
+            changePrice={changePrice}
+            priceValue={priceValue}
+          />)}
         </div>
         <div
           id="choose-by-sort"
           className="filter-wrapper"
         >
           <div
-            onClick={sortBy}
+            onClick={() => selectBy('sort')}
             className="filter sort"
           >{`Sort by ${sort.split(' ')[0]}`}
           </div>
-          {isSortingBy && <SortBy />}
+          {filterBy === 'sort' && <SortBy />}
         </div>
       </div>
     </СatalogFilterWrapper >

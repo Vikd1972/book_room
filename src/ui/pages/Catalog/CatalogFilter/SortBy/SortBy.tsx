@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../../store/hooks';
@@ -10,6 +10,7 @@ export const SortBy: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const url = new URL(window.location.href);
+  const [activeItem, setActiveItem] = useState<number>();
   const sortTypes = [
     'Price',
     'Name',
@@ -18,13 +19,8 @@ export const SortBy: React.FC = () => {
     'Date of ussue',
   ];
 
-  const onSortingBy = (name: string) => {
-    const othersItems = document.querySelectorAll('.sorting');
-    for (const item of othersItems) {
-      item?.classList.remove('active');
-    }
-    const activeItem = document.querySelector(`#${name.replace(/[^a-zA-Z]/g, '')}`);
-    activeItem?.classList.add('active');
+  const onSortingBy = (name: string, index: number) => {
+    setActiveItem(index);
     if (url.searchParams.has('sort')) {
       url.searchParams.set('sort', name);
     } else {
@@ -36,12 +32,12 @@ export const SortBy: React.FC = () => {
 
   return (
     <SortByWrapper>
-      {sortTypes.map((sort) => (
-        <div key={sort}>
+      {sortTypes.map((sort, index) => (
+        <div key={index}>
           <p
             id={sort.replace(/[^a-zA-Z]/g, '')}
-            onClick={() => onSortingBy(sort)}
-            className="sorting"
+            onClick={() => onSortingBy(sort, index)}
+            className={`sorting ${activeItem === index && 'active'}`}
           >{sort}
           </p>
         </div>
