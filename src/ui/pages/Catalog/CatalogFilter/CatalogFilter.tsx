@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import ChoiceOfGenre from '../CatalogFilter/ChoiceOfGenre/ChoiceOfGenre';
@@ -9,30 +9,18 @@ import СatalogFilterWrapper from './CatalogFilter.styles';
 
 export const CatalogFilter: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const ref = useRef<HTMLDivElement>(null);
 
   const [filterBy, setFilterBy] = useState('');
-  const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
 
+  const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
   const changePrice = (newPriceValue: number[]) => {
     setPriceValue(newPriceValue);
   };
 
   const sort = searchParams.get('sort') || '...';
 
-  const chooseByGenre = document.getElementById('choose-by-genre');
   const chooseByPrice = document.getElementById('choose-by-price');
-  const chooseBySort = document.getElementById('choose-by-sort');
-
-  document.onclick = (e) => {
-    if (chooseByGenre && chooseByPrice && chooseBySort) {
-      const choose = e.target as HTMLElement;
-      if (!choose.closest('#choose-by-genre') &&
-        !choose.closest('#choose-by-price') &&
-        !choose.closest('#choose-by-sort')) {
-        setFilterBy('');
-      }
-    }
-  };
 
   if (chooseByPrice) {
     chooseByPrice.onmouseup = () => {
@@ -52,11 +40,23 @@ export const CatalogFilter: React.FC = () => {
     setFilterBy(type);
   };
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleClickOutside = ({ target }: MouseEvent): void => {
+    if (ref.current && !ref.current?.contains(target as Node)) {
+      setFilterBy('');
+    }
+  };
+
   return (
     <СatalogFilterWrapper
       genre={filterBy === 'genres'}
       price={filterBy === 'price'}
       sort={filterBy === 'sort'}
+      ref={ref}
     >
       <div className="title">Catalog</div>
       <div className="filter-bank">
