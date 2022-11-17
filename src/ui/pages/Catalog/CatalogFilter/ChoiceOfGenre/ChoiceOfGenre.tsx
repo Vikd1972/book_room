@@ -1,40 +1,36 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch } from '../../../../../store/hooks';
-import { setQueryString } from '../../../../../store/booksSlice';
+import { useAppSelector } from '../../../../../store/hooks';
 
 import ChoiceOfGenreWrapper from './ChoiceOfGenre.styles';
 
 export const ChoiceOfGenre: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const allGenres = useAppSelector((state) => state.books.genres);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const url = new URL(window.location.href);
-  const [currentGenres, setCurrentGenres] = useState<string[]>([]);
+
+  const queryByGenres = searchParams.get('genres')?.split(',');
+  const [currentGenres, setCurrentGenres] = useState<string[]>(queryByGenres || []);
 
   const onSelectByGenre = (genreId: number) => {
     const genreIndex = currentGenres.findIndex((item) => item === genreId.toString());
-    const changeGenres = currentGenres;
+
     if (genreIndex === -1) {
-      changeGenres.push(genreId.toString());
-      setCurrentGenres(changeGenres);
+      currentGenres.push(genreId.toString());
+      setCurrentGenres(currentGenres);
     } else {
-      changeGenres.splice(genreIndex, 1);
-      setCurrentGenres(changeGenres);
+      currentGenres.splice(genreIndex, 1);
+      setCurrentGenres(currentGenres);
     }
+
     if (currentGenres.length) {
-      if (url.searchParams.has('genres')) {
-        url.searchParams.set('genres', currentGenres.join(','));
-      } else {
-        url.searchParams.append('genres', currentGenres.join(','));
-      }
+      searchParams.set('genres', currentGenres.join(','));
+      setSearchParams(searchParams);
     } else {
-      url.searchParams.delete('genres');
+      searchParams.delete('genres');
+      setSearchParams(searchParams);
     }
-    dispatch(setQueryString(url.search));
-    navigate(url.search);
   };
 
   return (
@@ -44,8 +40,7 @@ export const ChoiceOfGenre: React.FC = () => {
           <label className="checkbox-item">
             <input
               type="checkbox"
-              name={genre.name.replace(/[^a-zA-Z]/g, '')}
-              value={genre.id}
+              checked={currentGenres.includes((genre.id.toString())) && true}
               onChange={() => onSelectByGenre(genre.id)}
             />
             <span className="name-item">{genre.name}</span>

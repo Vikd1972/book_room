@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { ICartType } from '../../../../store/usersSlice';
-import config from '../../../../config';
 import QuantityChange from '../components/QuantityChange/QuantityChange';
 
 import BookInCartWrapper from './BookInCart.styles';
@@ -19,7 +18,7 @@ export const BookInCart: React.FC<IProps> = (props) => {
     <BookInCartWrapper>
       <div className="cover-container">
         <img
-          src={`${config.pathToCover}${book.pathToCover}`}
+          src={book.pathToCover}
           alt="cover"
         />
       </div>

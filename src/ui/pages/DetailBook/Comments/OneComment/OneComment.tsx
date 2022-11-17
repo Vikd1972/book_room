@@ -2,7 +2,6 @@
 import React, { useMemo } from 'react';
 import dayjs from 'dayjs';
 
-import config from '../../../../../config';
 import type { ICommentType } from '../../../../../store/booksSlice';
 
 import photo from '../../../../assets/picture/user_photo.png';
@@ -17,8 +16,7 @@ export const OneComment: React.FC<IOptions> = (props) => {
   dayjs().format();
   const today = dayjs(new Date());
 
-  const userPhoto: string = props.comment.user.photoFilePath?.endsWith('jpeg') ||
-    props.comment.user.photoFilePath?.endsWith('png') ? `${config.pathToUserPhoto}${props.comment.user.photoFilePath}` : photo;
+  const userPhoto: string = `${props.comment.user.photoFilePath}` || photo;
 
   const quantityDays = useMemo(() => {
     return today.diff(props.comment.commentData, 'day');

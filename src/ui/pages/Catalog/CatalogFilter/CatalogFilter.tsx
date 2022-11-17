@@ -1,17 +1,14 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
-import { useAppDispatch } from '../../../../store/hooks';
-import { setQueryString } from '../../../../store/booksSlice';
 import ChoiceOfGenre from '../CatalogFilter/ChoiceOfGenre/ChoiceOfGenre';
 import ChoiceByPrice from '../CatalogFilter/ChoiceByPrice/ChoiceByPrice';
 import SortBy from '../CatalogFilter/SortBy/SortBy';
 import СatalogFilterWrapper from './CatalogFilter.styles';
 
 export const CatalogFilter: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [filterBy, setFilterBy] = useState('');
   const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
@@ -20,17 +17,11 @@ export const CatalogFilter: React.FC = () => {
     setPriceValue(newPriceValue);
   };
 
-  const url = new URL(window.location.href);
-  const sort = url.searchParams.get('sort') || '...';
+  const sort = searchParams.get('sort') || '...';
 
   const chooseByGenre = document.getElementById('choose-by-genre');
   const chooseByPrice = document.getElementById('choose-by-price');
   const chooseBySort = document.getElementById('choose-by-sort');
-
-  // chooseByPrice?.addEventListener('mouseup', (event) => {
-  //   event.preventDefault();
-  //   console.log('priceValue');
-  // });
 
   document.onclick = (e) => {
     if (chooseByGenre && chooseByPrice && chooseBySort) {
@@ -43,11 +34,22 @@ export const CatalogFilter: React.FC = () => {
     }
   };
 
+  if (chooseByPrice) {
+    chooseByPrice.onmouseup = () => {
+      if (Array.isArray(priceValue)) {
+        if (priceValue[0] === 0 && priceValue[1] === 100) {
+          searchParams.delete('price');
+          setSearchParams(searchParams);
+        } else {
+          searchParams.set('price', priceValue.join(','));
+          setSearchParams(searchParams);
+        }
+      }
+    };
+  }
+
   const selectBy = (type: string) => {
     setFilterBy(type);
-    url.searchParams.delete(type);
-    dispatch(setQueryString(url.search));
-    navigate(url.search);
   };
 
   return (
