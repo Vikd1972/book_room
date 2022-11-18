@@ -16,11 +16,11 @@ z-index: 999;
   left: 0px;
   width: 230px;
 }
-@media (max-width: 1440px) {
-  top: 55px;
-  left: 0px;
-  width: 265px;
-}
+  @media (max-width: 834px) {
+    top: 55px;
+    left: 0px;
+    width: 265px;
+  }
 .sorting {
   margin: 6px 0;
   color: #B9BAC3;

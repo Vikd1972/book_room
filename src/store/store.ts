@@ -7,6 +7,9 @@ const store = configureStore({
     users: usersReducer,
     books: booksReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 
 export type RootStateType = ReturnType<typeof store.getState>;

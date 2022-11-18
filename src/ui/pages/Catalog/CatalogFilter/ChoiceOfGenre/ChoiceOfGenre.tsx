@@ -1,5 +1,5 @@
-/* eslint-disable no-console */
-import React, { useState, useRef, useEffect } from 'react';
+/* eslint-disable no-unused-expressions */
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../../store/hooks';
@@ -10,27 +10,24 @@ export const ChoiceOfGenre: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const allGenres = useAppSelector((state) => state.books.genres);
 
-  const queryByGenres = searchParams.get('genres')?.split(',');
-  const [currentGenres, setCurrentGenres] = useState<string[]>(queryByGenres || []);
+  const [currentGenres, setCurrentGenres] = useState<string[]>(
+    searchParams.get('genres')?.split(',') || [],
+  );
 
   const onSelectByGenre = (genreId: number) => {
     const genreIndex = currentGenres.findIndex((item) => item === genreId.toString());
 
-    if (genreIndex === -1) {
-      currentGenres.push(genreId.toString());
-      setCurrentGenres(currentGenres);
-    } else {
-      currentGenres.splice(genreIndex, 1);
-      setCurrentGenres(currentGenres);
-    }
+    genreIndex === -1
+      ? currentGenres.push(genreId.toString())
+      : currentGenres.splice(genreIndex, 1);
 
-    if (currentGenres.length) {
-      searchParams.set('genres', currentGenres.join(','));
-      setSearchParams(searchParams);
-    } else {
-      searchParams.delete('genres');
-      setSearchParams(searchParams);
-    }
+    setCurrentGenres(currentGenres);
+
+    currentGenres.length
+      ? searchParams.set('genres', currentGenres.join(','))
+      : searchParams.delete('genres');
+
+    setSearchParams(searchParams);
   };
 
   return (

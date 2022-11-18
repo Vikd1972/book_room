@@ -4,8 +4,8 @@ import { AxiosError } from 'axios';
 import { useSearchParams } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
-import { addBooks, setQueryString } from '../../../../store/booksSlice';
-import getBooks from '../../../../api/books/getBooks';
+import { setQueryString } from '../../../../store/booksSlice';
+import { getBooksThunk } from '../../../../store/booksThunks';
 import { setCart, setFavorites } from '../../../../store/usersSlice';
 import getCart from '../../../../api/cart/getCart';
 import showToast from '../../../../validation/showToast';
@@ -25,14 +25,16 @@ export const CatalogBooks: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
+        const queryString = `?${searchParams.toString()}`;
+        await dispatch(getBooksThunk(queryString)).unwrap();
         Promise.all([
-          await getBooks({ queryString: `?${searchParams.toString()}` }),
           users.user.email && await getCart(),
+          // await getBooks(queryString),
         ]).then((result) => {
-          dispatch(addBooks(result[0]));
+          // dispatch(addBooks(result[0]));
 
-          if (result[1]) {
-            dispatch(setCart(result[1] || []));
+          if (result[0]) {
+            dispatch(setCart(result[0] || []));
           }
 
           dispatch(setFavorites(users.favorites));

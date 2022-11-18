@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { IUserType } from './usersSlice';
+import { getBooksThunk } from './booksThunks';
 
 export interface IBookType {
   id: number;
@@ -76,10 +78,8 @@ export const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addBooks: (state, action: PayloadAction<IBooksState>) => {
-      state.books = action.payload.books;
-      state.serviceInfo = action.payload.serviceInfo;
-      state.genres = action.payload.genres;
+    setAverageRating: (state, action: PayloadAction<number>) => {
+      state.ratingBook = action.payload;
     },
     addRecommendationsBooks: (state, action: PayloadAction<IBookType[]>) => {
       state.books = action.payload;
@@ -90,17 +90,21 @@ export const booksSlice = createSlice({
     setQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
-    setAverageRating: (state, action: PayloadAction<number>) => {
-      state.ratingBook = action.payload;
-    },
     getCommentsOfBook: (state, action: PayloadAction<ICommentType[]>) => {
       state.comments = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(getBooksThunk.fulfilled, (state, action) => {
+      state.books = action.payload.data.books;
+      state.serviceInfo = action.payload.data.serviceInfo;
+      state.genres = action.payload.data.genres;
+    });
+  },
 });
 
 export const {
-  addBooks,
+  // addBooks,
   addRecommendationsBooks,
   addFavoritesBooks,
   setQueryString,

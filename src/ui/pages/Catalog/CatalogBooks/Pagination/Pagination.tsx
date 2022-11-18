@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../../../store/hooks';
 import { setQueryString } from '../../../../../store/booksSlice';

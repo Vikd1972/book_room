@@ -1,3 +1,4 @@
+import type { AxiosResponse } from 'axios';
 import instance from '..';
 
 import type { IBookType } from '../../store/booksSlice';

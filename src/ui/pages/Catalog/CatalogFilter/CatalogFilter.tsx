@@ -8,41 +8,25 @@ import SortBy from '../CatalogFilter/SortBy/SortBy';
 import СatalogFilterWrapper from './CatalogFilter.styles';
 
 export const CatalogFilter: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const ref = useRef<HTMLDivElement>(null);
 
   const [filterBy, setFilterBy] = useState('');
-
   const [priceValue, setPriceValue] = useState<number[]>([0, 100]);
-  const changePrice = (newPriceValue: number[]) => {
-    setPriceValue(newPriceValue);
-  };
 
   const sort = searchParams.get('sort') || '...';
 
-  const chooseByPrice = document.getElementById('choose-by-price');
-
-  if (chooseByPrice) {
-    chooseByPrice.onmouseup = () => {
-      if (Array.isArray(priceValue)) {
-        if (priceValue[0] === 0 && priceValue[1] === 100) {
-          searchParams.delete('price');
-          setSearchParams(searchParams);
-        } else {
-          searchParams.set('price', priceValue.join(','));
-          setSearchParams(searchParams);
-        }
-      }
-    };
-  }
+  const changePrice = (newPriceValue: number[]) => {
+    setPriceValue(newPriceValue);
+  };
 
   const selectBy = (type: string) => {
     setFilterBy(type);
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   const handleClickOutside = ({ target }: MouseEvent): void => {
@@ -60,10 +44,7 @@ export const CatalogFilter: React.FC = () => {
     >
       <div className="title">Catalog</div>
       <div className="filter-bank">
-        <div
-          id="choose-by-genre"
-          className="filter-wrapper"
-        >
+        <div className="filter-wrapper">
           <div
             onClick={() => selectBy('genres')}
             className="filter genre"
@@ -71,10 +52,7 @@ export const CatalogFilter: React.FC = () => {
           </div>
           {filterBy === 'genres' && <ChoiceOfGenre />}
         </div>
-        <div
-          id="choose-by-price"
-          className="filter-wrapper"
-        >
+        <div className="filter-wrapper">
           <div
             onClick={() => selectBy('price')}
             className="filter price"
@@ -85,10 +63,7 @@ export const CatalogFilter: React.FC = () => {
             priceValue={priceValue}
           />)}
         </div>
-        <div
-          id="choose-by-sort"
-          className="filter-wrapper"
-        >
+        <div className="filter-wrapper">
           <div
             onClick={() => selectBy('sort')}
             className="filter sort"
