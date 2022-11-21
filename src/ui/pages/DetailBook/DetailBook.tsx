@@ -5,13 +5,14 @@ import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { setAverageRating, getCommentsOfBook } from '../../../store/booksSlice';
-import { setCart } from '../../../store/usersSlice';
+import { setAverageRating } from '../../../store/booksSlice';
+// import { setCart } from '../../../store/usersSlice';
+import { getCartThunk } from '../../../store/usersThunks';
 import type { IBookType } from '../../../store/booksSlice';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
+import { getCommentsThunk } from '../../../store/booksThunks';
 import getDetailBooks from '../../../api/books/getDetailBook';
-import getComments from '../../../api/comments/getComments';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import getRating from '../../../api/rating/getRating';
 import RatingFiveStars from '../../components/RatingFiveStars/RatingFiveStars';
@@ -37,16 +38,15 @@ export const DetailBook: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
+        dispatch(getCommentsThunk(bookId));
         Promise.all([
           await getDetailBooks(bookId),
-          await getComments(bookId),
           user.email && await getRating(bookId),
         ]).then((result) => {
           setBook(result[0]);
           dispatch(setAverageRating(result[0].averageRating));
-          dispatch(getCommentsOfBook(result[1]));
-          if (result[2]) {
-            setMyRating(result[2].rating);
+          if (result[1]) {
+            setMyRating(result[1].rating);
           }
         });
       } catch (err) {
@@ -80,8 +80,8 @@ export const DetailBook: React.FC = () => {
     try {
       if (book) {
         const bookId = book?.id;
-        const cart = await addBookToCart({ bookId });
-        dispatch(setCart(cart));
+        await addBookToCart({ bookId });
+        await dispatch(getCartThunk()).unwrap();
       }
     } catch (err) {
       // eslint-disable-next-line no-console

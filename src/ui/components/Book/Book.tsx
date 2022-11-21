@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import type { IBookType } from '../../../store/booksSlice';
-import { setCart, setFavorites } from '../../../store/usersSlice';
+import { setFavorites } from '../../../store/usersSlice';
+import { getCartThunk } from '../../../store/usersThunks';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import addToFavorites from '../../../api/favorites/addToFavorites';
 import RatingFiveStars from '../RatingFiveStars/RatingFiveStars';
@@ -50,10 +51,8 @@ export const Book: React.FC<PropsType> = (props) => {
       if (!users.user.email) {
         navigate('/login');
       }
-      const cart = await addBookToCart({ bookId });
-      console.log(cart);
-
-      dispatch(setCart(cart));
+      await addBookToCart({ bookId });
+      await dispatch(getCartThunk()).unwrap();
     } catch (err) {
       console.log(err);
     }

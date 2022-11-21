@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import instance from '..';
 import type { ICartType } from '../../store/usersSlice';
 
@@ -10,8 +11,9 @@ const addBookToCart = async (option: IOrderParams) => {
     '/cart/add',
     option,
   );
+  console.log(response);
 
-  return response.data.userCart;
+  return response.status;
 };
 
 export default addBookToCart;

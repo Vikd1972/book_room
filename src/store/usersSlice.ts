@@ -3,6 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+import { getCartThunk } from './usersThunks';
 import type { IBookType } from './booksSlice';
 
 export interface IUserType {
@@ -51,19 +52,20 @@ export const usersSlice = createSlice({
       state.favorites = action.payload.favorites;
     },
     reset: () => initialState,
-    setCart: (state, action: PayloadAction<ICartType[]>) => {
-      state.cart = action.payload;
-    },
     setFavorites: (state, action: PayloadAction<IBookType[]>) => {
       state.favorites = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getCartThunk.fulfilled, (state, action) => {
+      state.cart = action.payload.data.userCart;
+    });
   },
 });
 
 export const {
   loginUser,
   reset,
-  setCart,
   setFavorites,
 } = usersSlice.actions;
 

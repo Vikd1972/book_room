@@ -13,7 +13,7 @@ const quantityChange = async (options: IOrderParams) => {
     options,
   );
 
-  return response.data.userCart;
+  return response;
 };
 
 export default quantityChange;

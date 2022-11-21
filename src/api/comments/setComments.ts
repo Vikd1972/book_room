@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import type { AxiosResponse } from 'axios';
 import instance from '..';
 import type { ICommentType } from '../../store/booksSlice';
 
@@ -7,8 +8,12 @@ interface ICommentsParams {
   bookId: number;
 }
 
-const setComments = async (options: ICommentsParams) => {
-  const response = await instance.post<{ commentsOfBook: ICommentType[] }>('/comments', options);
+type ResponseType = {
+  commentsOfBook: ICommentType[];
+};
+
+const setComments = async (options: ICommentsParams): Promise<AxiosResponse<ResponseType>> => {
+  const response = await instance.post('/comments', options);
 
   return response.data.commentsOfBook;
 };

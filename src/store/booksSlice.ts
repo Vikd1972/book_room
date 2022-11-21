@@ -3,7 +3,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { IUserType } from './usersSlice';
-import { getBooksThunk } from './booksThunks';
+import {
+  getBooksThunk,
+  getRecommendationsBookThunk,
+  getFavoritesBookThunk,
+  getCommentsThunk,
+} from './booksThunks';
 
 export interface IBookType {
   id: number;
@@ -81,18 +86,18 @@ export const booksSlice = createSlice({
     setAverageRating: (state, action: PayloadAction<number>) => {
       state.ratingBook = action.payload;
     },
-    addRecommendationsBooks: (state, action: PayloadAction<IBookType[]>) => {
-      state.books = action.payload;
-    },
-    addFavoritesBooks: (state, action: PayloadAction<IBookType[]>) => {
-      state.books = action.payload;
-    },
     setQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
-    getCommentsOfBook: (state, action: PayloadAction<ICommentType[]>) => {
-      state.comments = action.payload;
-    },
+    // addRecommendationsBooks: (state, action: PayloadAction<IBookType[]>) => {
+    //   state.books = action.payload;
+    // },
+    // addFavoritesBooks: (state, action: PayloadAction<IBookType[]>) => {
+    //   state.books = action.payload;
+    // },
+    // getCommentsOfBook: (state, action: PayloadAction<ICommentType[]>) => {
+    //   state.comments = action.payload;
+    // },
   },
   extraReducers: (builder) => {
     builder.addCase(getBooksThunk.fulfilled, (state, action) => {
@@ -100,16 +105,22 @@ export const booksSlice = createSlice({
       state.serviceInfo = action.payload.data.serviceInfo;
       state.genres = action.payload.data.genres;
     });
+    builder.addCase(getRecommendationsBookThunk.fulfilled, (state, action) => {
+      state.books = action.payload.data.books;
+    });
+    builder.addCase(getFavoritesBookThunk.fulfilled, (state, action) => {
+      state.books = action.payload.data.books;
+    });
+    builder.addCase(getCommentsThunk.fulfilled, (state, action) => {
+      state.comments = action.payload.data.commentsOfBook;
+    });
   },
 });
 
 export const {
-  // addBooks,
-  addRecommendationsBooks,
-  addFavoritesBooks,
   setQueryString,
   setAverageRating,
-  getCommentsOfBook,
+  // getCommentsOfBook,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

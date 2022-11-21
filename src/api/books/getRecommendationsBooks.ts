@@ -1,11 +1,17 @@
+/* eslint-disable no-console */
+import type { AxiosResponse } from 'axios';
 import instance from '..';
 
 import type { IBookType } from '../../store/booksSlice';
 
-const getRecommendationsBooks = async () => {
-  const response = await instance.get<{ books: IBookType[] }>('/books/random');
+type ResponseType = {
+  books: IBookType[];
+};
 
-  return response.data.books;
+const getRecommendationsBooks = async (): Promise<AxiosResponse<ResponseType>> => {
+  const response = await instance.get('/books/random');
+
+  return response;
 };
 
 export default getRecommendationsBooks;

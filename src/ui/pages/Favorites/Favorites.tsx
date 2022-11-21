@@ -5,8 +5,7 @@ import { AxiosError } from 'axios';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import Book from '../../components/Book/Book';
 import showToast from '../../../validation/showToast';
-import { addFavoritesBooks } from '../../../store/booksSlice';
-import getFavoritesBooks from '../../../api/favorites/getFavoritesBooks';
+import { getFavoritesBookThunk } from '../../../store/booksThunks';
 
 import FavoritesWrapper from './Favorites.styles';
 
@@ -24,8 +23,7 @@ export const Favorites: React.FC = () => {
             idBooksIsFavorites.push(item.id);
           }
         });
-        const favoritesBooks = await getFavoritesBooks(idBooksIsFavorites);
-        dispatch(addFavoritesBooks(favoritesBooks));
+        await dispatch(getFavoritesBookThunk(idBooksIsFavorites));
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);

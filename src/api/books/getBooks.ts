@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { AxiosResponse } from 'axios';
 import instance from '..';
 

@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { setCart } from '../../../store/usersSlice';
-import getCart from '../../../api/cart/getCart';
+import { getCartThunk } from '../../../store/usersThunks';
 import showToast from '../../../validation/showToast';
 import EmptyCart from './EmptyCart/EmptyCart';
 import BookInCart from './BookInCart/BookInCart';
@@ -21,8 +20,7 @@ export const Cart: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const myCart = await getCart();
-        dispatch(setCart(myCart));
+        await dispatch(getCartThunk());
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);

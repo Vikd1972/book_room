@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setQueryString } from '../../../store/booksSlice';
@@ -15,6 +16,7 @@ import user from '../../assets/picture/user_profile.png';
 import HeaderWrapper from './Header.styles';
 
 export const Header: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const queryString = useAppSelector((state) => state.books.queryString);
   const users = useAppSelector((state) => state.users);
@@ -31,16 +33,12 @@ export const Header: React.FC = () => {
   const onSendingSearchText = (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (searchText.length) {
-      console.log(searchText);
-      if (url.searchParams.has('search')) {
-        url.searchParams.set('search', searchText);
-      } else {
-        url.searchParams.append('search', searchText);
-      }
-    } else {
-      url.searchParams.delete('search');
-    }
+    searchText.length
+      ? searchParams.set('search', searchText)
+      : searchParams.delete('search');
+
+    setSearchParams(searchParams);
+
     dispatch(setQueryString(url.search));
     setSearchText('');
   };

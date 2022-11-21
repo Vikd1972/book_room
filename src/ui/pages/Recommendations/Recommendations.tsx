@@ -4,8 +4,7 @@ import { AxiosError } from 'axios';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import Book from '../../components/Book/Book';
 import showToast from '../../../validation/showToast';
-import { addRecommendationsBooks } from '../../../store/booksSlice';
-import getRecommendationsBooks from '../../../api/books/getRecommendationsBooks';
+import { getRecommendationsBookThunk } from '../../../store/booksThunks';
 
 import RecommendationsWrapper from './Recommendations.styles';
 
@@ -16,8 +15,7 @@ export const Recommendations: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const recommendationsBooks = await getRecommendationsBooks();
-        dispatch(addRecommendationsBooks(recommendationsBooks));
+        await dispatch(getRecommendationsBookThunk()).unwrap();
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);

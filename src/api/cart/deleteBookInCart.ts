@@ -14,7 +14,7 @@ const deleteBookInCart = async (options: IDeleteParams) => {
     },
   );
 
-  return response.data.userCart;
+  return response;
 };
 
 export default deleteBookInCart;

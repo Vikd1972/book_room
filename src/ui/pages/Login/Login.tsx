@@ -5,11 +5,11 @@ import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import authUser from '../../../api/auth/authUser';
-import { loginUser, setCart, setFavorites } from '../../../store/usersSlice';
+import { loginUser, setFavorites } from '../../../store/usersSlice';
+import { getCartThunk } from '../../../store/usersThunks';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
 import schemqaLogin from '../../../validation/schemaLogin';
-import getCart from '../../../api/cart/getCart';
 import type { IValues } from '../User/Interface';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
 import { Button } from '../../components/Button/Buttons';
@@ -33,12 +33,11 @@ export const Login: React.FC = () => {
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
       try {
+        await dispatch(getCartThunk()).unwrap();
         Promise.all([
           await authUser(values),
-          await getCart(),
         ]).then((result) => {
           dispatch(loginUser(result[0]));
-          dispatch(setCart(result[1]));
           dispatch(setFavorites(result[0].favorites));
           navigate(route);
         });

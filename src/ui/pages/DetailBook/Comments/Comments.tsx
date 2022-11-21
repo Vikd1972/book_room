@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { Button } from '../../../components/Button/Buttons';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import setComments from '../../../../api/comments/setComments';
-import { getCommentsOfBook } from '../../../../store/booksSlice';
 import OneComment from './OneComment/OneComment';
+import { getCommentsThunk } from '../../../../store/booksThunks';
 
 import CommentsWrapper from './Comments.styles';
 
@@ -28,8 +28,8 @@ export const Comments: React.FC<IOptions> = (props) => {
   const onSendingCommentsText = async (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (comment.length) {
-      const newComments = await setComments({ bookId, comment });
-      dispatch(getCommentsOfBook(newComments));
+      await setComments({ bookId, comment });
+      await dispatch(getCommentsThunk(bookId)).unwrap();
       setComment('');
     }
   };

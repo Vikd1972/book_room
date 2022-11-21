@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../../../store/hooks';
 
 import quantityChange from '../../../../../api/cart/quantityChange';
 import deleteBookInCart from '../../../../../api/cart/deleteBookInCart';
-import { setCart } from '../../../../../store/usersSlice';
+import { getCartThunk } from '../../../../../store/usersThunks';
 
 import reduction from '../../../../assets/picture/minus.png';
 import addition from '../../../../assets/picture/plus.png';
@@ -27,8 +27,8 @@ export const QuantityCange: React.FC<IProps> = (props) => {
           cartId: props.cartId,
           count: props.count - 1,
         };
-        const cart = await quantityChange(options);
-        dispatch(setCart(cart));
+        await quantityChange(options);
+        await dispatch(getCartThunk()).unwrap();
       }
     } catch (err) {
       console.log(err);
@@ -42,8 +42,8 @@ export const QuantityCange: React.FC<IProps> = (props) => {
           cartId: props.cartId,
           count: props.count + 1,
         };
-        const cart = await quantityChange(options);
-        dispatch(setCart(cart));
+        await quantityChange(options);
+        await dispatch(getCartThunk()).unwrap();
       }
     } catch (err) {
       console.log(err);
@@ -55,8 +55,8 @@ export const QuantityCange: React.FC<IProps> = (props) => {
       const options = {
         cartId: props.cartId,
       };
-      const cart = await deleteBookInCart(options);
-      dispatch(setCart(cart));
+      await deleteBookInCart(options);
+      await dispatch(getCartThunk()).unwrap();
     } catch (err) {
       console.log(err);
     }
