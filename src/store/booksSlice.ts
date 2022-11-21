@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -8,6 +7,7 @@ import {
   getRecommendationsBookThunk,
   getFavoritesBookThunk,
   getCommentsThunk,
+  getDetailBooksThunk,
 } from './booksThunks';
 
 export interface IBookType {
@@ -89,15 +89,6 @@ export const booksSlice = createSlice({
     setQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
-    // addRecommendationsBooks: (state, action: PayloadAction<IBookType[]>) => {
-    //   state.books = action.payload;
-    // },
-    // addFavoritesBooks: (state, action: PayloadAction<IBookType[]>) => {
-    //   state.books = action.payload;
-    // },
-    // getCommentsOfBook: (state, action: PayloadAction<ICommentType[]>) => {
-    //   state.comments = action.payload;
-    // },
   },
   extraReducers: (builder) => {
     builder.addCase(getBooksThunk.fulfilled, (state, action) => {
@@ -105,8 +96,12 @@ export const booksSlice = createSlice({
       state.serviceInfo = action.payload.data.serviceInfo;
       state.genres = action.payload.data.genres;
     });
+    builder.addCase(getDetailBooksThunk.fulfilled, (state, action) => {
+      state.books[0] = action.payload.data.book;
+      state.ratingBook = action.payload.data.book.averageRating;
+    });
     builder.addCase(getRecommendationsBookThunk.fulfilled, (state, action) => {
-      state.books = action.payload.data.books;
+      state.books = [...action.payload.data.books];
     });
     builder.addCase(getFavoritesBookThunk.fulfilled, (state, action) => {
       state.books = action.payload.data.books;
@@ -120,7 +115,6 @@ export const booksSlice = createSlice({
 export const {
   setQueryString,
   setAverageRating,
-  // getCommentsOfBook,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

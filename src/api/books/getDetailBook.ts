@@ -3,12 +3,16 @@ import instance from '..';
 
 import type { IBookType } from '../../store/booksSlice';
 
-const getDetailBooks = async (bookId: number) => {
-  const response = await instance.get<{ book: IBookType }>(
+type ResponseType = {
+  book: IBookType;
+};
+
+const getDetailBooks = async (bookId: number): Promise<AxiosResponse<ResponseType>> => {
+  const response = await instance.get(
     `/books/detail/?bookId=${bookId}`,
   );
 
-  return response.data.book;
+  return response;
 };
 
 export default getDetailBooks;

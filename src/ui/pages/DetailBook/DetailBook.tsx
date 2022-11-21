@@ -5,14 +5,10 @@ import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { setAverageRating } from '../../../store/booksSlice';
-// import { setCart } from '../../../store/usersSlice';
 import { getCartThunk } from '../../../store/usersThunks';
-import type { IBookType } from '../../../store/booksSlice';
+import { getCommentsThunk, getDetailBooksThunk } from '../../../store/booksThunks';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
-import { getCommentsThunk } from '../../../store/booksThunks';
-import getDetailBooks from '../../../api/books/getDetailBook';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import getRating from '../../../api/rating/getRating';
 import RatingFiveStars from '../../components/RatingFiveStars/RatingFiveStars';
@@ -28,8 +24,8 @@ import DetailBookWrapper from './DetailBook.styles';
 export const DetailBook: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.users.user);
+  const book = useAppSelector((state) => state.books.books[0]);
 
-  const [book, setBook] = useState<IBookType>();
   const [myRating, setMyRating] = useState(0);
 
   const { currentBook } = useParams();
@@ -38,17 +34,12 @@ export const DetailBook: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        dispatch(getCommentsThunk(bookId));
-        Promise.all([
-          await getDetailBooks(bookId),
-          user.email && await getRating(bookId),
-        ]).then((result) => {
-          setBook(result[0]);
-          dispatch(setAverageRating(result[0].averageRating));
-          if (result[1]) {
-            setMyRating(result[1].rating);
-          }
-        });
+        await dispatch(getDetailBooksThunk(bookId));
+        await dispatch(getCommentsThunk(bookId));
+        if (user.email) {
+          const rating = await getRating(bookId);
+          setMyRating(rating.rating);
+        }
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);

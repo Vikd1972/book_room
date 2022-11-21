@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { AxiosError } from 'axios';
 
@@ -11,6 +12,7 @@ import RecommendationsWrapper from './Recommendations.styles';
 export const Recommendations: React.FC = () => {
   const dispatch = useAppDispatch();
   const books = useAppSelector((state) => state.books.books);
+  // console.log(books);
 
   useEffect(() => {
     (async () => {
@@ -22,6 +24,7 @@ export const Recommendations: React.FC = () => {
         }
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   return (
