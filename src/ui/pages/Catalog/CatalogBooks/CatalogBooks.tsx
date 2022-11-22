@@ -40,9 +40,7 @@ export const CatalogBooks: React.FC = () => {
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    books.queryString,
     searchParams,
-    dispatch,
   ]);
 
   return (
