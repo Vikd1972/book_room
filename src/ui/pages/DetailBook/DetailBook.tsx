@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
@@ -34,8 +35,8 @@ export const DetailBook: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        await dispatch(getDetailBooksThunk(bookId));
-        await dispatch(getCommentsThunk(bookId));
+        await dispatch(getDetailBooksThunk(bookId)).unwrap();
+        await dispatch(getCommentsThunk(bookId)).unwrap();
         if (user.email) {
           const rating = await getRating(bookId);
           setMyRating(rating.rating);
@@ -55,17 +56,16 @@ export const DetailBook: React.FC = () => {
   let textButtonHardcover = '';
 
   const currentPricePaperback = book?.paperbackPrice;
-  if (!book?.paperbackQuantity) {
-    textButtonPaperback = 'Not available';
-  } else {
-    textButtonPaperback = `$ ${currentPricePaperback?.toFixed(2).toString()} USD`;
-  }
+
+  !book?.paperbackQuantity
+    ? textButtonPaperback = 'Not available'
+    : textButtonPaperback = `$ ${currentPricePaperback?.toFixed(2).toString()} USD`;
+
   const currentPriceHardcover = book?.hardcoverPrice;
-  if (!book?.hardcoverQuantity) {
-    textButtonHardcover = 'Not available';
-  } else {
-    textButtonHardcover = `$ ${currentPriceHardcover?.toFixed(2).toString()} USD`;
-  }
+
+  !book?.hardcoverQuantity
+    ? textButtonHardcover = 'Not available'
+    : textButtonHardcover = `$ ${currentPriceHardcover?.toFixed(2).toString()} USD`;
 
   const addToCart = async () => {
     try {

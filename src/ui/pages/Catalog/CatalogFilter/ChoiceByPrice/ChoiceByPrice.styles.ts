@@ -11,7 +11,7 @@ z-index: 999;
   left: 0;
   width: 290px;
 }
-@media (max-width: 1440px) {
+@media (max-width: 834px) {
   top: 60px;
   left: 0;
 }

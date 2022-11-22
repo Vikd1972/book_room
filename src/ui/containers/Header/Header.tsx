@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { setQueryString } from '../../../store/booksSlice';
+import { useAppSelector } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
 
 import logo from '../../assets/picture/logo_dark.png';
@@ -17,12 +15,10 @@ import HeaderWrapper from './Header.styles';
 
 export const Header: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
   const queryString = useAppSelector((state) => state.books.queryString);
   const users = useAppSelector((state) => state.users);
 
   const [searchText, setSearchText] = useState<string>('');
-  const url = new URL(window.location.href);
   const count = Array.from(users.cart).reduce((sum, item) => sum + item.count, 0);
   const favorites = users.favorites.length;
 
@@ -38,8 +34,6 @@ export const Header: React.FC = () => {
       : searchParams.delete('search');
 
     setSearchParams(searchParams);
-
-    dispatch(setQueryString(url.search));
     setSearchText('');
   };
 

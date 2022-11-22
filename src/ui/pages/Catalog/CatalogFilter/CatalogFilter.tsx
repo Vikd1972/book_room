@@ -5,6 +5,9 @@ import { useSearchParams } from 'react-router-dom';
 import ChoiceOfGenre from '../CatalogFilter/ChoiceOfGenre/ChoiceOfGenre';
 import ChoiceByPrice from '../CatalogFilter/ChoiceByPrice/ChoiceByPrice';
 import SortBy from '../CatalogFilter/SortBy/SortBy';
+
+import arrow_right from '../../../assets/picture/arrow_right.png';
+
 import СatalogFilterWrapper from './CatalogFilter.styles';
 
 export const CatalogFilter: React.FC = () => {
@@ -37,9 +40,7 @@ export const CatalogFilter: React.FC = () => {
 
   return (
     <СatalogFilterWrapper
-      genre={filterBy === 'genres'}
-      price={filterBy === 'price'}
-      sort={filterBy === 'sort'}
+      filtertBy={filterBy}
       ref={ref}
     >
       <div className="title">Catalog</div>
@@ -49,6 +50,9 @@ export const CatalogFilter: React.FC = () => {
             onClick={() => selectBy('genres')}
             className="filter genre"
           >Genre
+            <div>
+              <img src={arrow_right} alt="arrow_right" />
+            </div>
           </div>
           {filterBy === 'genres' && <ChoiceOfGenre />}
         </div>
@@ -57,6 +61,9 @@ export const CatalogFilter: React.FC = () => {
             onClick={() => selectBy('price')}
             className="filter price"
           >Price
+            <div>
+              <img src={arrow_right} alt="arrow_right" />
+            </div>
           </div>
           {filterBy === 'price' && (<ChoiceByPrice
             changePrice={changePrice}
@@ -68,6 +75,9 @@ export const CatalogFilter: React.FC = () => {
             onClick={() => selectBy('sort')}
             className="filter sort"
           >{`Sort by ${sort.split(' ')[0]}`}
+            <div>
+              <img src={arrow_right} alt="arrow_right" />
+            </div>
           </div>
           {filterBy === 'sort' && <SortBy />}
         </div>

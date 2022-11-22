@@ -55,6 +55,7 @@ align-items: center;
       font-weight: 700;
       line-height: 60px;
       color: #0D1821;
+      white-space: nowrap;
       @media (max-width: 1440px) {
         margin-top: 46px;
         font-size: 32px;
@@ -111,9 +112,6 @@ align-items: center;
 .button {
   margin-top: 50px;
   width: 230px;
-  @media (max-width: 1440px) {
-   margin-top: 40px;
-  }
   @media (max-width: 1440px) {
    margin-top: 20px;
    width: 200px;

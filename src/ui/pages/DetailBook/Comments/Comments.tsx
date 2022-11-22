@@ -22,7 +22,6 @@ export const Comments: React.FC<IOptions> = (props) => {
 
   const addComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
-    console.log(comment);
   };
 
   const onSendingCommentsText = async (e: React.KeyboardEvent<HTMLFormElement>) => {

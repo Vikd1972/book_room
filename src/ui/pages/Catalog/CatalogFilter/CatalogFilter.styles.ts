@@ -1,12 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import arrow_right from '../../../assets/picture/arrow_right.png';
-import arrow_bottom from '../../../assets/picture/arrow_bottom.png';
-
 export interface IPicture {
-  genre?: boolean;
-  price?: boolean;
-  sort?: boolean;
+  filtertBy: string;
 }
 
 const СatalogFilterWrapper = styled.div<IPicture>`
@@ -62,19 +57,22 @@ justify-content: space-between;
   margin-left: 20px;
   background-color: ${({ theme }) => theme.backrground};
   border-radius: ${({ theme }) => theme.borderRadius};
-  padding: 10px 0 0 15px;
   letter-spacing: 0.75px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-repeat: no-repeat;
+  padding: 10px 15px 0 15px;
   cursor: pointer;
   @media (max-width: 1440px) {
     margin-left: 0;
-    padding: 10px 0 0 15px;
-    width: 240px;
+    padding: 10px 15px 0 15px;
+    width: 225px;
     height: 38px;
   }
   @media (max-width: 834px) {
     margin-top: 20px;
-    padding: 10px 0 0 15px;
+    padding: 10px 15px 0 15px;
     width: 275px;
     height: 38px;
   }
@@ -82,84 +80,35 @@ justify-content: space-between;
 .filter-wrapper{
   position: relative;
 }
-.genre {
+.genre img {
   ${(props) => {
-    if (props.genre) {
+    if (props.filtertBy === 'genres') {
       return css`
-          background-image: url(${arrow_bottom});
-          background-position: 185px 20px;
-          @media (max-width: 1440px) {
-            background-position: 225px 20px;
-          }
-          @media (max-width: 834px) {
-            background-position: 263px 20px;
-          }
+          transform: rotate(90deg);
           `;
     }
-    return css`
-        background-image: url(${arrow_right});
-        background-position: 185px 17px;
-        @media (max-width: 1440px) {
-          background-position: 228px 17px;
-        }
-        @media (max-width: 834px) {
-          background-position: 268px 17px;
-        }
-    `;
   }};
 }
-.price {
+.price img {
   ${(props) => {
-    if (props.price) {
+    if (props.filtertBy === 'price') {
       return css`
-          background-image: url(${arrow_bottom});
-          background-position: 185px 20px;
-          @media (max-width: 1440px) {
-            background-position: 225px 20px;
-          }
-          @media (max-width: 834px) {
-            background-position: 263px 20px;
-          }
+          transform: rotate(90deg);
           `;
     }
-    return css`
-        background-image: url(${arrow_right});
-        background-position: 185px 17px;
-        @media (max-width: 1440px) {
-          background-position: 228px 17px;
-        }
-        @media (max-width: 834px) {
-          background-position: 268px 17px;
-        }
-    `;
   }};
 }
 .sort {
+  background-color: white;
+}
+.sort img {
   ${(props) => {
-    if (props.sort) {
+    if (props.filtertBy === 'sort') {
       return css`
-          background-image: url(${arrow_bottom});
-          background-position: 185px 20px;
-          @media (max-width: 1440px) {
-            background-position: 225px 20px;
-          }
-          @media (max-width: 834px) {
-            background-position: 263px 20px;
-          }
+          transform: rotate(90deg);
           `;
     }
-    return css`
-        background-image: url(${arrow_right});
-        background-position: 185px 17px;
-        @media (max-width: 1440px) {
-          background-position: 228px 17px;
-        }
-        @media (max-width: 834px) {
-          background-position: 268px 17px;
-        }
-    `;
   }};
-  background-color: white;
 }
 `;
 
