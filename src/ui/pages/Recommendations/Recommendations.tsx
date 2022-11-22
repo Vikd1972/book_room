@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
@@ -12,7 +13,8 @@ import RecommendationsWrapper from './Recommendations.styles';
 export const Recommendations: React.FC = () => {
   const dispatch = useAppDispatch();
   const books = useAppSelector((state) => state.books.books);
-  // console.log(books);
+
+  const { currentBook } = useParams();
 
   useEffect(() => {
     (async () => {
@@ -25,13 +27,17 @@ export const Recommendations: React.FC = () => {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [
+    dispatch,
+    currentBook,
+  ]);
 
+  const newBooks = books.filter((item, index) => index !== 0);
   return (
     <RecommendationsWrapper>
       <div className="title">Recommendations</div>
       <div className="books">
-        {books.map((book) => (
+        {newBooks.map((book) => (
           <div key={book.id}>
             <Book
               book={book}

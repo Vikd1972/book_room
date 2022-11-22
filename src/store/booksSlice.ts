@@ -101,7 +101,11 @@ export const booksSlice = createSlice({
       state.ratingBook = action.payload.data.book.averageRating;
     });
     builder.addCase(getRecommendationsBookThunk.fulfilled, (state, action) => {
-      state.books = [...action.payload.data.books];
+      state.books.length = 1;
+      state.books = [
+        ...state.books,
+        ...action.payload.data.books,
+      ];
     });
     builder.addCase(getFavoritesBookThunk.fulfilled, (state, action) => {
       state.books = action.payload.data.books;

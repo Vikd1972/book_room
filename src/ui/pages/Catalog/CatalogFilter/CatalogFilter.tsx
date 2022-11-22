@@ -41,10 +41,11 @@ export const CatalogFilter: React.FC = () => {
   return (
     <СatalogFilterWrapper
       filtertBy={filterBy}
-      ref={ref}
     >
       <div className="title">Catalog</div>
-      <div className="filter-bank">
+      <div className="filter-bank"
+        ref={ref}
+      >
         <div className="filter-wrapper">
           <div
             onClick={() => selectBy('genres')}
