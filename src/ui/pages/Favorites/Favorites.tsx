@@ -11,8 +11,8 @@ import FavoritesWrapper from './Favorites.styles';
 
 export const Favorites: React.FC = () => {
   const dispatch = useAppDispatch();
-  const books = useAppSelector((state) => state.books.books);
   const favorites = useAppSelector((state) => state.users.favorites);
+  const books = useAppSelector((state) => state.books.books);
 
   useEffect(() => {
     (async () => {

@@ -33,9 +33,9 @@ export const Login: React.FC = () => {
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
       try {
-        await dispatch(getCartThunk()).unwrap();
         Promise.all([
           await authUser(values),
+          await dispatch(getCartThunk()).unwrap(),
         ]).then((result) => {
           dispatch(loginUser(result[0]));
           dispatch(setFavorites(result[0].favorites));

@@ -7,7 +7,7 @@ const getRating = async (bookId: number) => {
     `/rating/?bookId=${bookId}`,
   );
 
-  return response.data.myRating;
+  return response.data.myRating.rating;
 };
 
 export default getRating;

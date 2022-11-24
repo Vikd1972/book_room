@@ -108,7 +108,7 @@ export const booksSlice = createSlice({
       ];
     });
     builder.addCase(getFavoritesBookThunk.fulfilled, (state, action) => {
-      state.books = action.payload.data.books;
+      state.books = action.payload.data.books || initialState.books;
     });
     builder.addCase(getCommentsThunk.fulfilled, (state, action) => {
       state.comments = action.payload.data.commentsOfBook;

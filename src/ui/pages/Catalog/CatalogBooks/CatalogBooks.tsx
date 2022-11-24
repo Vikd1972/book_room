@@ -26,12 +26,13 @@ export const CatalogBooks: React.FC = () => {
     (async () => {
       try {
         const queryString = searchParams.toString() ? `?${searchParams.toString()}` : '';
-        await dispatch(getBooksThunk(queryString)).unwrap();
-        if (users.user.email) {
-          await dispatch(getCartThunk()).unwrap();
-        }
-        dispatch(setFavorites(users.favorites));
-        dispatch(setQueryString(queryString));
+        Promise.all([
+          await dispatch(getBooksThunk(queryString)).unwrap(),
+          users.user.email && await dispatch(getCartThunk()).unwrap(),
+        ]).then(() => {
+          dispatch(setFavorites(users.favorites));
+          dispatch(setQueryString(queryString));
+        });
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);

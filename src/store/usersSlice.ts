@@ -55,6 +55,14 @@ export const usersSlice = createSlice({
     setFavorites: (state, action: PayloadAction<IBookType[]>) => {
       state.favorites = action.payload;
     },
+    changeFavorites: (state, action: PayloadAction<IBookType>) => {
+      const bookIndex = state.favorites.findIndex((item) => item.id === action.payload.id);
+      if (bookIndex !== -1) {
+        state.favorites?.splice(bookIndex, 1);
+      } else {
+        state.favorites?.push(action.payload);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCartThunk.fulfilled, (state, action) => {
@@ -67,6 +75,7 @@ export const {
   loginUser,
   reset,
   setFavorites,
+  changeFavorites,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -11,7 +11,6 @@ const addBookToCart = async (option: IOrderParams) => {
     '/cart/add',
     option,
   );
-  console.log(response);
 
   return response.status;
 };

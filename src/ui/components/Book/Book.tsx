@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import type { IBookType } from '../../../store/booksSlice';
-import { setFavorites } from '../../../store/usersSlice';
+import { changeFavorites } from '../../../store/usersSlice';
 import { getCartThunk } from '../../../store/usersThunks';
 import addBookToCart from '../../../api/cart/addBookToCart';
-import addToFavorites from '../../../api/favorites/addToFavorites';
+import addOrRemoveToFavorites from '../../../api/favorites/addOrRemoveToFavorites';
 import RatingFiveStars from '../RatingFiveStars/RatingFiveStars';
 import { Button } from '../Button/Buttons';
 
@@ -28,23 +28,31 @@ export const Book: React.FC<PropsType> = (props) => {
   const textButton = `$ ${props.book.paperbackPrice.toFixed(2).toString()} USD`;
   const bookId = props.book.id;
 
-  const idBooksIsFavorites: number[] = [];
-  users.favorites.forEach((item) => {
-    if (item.id) {
-      idBooksIsFavorites.push(item.id);
-    }
-  });
+  const favoritesButton = useMemo(() => {
+    const idBooksIsFavorites: number[] = [];
+    users.favorites.forEach((item) => {
+      if (item.id) {
+        idBooksIsFavorites.push(item.id);
+      }
+    });
+    return idBooksIsFavorites.includes(bookId) ? favoritesActive : favorites;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    users.favorites,
+  ]);
 
-  const favoritesButton = idBooksIsFavorites.includes(bookId) ? favoritesActive : favorites;
-
-  const idBooksInCart: number[] = [];
-
-  users.cart.forEach((item) => {
-    if (item.book) {
-      idBooksInCart.push(item.book.id);
-    }
-  });
-  const isPurchased = idBooksInCart.includes(bookId);
+  const isPurchased = useMemo(() => {
+    const idBooksInCart: number[] = [];
+    users.cart.forEach((item) => {
+      if (item.book) {
+        idBooksInCart.push(item.book.id);
+      }
+    });
+    return idBooksInCart.includes(bookId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    users.cart,
+  ]);
 
   const addToCart = async () => {
     try {
@@ -63,8 +71,10 @@ export const Book: React.FC<PropsType> = (props) => {
       if (!users.user.email) {
         navigate('/login');
       }
-      const favorites = await addToFavorites({ bookId });
-      dispatch(setFavorites(favorites));
+      const result = await addOrRemoveToFavorites({ bookId });
+      if (result.status === 200) {
+        dispatch(changeFavorites(props.book));
+      }
     } catch (err) {
       console.log(err);
     }

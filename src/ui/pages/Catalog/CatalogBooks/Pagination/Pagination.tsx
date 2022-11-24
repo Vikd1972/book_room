@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../../store/hooks';
@@ -25,15 +25,19 @@ export const Pagination: React.FC = () => {
     searchParams.set('page', (pageNumber).toString());
     setSearchParams(searchParams);
   };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const pages: IPage[] = [];
 
-  useEffect(() => {
+  useMemo(() => {
     for (let i = 0; i < books.serviceInfo.quantityPages; i++) {
       pages[i] = {
         id: i,
         className: `page ${(i + 1) === books.serviceInfo.activePage && 'active'}`,
       };
+    }
+    const currentPage = searchParams.get('page') || '1';
+    if (Number(currentPage) > books.serviceInfo.quantityPages) {
+      searchParams.set('page', (books.serviceInfo.activePage).toString());
+      setSearchParams(searchParams);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

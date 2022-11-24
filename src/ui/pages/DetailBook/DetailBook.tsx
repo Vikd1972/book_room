@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
@@ -24,7 +24,7 @@ import DetailBookWrapper from './DetailBook.styles';
 
 export const DetailBook: React.FC = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.users.user);
+  const users = useAppSelector((state) => state.users);
   const book = useAppSelector((state) => state.books.books[0]);
 
   const [myRating, setMyRating] = useState(0);
@@ -32,15 +32,31 @@ export const DetailBook: React.FC = () => {
   const { currentBook } = useParams();
   const bookId = Number(currentBook);
 
+  const isPurchased = useMemo(() => {
+    const idBooksInCart: number[] = [];
+    users.cart.forEach((item) => {
+      if (item.book) {
+        idBooksInCart.push(item.book.id);
+      }
+    });
+    return idBooksInCart.includes(bookId);
+  }, [
+    bookId,
+    users.cart,
+  ]);
+
   useEffect(() => {
     (async () => {
       try {
-        await dispatch(getDetailBooksThunk(bookId)).unwrap();
-        await dispatch(getCommentsThunk(bookId)).unwrap();
-        if (user.email) {
-          const rating = await getRating(bookId);
-          setMyRating(rating.rating);
-        }
+        Promise.all([
+          await dispatch(getDetailBooksThunk(bookId)).unwrap(),
+          await dispatch(getCommentsThunk(bookId)).unwrap(),
+          users.user.email && await getRating(bookId),
+        ]).then(
+          (result) => {
+            setMyRating(Number(result[2]));
+          },
+        );
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
@@ -95,7 +111,7 @@ export const DetailBook: React.FC = () => {
             <p className="author">{book?.author}</p>
             <div className="rating">
               <RatingOneStar />
-              {user.email && (
+              {users.user.email && (
                 <div className="rating-my">
                   <RatingFiveStars
                     size="large"
@@ -120,22 +136,44 @@ export const DetailBook: React.FC = () => {
           </div>
           <div className="purchase">
             <div>Paperback
-              <Button
-                type="button"
-                className="button"
-                text={textButtonPaperback}
-                onClick={addToCart}
-                isDisable={!book?.paperbackQuantity}
-              />
+              {isPurchased
+                ? (
+                  <Button
+                    type="button"
+                    className="button in-cart"
+                    text="Added to cart"
+                  />
+                )
+                : (
+                  <Button
+                    type="button"
+                    className="button"
+                    text={textButtonPaperback}
+                    onClick={addToCart}
+                    isDisable={!book?.paperbackQuantity}
+                  />
+                )
+              }
             </div>
             <div>Hardcover
-              <Button
-                type="button"
-                className="button"
-                text={textButtonHardcover}
-                onClick={addToCart}
-                isDisable={!book?.hardcoverQuantity}
-              />
+              {isPurchased
+                ? (
+                  <Button
+                    type="button"
+                    className="button in-cart"
+                    text="Added to cart"
+                  />
+                )
+                : (
+                  <Button
+                    type="button"
+                    className="button"
+                    text={textButtonHardcover}
+                    onClick={addToCart}
+                    isDisable={!book?.hardcoverQuantity}
+                  />
+                )
+              }
             </div>
           </div>
         </div>
@@ -143,7 +181,7 @@ export const DetailBook: React.FC = () => {
       <Comments
         bookId={Number(bookId)}
       />
-      {!user.email ? <AuthorizePoster /> : null}
+      {!users.user.email ? <AuthorizePoster /> : null}
       <Recommendations />
     </>
   );
