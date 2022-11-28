@@ -16,7 +16,7 @@ export const Button: React.FC<IMyButton> = (props) => {
       type={props.type}
       className={props.className}
       onClick={props.onClick}
-      isDisabled={props.isDisable || false}
+      isDisabled={!!props.isDisable}
     >
       {props.text}
     </ButtonWrapper >

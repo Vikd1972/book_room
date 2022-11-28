@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import authUser from '../../../api/auth/authUser';
-import { loginUser, setFavorites } from '../../../store/usersSlice';
+import { loginUser, setFavorites, setCart } from '../../../store/usersSlice';
 import { getCartThunk } from '../../../store/usersThunks';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
@@ -33,14 +33,10 @@ export const Login: React.FC = () => {
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
       try {
-        Promise.all([
-          await authUser(values),
-          await dispatch(getCartThunk()).unwrap(),
-        ]).then((result) => {
-          dispatch(loginUser(result[0]));
-          dispatch(setFavorites(result[0].favorites));
-          navigate(route);
-        });
+        const userInfo = await authUser(values);
+        dispatch(loginUser(userInfo.user));
+        dispatch(setCart(userInfo.userCart));
+        navigate(route);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.response?.data.message);

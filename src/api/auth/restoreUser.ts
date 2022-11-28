@@ -1,10 +1,10 @@
 import instance from '..';
-import type { IUserType } from '../../store/usersSlice';
+import type { IUserType, ICartType } from '../../store/usersSlice';
 
 const restoreUser = async () => {
-  const response = await instance.get<{ user: IUserType }>('/auth');
+  const response = await instance.get<{ user: IUserType; userCart: ICartType[] }>('/auth');
 
-  return response.data.user;
+  return response.data;
 };
 
 export default restoreUser;

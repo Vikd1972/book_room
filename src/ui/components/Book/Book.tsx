@@ -4,7 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import type { IBookType } from '../../../store/booksSlice';
-import { changeFavorites } from '../../../store/usersSlice';
+import type { ICartType } from '../../../store/usersSlice';
+import { changeFavorites, addOrRemoveInCart } from '../../../store/usersSlice';
 import { getCartThunk } from '../../../store/usersThunks';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import addOrRemoveToFavorites from '../../../api/favorites/addOrRemoveToFavorites';
@@ -26,29 +27,19 @@ export const Book: React.FC<PropsType> = (props) => {
   const users = useAppSelector((state) => state.users);
 
   const textButton = `$ ${props.book.paperbackPrice.toFixed(2).toString()} USD`;
-  const bookId = props.book.id;
+  const { id: bookId } = props.book;
 
   const favoritesButton = useMemo(() => {
-    const idBooksIsFavorites: number[] = [];
-    users.favorites.forEach((item) => {
-      if (item.id) {
-        idBooksIsFavorites.push(item.id);
-      }
-    });
-    return idBooksIsFavorites.includes(bookId) ? favoritesActive : favorites;
+    return users.favorites.find((item) => item.id === bookId)
+      ? favoritesActive
+      : favorites;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     users.favorites,
   ]);
 
   const isPurchased = useMemo(() => {
-    const idBooksInCart: number[] = [];
-    users.cart.forEach((item) => {
-      if (item.book) {
-        idBooksInCart.push(item.book.id);
-      }
-    });
-    return idBooksInCart.includes(bookId);
+    return !!users.cart.find((item) => item.book?.id === bookId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     users.cart,
@@ -60,7 +51,8 @@ export const Book: React.FC<PropsType> = (props) => {
         navigate('/login');
       }
       await addBookToCart({ bookId });
-      await dispatch(getCartThunk()).unwrap();
+      dispatch(addOrRemoveInCart(props.book));
+      // await dispatch(getCartThunk()).unwrap();
     } catch (err) {
       console.log(err);
     }
@@ -71,10 +63,8 @@ export const Book: React.FC<PropsType> = (props) => {
       if (!users.user.email) {
         navigate('/login');
       }
-      const result = await addOrRemoveToFavorites({ bookId });
-      if (result.status === 200) {
-        dispatch(changeFavorites(props.book));
-      }
+      await addOrRemoveToFavorites({ bookId });
+      dispatch(changeFavorites(props.book));
     } catch (err) {
       console.log(err);
     }

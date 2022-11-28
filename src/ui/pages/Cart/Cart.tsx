@@ -1,11 +1,8 @@
 /* eslint-disable react/jsx-closing-tag-location */
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { AxiosError } from 'axios';
 
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { getCartThunk } from '../../../store/usersThunks';
-import showToast from '../../../validation/showToast';
+import { useAppSelector } from '../../../store/hooks';
 import EmptyCart from './EmptyCart/EmptyCart';
 import BookInCart from './BookInCart/BookInCart';
 import Button from '../../components/Button/Buttons';
@@ -13,28 +10,14 @@ import Button from '../../components/Button/Buttons';
 import CartWrapper from './Cart.styles';
 
 export const Cart: React.FC = () => {
-  const dispatch = useAppDispatch();
   const cart = useAppSelector((state) => state.users.cart);
   const queryString = useAppSelector((state) => state.books.queryString);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        await dispatch(getCartThunk());
-      } catch (err) {
-        if (err instanceof AxiosError) {
-          showToast(err.message);
-        }
-      }
-    })();
-  }, [dispatch]);
-
-  let total = 0;
-
-  for (const item of cart) {
-    const pricePerItem = item.count * (item.book.paperbackPrice / 100);
-    total += pricePerItem;
-  }
+  const total = useMemo(() => {
+    return cart.reduce((sum, item) => sum + item.count * item.book.paperbackPrice, 0);
+  }, [
+    cart,
+  ]);
 
   return (
     <CartWrapper>

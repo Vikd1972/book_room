@@ -33,15 +33,9 @@ export const DetailBook: React.FC = () => {
   const bookId = Number(currentBook);
 
   const isPurchased = useMemo(() => {
-    const idBooksInCart: number[] = [];
-    users.cart.forEach((item) => {
-      if (item.book) {
-        idBooksInCart.push(item.book.id);
-      }
-    });
-    return idBooksInCart.includes(bookId);
+    return !!users.cart.find((item) => item.book?.id === bookId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    bookId,
     users.cart,
   ]);
 

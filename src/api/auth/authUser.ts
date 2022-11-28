@@ -1,5 +1,5 @@
 import instance from '..';
-import type { IUserType } from '../../store/usersSlice';
+import type { IUserType, ICartType } from '../../store/usersSlice';
 
 interface IAuthParams {
   email: string;
@@ -7,13 +7,13 @@ interface IAuthParams {
 }
 
 const authUser = async (options: IAuthParams) => {
-  const response = await instance.post<{ user: IUserType; token: string }>(
+  const response = await instance.post<{ user: IUserType; userCart: ICartType[]; token: string }>(
     '/auth',
     options,
   );
   localStorage.setItem('token', response.data.token);
 
-  return response.data.user;
+  return response.data;
 };
 
 export default authUser;

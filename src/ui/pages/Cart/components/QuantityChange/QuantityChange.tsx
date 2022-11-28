@@ -5,6 +5,8 @@ import { useAppDispatch } from '../../../../../store/hooks';
 import quantityChange from '../../../../../api/cart/quantityChange';
 import deleteBookInCart from '../../../../../api/cart/deleteBookInCart';
 import { getCartThunk } from '../../../../../store/usersThunks';
+import { addOrRemoveInCart, changeQuantityInCart } from '../../../../../store/usersSlice';
+import type { IBookType } from '../../../../../store/booksSlice';
 
 import reduction from '../../../../assets/picture/minus.png';
 import addition from '../../../../assets/picture/plus.png';
@@ -15,6 +17,7 @@ import QuantityCangeWrapper from './QuantityCange.styles';
 interface IProps {
   count: number;
   cartId: number;
+  book: IBookType;
 }
 
 export const QuantityCange: React.FC<IProps> = (props) => {
@@ -28,7 +31,8 @@ export const QuantityCange: React.FC<IProps> = (props) => {
           count: props.count - 1,
         };
         await quantityChange(options);
-        await dispatch(getCartThunk()).unwrap();
+        dispatch(changeQuantityInCart(options));
+        // await dispatch(getCartThunk()).unwrap();
       }
     } catch (err) {
       console.log(err);
@@ -43,7 +47,8 @@ export const QuantityCange: React.FC<IProps> = (props) => {
           count: props.count + 1,
         };
         await quantityChange(options);
-        await dispatch(getCartThunk()).unwrap();
+        dispatch(changeQuantityInCart(options));
+        // await dispatch(getCartThunk()).unwrap();
       }
     } catch (err) {
       console.log(err);
@@ -56,6 +61,7 @@ export const QuantityCange: React.FC<IProps> = (props) => {
         cartId: props.cartId,
       };
       await deleteBookInCart(options);
+      // dispatch(addOrRemoveInCart(props.book));
       await dispatch(getCartThunk()).unwrap();
     } catch (err) {
       console.log(err);

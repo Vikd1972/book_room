@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../../store/hooks';
@@ -19,8 +19,18 @@ export const Header: React.FC = () => {
   const users = useAppSelector((state) => state.users);
 
   const [searchText, setSearchText] = useState<string>('');
-  const count = Array.from(users.cart).reduce((sum, item) => sum + item.count, 0);
-  const favorites = users.favorites.length;
+
+  const quantityInCart = useMemo(() => {
+    return users.cart.reduce((sum, item) => sum + item.count, 0);
+  }, [
+    users.cart,
+  ]);
+
+  const quantityFavorites = useMemo(() => {
+    return users.favorites.length;
+  }, [
+    users.favorites,
+  ]);
 
   const onSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -82,7 +92,7 @@ export const Header: React.FC = () => {
                 alt="cart"
               />
             </Link>
-            {count ? <div className="counter">{count}</div> : null}
+            {quantityInCart ? <div className="counter">{quantityInCart}</div> : null}
             <Link
               className="button__icon"
               to="/favorites"
@@ -92,7 +102,7 @@ export const Header: React.FC = () => {
                 alt="heart"
               />
             </Link>
-            {favorites ? <div className="counter">{favorites}</div> : null}
+            {quantityFavorites ? <div className="counter">{quantityFavorites}</div> : null}
             <Link
               className="button__icon"
               to="/profile"

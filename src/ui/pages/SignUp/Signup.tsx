@@ -34,7 +34,7 @@ export const Signup: React.FC = () => {
     validationSchema: schemaSign,
     onSubmit: async (values) => {
       try {
-        const user: IUserType = await signUser(values);
+        const user = await signUser(values);
         dispatch(loginUser(user));
         navigate(route);
       } catch (err) {

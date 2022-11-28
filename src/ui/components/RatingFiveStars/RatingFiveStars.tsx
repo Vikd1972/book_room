@@ -10,9 +10,9 @@ import RatingFiveStarsWrapper from './RatingFiveStars.styles';
 
 interface IOptions {
   bookId: number;
-  myRating: number | undefined;
+  myRating?: number;
   readOnly?: boolean;
-  size: 'small' | 'medium' | 'large' | undefined;
+  size?: 'small' | 'medium' | 'large';
 }
 
 export const RatingFiveStars: React.FC<IOptions> = (props) => {
@@ -21,7 +21,7 @@ export const RatingFiveStars: React.FC<IOptions> = (props) => {
 
   const [onRating, setOnRating] = useState<number>(myRating || 0);
 
-  const setMyRating = async (value: number) => {
+  const setMyRating = async (event: React.SyntheticEvent<Element, Event>, value: number | null) => {
     try {
       if (value) {
         setOnRating(value);
@@ -33,35 +33,28 @@ export const RatingFiveStars: React.FC<IOptions> = (props) => {
     }
   };
 
-  useEffect(() => {
-    (() => {
-      try {
-        setOnRating(myRating || 0);
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, [
-    myRating,
-  ]);
+  // useEffect(() => {
+  //   setOnRating(myRating || 0);
+  //   console.log('>>>> here');
+  // }, [
+  //   myRating,
+  // ]);
 
   return (
     <RatingFiveStarsWrapper>
       {props.readOnly ? (
         <Rating
-          precision={0.5}
+          precision={0.1}
           value={onRating}
           size={props.size}
           readOnly
         />
       ) : (
         <Rating
-          precision={0.5}
+          precision={0.1}
           value={onRating}
           size={props.size}
-          onChange={(event, value) => {
-            setMyRating(value || 0);
-          }}
+          onChange={setMyRating}
         />
       )}
     </RatingFiveStarsWrapper>

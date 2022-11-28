@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../../store/hooks';
@@ -10,21 +10,23 @@ export const ChoiceOfGenre: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const allGenres = useAppSelector((state) => state.books.genres);
 
-  const [currentGenres, setCurrentGenres] = useState<string[]>(
-    searchParams.get('genres')?.split(',') || [],
-  );
+  const currentGenres = useMemo(() => {
+    return searchParams.get('genres')?.split(',') || [];
+  }, [
+    searchParams,
+  ]);
 
   const onSelectByGenre = (genreId: number) => {
     const genreIndex = currentGenres.findIndex((item) => item === genreId.toString());
 
-    genreIndex === -1
-      ? currentGenres.push(genreId.toString())
-      : currentGenres.splice(genreIndex, 1);
+    const newCurrentGenres = [...currentGenres];
 
-    setCurrentGenres(currentGenres);
+    genreIndex === -1
+      ? newCurrentGenres.push(genreId.toString())
+      : newCurrentGenres.splice(genreIndex, 1);
 
     currentGenres.length
-      ? searchParams.set('genres', currentGenres.join(','))
+      ? searchParams.set('genres', newCurrentGenres.join(','))
       : searchParams.delete('genres');
 
     setSearchParams(searchParams);
@@ -37,7 +39,7 @@ export const ChoiceOfGenre: React.FC = () => {
           <label className="checkbox-item">
             <input
               type="checkbox"
-              checked={currentGenres.includes((genre.id.toString())) && true}
+              checked={currentGenres.includes((genre.id.toString()))}
               onChange={() => onSelectByGenre(genre.id)}
             />
             <span className="name-item">{genre.name}</span>

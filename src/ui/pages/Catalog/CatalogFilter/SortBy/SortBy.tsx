@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import React from 'react';
 
 import { useSearchParams } from 'react-router-dom';
@@ -17,7 +18,10 @@ export const SortBy: React.FC = () => {
   const activeItem = sortTypes.indexOf(searchParams.get('sort') || '');
 
   const onSortingBy = (name: string) => {
-    searchParams.set('sort', name);
+    name === searchParams.get('sort')
+      ? searchParams.delete('sort')
+      : searchParams.set('sort', name);
+
     setSearchParams(searchParams);
   };
 

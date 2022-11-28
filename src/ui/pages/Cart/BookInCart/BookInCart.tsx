@@ -12,7 +12,7 @@ interface IProps {
 export const BookInCart: React.FC<IProps> = (props) => {
   const book = props.cart.book;
 
-  const textButton = `$ ${((book.paperbackPrice * props.cart.count) / 100).toFixed(2).toString()} USD`;
+  const currentPrice = `$ ${(book.paperbackPrice * props.cart.count).toFixed(2).toString()} USD`;
 
   return (
     <BookInCartWrapper>
@@ -30,8 +30,9 @@ export const BookInCart: React.FC<IProps> = (props) => {
         <QuantityChange
           cartId={props.cart.id}
           count={props.cart.count}
+          book={props.cart.book}
         />
-        <p className="price">{textButton}</p>
+        <p className="price">{currentPrice}</p>
       </div>
     </BookInCartWrapper>
   );

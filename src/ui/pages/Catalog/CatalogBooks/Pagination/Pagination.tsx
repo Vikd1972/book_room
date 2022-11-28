@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../../store/hooks';
@@ -16,39 +16,43 @@ interface IPage {
 
 export const Pagination: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const books = useAppSelector((state) => state.books);
+  const serviceInfo = useAppSelector((state) => state.books.serviceInfo);
+  const [pages, setPages] = useState<IPage[]>([]);
 
   const changePage = (pageNumber: number) => {
-    if (books.serviceInfo.activePage === pageNumber) {
+    if (serviceInfo.activePage === pageNumber) {
       return;
     }
     searchParams.set('page', (pageNumber).toString());
     setSearchParams(searchParams);
   };
-  const pages: IPage[] = [];
 
-  useMemo(() => {
-    for (let i = 0; i < books.serviceInfo.quantityPages; i++) {
-      pages[i] = {
+  useEffect(() => {
+    const newPages: IPage[] = [];
+    for (let i = 0; i < serviceInfo.quantityPages; i++) {
+      newPages[i] = {
         id: i,
-        className: `page ${(i + 1) === books.serviceInfo.activePage && 'active'}`,
+        className: `page ${(i + 1) === serviceInfo.activePage && 'active'}`,
       };
     }
-    const currentPage = searchParams.get('page') || '1';
-    if (Number(currentPage) > books.serviceInfo.quantityPages) {
-      searchParams.set('page', (books.serviceInfo.activePage).toString());
+    setPages(newPages);
+
+    const currentPage = +(searchParams.get('page') || '');
+    if (currentPage > serviceInfo.quantityPages) {
+      searchParams.set('page', (serviceInfo.quantityPages).toString());
       setSearchParams(searchParams);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    pages,
+    serviceInfo.quantityPages,
+    serviceInfo.activePage,
   ]);
 
   return (
     <PaginationWrapper>
       <div
         className="pagination"
-        onClick={() => changePage(books.serviceInfo.prevPage)}
+        onClick={() => changePage(serviceInfo.prevPage)}
       >
         <img src={left} alt="left" />
       </div>
@@ -65,7 +69,7 @@ export const Pagination: React.FC = () => {
       </div>
       <div
         className="pagination"
-        onClick={() => changePage(books.serviceInfo.nextPage)}
+        onClick={() => changePage(serviceInfo.nextPage)}
       >
         <img src={right} alt="right" />
       </div>

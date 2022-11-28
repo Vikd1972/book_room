@@ -26,13 +26,8 @@ export const CatalogBooks: React.FC = () => {
     (async () => {
       try {
         const queryString = searchParams.toString() ? `?${searchParams.toString()}` : '';
-        Promise.all([
-          await dispatch(getBooksThunk(queryString)).unwrap(),
-          users.user.email && await dispatch(getCartThunk()).unwrap(),
-        ]).then(() => {
-          dispatch(setFavorites(users.favorites));
-          dispatch(setQueryString(queryString));
-        });
+        await dispatch(getBooksThunk(queryString)).unwrap();
+        dispatch(setQueryString(queryString));
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);
@@ -42,6 +37,30 @@ export const CatalogBooks: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     searchParams,
+  ]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (users.user.email) {
+          await dispatch(getCartThunk()).unwrap();
+        }
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          showToast(err.message);
+        }
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    dispatch,
+  ]);
+
+  useEffect(() => {
+    dispatch(setFavorites(users.favorites));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    users.favorites,
   ]);
 
   return (

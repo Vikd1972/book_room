@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
@@ -48,19 +49,49 @@ export const usersSlice = createSlice({
     loginUser: (state, action: PayloadAction<IUserType>) => {
       state.user = initialState.user;
       state.user = action.payload;
-      state.cart = action.payload.cart;
       state.favorites = action.payload.favorites;
     },
+
+    setCart: (state, action: PayloadAction<ICartType[]>) => {
+      state.cart = action.payload || initialState.cart;
+    },
+
+    addOrRemoveInCart: (state, action: PayloadAction<IBookType>) => {
+      const bookIndex = state.cart.findIndex((item) => item.book.id === action.payload.id);
+      if (bookIndex !== -1) {
+        state.cart.splice(bookIndex, 1);
+      } else {
+        const newItem: ICartType = {
+          id: Date.now(),
+          count: 1,
+          book: action.payload,
+        };
+        state.cart = [
+          ...state.cart,
+          newItem,
+        ];
+      }
+    },
+
+    changeQuantityInCart: (state, action: PayloadAction<{ count: number; cartId: number }>) => {
+      state.cart.forEach((item) => {
+        const newItem = item.id === action.payload.cartId ? item.count = action.payload.count : item;
+        return newItem;
+      });
+    },
+
     reset: () => initialState,
+
     setFavorites: (state, action: PayloadAction<IBookType[]>) => {
       state.favorites = action.payload;
     },
+
     changeFavorites: (state, action: PayloadAction<IBookType>) => {
       const bookIndex = state.favorites.findIndex((item) => item.id === action.payload.id);
       if (bookIndex !== -1) {
-        state.favorites?.splice(bookIndex, 1);
+        state.favorites.splice(bookIndex, 1);
       } else {
-        state.favorites?.push(action.payload);
+        state.favorites.push(action.payload);
       }
     },
   },
@@ -74,6 +105,9 @@ export const usersSlice = createSlice({
 export const {
   loginUser,
   reset,
+  setCart,
+  addOrRemoveInCart,
+  changeQuantityInCart,
   setFavorites,
   changeFavorites,
 } = usersSlice.actions;

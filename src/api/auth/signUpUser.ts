@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import instance from '..';
-import type { IUserType } from '../../store/usersSlice';
+import type { IUserType, ICartType } from '../../store/usersSlice';
 
 interface ISignUpParams {
   email: string;
