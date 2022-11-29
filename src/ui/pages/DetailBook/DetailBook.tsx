@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-console */
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { getCartThunk } from '../../../store/usersThunks';
-import { getCommentsThunk, getDetailBooksThunk } from '../../../store/booksThunks';
+import { getDetailBooksThunk } from '../../../store/booksThunks';
 import { Button } from '../../components/Button/Buttons';
 import showToast from '../../../validation/showToast';
 import addBookToCart from '../../../api/cart/addBookToCart';
@@ -44,11 +41,10 @@ export const DetailBook: React.FC = () => {
       try {
         Promise.all([
           await dispatch(getDetailBooksThunk(bookId)).unwrap(),
-          await dispatch(getCommentsThunk(bookId)).unwrap(),
           users.user.email && await getRating(bookId),
         ]).then(
           (result) => {
-            setMyRating(Number(result[2]));
+            setMyRating(Number(result[1]) || 0);
           },
         );
       } catch (err) {
@@ -57,25 +53,22 @@ export const DetailBook: React.FC = () => {
         }
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     bookId,
-    dispatch,
   ]);
 
-  let textButtonPaperback = '';
-  let textButtonHardcover = '';
+  const changeMyRating = (value: number) => {
+    setMyRating(value);
+  };
 
-  const currentPricePaperback = book?.paperbackPrice;
+  const textButtonPaperback = !book?.paperbackQuantity
+    ? 'Not available'
+    : `$ ${book.paperbackPrice.toFixed(2).toString()} USD`;
 
-  !book?.paperbackQuantity
-    ? textButtonPaperback = 'Not available'
-    : textButtonPaperback = `$ ${currentPricePaperback?.toFixed(2).toString()} USD`;
-
-  const currentPriceHardcover = book?.hardcoverPrice;
-
-  !book?.hardcoverQuantity
-    ? textButtonHardcover = 'Not available'
-    : textButtonHardcover = `$ ${currentPriceHardcover?.toFixed(2).toString()} USD`;
+  const textButtonHardcover = !book?.hardcoverQuantity
+    ? 'Not available'
+    : `$ ${book.hardcoverPrice.toFixed(2).toString()} USD`;
 
   const addToCart = async () => {
     try {
@@ -112,6 +105,7 @@ export const DetailBook: React.FC = () => {
                     readOnly={false}
                     myRating={myRating}
                     bookId={Number(bookId)}
+                    changeMyRating={changeMyRating}
                   />
                   <div className="rating-arrow">
                     <img

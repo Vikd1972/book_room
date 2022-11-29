@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -12,6 +13,7 @@ import showToast from '../../../validation/showToast';
 import schemqaLogin from '../../../validation/schemaLogin';
 import type { IValues } from '../User/Interface';
 import InputOneLine from '../../components/InputOneLine/InputOneLine';
+import Input from '../../components/Input/Input';
 import { Button } from '../../components/Button/Buttons';
 
 import man from '../../assets/picture/men1.png';
@@ -24,6 +26,11 @@ export const Login: React.FC = () => {
   const location = useLocation();
   const queryString = useAppSelector((state) => state.books.queryString);
   const route = location.state as string || `/${queryString}`;
+  const [isChange, setIsChange] = useState(false);
+
+  const changeField = () => {
+    setIsChange(true);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -36,6 +43,7 @@ export const Login: React.FC = () => {
         const userInfo = await authUser(values);
         dispatch(loginUser(userInfo.user));
         dispatch(setCart(userInfo.userCart));
+        setIsChange(false);
         navigate(route);
       } catch (err) {
         if (err instanceof AxiosError) {
@@ -78,6 +86,19 @@ export const Login: React.FC = () => {
             formikError={formik.errors.password}
             formikField={formik.getFieldProps('password')}
             icon="hide"
+          />
+          <Input
+            type="email"
+            textInfo="Enter your email"
+            textWhenChanged="`Enter your email"
+            field="er@erer.com"
+            placeholder="Enter your email"
+            formikName={formik.touched.email}
+            formikError={formik.errors.email}
+            formikField={formik.getFieldProps('email')}
+            icon="mail"
+            changeFieldAuth={isChange}
+            onClick={changeField}
           />
           <Button
             type="submit"

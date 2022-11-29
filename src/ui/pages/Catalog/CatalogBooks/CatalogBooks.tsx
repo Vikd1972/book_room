@@ -42,7 +42,7 @@ export const CatalogBooks: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        if (users.user.email) {
+        if (users.user.email && !users.cart) {
           await dispatch(getCartThunk()).unwrap();
         }
       } catch (err) {

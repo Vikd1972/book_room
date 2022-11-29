@@ -1,10 +1,11 @@
 import type { AxiosResponse } from 'axios';
 import instance from '..';
 
-import type { IBookType } from '../../store/booksSlice';
+import type { IBookType, ICommentType } from '../../store/booksSlice';
 
 type ResponseType = {
   book: IBookType;
+  commentsOfBook: ICommentType[];
 };
 
 const getDetailBooks = async (bookId: number): Promise<AxiosResponse<ResponseType>> => {

@@ -15,7 +15,7 @@ type ResponseType = {
 const setComments = async (options: ICommentsParams): Promise<AxiosResponse<ResponseType>> => {
   const response = await instance.post('/comments', options);
 
-  return response.data.commentsOfBook;
+  return response;
 };
 
 export default setComments;

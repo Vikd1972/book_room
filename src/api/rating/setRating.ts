@@ -1,15 +1,21 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
+import type { AxiosResponse } from 'axios';
 import instance from '..';
 
 interface IRatingParams {
-  onRating: number | null;
+  onRating?: number;
   bookId: number;
 }
 
-const setRating = async (options: IRatingParams) => {
-  const response = await instance.post<{ averageRatingBook: number }>('/rating', options);
+type ResponseType = {
+  averageRatingBook: number;
+};
 
-  return response.data.averageRatingBook;
+const setRating = async (options: IRatingParams): Promise<AxiosResponse<ResponseType>> => {
+  const response = await instance.post('/rating', options);
+
+  return response;
 };
 
 export default setRating;

@@ -4,7 +4,6 @@ import { useAppDispatch } from '../../../../../store/hooks';
 
 import quantityChange from '../../../../../api/cart/quantityChange';
 import deleteBookInCart from '../../../../../api/cart/deleteBookInCart';
-import { getCartThunk } from '../../../../../store/usersThunks';
 import { addOrRemoveInCart, changeQuantityInCart } from '../../../../../store/usersSlice';
 import type { IBookType } from '../../../../../store/booksSlice';
 
@@ -32,7 +31,6 @@ export const QuantityCange: React.FC<IProps> = (props) => {
         };
         await quantityChange(options);
         dispatch(changeQuantityInCart(options));
-        // await dispatch(getCartThunk()).unwrap();
       }
     } catch (err) {
       console.log(err);
@@ -48,7 +46,6 @@ export const QuantityCange: React.FC<IProps> = (props) => {
         };
         await quantityChange(options);
         dispatch(changeQuantityInCart(options));
-        // await dispatch(getCartThunk()).unwrap();
       }
     } catch (err) {
       console.log(err);
@@ -61,8 +58,7 @@ export const QuantityCange: React.FC<IProps> = (props) => {
         cartId: props.cartId,
       };
       await deleteBookInCart(options);
-      // dispatch(addOrRemoveInCart(props.book));
-      await dispatch(getCartThunk()).unwrap();
+      dispatch(addOrRemoveInCart(props.book));
     } catch (err) {
       console.log(err);
     }

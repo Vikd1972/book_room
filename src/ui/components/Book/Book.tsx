@@ -4,9 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import type { IBookType } from '../../../store/booksSlice';
-import type { ICartType } from '../../../store/usersSlice';
 import { changeFavorites, addOrRemoveInCart } from '../../../store/usersSlice';
-import { getCartThunk } from '../../../store/usersThunks';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import addOrRemoveToFavorites from '../../../api/favorites/addOrRemoveToFavorites';
 import RatingFiveStars from '../RatingFiveStars/RatingFiveStars';
@@ -52,13 +50,12 @@ export const Book: React.FC<PropsType> = (props) => {
       }
       await addBookToCart({ bookId });
       dispatch(addOrRemoveInCart(props.book));
-      // await dispatch(getCartThunk()).unwrap();
     } catch (err) {
       console.log(err);
     }
   };
 
-  const addBookToFavorites = async () => {
+  const addToFavorites = async () => {
     try {
       if (!users.user.email) {
         navigate('/login');
@@ -80,7 +77,7 @@ export const Book: React.FC<PropsType> = (props) => {
           />
         </Link>
         <div
-          onClick={addBookToFavorites}
+          onClick={addToFavorites}
           className="favorites"
         >
           <img src={favoritesButton} alt="favorites" />

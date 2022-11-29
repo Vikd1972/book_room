@@ -1,10 +1,11 @@
-/* eslint-disable no-console */
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import getBooks from '../api/books/getBooks';
 import getDetailBooks from '../api/books/getDetailBook';
 import getRecommendationsBooks from '../api/books/getRecommendationsBooks';
 import getFavoritesBooks from '../api/favorites/getFavoritesBooks';
-import getComments from '../api/comments/getComments';
+import setComments from '../api/comments/setComments';
+import setRating from '../api/rating/setRating';
 
 export const getBooksThunk = createAsyncThunk('books',
   async (queryString: string) => {
@@ -29,9 +30,24 @@ export const getFavoritesBookThunk = createAsyncThunk('/favorites',
     const response = await getFavoritesBooks(favorites);
     return response;
   });
+interface IRatingParams {
+  onRating?: number;
+  bookId: number;
+}
 
-export const getCommentsThunk = createAsyncThunk('/comments',
-  async (bookId: number) => {
-    const response = await getComments(bookId);
+export const getAverageRatingThunk = createAsyncThunk('/rating',
+  async (options: IRatingParams) => {
+    const response = await setRating(options);
+    return response;
+  });
+
+interface ICommentsParams {
+  comment: string;
+  bookId: number;
+}
+
+export const setCommentsThunk = createAsyncThunk('/comments',
+  async (options: ICommentsParams) => {
+    const response = await setComments(options);
     return response;
   });

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import instance from '..';
 import type { IRatingType } from '../../store/booksSlice';
 
