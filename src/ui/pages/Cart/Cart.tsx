@@ -43,7 +43,7 @@ export const Cart: React.FC = () => {
           />
         </div>
       ))}
-      {cart.length !== 0
+      {cart.length
         ? (<>
           <p className="total">Total: <b>{total.toFixed(2)}</b></p>
           <div className="buttons">

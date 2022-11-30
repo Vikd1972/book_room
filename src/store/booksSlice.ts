@@ -6,7 +6,6 @@ import type { IUserType } from './usersSlice';
 import {
   getBooksThunk,
   getRecommendationsBookThunk,
-  getFavoritesBookThunk,
   setCommentsThunk,
   getDetailBooksThunk,
   getAverageRatingThunk,
@@ -88,9 +87,6 @@ export const booksSlice = createSlice({
     setQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
     },
-    setAverageRating: (state, action: PayloadAction<number>) => {
-      state.ratingBook = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(getBooksThunk.fulfilled, (state, action) => {
@@ -110,9 +106,6 @@ export const booksSlice = createSlice({
         ...action.payload.data.books,
       ];
     });
-    builder.addCase(getFavoritesBookThunk.fulfilled, (state, action) => {
-      state.books = action.payload.data.books || initialState.books;
-    });
     builder.addCase(setCommentsThunk.fulfilled, (state, action) => {
       state.comments = action.payload.data.commentsOfBook;
     });
@@ -124,7 +117,6 @@ export const booksSlice = createSlice({
 
 export const {
   setQueryString,
-  setAverageRating,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
 import React, { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -25,7 +26,7 @@ export const ChoiceOfGenre: React.FC = () => {
       ? newCurrentGenres.push(genreId.toString())
       : newCurrentGenres.splice(genreIndex, 1);
 
-    currentGenres.length
+    newCurrentGenres.length
       ? searchParams.set('genres', newCurrentGenres.join(','))
       : searchParams.delete('genres');
 

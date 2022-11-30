@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { getCartThunk } from '../../../store/usersThunks';
 import { getDetailBooksThunk } from '../../../store/booksThunks';
 import { Button } from '../../components/Button/Buttons';
+import { addOrRemoveInCart } from '../../../store/usersSlice';
 import showToast from '../../../validation/showToast';
 import addBookToCart from '../../../api/cart/addBookToCart';
 import getRating from '../../../api/rating/getRating';
@@ -75,7 +75,7 @@ export const DetailBook: React.FC = () => {
       if (book) {
         const bookId = book?.id;
         await addBookToCart({ bookId });
-        await dispatch(getCartThunk()).unwrap();
+        dispatch(addOrRemoveInCart(book));
       }
     } catch (err) {
       // eslint-disable-next-line no-console

@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
   ]);
 
   const quantityFavorites = useMemo(() => {
-    return users.favorites.length;
+    return users.favorites ? users.favorites.length : 0;
   }, [
     users.favorites,
   ]);
@@ -39,8 +39,8 @@ export const Header: React.FC = () => {
   const onSendingSearchText = (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    searchText.length
-      ? searchParams.set('search', searchText)
+    searchText.trim()
+      ? searchParams.set('search', searchText.trim())
       : searchParams.delete('search');
 
     setSearchParams(searchParams);

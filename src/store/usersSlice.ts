@@ -49,11 +49,14 @@ export const usersSlice = createSlice({
     loginUser: (state, action: PayloadAction<IUserType>) => {
       state.user = initialState.user;
       state.user = action.payload;
-      state.favorites = action.payload.favorites;
     },
 
     setCart: (state, action: PayloadAction<ICartType[]>) => {
       state.cart = action.payload || initialState.cart;
+    },
+
+    setFavorites: (state, action: PayloadAction<IBookType[]>) => {
+      state.favorites = action.payload || initialState.favorites;
     },
 
     addOrRemoveInCart: (state, action: PayloadAction<IBookType>) => {
@@ -82,10 +85,6 @@ export const usersSlice = createSlice({
 
     reset: () => initialState,
 
-    setFavorites: (state, action: PayloadAction<IBookType[]>) => {
-      state.favorites = action.payload;
-    },
-
     changeFavorites: (state, action: PayloadAction<IBookType>) => {
       const bookIndex = state.favorites.findIndex((item) => item.id === action.payload.id);
       if (bookIndex !== -1) {
@@ -106,9 +105,9 @@ export const {
   loginUser,
   reset,
   setCart,
+  setFavorites,
   addOrRemoveInCart,
   changeQuantityInCart,
-  setFavorites,
   changeFavorites,
 } = usersSlice.actions;
 

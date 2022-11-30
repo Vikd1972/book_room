@@ -7,7 +7,7 @@ import { AxiosError } from 'axios';
 
 import changeUserData from '../../../../api/users/changUserData';
 import { Button } from '../../../components/Button/Buttons';
-import InputTwoLine from '../../../components/InputTwoLine/InputTwoLine';
+import Input from '../../../components/Input/Input';
 import type { IValues } from '../Interface';
 import { loginUser } from '../../../../store/usersSlice';
 import type { IUserType } from '../../../../store/usersSlice';
@@ -15,15 +15,18 @@ import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import schemaUser from '../../../../validation/schemaUser';
 import showToast from '../../../../validation/showToast';
 
+import userIcon from '../../../assets/picture/user.png';
+import mailIcon from '../../../assets/picture/mail.png';
+
 import UserInfoWrapper from './UserInfo.styles';
 
 export const UserInfo: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.users.user);
-  const [isChange, setIsChange] = useState(false);
+  const [isChange, setIsChange] = useState(true);
 
   const onIsChange = () => {
-    setIsChange(true);
+    setIsChange(false);
   };
 
   const formik = useFormik({
@@ -41,7 +44,7 @@ export const UserInfo: React.FC = () => {
           dispatch(loginUser(user));
         }
         formik.resetForm();
-        setIsChange(false);
+        setIsChange(true);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.response?.data.message);
@@ -65,7 +68,7 @@ export const UserInfo: React.FC = () => {
           </div>
         </div>
         <div className="user__info-inputs">
-          <InputTwoLine
+          <Input
             type="text"
             textInfo="Your name"
             textWhenChanged={`Your name now is ${user.fullname ? user.fullname : '...'}. Enter new name`}
@@ -74,10 +77,12 @@ export const UserInfo: React.FC = () => {
             formikName={formik.touched.fullname}
             formikError={formik.errors.fullname}
             formikField={formik.getFieldProps('fullname')}
-            icon="user"
+            icon={userIcon}
+            isAuth={false}
             changeField={isChange}
+            changeFieldAuth={false}
           />
-          <InputTwoLine
+          <Input
             type="email"
             textInfo="Your email"
             textWhenChanged={`Your email now is ${user.email}. Enter new email`}
@@ -86,11 +91,13 @@ export const UserInfo: React.FC = () => {
             formikName={formik.touched.email}
             formikError={formik.errors.email}
             formikField={formik.getFieldProps('email')}
-            icon="mail"
+            icon={mailIcon}
+            isAuth={false}
             changeField={isChange}
+            changeFieldAuth={false}
           />
         </div>
-        {isChange
+        {!isChange
           ? (<Button
             type="submit"
             className="button"

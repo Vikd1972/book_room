@@ -1,36 +1,13 @@
 /* eslint-disable no-console */
-import React, { useEffect } from 'react';
-import { AxiosError } from 'axios';
+import React from 'react';
 
-import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { useAppSelector } from '../../../store/hooks';
 import Book from '../../components/Book/Book';
-import showToast from '../../../validation/showToast';
-import { getFavoritesBookThunk } from '../../../store/booksThunks';
 
 import FavoritesWrapper from './Favorites.styles';
 
 export const Favorites: React.FC = () => {
-  const dispatch = useAppDispatch();
   const favorites = useAppSelector((state) => state.users.favorites);
-  const books = useAppSelector((state) => state.books.books);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const idBooksIsFavorites: number[] = [];
-  //       favorites.forEach((item) => {
-  //         if (item.id) {
-  //           idBooksIsFavorites.push(item.id);
-  //         }
-  //       });
-  //       await dispatch(getFavoritesBookThunk(idBooksIsFavorites));
-  //     } catch (err) {
-  //       if (err instanceof AxiosError) {
-  //         showToast(err.message);
-  //       }
-  //     }
-  //   })();
-  // }, [favorites, dispatch]);
 
   return (
     <FavoritesWrapper>

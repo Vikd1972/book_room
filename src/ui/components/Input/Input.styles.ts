@@ -6,6 +6,9 @@ interface IValid {
 }
 
 const InputWrapper = styled.div<IValid>`
+display: flex;
+flex-direction: column;
+.container {
 position: relative;
 margin-top: 10px;
 width: 100%;
@@ -32,6 +35,7 @@ background-repeat: no-repeat;
       border: 2px solid #00BA88;
         `;
   }}
+}
 .input-icon {
   padding: 19px 24px;
   height: 100%;
@@ -54,10 +58,26 @@ background-repeat: no-repeat;
 }
 .title {
   position: absolute;
+  white-space: nowrap;
   top: 8px;
   color: #B9BAC4;
-  padding: 7px 20px 10px 0;
+  padding: 7px 90px 12px 0;
   background-color: #F0F4EF;
+    ${(props) => {
+    if (!props.isActive) {
+      return css`
+        background-color: ${({ theme }) => theme.backrground};
+        `;
+    }
+    if (props.isValid) {
+      return css`
+        background-color: #FFF2F7;
+        `;
+    }
+    return css`
+      background-color: #F3FDFA;
+        `;
+  }}
   @media (max-width: 834px) {
     top: 5px;
     padding-top: 5px;
@@ -90,6 +110,15 @@ input {
   @media (max-width: 834px) {
     font-size: 14px;
   }
+}
+.input-title {
+  font-size: 14px;
+  line-height: 24px;
+  color: #344966;
+  margin: 10px 0 0 0;
+}
+.input-title p {
+  margin: 0;
 }
 .error {
   color: #ff0000;

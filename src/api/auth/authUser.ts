@@ -1,4 +1,5 @@
 import instance from '..';
+import type { IBookType } from '../../store/booksSlice';
 import type { IUserType, ICartType } from '../../store/usersSlice';
 
 interface IAuthParams {
@@ -6,8 +7,15 @@ interface IAuthParams {
   password: string;
 }
 
+interface IResponseParams {
+  user: IUserType;
+  userCart: ICartType[];
+  favorites: IBookType[];
+  token: string;
+}
+
 const authUser = async (options: IAuthParams) => {
-  const response = await instance.post<{ user: IUserType; userCart: ICartType[]; token: string }>(
+  const response = await instance.post<IResponseParams>(
     '/auth',
     options,
   );

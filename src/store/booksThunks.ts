@@ -3,13 +3,20 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import getBooks from '../api/books/getBooks';
 import getDetailBooks from '../api/books/getDetailBook';
 import getRecommendationsBooks from '../api/books/getRecommendationsBooks';
-import getFavoritesBooks from '../api/favorites/getFavoritesBooks';
 import setComments from '../api/comments/setComments';
 import setRating from '../api/rating/setRating';
 
+type MyQueryType = {
+  page: string;
+  search: string;
+  genres: string;
+  price: string;
+  sort: string;
+};
+
 export const getBooksThunk = createAsyncThunk('books',
-  async (queryString: string) => {
-    const response = await getBooks(queryString);
+  async (myQuery: MyQueryType) => {
+    const response = await getBooks(myQuery);
     return response;
   });
 
@@ -25,11 +32,6 @@ export const getRecommendationsBookThunk = createAsyncThunk('/books/random',
     return response;
   });
 
-export const getFavoritesBookThunk = createAsyncThunk('/favorites',
-  async (favorites: number[]) => {
-    const response = await getFavoritesBooks(favorites);
-    return response;
-  });
 interface IRatingParams {
   onRating?: number;
   bookId: number;

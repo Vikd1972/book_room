@@ -1,12 +1,27 @@
+/* eslint-disable indent */
 /* eslint-disable no-console */
 import type { AxiosResponse } from 'axios';
+import QueryString from 'qs';
 import instance from '..';
 
 import type { IBooksState } from '../../store/booksSlice';
 
-const getBooks = async (queryString: string): Promise<AxiosResponse<IBooksState>> => {
+type MyQueryType = {
+  page: string;
+  search: string;
+  genres: string;
+  price: string;
+  sort: string;
+};
+
+const getBooks = async (myQuery: MyQueryType): Promise<AxiosResponse<IBooksState>> => {
   const response = await instance.get(
-    `/books/${queryString}`,
+    '/books', {
+    params: myQuery,
+    paramsSerializer: (params) => {
+      return QueryString.stringify(params);
+    },
+  },
   );
 
   return response;

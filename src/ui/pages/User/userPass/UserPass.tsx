@@ -5,8 +5,7 @@ import { AxiosError } from 'axios';
 
 import changeUserData from '../../../../api/users/changUserData';
 import { Button } from '../../../components/Button/Buttons';
-import InputOneLine from '../../../components/InputOneLine/InputOneLine';
-import InputTwoLine from '../../../components/InputTwoLine/InputTwoLine';
+import Input from '../../../components/Input/Input';
 import type { IValues } from '../Interface';
 import { loginUser } from '../../../../store/usersSlice';
 import type { IUserType } from '../../../../store/usersSlice';
@@ -14,14 +13,16 @@ import { useAppDispatch } from '../../../../store/hooks';
 import schemaUser from '../../../../validation/schemaUser';
 import showToast from '../../../../validation/showToast';
 
+import hideIcon from '../../../assets/picture/hide.png';
+
 import UserPassWrapper from './UserPass.styles';
 
 export const UserPass: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [isChange, setIsChange] = useState(false);
+  const [isChange, setIsChange] = useState(true);
 
   const onIsChange = () => {
-    setIsChange(true);
+    setIsChange(false);
   };
 
   const formik = useFormik({
@@ -38,7 +39,7 @@ export const UserPass: React.FC = () => {
           dispatch(loginUser(user));
         }
         formik.resetForm();
-        setIsChange(false);
+        setIsChange(true);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.response?.data.message);
@@ -60,7 +61,7 @@ export const UserPass: React.FC = () => {
           >Change password
           </div>
         </div>
-        <InputTwoLine
+        <Input
           type="password"
           textInfo="Your password"
           textWhenChanged="Old password"
@@ -69,12 +70,12 @@ export const UserPass: React.FC = () => {
           formikName={formik.touched.oldPassword}
           formikError={formik.errors.oldPassword}
           formikField={formik.getFieldProps('oldPassword')}
-          icon="hide"
+          icon={hideIcon}
           changeField={isChange}
         />
-        {isChange ? (
+        {!isChange ? (
           <>
-            <InputOneLine
+            <Input
               type="password"
               placeholder="New password"
               textWhenChanged="Enter new password"
@@ -82,24 +83,23 @@ export const UserPass: React.FC = () => {
               formikError={formik.errors.newPassword}
               formikField={formik.getFieldProps('newPassword')}
               changeField={isChange}
-              icon="hide"
+              icon={hideIcon}
             />
-            <InputOneLine
+            <Input
               type="password"
               textWhenChanged="Replay new password"
               placeholder="Confirm password"
               formikName={formik.touched.confirmPassword}
               formikError={formik.errors.confirmPassword}
               formikField={formik.getFieldProps('confirmPassword')}
-              icon="hide"
-              changeField={isChange}
+              icon={hideIcon}
             />
           </>
         ) : (
           null
         )}
 
-        {isChange
+        {!isChange
           ? (<Button
             type="submit"
             className="button"

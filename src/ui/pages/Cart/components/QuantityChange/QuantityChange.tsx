@@ -72,13 +72,16 @@ export const QuantityCange: React.FC<IProps> = (props) => {
       >
         <img src={reduction} alt="reduction" />
       </button>
+
       <div className="quantity-books">{props.count}</div>
+
       <button
         onClick={onQuantityAddition}
         className="quantity-change addition"
       >
         <img src={addition} alt="addition" />
       </button>
+
       <button
         onClick={onDeletingBook}
         className="quantity-change removal"

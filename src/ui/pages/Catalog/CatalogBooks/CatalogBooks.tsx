@@ -25,8 +25,16 @@ export const CatalogBooks: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
+        const myQuery = {
+          page: searchParams.get('page') || '',
+          search: searchParams.get('search') || '',
+          genres: searchParams.get('genres') || '',
+          price: searchParams.get('price') || '',
+          sort: searchParams.get('sort') || '',
+        };
+        await dispatch(getBooksThunk(myQuery)).unwrap();
+
         const queryString = searchParams.toString() ? `?${searchParams.toString()}` : '';
-        await dispatch(getBooksThunk(queryString)).unwrap();
         dispatch(setQueryString(queryString));
       } catch (err) {
         if (err instanceof AxiosError) {

@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import bookroomTheme from './bookroomTheme';
 import { useAppDispatch } from './store/hooks';
-import { loginUser, setCart } from './store/usersSlice';
+import { loginUser, setCart, setFavorites } from './store/usersSlice';
 import restoreUser from './api/auth/restoreUser';
 import Navigation from './ui/containers/Navigations';
 
@@ -26,6 +26,7 @@ export const App: React.FC = () => {
         const userInfo = await restoreUser();
         dispatch(loginUser(userInfo.user));
         dispatch(setCart(userInfo.userCart));
+        dispatch(setFavorites(userInfo.favorites));
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);

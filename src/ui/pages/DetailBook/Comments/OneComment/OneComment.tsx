@@ -20,7 +20,10 @@ export const OneComment: React.FC<IOptions> = (props) => {
 
   const quantityDays = useMemo(() => {
     return today.diff(props.comment.commentData, 'day');
-  }, [props.comment.commentData, today]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    today,
+  ]);
 
   return (
     <OneCommentWrapper>

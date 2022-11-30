@@ -23,6 +23,7 @@ export const UserPhoto: React.FC = () => {
     if (e.target.files) {
       try {
         const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
         reader.onload = async () => {
           try {
             if (!reader.result) {
@@ -37,7 +38,6 @@ export const UserPhoto: React.FC = () => {
             console.log(err);
           }
         };
-        reader.readAsDataURL(e.target.files[0]);
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.response?.data.message);
