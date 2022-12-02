@@ -8,9 +8,14 @@ type ResponseType = {
   commentsOfBook: ICommentType[];
 };
 
-const getDetailBooks = async (bookId: number): Promise<AxiosResponse<ResponseType>> => {
+type OptionType = {
+  bookId: number;
+  userId: number;
+};
+
+const getDetailBooks = async (option: OptionType): Promise<AxiosResponse<ResponseType>> => {
   const response = await instance.get(
-    `/books/detail/?bookId=${bookId}`,
+    `/books/detail/?bookId=${option.bookId}&userId=${option.userId}`,
   );
 
   return response;

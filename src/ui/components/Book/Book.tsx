@@ -59,6 +59,7 @@ export const Book: React.FC<PropsType> = (props) => {
     try {
       if (!users.user.email) {
         navigate('/login');
+        return;
       }
       await addOrRemoveToFavorites({ bookId });
       dispatch(changeFavorites(props.book));

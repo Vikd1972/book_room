@@ -20,9 +20,14 @@ export const getBooksThunk = createAsyncThunk('books',
     return response;
   });
 
+type OptionType = {
+  bookId: number;
+  userId: number;
+};
+
 export const getDetailBooksThunk = createAsyncThunk('books/detail',
-  async (bookId: number) => {
-    const response = await getDetailBooks(bookId);
+  async (option: OptionType) => {
+    const response = await getDetailBooks(option);
     return response;
   });
 

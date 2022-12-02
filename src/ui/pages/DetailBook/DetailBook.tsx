@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { AxiosError } from 'axios';
@@ -8,7 +9,6 @@ import { Button } from '../../components/Button/Buttons';
 import { addOrRemoveInCart } from '../../../store/usersSlice';
 import showToast from '../../../validation/showToast';
 import addBookToCart from '../../../api/cart/addBookToCart';
-import getRating from '../../../api/rating/getRating';
 import RatingFiveStars from '../../components/RatingFiveStars/RatingFiveStars';
 import RatingOneStar from '../../components/RatingOneStar/RatingOneStar';
 import AuthorizePoster from '../../components/AuthorizePoster/AuthorizePoster';
@@ -26,6 +26,11 @@ export const DetailBook: React.FC = () => {
 
   const [myRating, setMyRating] = useState(0);
 
+  useEffect(() => {
+    setMyRating(book?.personalRating);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [book?.personalRating]);
+
   const { currentBook } = useParams();
   const bookId = Number(currentBook);
 
@@ -39,14 +44,8 @@ export const DetailBook: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        Promise.all([
-          await dispatch(getDetailBooksThunk(bookId)).unwrap(),
-          users.user.email && await getRating(bookId),
-        ]).then(
-          (result) => {
-            setMyRating(Number(result[1]) || 0);
-          },
-        );
+        const userId = users.user.id;
+        await dispatch(getDetailBooksThunk({ bookId, userId })).unwrap();
       } catch (err) {
         if (err instanceof AxiosError) {
           showToast(err.message);

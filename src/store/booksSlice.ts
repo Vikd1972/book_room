@@ -25,6 +25,7 @@ export interface IBookType {
   isNew: boolean;
   isBestseller: boolean;
   averageRating: number;
+  personalRating: number;
   genres: string[];
   comment: string[];
   rating: number[];
