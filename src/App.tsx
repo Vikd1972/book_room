@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import bookroomTheme from './bookroomTheme';
 import { useAppDispatch } from './store/hooks';
 import { loginUser, setCart, setFavorites } from './store/usersSlice';
-import restoreUser from './api/auth/restoreUser';
+import getUserData from './api/auth/getUserData';
 import Navigation from './ui/containers/Navigations';
 
 import AppWrapper from './App.styles';
@@ -23,7 +23,7 @@ export const App: React.FC = () => {
     }
     (async () => {
       try {
-        const userInfo = await restoreUser();
+        const userInfo = await getUserData();
         dispatch(loginUser(userInfo.user));
         dispatch(setCart(userInfo.userCart));
         dispatch(setFavorites(userInfo.favorites));

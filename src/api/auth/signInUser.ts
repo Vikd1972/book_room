@@ -14,9 +14,9 @@ interface IResponseParams {
   token: string;
 }
 
-const authUser = async (options: IAuthParams) => {
+const signIn = async (options: IAuthParams) => {
   const response = await instance.post<IResponseParams>(
-    '/auth',
+    '/auth/signIn',
     options,
   );
   localStorage.setItem('token', response.data.token);
@@ -24,4 +24,4 @@ const authUser = async (options: IAuthParams) => {
   return response.data;
 };
 
-export default authUser;
+export default signIn;

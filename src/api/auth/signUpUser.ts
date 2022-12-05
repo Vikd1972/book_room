@@ -9,7 +9,7 @@ interface ISignUpParams {
 
 const signUpUser = async (options: ISignUpParams) => {
   const response = await instance.post<{ user: IUserType; token: string }>(
-    '/auth/sign',
+    '/auth/signUp',
     options,
   );
   localStorage.setItem('token', response.data.token);

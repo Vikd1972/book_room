@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { AxiosError } from 'axios';
 import { useSearchParams } from 'react-router-dom';
+import { io } from 'socket.io-client';
 
 import { useAppSelector, useAppDispatch } from '../../../../store/hooks';
 import { setQueryString } from '../../../../store/booksSlice';
@@ -15,12 +16,18 @@ import AuthorizePoster from '../../../components/AuthorizePoster/AuthorizePoster
 
 import СatalogBooksWrapper from './CatalogBooks.styles';
 
+const socket = io('http://localhost:4001/');
+
 export const CatalogBooks: React.FC = () => {
   const [searchParams] = useSearchParams();
 
   const dispatch = useAppDispatch();
   const books = useAppSelector((state) => state.books);
   const users = useAppSelector((state) => state.users);
+
+  socket.on('hello', (arg) => {
+    console.log(arg); // world
+  });
 
   useEffect(() => {
     (async () => {

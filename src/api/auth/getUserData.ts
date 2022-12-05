@@ -8,10 +8,10 @@ interface IResponseParams {
   favorites: IBookType[];
 }
 
-const restoreUser = async () => {
-  const response = await instance.get<IResponseParams>('/auth');
+const getUserData = async () => {
+  const response = await instance.get<IResponseParams>('/auth/me');
 
   return response.data;
 };
 
-export default restoreUser;
+export default getUserData;

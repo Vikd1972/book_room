@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import authUser from '../../../api/auth/authUser';
+import signIn from '../../../api/auth/signInUser';
 import { loginUser, setCart, setFavorites } from '../../../store/usersSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import showToast from '../../../validation/showToast';
@@ -40,7 +40,7 @@ export const Login: React.FC = () => {
     validationSchema: schemqaLogin,
     onSubmit: async (values) => {
       try {
-        const userInfo = await authUser(values);
+        const userInfo = await signIn(values);
         dispatch(loginUser(userInfo.user));
         dispatch(setCart(userInfo.userCart));
         dispatch(setFavorites(userInfo.favorites));
