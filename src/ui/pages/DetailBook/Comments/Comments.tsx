@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 import { Button } from '../../../components/Button/Buttons';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
@@ -9,7 +9,7 @@ import { setCommentsThunk } from '../../../../store/booksThunks';
 
 import CommentsWrapper from './Comments.styles';
 
-const socket = io('http://localhost:4001/');
+// const socket = io('http://localhost:4001/');
 interface IOptions {
   bookId: number;
 }
@@ -21,9 +21,9 @@ export const Comments: React.FC<IOptions> = (props) => {
   const { bookId } = props;
   const [comment, setComment] = useState<string>('');
 
-  socket.on('hello', (arg) => {
-    console.log(arg); // world
-  });
+  // socket.on('hello', (arg) => {
+  //   console.log(arg); // world
+  // });
 
   const addComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);

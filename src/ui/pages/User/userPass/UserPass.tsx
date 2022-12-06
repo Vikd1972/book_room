@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { ToastContainer } from 'react-toastify';
 import { AxiosError } from 'axios';
 
-import changeUserData from '../../../../api/users/changUserData';
+import changeUserData from '../../../../api/users/changeUserData';
 import { Button } from '../../../components/Button/Buttons';
 import Input from '../../../components/Input/Input';
 import type { IValues } from '../Interface';
