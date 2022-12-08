@@ -6,7 +6,6 @@ import type { IUserType } from './usersSlice';
 import {
   getBooksThunk,
   getRecommendationsBookThunk,
-  setCommentsThunk,
   getDetailBooksThunk,
   getAverageRatingThunk,
 } from './booksThunks';
@@ -62,6 +61,7 @@ export interface IBooksState {
   queryString: string;
   ratingBook: number;
   comments: ICommentType[];
+  newComments: ICommentType[];
   serviceInfo: IServiceInfo;
 }
 
@@ -71,6 +71,7 @@ const initialState: IBooksState = {
   queryString: '',
   ratingBook: 0,
   comments: [],
+  newComments: [],
   serviceInfo: {
     quantityBooks: 0,
     quantityPages: 0,
@@ -87,6 +88,12 @@ export const booksSlice = createSlice({
   reducers: {
     setQueryString: (state, action: PayloadAction<string>) => {
       state.queryString = action.payload;
+    },
+    addCommentFromSocket: (state, action: PayloadAction<ICommentType>) => {
+      state.comments.push(action.payload);
+    },
+    addNewComment: (state, action: PayloadAction<ICommentType>) => {
+      state.newComments.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -107,9 +114,6 @@ export const booksSlice = createSlice({
         ...action.payload.data.books,
       ];
     });
-    builder.addCase(setCommentsThunk.fulfilled, (state, action) => {
-      state.comments = action.payload.data.commentsOfBook;
-    });
     builder.addCase(getAverageRatingThunk.fulfilled, (state, action) => {
       state.ratingBook = action.payload.data.averageRatingBook;
     });
@@ -118,6 +122,8 @@ export const booksSlice = createSlice({
 
 export const {
   setQueryString,
+  addCommentFromSocket,
+  addNewComment,
 } = booksSlice.actions;
 
 export default booksSlice.reducer;

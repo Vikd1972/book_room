@@ -94,7 +94,7 @@ align-items: center;
   }
 }
 .panel__buttons {
-  width: 198px;
+  width: 273px;
   margin-left: 33px;
   display: flex;
   flex-direction: row;

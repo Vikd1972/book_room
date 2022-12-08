@@ -3,7 +3,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import getBooks from '../api/books/getBooks';
 import getDetailBooks from '../api/books/getDetailBook';
 import getRecommendationsBooks from '../api/books/getRecommendationsBooks';
-import setComments from '../api/comments/setComments';
 import setRating from '../api/rating/setRating';
 
 type MyQueryType = {
@@ -45,16 +44,5 @@ interface IRatingParams {
 export const getAverageRatingThunk = createAsyncThunk('/rating',
   async (options: IRatingParams) => {
     const response = await setRating(options);
-    return response;
-  });
-
-interface ICommentsParams {
-  comment: string;
-  bookId: number;
-}
-
-export const setCommentsThunk = createAsyncThunk('/comments',
-  async (options: ICommentsParams) => {
-    const response = await setComments(options);
     return response;
   });

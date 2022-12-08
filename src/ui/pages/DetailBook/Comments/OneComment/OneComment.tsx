@@ -12,18 +12,16 @@ interface IOptions {
   comment: ICommentType;
 }
 
-export const OneComment: React.FC<IOptions> = (props) => {
-  dayjs().format();
-  const today = dayjs(new Date());
+dayjs().format();
 
+export const OneComment: React.FC<IOptions> = (props) => {
   const userPhoto: string = `${props.comment.user.photoFilePath}` || photo;
 
   const quantityDays = useMemo(() => {
+    const today = dayjs(new Date());
     return today.diff(props.comment.commentData, 'day');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    today,
-  ]);
+  }, []);
 
   return (
     <OneCommentWrapper>

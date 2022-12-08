@@ -1,22 +1,44 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-expressions */
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { io } from 'socket.io-client';
 
-import { useAppSelector } from '../../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { Button } from '../../components/Button/Buttons';
+import { addNewComment } from '../../../store/booksSlice';
 
 import logo from '../../assets/picture/logo_dark.png';
 import search from '../../assets/picture/search.png';
 import cart from '../../assets/picture/cart.png';
 import heart from '../../assets/picture/heart.png';
 import user from '../../assets/picture/user_profile.png';
+import mail from '../../assets/picture/mail.png';
 
 import HeaderWrapper from './Header.styles';
 
+const socket = io('http://localhost:4001');
+
 export const Header: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const queryString = useAppSelector((state) => state.books.queryString);
   const users = useAppSelector((state) => state.users);
+  const newComments = useAppSelector((state) => state.books.newComments);
+
+  const idsFavorites = useMemo(() => {
+    return users.favorites.map((item) => item.id);
+  }, [users.favorites]);
+
+  useEffect(() => {
+    socket.on('comment', (...arg) => {
+      if (idsFavorites.includes(arg[0].id)) {
+        dispatch(addNewComment(arg[0]));
+      }
+    });
+    return () => { socket.removeAllListeners('comment'); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [searchText, setSearchText] = useState<string>('');
 
@@ -24,6 +46,12 @@ export const Header: React.FC = () => {
     return users.cart.reduce((sum, item) => sum + item.count, 0);
   }, [
     users.cart,
+  ]);
+
+  const quantityNewComment = useMemo(() => {
+    return newComments ? newComments.length : 0;
+  }, [
+    newComments,
   ]);
 
   const quantityFavorites = useMemo(() => {
@@ -83,6 +111,16 @@ export const Header: React.FC = () => {
       {users.user.email
         ? (
           <nav className="panel__buttons">
+            <Link
+              className="button__icon button__mail"
+              to="/comment"
+            >
+              <img
+                src={mail}
+                alt="mail"
+              />
+            </Link>
+            {quantityNewComment ? <div className="counter">{quantityNewComment}</div> : null}
             <Link
               className="button__icon"
               to="/cart"

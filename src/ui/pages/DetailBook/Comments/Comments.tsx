@@ -1,15 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-console */
-import React, { useState } from 'react';
-// import { io } from 'socket.io-client';
+import React, { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
 
 import { Button } from '../../../components/Button/Buttons';
+import { addCommentFromSocket } from '../../../../store/booksSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import OneComment from './OneComment/OneComment';
-import { setCommentsThunk } from '../../../../store/booksThunks';
 
 import CommentsWrapper from './Comments.styles';
 
-// const socket = io('http://localhost:4001/');
+const socket = io('http://localhost:4001');
 interface IOptions {
   bookId: number;
 }
@@ -21,20 +22,30 @@ export const Comments: React.FC<IOptions> = (props) => {
   const { bookId } = props;
   const [comment, setComment] = useState<string>('');
 
-  // socket.on('hello', (arg) => {
-  //   console.log(arg); // world
-  // });
-
   const addComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
+  // useEffect(() => {
+  //   socket.on('comment', (...arg) => {
+  //     dispatch(addCommentFromSocket(arg[0]));
+  //   });
+  //   return () => { socket.removeAllListeners('comment'); };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   const onSendingCommentsText = async (e: React.KeyboardEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (comment.length) {
-      await dispatch(setCommentsThunk({ bookId, comment })).unwrap();
-      setComment('');
-    }
+    const commentData = new Date();
+    const options = {
+      id: bookId,
+      comment,
+      commentData,
+      user,
+    };
+    socket.emit('comment', options);
+    dispatch(addCommentFromSocket(options));
+    setComment('');
   };
 
   return (

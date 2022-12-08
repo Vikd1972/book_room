@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import { ThemeProvider } from 'styled-components';
+
 import bookroomTheme from './bookroomTheme';
 import { useAppDispatch } from './store/hooks';
 import { loginUser, setCart, setFavorites } from './store/usersSlice';
